@@ -6,17 +6,19 @@ namespace ScreenFire;
 
 class Program {
 
+    public const string packageName = "com.nhk.ScreenFire";
+
     [STAThread]
     public static void Main(string[] args) {
         Application.Init();
 
-        Application app = new("com.nhk.ScreenFire", GLib.ApplicationFlags.None);
-        app.Register(GLib.Cancellable.Current);
+        Application ScreenFire = new(packageName, GLib.ApplicationFlags.None);
+        ScreenFire.Register(GLib.Cancellable.Current);
 
-        Config config = new();
-        app.AddWindow(config);
+        Config ScreenFire_config = new();
+        ScreenFire.AddWindow(ScreenFire_config);
 
-        config.Show();
+        ScreenFire_config.Show();
         Application.Run();
     }
 }
