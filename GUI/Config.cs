@@ -1,4 +1,3 @@
-using Gdk;
 using Gtk;
 using System;
 using System.Drawing;
@@ -28,10 +27,13 @@ class Config : Gtk.Window {
 
     private int _counter;
     private void ss_Button_Clicked(object sender, EventArgs ev) {
-        Screen screen = Screen.Default;
-        Bitmap ss = Screenshot(new(0, 0, screen.Width, screen.Height));
+        Bitmap ss;
+        Gdk.Rectangle monitorGeo = Display.GetMonitor(0).Geometry;
+        if (monitorGeo.Width > 0 & monitorGeo.Height > 0)
+            ss = Screenshot(new(0, 0, monitorGeo.Width, monitorGeo.Height));
+        else throw new ArgumentOutOfRangeException("Fatal Error: Monitor geometry is out of range.");
 
-        FileChooserDialog fcd = new FileChooserDialog("Save the fire", null, FileChooserAction.Save);
+        FileChooserDialog fcd = new("Save the fire", null, FileChooserAction.Save);
         fcd.AddButton(Stock.Cancel, ResponseType.Cancel);
         fcd.AddButton(Stock.Save, ResponseType.Ok);
         fcd.DefaultResponse = ResponseType.Ok;
@@ -40,8 +42,9 @@ class Config : Gtk.Window {
         ResponseType response = (ResponseType)fcd.Run();
 
         if (response == ResponseType.Ok
-            & System.IO.Directory.Exists(fcd.CurrentFolder))
-            ss.Save(fcd.Filename);
+           & System.IO.Directory.Exists(fcd.CurrentFolder)
+           & ss != null)
+            ss.Save(fcd.Filename + ".png", ImageFormat.Png);
         fcd.Destroy();
 
         _label1.Text = $"Fired a Screenshot!\n\nThis button has been clicked {(1 + (_counter++))} time{(_counter > 1 ? "s" : "")}.";
