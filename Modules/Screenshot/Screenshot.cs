@@ -11,7 +11,7 @@ class Screens {
 
     public static Screens instance(ScreenMetrics screenMetrics, ImageMetrics imageMetrics)
         => new() {
-            UniqueID = new(),
+            UniqueID = System.Guid.NewGuid(),
             ScreenMetrics = screenMetrics,
             ImageMetrics = imageMetrics
         };
