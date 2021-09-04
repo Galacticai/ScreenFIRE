@@ -7,7 +7,7 @@ class ImageMetrics {
     public Rectangle Rectangle { get; private set; }
 
 
-    /// <returns><see cref="Rectangle"/> </returns>
+    /// <returns><see cref="Rectangle"/> </returns> 
     Rectangle find_Rectangle(IScreenshotType screenshotType) {
         //
         //? do
