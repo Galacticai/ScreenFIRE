@@ -1,6 +1,6 @@
 ﻿
 
-# **Screen🅵🅸🆁🅴**
+# **Screen 🅵🅸🆁🅴**
 
 #### Sophisticated screenshot utility for Linux and Windows!
 
