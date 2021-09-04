@@ -1,5 +1,6 @@
 ﻿using Gdk;
 
+
 namespace ScreenFire.Modules.Screenshot.Companion;
 
 class ImageMetrics {
@@ -12,10 +13,13 @@ class ImageMetrics {
         //
         //? do
         //
-        return Rectangle = new(0, 0, 0, 0); //# PLACEHOLDER
+        return Rectangle = new(0, 0, 0, 0); //! PLACEHOLDER
     }
 
-    public static ImageMetrics instance(Rectangle rectangle)
+    /// <summary> MANUAL </summary>
+    /// <param name="rectangle"></param>
+    /// <returns></returns>
+    public static ImageMetrics Instance(Rectangle rectangle)
         => new() { Rectangle = rectangle };
 
 }
