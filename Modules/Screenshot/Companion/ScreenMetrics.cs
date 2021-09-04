@@ -28,13 +28,20 @@ class ScreenMetrics {
         return Size = new(0, 0); //! PLACEHOLDER
     }
 
-    public ScreenMetrics instance(IScreenshotType screenshotType) {
+    /// <summary> AUTO </summary>
+    /// <param name="screenshotType"></param>
+    /// <returns></returns>
+    public ScreenMetrics Instance(IScreenshotType screenshotType) {
         return new() {
             LeftMost = find_LeftMost(screenshotType),
             Size = find_Size(screenshotType)
         };
     }
-    public ScreenMetrics instance(float leftMost, Size size) {
+    /// <summary> MANUAL </summary>
+    /// <param name="leftMost">offset of the furthest left position of screen(s)</param>
+    /// <param name="size"></param>
+    /// <returns></returns>
+    public static ScreenMetrics Instance(float leftMost, Size size) {
         return new() {
             LeftMost = leftMost,
             Size = size
