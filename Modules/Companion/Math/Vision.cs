@@ -17,14 +17,15 @@ internal class Vision {
     /// <item>-1 to use Alpha of <paramref name="foreColor"/> </item>
     /// </list> </param>
     /// <returns>The blended color.</returns>
-    public static Color BlendColors(Color foreColor, Color backColor, float amount = -1) {
+    public static Color BlendColors(Color foreColor, Color backColor, double amount = -1) {
         //if amount not set, Use  foreColor.A  [ 0 >=> 1 ]
         if (amount == -1)
-            amount = foreColor.A / 255; // convert alpha 0<=<255 to 0<=<1
+            amount = foreColor.A / 255; // convert alpha 0<=<255 to 0<=<1 
 
         byte R = (byte)((foreColor.R * amount) + backColor.R * (1 - amount)),
              G = (byte)((foreColor.G * amount) + backColor.G * (1 - amount)),
              B = (byte)((foreColor.B * amount) + backColor.B * (1 - amount));
+
         return Color.FromArgb(R, G, B);
     }
 
@@ -41,20 +42,15 @@ internal class Vision {
         return result;
     }
 
-    public static Image Screenshot(Rectangle rect) {
-        Bitmap bmp = new(rect.Width, rect.Height, PixelFormat.Format32bppArgb);
-        Graphics.FromImage(bmp).
-            CopyFromScreen(rect.Left, rect.Top, 0, 0, bmp.Size, CopyPixelOperation.SourceCopy);
-        return bmp;
-    }
-
     public static Bitmap Gradient(Size size, Color color1, Color color2, Color color3) {
         Image topHalf = Gradient(size, color1, color2);
         Image bottomHalf = Gradient(size, color2, color3);
         TextureBrush topG = new(topHalf);
         TextureBrush bottomG = new(bottomHalf);
+
+        throw new System.NotSupportedException(); //// blocked
         //  https://stackoverflow.com/questions/465172/merging-two-images-in-c-net
-        return null;
+        return null; //! PLACEHOLDER
 
     }
     public static Bitmap Gradient(Size size, Color color1, Color color2) {
@@ -70,7 +66,7 @@ internal class Vision {
         }
     }
 
-    public static Bitmap ChangeOpacity(Image img, float opacityvalue) {
+    public static Bitmap ChangeOpacity(Bitmap img, float opacityvalue) {
         Bitmap bmp = new Bitmap(img.Width, img.Height);
         Graphics graphics__1 = Graphics.FromImage(bmp);
         ColorMatrix colormatrix = new();
@@ -82,6 +78,18 @@ internal class Vision {
         return bmp;
     }
 
+
+    //!  ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^
+    //!? ???????????????????????????
+    //!?   Maybe will work on GTK?
+    //!? ???????????????????????????
+    //!  ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^
+
+    //!  V V V V V V V V V V V V V V
+    //?  !!!!!!!!!!!!!!!!!!!!!!!!!!!
+    //?     MAY NOT WORK ON GTK !
+    //?  !!!!!!!!!!!!!!!!!!!!!!!!!!! 
+    //!  V V V V V V V V V V V V V V
 
     /// <summary> Shapes and stuff math </summary> 
     public struct Geometry {
