@@ -16,7 +16,7 @@ class ScreenMetrics {
             return 0; //! PLACEHOLDER 
         }
 
-        return 0; //! PLACEHOLDER 
+        return LeftMost = 0; //! PLACEHOLDER 
 
     }
 
@@ -25,7 +25,7 @@ class ScreenMetrics {
         //
         //? use the screenshot type to determine wether to use all screens or one
         //
-        return new(0, 0); //! PLACEHOLDER
+        return Size = new(0, 0); //! PLACEHOLDER
     }
 
     public ScreenMetrics instance(IScreenshotType screenshotType) {

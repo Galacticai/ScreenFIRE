@@ -12,7 +12,7 @@ class ImageMetrics {
         //
         //? do
         //
-        return new(0, 0, 0, 0); //# PLACEHOLDER
+        return Rectangle = new(0, 0, 0, 0); //# PLACEHOLDER
     }
 
     public static ImageMetrics instance(Rectangle rectangle)
