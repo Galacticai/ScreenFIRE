@@ -6,6 +6,6 @@
 <br/>
 <br/>
 
-###### ████<code> Screen　 FIRE　 　　　　</code><br/>
-###### ██░░<code> Built with .NET & GTK#  </code><br/>
-###### █░░░<code> Ⓒ2021　 NHKomaiha　　　</code>
+████　　Screen 🅵🅸🆁🅴<br/>
+██░░ `Built with .NET & GTK#`<br/>
+█░░░ `Ⓒ2021 NHKomaiha`
