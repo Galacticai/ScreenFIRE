@@ -8,19 +8,26 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="GA.Modules.Port\**" />
+    <EmbeddedResource Remove="GA.Modules.Port\**" />
     <None Remove="**\*.glade" />
+    <None Remove="GA.Modules.Port\**" />
     <EmbeddedResource Include="**\*.glade">
       <LogicalName>%(Filename)%(Extension)</LogicalName>
     </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="GtkSharp" Version="3.24.24.34" />
-    <PackageReference Include="System.Drawing.Common" Version="5.0.2" />
+    <None Remove="Modules\Screenshot\Companion\ScreenMetrics.cs.disable" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Modules\GA.Modules.Port\Companion\Math\" />
+    <Compile Include="Modules\Screenshot\Companion\ScreenMetrics.cs.disable" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="GtkSharp" Version="3.24.24.34" />
+    <PackageReference Include="System.Drawing.Common" Version="5.0.2" />
   </ItemGroup>
 
 </Project>
