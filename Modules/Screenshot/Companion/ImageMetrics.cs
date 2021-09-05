@@ -19,7 +19,7 @@ class ImageMetrics {
     /// <summary> MANUAL </summary>
     /// <param name="rectangle"></param>
     /// <returns></returns>
-    public static ImageMetrics Instance(Rectangle rectangle)
+    public static ImageMetrics New(Rectangle rectangle)
         => new() { Rectangle = rectangle };
 
 }

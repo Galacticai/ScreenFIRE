@@ -43,7 +43,7 @@ class Screens {
     }
 
 
-    public static Screens Instance()
+    public static Screens New()
         => new() {
 
         };
