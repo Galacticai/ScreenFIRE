@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
+using System.Linq;
 
 namespace ScreenFire.Modules.Companion.math;
 
@@ -53,13 +54,15 @@ internal class Vision {
         return null; //! PLACEHOLDER
 
     }
+
     public static Bitmap Gradient(Size size, Color color1, Color color2) {
         using (Bitmap bitmap = new(size.Width, size.Height))
         using (Graphics graphics = Graphics.FromImage(bitmap))
         using (LinearGradientBrush brush = new(
-                    new Rectangle(new Point(0, 0), size),
-                    color1, color2,
-                    LinearGradientMode.Vertical)) {
+                                               new Rectangle(new Point(0, 0), size),
+                                               color1,
+                                               color2,
+                                               LinearGradientMode.Vertical)) {
             brush.SetSigmaBellShape(.5f);
             graphics.FillRectangle(brush, new Rectangle(new Point(0, 0), size));
             return bitmap;
@@ -67,7 +70,7 @@ internal class Vision {
     }
 
     public static Bitmap ChangeOpacity(Bitmap img, float opacityvalue) {
-        Bitmap bmp = new Bitmap(img.Width, img.Height);
+        Bitmap bmp = new(img.Width, img.Height);
         Graphics graphics__1 = Graphics.FromImage(bmp);
         ColorMatrix colormatrix = new();
         colormatrix.Matrix33 = opacityvalue;
@@ -78,21 +81,23 @@ internal class Vision {
         return bmp;
     }
 
-
-    //!  ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^
-    //!? ???????????????????????????
-    //!?   Maybe will work on GTK?
-    //!? ???????????????????????????
-    //!  ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^
-
-    //!  V V V V V V V V V V V V V V
-    //?  !!!!!!!!!!!!!!!!!!!!!!!!!!!
-    //?     MAY NOT WORK ON GTK !
-    //?  !!!!!!!!!!!!!!!!!!!!!!!!!!! 
-    //!  V V V V V V V V V V V V V V
-
     /// <summary> Shapes and stuff math </summary> 
     public struct Geometry {
+
+        /// <summary>
+        /// Find the bounding rectangle of several rectangles
+        /// </summary>
+        /// <param name="rectangles">Rectangles to process</param>
+        /// <returns><see cref="Gdk.Rectangle"/> which contains all <paramref name="rectangles"/>[]</returns>
+        public static Gdk.Rectangle BoundingRectangle(Gdk.Rectangle[] rectangles) {
+            int xMin = rectangles.Min(s => s.X),
+                yMin = rectangles.Min(s => s.Y),
+                xMax = rectangles.Max(s => s.X + s.Width),
+                yMax = rectangles.Max(s => s.Y + s.Height);
+            return new Gdk.Rectangle(xMin, yMin, xMax - xMin, yMax - yMin);
+        }
+
+
         /// <param name="boundsRect">Original rectangle to convert</param>
         /// <param name="radius">Radius of rounded corners</param>
         /// <returns>Rounded rectangle as <see cref="GraphicsPath"/></returns>
