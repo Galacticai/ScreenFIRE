@@ -1,6 +1,4 @@
-﻿using System.ComponentModel;
-
-namespace ScreenFire.Modules.Screenshot.Companion;
+﻿namespace ScreenFire.Modules.Screenshot.Companion;
 
 /// <summary> Types of screenshots 
 /// <list type="bullet">
@@ -12,14 +10,9 @@ namespace ScreenFire.Modules.Screenshot.Companion;
 /// </list>
 /// </summary>
 enum IScreenshotType {
-    [Description("All screens")]
     All,
-    [Description("Screen under the mouse pointer")]
     ScreenUnderMouse,
-    [Description("Window under the mouse pointer")]
     WindowUnderMouse,
-    [Description("Active window")]
     ActiveWindow,
-    [Description("Custom rectangle defined by the metrics")]
     Custom
 }
