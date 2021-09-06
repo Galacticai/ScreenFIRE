@@ -11,28 +11,27 @@
 ## 🌟 Feaures
 
 - #### 🎨 FeatureHighlight 1
-###### <p align="center">WIDE-CROPPED IMAGE</p><br/>
-
 Lorem Ipsum is simply dummy text  Lorem Ipsum has been the industry.
+
+###### <p align="center">WIDE-CROPPED IMAGE</p><br/>
 
 
 - #### 🖼 FeatureHighlight 2
-###### <p align="center">WIDE-CROPPED IMAGE</p><br/>
-
 Lorem Ipsum is simply dummy text  Lorem Ipsum has been the industry.
+
+###### <p align="center">WIDE-CROPPED IMAGE</p><br/>
 
 
 - #### 👑 FeatureHighlight 3
-###### <p align="center">WIDE-CROPPED IMAGE</p><br/>
+Lorem Ipsum is simply dummy text  Lorem Ipsum has been the industry.
 
-Lorem Ipsum is simply dummy text  Lorem Ipsum has been the industry's, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting.
+###### <p align="center">WIDE-CROPPED IMAGE</p><br/>
 
 
 - #### 🌏 FeatureHighlight 4
-###### <p align="center">WIDE-CROPPED IMAGE</p><br/>
-
 Lorem Ipsum is simply dummy text  Lorem Ipsum has been the industry.
 
+###### <p align="center">WIDE-CROPPED IMAGE</p><br/>
 
 
 <br/>
