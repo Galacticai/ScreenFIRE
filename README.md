@@ -1,7 +1,8 @@
-﻿
-![Screen 🅵🅸🆁🅴](https://i.imgur.com/NzS99px.png)
+﻿<p align="center"><img src="https://i.imgur.com/NzS99px.png" /></p>
 
-### <center>**Sophisticated screenshot utility for Linux and Windows!**</center>
+### ﻿<p align="center"><b>Sophisticated screenshot utility for Linux and Windows!</b></p>
+
+
 ---
 
 <br/>
@@ -10,26 +11,27 @@
 ## 🌟 Feaures
 
 - #### 🎨 FeatureHighlight 1
-###### <center>WIDE-CROPPED IMAGE</center><br/>
+###### <p align="center">WIDE-CROPPED IMAGE</p><br/>
 
-Lorem Ipsum is simply dummy text  Lorem Ipsum has been the industry's, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting.
+Lorem Ipsum is simply dummy text  Lorem Ipsum has been the industry.
+
 
 - #### 🖼 FeatureHighlight 2
-###### <center>WIDE-CROPPED IMAGE</center><br/>
+###### <p align="center">WIDE-CROPPED IMAGE</p><br/>
 
-Lorem Ipsum is simply dummy text  Lorem Ipsum has been the industry's, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting.
+Lorem Ipsum is simply dummy text  Lorem Ipsum has been the industry.
 
 
 - #### 👑 FeatureHighlight 3
-###### <center>WIDE-CROPPED IMAGE</center><br/>
+###### <p align="center">WIDE-CROPPED IMAGE</p><br/>
 
 Lorem Ipsum is simply dummy text  Lorem Ipsum has been the industry's, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting.
 
 
 - #### 🌏 FeatureHighlight 4
-###### <center>WIDE-CROPPED IMAGE</center><br/>
+###### <p align="center">WIDE-CROPPED IMAGE</p><br/>
 
-Lorem Ipsum is simply dummy text  Lorem Ipsum has been the industry's, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting.
+Lorem Ipsum is simply dummy text  Lorem Ipsum has been the industry.
 
 
 
@@ -51,19 +53,19 @@ Lorem Ipsum is simply dummy text  Lorem Ipsum has been the industry's, when an u
 ## 🦾 Usage
 
 - #### Highlight 1
-###### <center>WIDE-CROPPED IMAGE</center><br/>
+###### <p align="center">WIDE-CROPPED IMAGE</p><br/>
 
 Lorem Ipsum is simply dummy text  Lorem Ipsum has been the industry's, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting.
 
 
 - #### Highlight 2
-###### <center>WIDE-CROPPED IMAGE</center><br/>
+###### <p align="center">WIDE-CROPPED IMAGE</p><br/>
 
 Lorem Ipsum is simply dummy text  Lorem Ipsum has been the industry's, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting.
 
 
 - #### Highlight 3
-###### <center>WIDE-CROPPED IMAGE</center><br/>
+###### <p align="center">WIDE-CROPPED IMAGE</p><br/>
 
 Lorem Ipsum is simply dummy text  Lorem Ipsum has been the industry's, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting.
 
@@ -79,6 +81,8 @@ Lorem Ipsum is simply dummy text  Lorem Ipsum has been the industry's, when an u
 
 ---
 
-████　Screen 🅵🅸🆁🅴<br/>
-██░░ `Built with .NET & GTK#`<br/>
-█░░░ `Ⓒ2021 NHKomaiha`
+<p align="center">
+████　　Screen 🅵🅸🆁🅴　　████<br/>
+░░██<code>　Built with .NET & GTK#　</code>██░░<br/>
+░░░█<code>　　Ⓒ2021 NHKomaiha　　</code>█░░░
+</p>
