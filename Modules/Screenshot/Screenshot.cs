@@ -19,6 +19,7 @@ class Screenshot {
     public static Screenshot New(IScreenshotType screenshotType,
                                  ImageMetrics imageMetrics,
                                  ImageFormat imageFormat = null) {
+
         if (imageFormat == null) imageFormat = ImageFormat.Png;
 
         Rectangle finalRectangle = screenshotType switch {
