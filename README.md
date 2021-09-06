@@ -1,4 +1,4 @@
-﻿<p align="center"><img src="https://i.imgur.com/I5jdZT9.png" /></p>
+﻿<p align="center"><img src="https://i.imgur.com/bdJYB1i.png" /></p>
 
 ### ﻿<p align="center"><b>Sophisticated screenshot utility for Linux and Windows!</b></p>
 
