@@ -1,19 +1,11 @@
 ﻿using Gdk;
-using System.Linq;
-
 
 namespace ScreenFire.Modules.Companion;
+
 
 class Screens {
 
     //!  PLACEHOLDER
-    private static Rectangle BoundingRectangle(Rectangle[] rectangles) {
-        int xMin = rectangles.Min(s => s.X),
-            yMin = rectangles.Min(s => s.Y),
-            xMax = rectangles.Max(s => s.X + s.Width),
-            yMax = rectangles.Max(s => s.Y + s.Height);
-        return new Rectangle(xMin, yMin, xMax - xMin, yMax - yMin);
-    }
     //! /PLACEHOLDER
 
     /// <summary> Number of displays </summary>
@@ -37,10 +29,9 @@ class Screens {
     }
 
     /// <returns> <see cref="Rectangle"/> spanning over all screens </returns>
-    private Rectangle[] find_AllRectangle() {
+    private Rectangle find_AllRectangle()
+            => AllRectangle = math.Vision.Geometry.BoundingRectangle(Rectangles); //! PLACEHOLDER
 
-        return Rectangles = new Rectangle[] { new(0, 0, 0, 0) }; //! PLACEHOLDER
-    }
 
 
     public static Screens New()
