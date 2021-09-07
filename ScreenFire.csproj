@@ -4,7 +4,9 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net5.0</TargetFramework>
     <Platforms>AnyCPU;x64</Platforms>
-    <LangVersion>preview</LangVersion> 
+    <LangVersion>preview</LangVersion>
+    <PackageIcon>ScreenFIRE-x128.png</PackageIcon>
+    <ApplicationIcon>D:\MEGA\0-NHK-Projects\Apps\ScreenFIRE\Logo\ScreenFIRE.ico</ApplicationIcon> 
   </PropertyGroup>
 
   <ItemGroup>
@@ -27,6 +29,15 @@
 
   <ItemGroup>
     <PackageReference Include="GtkSharp" Version="3.24.24.34" /> 
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Logo\ScreenFIRE-x128.png">
+      <Pack>True</Pack>
+    </None>
+    <None Update="Logo\ScreenFIRE.png">
+      <Pack>True</Pack>
+    </None>
   </ItemGroup>
  
 
