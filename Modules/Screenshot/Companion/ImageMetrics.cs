@@ -8,20 +8,29 @@ class ImageMetrics {
 
     public Rectangle Rectangle { get; private set; }
 
-    /// <returns><see cref="Rectangle"/> </returns> 
-    Rectangle find_Rectangle(IScreenshotType screenshotType) {
-
-        Rectangle = screenshotType switch {
+    /// <returns>Focus area <see cref="Gdk.Rectangle"/> of the <see cref="Screenshot"/> instance</returns> 
+    private Rectangle find_Rectangle(IScreenshotType screenshotType)
+        => Rectangle = screenshotType switch {
             IScreenshotType.Custom => Rectangle,
             //IScreenshotType.WindowUnderMouse => ,
             //IScreenshotType.ScreenUnderMouse => ,
-            //IScreenshotType.ActiveWindow => ,
-            /* vv IScreenshotType.All vv */
+            //IScreenshotType.ActiveWindow => , 
             _ => new Screens().AllRectangle
+            // ^^ IScreenshotType.All ^^ 
         };
 
-        return Rectangle = new Screens().AllRectangle; //! PLACEHOLDER
-    }
+
+    /// <summary> AUTO </summary>
+    /// <param name="rectangle"></param>
+    /// <returns></returns>
+    public static ImageMetrics Instance(IScreenshotType screenshotType)
+        => new ImageMetrics().AutoInstance(screenshotType);
+
+    //! ^^ Portal above. Use `ImageMetrics.Instance(screenshotType)`  
+    private ImageMetrics AutoInstance(IScreenshotType screenshotType)
+        => new() {
+            Rectangle = find_Rectangle(screenshotType)
+        };
 
     /// <summary> MANUAL </summary>
     /// <param name="rectangle"></param>
