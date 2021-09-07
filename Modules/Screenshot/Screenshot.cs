@@ -1,6 +1,4 @@
-﻿
-using Gdk;
-using ScreenFire.Modules.Companion;
+﻿using ScreenFire.Modules.Companion;
 using ScreenFire.Modules.Screenshot.Companion;
 using System;
 using System.Drawing.Imaging;
@@ -16,19 +14,13 @@ class Screenshot {
     public Screens Screens { get; private set; }
     public ImageMetrics ImageMetrics { get; private set; }
 
-    public static Screenshot New(IScreenshotType screenshotType,
+    public static Screenshot Instance(IScreenshotType screenshotType,
                                  ImageMetrics imageMetrics,
                                  ImageFormat imageFormat = null) {
 
         if (imageFormat == null) imageFormat = ImageFormat.Png;
 
-        Rectangle finalRectangle = screenshotType switch {
-            IScreenshotType.Custom => imageMetrics.Rectangle,
-            //IScreenshotType.WindowUnderMouse => ,
-            //IScreenshotType.ScreenUnderMouse => ,
-            //IScreenshotType.ActiveWindow => ,
-            _ => new Screens().AllRectangle
-        };
+
 
         return new() {
             UID = Guid.NewGuid(),
