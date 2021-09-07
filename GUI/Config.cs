@@ -5,7 +5,8 @@ using System.Drawing.Imaging;
 using UI = Gtk.Builder.ObjectAttribute;
 
 namespace ScreenFire.GUI;
-class Config : Gtk.Window {
+
+class Config : Window {
     [UI] private Label _label1 = null;
     [UI] private Button ss_Button = null;
 
@@ -23,7 +24,7 @@ class Config : Gtk.Window {
     }
 
     private void Window_DeleteEvent(object sender, DeleteEventArgs ev)
-        => Application.Quit();
+            => Application.Quit();
 
     private int _counter;
     private void ss_Button_Clicked(object sender, EventArgs ev) {
