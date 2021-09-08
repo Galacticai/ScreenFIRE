@@ -6,7 +6,7 @@
     <Platforms>AnyCPU;x64</Platforms>
     <LangVersion>preview</LangVersion>
     <PackageIcon>ScreenFIRE-x128.png</PackageIcon>
-    <ApplicationIcon>D:\MEGA\0-NHK-Projects\Apps\ScreenFIRE\Logo\ScreenFIRE.ico</ApplicationIcon> 
+    <ApplicationIcon>Logo\ScreenFIRE.ico</ApplicationIcon> 
   </PropertyGroup>
 
   <ItemGroup>
@@ -20,15 +20,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="Modules\Screenshot\Companion\ScreenMetrics.cs.disable" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Compile Include="Modules\Screenshot\Companion\ScreenMetrics.cs.disable" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="GtkSharp" Version="3.24.24.34" /> 
+    <PackageReference Include="GtkSharp" Version="3.24.24.34" />
+    <PackageReference Include="System.Drawing.Common" Version="5.0.2" />
+    <PackageReference Include="System.Drawing.Primitives" Version="4.3.0" /> 
   </ItemGroup>
 
   <ItemGroup>
@@ -38,6 +36,10 @@
     <None Update="Logo\ScreenFIRE.png">
       <Pack>True</Pack>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Modules\Screenshot\ScreenshotInfo\" />
   </ItemGroup>
  
 
