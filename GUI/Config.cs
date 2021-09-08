@@ -1,6 +1,9 @@
+
 using Gdk;
 using Gtk;
 using System;
+using System.Drawing.Imaging;
+using sysD = System.Drawing;
 using UI = Gtk.Builder.ObjectAttribute;
 
 namespace ScreenFire.GUI;
@@ -27,10 +30,10 @@ class Config : Gtk.Window {
 
     private int _counter;
     private void ss_Button_Clicked(object sender, EventArgs ev) {
-        Pixbuf ss;
-        Gdk.Rectangle monitorGeo = Display.GetMonitor(0).Geometry;
+        sysD.Image ss;
+        Rectangle monitorGeo = Display.GetMonitor(0).Geometry;
         if (monitorGeo.Width > 0 & monitorGeo.Height > 0)
-            ss = Screenshot(new(0, 0, monitorGeo.Width, monitorGeo.Height));
+            ss = ScreenFire.Modules.Companion.math.Vision.Screenshot(new(0, 0, monitorGeo.Width, monitorGeo.Height));
         else throw new ArgumentOutOfRangeException("Fatal Error: Monitor geometry is out of range.");
 
         FileChooserDialog fcd = new("Save the fire", null, FileChooserAction.Save);
@@ -44,38 +47,11 @@ class Config : Gtk.Window {
         if (response == ResponseType.Ok
            & System.IO.Directory.Exists(fcd.CurrentFolder)
            & ss != null)
-            ss.Save(
-                    (fcd.Filename.ToLower().Contains(".png") ? fcd.Filename : $"{fcd.Filename}.png"),
-                    "png");
+            ss.Save((fcd.Filename.ToLower().Contains(".png") ? fcd.Filename : $"{fcd.Filename}.png"),
+                    ImageFormat.Png);
 
         fcd.Destroy();
 
         _label1.Text = $"Fired a Screenshot!\n\nThis button has been clicked {(1 + (_counter++))} time{(_counter > 1 ? "s" : "")}.";
-    }
-    public static Pixbuf Screenshot(Gdk.Rectangle rect) {
-
-        Gdk.Pixbuf pixBuf = new Gdk.Pixbuf(Gdk.Colorspace.Rgb, false, 8,
-                                       rect.Width, rect.Height);
-        pixBuf.GetFromDrawable(rect, Gdk.Colormap.System, 0, 0, 0, 0,
-                               rect.Width, rect.Height);
-        pixBuf.ScaleSimple(400, 300, Gdk.InterpType.Bilinear);
-
-        return pixBuf;
-    }
-    public static byte[] GetScreenshot(int compressionLevel) {
-        var root = Gdk.Global.DefaultRootWindow;
-
-        int width, height;
-        root.GetSize(out width, out height);
-
-        var tmp = new Gdk.Pixbuf(Gdk.Colorspace.Rgb, false, 8, width, height);
-        var screenshot = tmp.GetFromDrawable(root, root.Colormap, 0, 0, 0, 0, width, height);
-
-        if (compressionLevel == 0) {
-            // return uncompressed
-        }
-        screenshot.Save("screen.jpg", "jpeg");
-        screenshot.Save("screen.bmp", "bmp");
-        return screenshot.SaveToBuffer("jpeg");
     }
 }
