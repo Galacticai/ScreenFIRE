@@ -1,4 +1,5 @@
-﻿namespace ScreenFire.Modules.Screenshot.Companion;
+﻿
+namespace ScreenFire.Modules.Screenshot.Companion;
 
 /// <summary> Types of screenshots 
 /// <list type="bullet">
