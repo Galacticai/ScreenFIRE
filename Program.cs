@@ -1,24 +1,24 @@
 using Gtk;
-using ScreenFire.GUI;
+using ScreenFIRE.GUI;
 using System;
 
-namespace ScreenFire;
+namespace ScreenFIRE;
 
 class Program {
 
-    public const string packageName = "com.nhk.ScreenFire";
+    public const string packageName = "com.nhk.ScreenFIRE";
 
     [STAThread]
     public static void Main(string[] args) {
         Application.Init();
 
-        Application ScreenFire = new(packageName, GLib.ApplicationFlags.None);
-        ScreenFire.Register(GLib.Cancellable.Current);
+        Application ScreenFIRE = new(packageName, GLib.ApplicationFlags.None);
+        ScreenFIRE.Register(GLib.Cancellable.Current);
 
-        Config ScreenFire_config = new();
-        ScreenFire.AddWindow(ScreenFire_config);
+        Config ScreenFIRE_config = new();
+        ScreenFIRE.AddWindow(ScreenFIRE_config);
 
-        ScreenFire_config.Show();
+        ScreenFIRE_config.Show();
         Application.Run();
     }
 }
