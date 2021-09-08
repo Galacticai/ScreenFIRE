@@ -1,6 +1,6 @@
 ﻿//using Gdk;
 
-//namespace ScreenFire.Modules.Screenshot.Companion;
+//namespace ScreenFire.Modules.Screenshot.ScreenshotInfo.Companion;
 
 //class ScreenMetrics {
 //    public float LeftMost { get; private set; }
