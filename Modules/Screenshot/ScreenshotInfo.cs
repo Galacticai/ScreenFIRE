@@ -13,8 +13,7 @@ class ScreenshotInfo {
     public ImageMetrics ImageMetrics { get; private set; }
 
     public static ScreenshotInfo Instance(IScreenshotType screenshotType,
-                                 ImageMetrics imageMetrics) {
-
+                                          ImageMetrics imageMetrics) {
         return new() {
             UID = Guid.NewGuid(),
             ScreenshotType = screenshotType,
