@@ -1,8 +1,6 @@
-﻿using ScreenFire.Modules.Companion;
-using ScreenFire.Modules.Screenshot.Companion;
-using System;
+﻿using System;
 
-namespace ScreenFire.Modules.Screenshot;
+namespace ScreenFire.Modules.Screenshot.Companion;
 
 class Save_Local {
 
@@ -10,19 +8,13 @@ class Save_Local {
 
     public IScreenshotType ScreenshotType { get; private set; }
     public ISaveFormat SaveFormat { get; private set; }
-    public Screens Screens { get; private set; }
-    public ImageMetrics ImageMetrics { get; private set; }
 
-    //! Save location
-    //! -- File Name
-    //! -- Folder
-    //! 
-    //! ?? etc
+    public (string Folder, string File) Name { get; private set; }
 
-    public static Save_Local Instance(ScreenshotInfo screenshot,
-                                      ISaveFormat saveFormat = ISaveFormat.PNG)
+    public static Save_Local Instance(ScreenshotInfo screenshotInfo,
+                                      ISaveFormat saveFormat = ISaveFormat.png)
         => new() {
-            UID = screenshot.UID,
+            UID = screenshotInfo.UID,
             SaveFormat = saveFormat
         };
 }
