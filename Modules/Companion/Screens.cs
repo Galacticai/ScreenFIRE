@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using ScreenFIRE.Modules.Companion.math;
+using System.Drawing;
 using g = Gdk;
 
 namespace ScreenFIRE.Modules.Companion {
@@ -48,8 +49,8 @@ namespace ScreenFIRE.Modules.Companion {
         public Screens Instance()
                 => new() {
                     AllRectangle = find_AllRectangle(), //! It updaes both props
-                Rectangles = Rectangles //? No need to find, already done above
-            };
+                    Rectangles = Rectangles //? No need to find, already done above
+                };
 
         /// <summary> MANUAL </summary>
         public Screens Instance(Rectangle[] rectangles)
