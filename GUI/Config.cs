@@ -1,12 +1,11 @@
+using Gdk;
 using Gtk;
 using System;
-using System.Drawing;
-using System.Drawing.Imaging;
 using UI = Gtk.Builder.ObjectAttribute;
 
 namespace ScreenFire.GUI;
 
-class Config : Window {
+class Config : Gtk.Window {
     [UI] private Label _label1 = null;
     [UI] private Button ss_Button = null;
 
@@ -28,7 +27,7 @@ class Config : Window {
 
     private int _counter;
     private void ss_Button_Clicked(object sender, EventArgs ev) {
-        Bitmap ss;
+        Pixbuf ss;
         Gdk.Rectangle monitorGeo = Display.GetMonitor(0).Geometry;
         if (monitorGeo.Width > 0 & monitorGeo.Height > 0)
             ss = Screenshot(new(0, 0, monitorGeo.Width, monitorGeo.Height));
@@ -45,15 +44,38 @@ class Config : Window {
         if (response == ResponseType.Ok
            & System.IO.Directory.Exists(fcd.CurrentFolder)
            & ss != null)
-            ss.Save(fcd.Filename + ".png", ImageFormat.Png);
+            ss.Save(
+                    (fcd.Filename.ToLower().Contains(".png") ? fcd.Filename : $"{fcd.Filename}.png"),
+                    "png");
+
         fcd.Destroy();
 
         _label1.Text = $"Fired a Screenshot!\n\nThis button has been clicked {(1 + (_counter++))} time{(_counter > 1 ? "s" : "")}.";
     }
-    public static Bitmap Screenshot(Gdk.Rectangle rect) {
-        Bitmap bmp = new(rect.Width, rect.Height, PixelFormat.Format32bppArgb);
-        Graphics.FromImage(bmp).
-            CopyFromScreen(rect.Left, rect.Top, 0, 0, bmp.Size, CopyPixelOperation.SourceCopy);
-        return bmp;
+    public static Pixbuf Screenshot(Gdk.Rectangle rect) {
+
+        Gdk.Pixbuf pixBuf = new Gdk.Pixbuf(Gdk.Colorspace.Rgb, false, 8,
+                                       rect.Width, rect.Height);
+        pixBuf.GetFromDrawable(rect, Gdk.Colormap.System, 0, 0, 0, 0,
+                               rect.Width, rect.Height);
+        pixBuf.ScaleSimple(400, 300, Gdk.InterpType.Bilinear);
+
+        return pixBuf;
+    }
+    public static byte[] GetScreenshot(int compressionLevel) {
+        var root = Gdk.Global.DefaultRootWindow;
+
+        int width, height;
+        root.GetSize(out width, out height);
+
+        var tmp = new Gdk.Pixbuf(Gdk.Colorspace.Rgb, false, 8, width, height);
+        var screenshot = tmp.GetFromDrawable(root, root.Colormap, 0, 0, 0, 0, width, height);
+
+        if (compressionLevel == 0) {
+            // return uncompressed
+        }
+        screenshot.Save("screen.jpg", "jpeg");
+        screenshot.Save("screen.bmp", "bmp");
+        return screenshot.SaveToBuffer("jpeg");
     }
 }
