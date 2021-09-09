@@ -1,6 +1,6 @@
 ﻿using System.Drawing;
 
-namespace ScreenFIRE.Modules.Screenshot.Companion {
+namespace ScreenFIRE.Modules.Capture.Companion {
 
     /// <summary> Image measurements and properties </summary>
     class ImageMetrics {

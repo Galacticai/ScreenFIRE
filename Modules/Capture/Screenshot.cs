@@ -1,6 +1,6 @@
-﻿using ScreenFIRE.Modules.Screenshot.Companion;
+﻿using ScreenFIRE.Modules.Capture.Companion;
 
-namespace ScreenFIRE.Modules.Screenshot {
+namespace ScreenFIRE.Modules.Capture {
 
     class Screenshot {
 

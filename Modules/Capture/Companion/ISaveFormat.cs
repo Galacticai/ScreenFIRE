@@ -1,4 +1,4 @@
-﻿namespace ScreenFIRE.Modules.Screenshot.Companion {
+﻿namespace ScreenFIRE.Modules.Capture.Companion {
 
     /// <summary> Saving format of the <see cref="ScreenshotInfo"/> 
     /// <list type="bullet">

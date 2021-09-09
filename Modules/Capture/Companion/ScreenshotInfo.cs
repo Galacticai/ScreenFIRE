@@ -1,7 +1,8 @@
 ﻿using ScreenFIRE.Modules.Companion;
 using System;
+using System.Drawing;
 
-namespace ScreenFIRE.Modules.Screenshot.Companion {
+namespace ScreenFIRE.Modules.Capture.Companion {
 
     class ScreenshotInfo {
 
@@ -9,14 +10,14 @@ namespace ScreenFIRE.Modules.Screenshot.Companion {
 
         public IScreenshotType ScreenshotType { get; private set; }
         public Screens Screens { get; private set; }
-        public ImageMetrics ImageMetrics { get; private set; }
+        public Rectangle ImageRectangle { get; private set; }
 
         public static ScreenshotInfo Instance(IScreenshotType screenshotType,
-                                              ImageMetrics imageMetrics) {
+                                              Rectangle imageRectangle) {
             return new() {
                 UID = Guid.NewGuid(),
                 ScreenshotType = screenshotType,
-                ImageMetrics = imageMetrics
+                ImageRectangle = imageRectangle
             };
         }
     }
