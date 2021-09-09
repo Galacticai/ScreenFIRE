@@ -1,5 +1,5 @@
 ﻿using System.Drawing;
-
+/*
 namespace ScreenFIRE.Modules.Capture.Companion {
 
     /// <summary> Image measurements and properties </summary>
@@ -41,3 +41,4 @@ namespace ScreenFIRE.Modules.Capture.Companion {
 
     }
 }
+*/
