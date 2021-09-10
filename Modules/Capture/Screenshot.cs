@@ -1,30 +1,24 @@
 ﻿using ScreenFIRE.Modules.Capture.Companion;
+using ScreenFIRE.Modules.Companion;
+using System;
+using System.Drawing;
 
 namespace ScreenFIRE.Modules.Capture {
 
     class Screenshot {
 
-        /// <summary> Screenshot information to be processed</summary>
-        public ScreenshotInfo Info { get; private set; }
+        public Guid UID { get; private set; } // Example: 0f8fad5b-d9cb-469f-a165-70867728950e 
 
+        public IScreenshotType ScreenshotType { get; private set; }
+        public Screens Screens { get; private set; }
+        public Rectangle ImageRectangle { get; private set; }
 
-        public static Screenshot Run(ScreenshotInfo screenshotInfo) {
-
-
-            //switch (screenshotInfo.ScreenshotType) {
-            //    case IScreenshotType.All: 
-            //        break; 
-            //    case IScreenshotType.ScreenUnderMouse: 
-            //        break;
-            //    case IScreenshotType.WindowUnderMouse:
-            //        break;
-            //    case IScreenshotType.ActiveWindow:
-            //        break;
-            //    case IScreenshotType.Custom:
-            //        break; 
-            //}
-
-        }
-
+        public static Screenshot Instance(IScreenshotType screenshotType,
+                                              Rectangle imageRectangle)
+            => new() {
+                UID = Guid.NewGuid(),
+                ScreenshotType = screenshotType,
+                ImageRectangle = imageRectangle
+            };
     }
 }
