@@ -1,8 +1,9 @@
-using Gdk;
 using Gtk;
+using ScreenFIRE.Modules.Capture;
+using ScreenFIRE.Modules.Capture.Companion;
+using ScreenFIRE.Modules.Companion;
+using ScreenFIRE.Modules.Save;
 using System;
-using System.Drawing.Imaging;
-using sysD = System.Drawing;
 using UI = Gtk.Builder.ObjectAttribute;
 
 namespace ScreenFIRE.GUI {
@@ -29,27 +30,9 @@ namespace ScreenFIRE.GUI {
 
         private int _counter;
         private void ss_Button_Clicked(object sender, EventArgs ev) {
-            sysD.Image ss;
-            Rectangle monitorGeo = Display.GetMonitor(0).Geometry;
-            if (monitorGeo.Width > 0 & monitorGeo.Height > 0)
-                ss = ScreenFIRE.Modules.Companion.math.Vision.Screenshot(new(0, 0, monitorGeo.Width, monitorGeo.Height));
-            else throw new ArgumentOutOfRangeException("Fatal Error: Monitor geometry is out of range.");
+            Screenshot ss = Screenshot.New(IScreenshotType.All, new Screens().New().AllRectangle);
 
-            FileChooserDialog fcd = new("Save the fire", null, FileChooserAction.Save);
-            fcd.AddButton(Stock.Cancel, ResponseType.Cancel);
-            fcd.AddButton(Stock.Save, ResponseType.Ok);
-            fcd.DefaultResponse = ResponseType.Ok;
-            fcd.SelectMultiple = false;
-
-            ResponseType response = (ResponseType)fcd.Run();
-
-            if (response == ResponseType.Ok
-               & System.IO.Directory.Exists(fcd.CurrentFolder)
-               & ss != null)
-                ss.Save((fcd.Filename.ToLower().Contains(".png") ? fcd.Filename : $"{fcd.Filename}.png"),
-                        ImageFormat.Png);
-
-            fcd.Destroy();
+            Save.Local(ss);
 
             _label1.Text = $"Fired a Screenshot!\n\nThis button has been clicked {(1 + (_counter++))} time{(_counter > 1 ? "s" : "")}.";
         }
