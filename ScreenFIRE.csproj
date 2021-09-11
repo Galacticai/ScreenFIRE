@@ -4,9 +4,9 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net5.0</TargetFramework>
     <Platforms>AnyCPU;x64</Platforms>
-    <!--<LangVersion>preview</LangVersion>-->
+     <LangVersion>preview</LangVersion> 
     <PackageIcon>ScreenFIRE-x128.png</PackageIcon>
-    <ApplicationIcon>Logo\ScreenFIRE.ico</ApplicationIcon> 
+    <ApplicationIcon>Assets\images\Logo\ScreenFIRE.ico</ApplicationIcon> 
   </PropertyGroup>
 
   <ItemGroup>
@@ -34,10 +34,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Logo\ScreenFIRE-x128.png">
+    <None Update="Assets\images\Logo\ScreenFIRE-x128.png">
       <Pack>True</Pack>
     </None>
-    <None Update="Logo\ScreenFIRE.png">
+    <None Update="Assets\images\Logo\ScreenFIRE.png">
       <Pack>True</Pack>
     </None>
   </ItemGroup>
