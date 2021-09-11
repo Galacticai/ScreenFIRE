@@ -11,19 +11,19 @@ namespace ScreenFIRE.Modules.Save {
 
         /// <summary> ••• AUTO ••• <br/>
         /// Save a <see cref="Screenshot"/> locally </summary>
-        public static void Local_Auto(Screenshot screenshot, SaveFormat.ISaveFormat saveFormat = SaveFormat.ISaveFormat.png) {
+        public static void Local_Auto(Screenshot screenshot,  ISaveFormat saveFormat =  ISaveFormat.png) {
             Local(screenshot, ("", ""));
         }
 
         /// <summary> ••• Specific ••• <br/>
         /// Save a <see cref="Screenshot"/> locally </summary>
-        public static void Local(Screenshot screenshot, (string folder, string file) name, SaveFormat.ISaveFormat saveFormat = SaveFormat.ISaveFormat.png) {
+        public static void Local(Screenshot screenshot, (string folder, string file) name,  ISaveFormat saveFormat =  ISaveFormat.png) {
             if (!Directory.Exists(name.folder)) ;
         }
 
         /// <summary> ••• GUI ••• <br/>
         /// Save a <see cref="Screenshot"/> locally </summary>
-        public static void Local(Screenshot screenshot, SaveFormat.ISaveFormat saveFormat = SaveFormat.ISaveFormat.png) {
+        public static void Local(Screenshot screenshot,  ISaveFormat saveFormat =  ISaveFormat.png) {
             Image ss;
             ss = Vision.Screenshot(screenshot.ImageRectangle);
 
