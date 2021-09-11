@@ -37,7 +37,7 @@ namespace ScreenFIRE.Modules.Companion
         /// <summary> AUTO </summary>
         /// <returns> <see cref="Rectangle"/> spanning over all screens </returns>
         private Rectangle AllRectangle_Auto()
-                => AllRectangle = Vision.Geometry.BoundingRectangle(find_Rectangles());
+                => AllRectangle = Vision.Geometry.BoundingRectangle(Rectangles_Auto());
 
         /// <summary> MANUAL </summary>
         /// <returns> <see cref="Rectangle"/> spanning over all screens </returns>
