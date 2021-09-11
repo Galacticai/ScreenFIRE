@@ -8,7 +8,7 @@ using UI = Gtk.Builder.ObjectAttribute;
 
 namespace ScreenFIRE.GUI {
 
-    class Config : Gtk.Window {
+    class Config : Window {
         [UI] private Label _label1 = null;
         [UI] private Button ss_Button = null;
 
