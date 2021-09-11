@@ -15,7 +15,7 @@ namespace ScreenFIRE.Modules.Capture
         //public Screens Screens { get; private set; }
 
         public static Screenshot New(IScreenshotType screenshotType,
-                                     Rectangle imageRectangle) 
+                                     Rectangle imageRectangle)
             => new()
             {
                 UID = Guid.NewGuid(),
