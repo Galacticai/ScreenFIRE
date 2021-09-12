@@ -45,7 +45,7 @@ namespace ScreenFIRE.Modules.Companion {
         /// <summary> AUTO </summary>
         public Screens New()
                 => new() {
-                    AllRectangle = AllRectangle_Auto(), //! It updaes both props
+                    AllRectangle = AllRectangle_Auto(), //! It updates both props
                     Rectangles = Rectangles //? No need to find, already done above
                 };
 
