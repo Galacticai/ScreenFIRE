@@ -6,16 +6,16 @@ namespace ScreenFIRE.Modules.Companion {
     /// <summary> Common class for general ScreenFIRE stuff </summary>
     class c {
 
+        /// <summary> (MyPictures) > ScreenFIRE </summary>
         public static string SF
-            => Path.Combine(
-                    new[] {
-                        Environment.GetFolderPath(Environment.SpecialFolder.Personal),
-                        "Pictures", "ScreenFIRE"
-                    }
-                );
+            => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder
+                                .MyPictures),
+                            "ScreenFIRE");
 
+        /// <summary> (ApplicationData) > ScreenFIRE </summary>
         public static string SF_Data
-            => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+            => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder
+                                .ApplicationData),
                             "ScreenFIRE");
 
 
@@ -34,21 +34,21 @@ namespace ScreenFIRE.Modules.Companion {
         #region Public Abbreviations 
 
         /// <summary> Get current copyright string </summary>
-        public static readonly string copyright = System.Diagnostics.FileVersionInfo.GetVersionInfo(
+        public static string Copyright => System.Diagnostics.FileVersionInfo.GetVersionInfo(
                                                         System.Reflection.Assembly.GetExecutingAssembly().Location
                                                     ).LegalCopyright;
         /// <summary> Get current version field </summary>
-        public static readonly Version version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
+        public static Version Version => System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
         /// <summary> Simple .NET new line (<see cref="Environment.NewLine"/>) </summary>
-        public static readonly string n = Environment.NewLine;
+        public static string n => Environment.NewLine;
         /// <summary> Double! .NET new line (<see cref="Environment.NewLine"/>) </summary>
-        public static readonly string n_double = Environment.NewLine + Environment.NewLine;
+        public static string n_double => Environment.NewLine + Environment.NewLine;
         /// <summary> Simple html new line (&lt;br/&gt;) </summary>
-        public static readonly string br = "<br/>";
+        public static string br => "<br/>";
         /// <summary> Tab: (Unicode) U+3000 | (HTML) And#12288; | (Description) Ideographic Space </summary>
-        public static readonly string tab = @"　";
+        public static string tab => @"　";
         /// <summary> Double! Tab: (Unicode) U+3000 | (HTML) And#12288; | (Description) Ideographic Space </summary>
-        public static readonly string tab_double = @"　　";
+        public static string tab_double => @"　　";
 
         #endregion
     }
