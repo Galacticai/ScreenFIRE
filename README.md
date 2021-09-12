@@ -1,4 +1,4 @@
-﻿<p align="center"><img src="Logo/ScreenFIRE-Splash.png" /></p>
+﻿<p align="center"><img width=1024 src="Assets/images/Logo/ScreenFIRE-Splash.png" /></p>
 
 ### ﻿<p align="center"><b>Sophisticated screenshot utility for Linux and Windows!</b></p>
 
