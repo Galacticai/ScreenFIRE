@@ -1,5 +1,4 @@
-﻿using GLib;
-using ScreenFIRE.Modules.Capture;
+﻿using ScreenFIRE.Modules.Capture;
 using ScreenFIRE.Modules.Capture.Companion;
 using ScreenFIRE.Modules.Companion;
 using ScreenFIRE.Modules.Companion.math;
@@ -26,8 +25,7 @@ namespace ScreenFIRE.Modules.Save {
         /// <summary> ••• GUI ••• <br/>
         /// Save a <see cref="Screenshot"/> locally </summary>
         public static void Local(Screenshot screenshot, ISaveFormat saveFormat = ISaveFormat.png) {
-            Image ss;
-            ss = Vision.Screenshot(screenshot.ImageRectangle);
+            Image ss = Vision.Screenshot(screenshot.ImageRectangle);
 
             gtk.FileChooserDialog save = new("Save As", null, gtk.FileChooserAction.Save);
             save.AddButton(gtk.Stock.Cancel, gtk.ResponseType.Cancel);
@@ -39,10 +37,11 @@ namespace ScreenFIRE.Modules.Save {
             gtk.ResponseType response = (gtk.ResponseType)save.Run();
 
 
+            bool replacing = false;
             if (response == gtk.ResponseType.Ok
                & Directory.Exists(save.CurrentFolder)
                & ss != null) {
-                if (File.Exists(save.Filename)) {
+                if (save.File.Exists) {
 
                     gtk.Dialog warn = new("File already exists.",
                                           null, gtk.DialogFlags.Modal);
@@ -52,10 +51,9 @@ namespace ScreenFIRE.Modules.Save {
                     warn.AddButton(gtk.Stock.No, gtk.ResponseType.No);
 
                     gtk.ResponseType warnResponse = (gtk.ResponseType)warn.Run();
-                    if (warnResponse == gtk.ResponseType.No) { // Don't replace 
-                        save.File.SetDisplayName(Path.GetFileNameWithoutExtension(save.File.Basename)
-                                                     + screenshot.UID.ToString()[..6],
-                                                 Cancellable.Current);
+                    if (warnResponse == gtk.ResponseType.No) { // Don't replace  
+
+                        replacing = true;
                         warn.Destroy();
 
                     } else if (warnResponse == gtk.ResponseType.Cancel) {
@@ -64,9 +62,11 @@ namespace ScreenFIRE.Modules.Save {
                     } // Cancel
                 }
                 ss.Save(Path.Combine(
-                            save.File.Parent.Path,
+                            Path.GetDirectoryName(save.Filename),
                             Path.GetFileNameWithoutExtension(save.File.Basename)
-                        ) + "." + saveFormat.ToString(),
+                        )
+                        + (replacing ? ("-" + screenshot.UID.ToString()[..6]) : string.Empty)
+                        + "." + saveFormat.ToString(),
                         SaveFormat.ToImageFormat(saveFormat));
             }
             save.Destroy();
