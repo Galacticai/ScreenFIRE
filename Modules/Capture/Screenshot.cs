@@ -2,11 +2,9 @@
 using System;
 using System.Drawing;
 
-namespace ScreenFIRE.Modules.Capture
-{
+namespace ScreenFIRE.Modules.Capture {
 
-    class Screenshot
-    {
+    class Screenshot {
 
         public Guid UID { get; private set; } // Example: 0f8fad5b-d9cb-469f-a165-70867728950e 
 
@@ -16,8 +14,7 @@ namespace ScreenFIRE.Modules.Capture
 
         public static Screenshot New(IScreenshotType screenshotType,
                                      Rectangle imageRectangle)
-            => new()
-            {
+            => new() {
                 UID = Guid.NewGuid(),
                 ScreenshotType = screenshotType,
                 ImageRectangle = imageRectangle
