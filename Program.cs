@@ -20,6 +20,8 @@ namespace ScreenFIRE {
                                 $"Sorry ScreenFIRE does not support Platform ID \"{Environment.OSVersion.Platform}\""
                                 + $"{c.n}Please run ScreenFIRE on Windows or Linux.");
 
+            PrepareEnvironment.Run();
+
             Application.Init();
 
             Application ScreenFIRE = new(packageName, GLib.ApplicationFlags.None);
