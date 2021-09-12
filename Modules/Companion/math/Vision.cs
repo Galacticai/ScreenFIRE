@@ -50,7 +50,6 @@ namespace ScreenFIRE.Modules.Companion.math {
             if (monitor.Geometry.Width / monitor.Workarea.Width > 1 || monitor.Geometry.Height / monitor.Workarea.Height > 1) {
                 rectangle = new g.Rectangle(0, 0, monitor.Workarea.Width + monitor.Workarea.X, monitor.Workarea.Height + monitor.Workarea.Y);
             }
-
             return Screenshot(new(rectangle.X, rectangle.Y, rectangle.Width, rectangle.Height));
         }
 
