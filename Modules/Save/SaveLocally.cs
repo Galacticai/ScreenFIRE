@@ -1,6 +1,7 @@
 ﻿using ScreenFIRE.Modules.Capture;
 using ScreenFIRE.Modules.Capture.Companion;
 using ScreenFIRE.Modules.Companion.math;
+using System;
 using System.Drawing;
 using System.IO;
 using gtk = Gtk;
@@ -11,41 +12,56 @@ namespace ScreenFIRE.Modules.Save {
 
         /// <summary> ••• AUTO ••• <br/>
         /// Save a <see cref="Screenshot"/> locally </summary>
-        public static void Local_Auto(Screenshot screenshot,  ISaveFormat saveFormat =  ISaveFormat.png) {
-            Local(screenshot, ("", ""));
+        public static void Local_Auto(Screenshot screenshot, ISaveFormat saveFormat = ISaveFormat.png) {
+            Local(screenshot, ("", "")); //! PLACEHOLDER
         }
 
         /// <summary> ••• Specific ••• <br/>
         /// Save a <see cref="Screenshot"/> locally </summary>
-        public static void Local(Screenshot screenshot, (string folder, string file) name,  ISaveFormat saveFormat =  ISaveFormat.png) {
-            if (!Directory.Exists(name.folder)) ;
+        public static void Local(Screenshot screenshot, (string folder, string file) name, ISaveFormat saveFormat = ISaveFormat.png) {
+            if (!Directory.Exists(name.folder)) ; //! NOT DONE
         }
 
         /// <summary> ••• GUI ••• <br/>
         /// Save a <see cref="Screenshot"/> locally </summary>
-        public static void Local(Screenshot screenshot,  ISaveFormat saveFormat =  ISaveFormat.png) {
+        public static void Local(Screenshot screenshot, ISaveFormat saveFormat = ISaveFormat.png) {
             Image ss;
             ss = Vision.Screenshot(screenshot.ImageRectangle);
 
-            gtk.FileChooserDialog fcd = new("Save As", null, gtk.FileChooserAction.Save);
-            fcd.AddButton(gtk.Stock.Cancel, gtk.ResponseType.Cancel);
-            fcd.AddButton(gtk.Stock.Save, gtk.ResponseType.Ok);
-            fcd.DefaultResponse = gtk.ResponseType.Ok;
-            fcd.SelectMultiple = false;
+            gtk.FileChooserDialog save = new("Save As", null, gtk.FileChooserAction.Save);
+            save.AddButton(gtk.Stock.Cancel, gtk.ResponseType.Cancel);
+            save.AddButton(gtk.Stock.Save, gtk.ResponseType.Ok);
+            save.DefaultResponse = gtk.ResponseType.Ok;
+            save.SelectMultiple = false;
 
-            gtk.ResponseType response = (gtk.ResponseType)fcd.Run();
+            gtk.ResponseType response = (gtk.ResponseType)save.Run();
 
+            string debugging = save.CurrentFolder
+                                + (Environment.OSVersion.Platform == PlatformID.Unix ? @"/" : @"\")
+                                + save.Filename;
             if (response == gtk.ResponseType.Ok
-               & Directory.Exists(fcd.CurrentFolder)
-               & ss != null)
-                ss.Save(fcd.Filename +
-                            (fcd.Filename.ToLower()
-                                [(fcd.Filename.ToLower().Length - 4)..(fcd.Filename.ToLower().Length)]
+               & Directory.Exists(save.CurrentFolder)
+               & ss != null) {
+                if (File.Exists(save.Filename)) {
+                    gtk.Dialog warn = new(save.Filename
+                                          + "already exists.\nDo you want to replace the existing file?",
+                                          null, gtk.DialogFlags.Modal);
+                    warn.AddButton(gtk.Stock.Cancel, gtk.ResponseType.Cancel);
+                    warn.AddButton(gtk.Stock.Yes, gtk.ResponseType.Yes);
+                    warn.AddButton(gtk.Stock.No, gtk.ResponseType.No);
+                    gtk.ResponseType warnResponse = (gtk.ResponseType)warn.Run();
+                    if (warnResponse == gtk.ResponseType.No) { // Don't replace
+                        save.SetFilename(save.Filename + screenshot.UID.ToString()[..6] + $".{saveFormat.ToString().ToLower()}");
+                    } else if (warnResponse == gtk.ResponseType.Cancel) return; // Cancel
+                }
+                ss.Save(save.Filename +
+                            (save.Filename.ToLower()
+                                [(save.Filename.ToLower().Length - 4)..(save.Filename.ToLower().Length)]
                                     == $".{saveFormat.ToString().ToLower()}"
                                 ? "" : $".{saveFormat.ToString().ToLower()}"),
                         SaveFormat.ToImageFormat(saveFormat));
-
-            fcd.Destroy();
+            }
+            save.Destroy();
 
         }
     }
