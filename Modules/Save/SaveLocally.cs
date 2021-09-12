@@ -1,4 +1,5 @@
-﻿using ScreenFIRE.Modules.Capture;
+﻿using GLib;
+using ScreenFIRE.Modules.Capture;
 using ScreenFIRE.Modules.Capture.Companion;
 using ScreenFIRE.Modules.Companion;
 using ScreenFIRE.Modules.Companion.math;
@@ -33,6 +34,7 @@ namespace ScreenFIRE.Modules.Save {
             save.AddButton(gtk.Stock.Save, gtk.ResponseType.Ok);
             save.DefaultResponse = gtk.ResponseType.Ok;
             save.SelectMultiple = false;
+            save.SetCurrentFolder(c.SF);
 
             gtk.ResponseType response = (gtk.ResponseType)save.Run();
 
@@ -50,8 +52,10 @@ namespace ScreenFIRE.Modules.Save {
                     warn.AddButton(gtk.Stock.No, gtk.ResponseType.No);
 
                     gtk.ResponseType warnResponse = (gtk.ResponseType)warn.Run();
-                    if (warnResponse == gtk.ResponseType.No) { // Don't replace
-                        save.SetFilename(save.Filename + screenshot.UID.ToString()[..6] + $".{saveFormat.ToString().ToLower()}");
+                    if (warnResponse == gtk.ResponseType.No) { // Don't replace 
+                        save.File.SetDisplayName(Path.GetFileNameWithoutExtension(save.File.Basename)
+                                                     + screenshot.UID.ToString()[..6],
+                                                 Cancellable.Current);
                         warn.Destroy();
 
                     } else if (warnResponse == gtk.ResponseType.Cancel) {
@@ -59,11 +63,10 @@ namespace ScreenFIRE.Modules.Save {
                         return;
                     } // Cancel
                 }
-                ss.Save(save.Filename +
-                            (save.Filename.ToLower()
-                                [(save.Filename.ToLower().Length - 4)..(save.Filename.ToLower().Length)]
-                                    == $".{saveFormat.ToString().ToLower()}"
-                                ? "" : $".{saveFormat.ToString().ToLower()}"),
+                ss.Save(Path.Combine(
+                            save.File.Parent.Path,
+                            Path.GetFileNameWithoutExtension(save.File.Basename)
+                        ) + "." + saveFormat.ToString(),
                         SaveFormat.ToImageFormat(saveFormat));
             }
             save.Destroy();
