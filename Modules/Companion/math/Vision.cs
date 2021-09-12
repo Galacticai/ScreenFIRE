@@ -57,10 +57,15 @@ namespace ScreenFIRE.Modules.Companion.math {
         /// <param name="rect">Rectangle to be captured</param>
         /// <returns>Screenshot <see cref="Image"/> of the <paramref name="rect"/></returns>
         public static Image Screenshot(Rectangle rect) {
+            g.Pixbuf img = g.Pixbuf.LoadFromResource( , rect.Width, rect.Height);
             Bitmap bmp = new(rect.Width, rect.Height, new Bitmap(1, 1, Graphics.FromHwnd(IntPtr.Zero)).PixelFormat);
             Graphics.FromImage(bmp).
                 CopyFromScreen(rect.Left, rect.Top, 0, 0, bmp.Size, CopyPixelOperation.SourceCopy);
             return bmp;
+
+            //
+            // TODO: Convert this to Gdk !
+            // 
         }
 
         public static Bitmap Gradient(Size size, Color color1, Color color2, Color color3) {
