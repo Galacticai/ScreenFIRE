@@ -1,7 +1,7 @@
 ﻿using ScreenFIRE.Modules.Capture;
 using ScreenFIRE.Modules.Capture.Companion;
+using ScreenFIRE.Modules.Companion;
 using ScreenFIRE.Modules.Companion.math;
-using System;
 using System.Drawing;
 using System.IO;
 using gtk = Gtk;
@@ -36,23 +36,28 @@ namespace ScreenFIRE.Modules.Save {
 
             gtk.ResponseType response = (gtk.ResponseType)save.Run();
 
-            string debugging = save.CurrentFolder
-                                + (Environment.OSVersion.Platform == PlatformID.Unix ? @"/" : @"\")
-                                + save.Filename;
+
             if (response == gtk.ResponseType.Ok
                & Directory.Exists(save.CurrentFolder)
                & ss != null) {
                 if (File.Exists(save.Filename)) {
-                    gtk.Dialog warn = new(save.Filename
-                                          + "already exists.\nDo you want to replace the existing file?",
+
+                    gtk.Dialog warn = new("File already exists.",
                                           null, gtk.DialogFlags.Modal);
+                    warn.TooltipText = save.Filename + $"already exists.{c.n}Do you want to replace the existing file?";
                     warn.AddButton(gtk.Stock.Cancel, gtk.ResponseType.Cancel);
                     warn.AddButton(gtk.Stock.Yes, gtk.ResponseType.Yes);
                     warn.AddButton(gtk.Stock.No, gtk.ResponseType.No);
+
                     gtk.ResponseType warnResponse = (gtk.ResponseType)warn.Run();
                     if (warnResponse == gtk.ResponseType.No) { // Don't replace
                         save.SetFilename(save.Filename + screenshot.UID.ToString()[..6] + $".{saveFormat.ToString().ToLower()}");
-                    } else if (warnResponse == gtk.ResponseType.Cancel) return; // Cancel
+                        warn.Destroy();
+
+                    } else if (warnResponse == gtk.ResponseType.Cancel) {
+                        warn.Destroy();
+                        return;
+                    } // Cancel
                 }
                 ss.Save(save.Filename +
                             (save.Filename.ToLower()
@@ -62,7 +67,6 @@ namespace ScreenFIRE.Modules.Save {
                         SaveFormat.ToImageFormat(saveFormat));
             }
             save.Destroy();
-
         }
     }
 }
