@@ -43,21 +43,24 @@ namespace ScreenFIRE.Modules.Save {
                & ss != null) {
                 if (save.File.Exists) {
 
-                    gtk.Dialog warn = new("File already exists.",
-                                          null, gtk.DialogFlags.Modal);
-                    warn.TooltipText = save.Filename + $"already exists.{c.n}Do you want to replace the existing file?";
-                    warn.AddButton(gtk.Stock.Cancel, gtk.ResponseType.Cancel);
-                    warn.AddButton(gtk.Stock.Yes, gtk.ResponseType.Yes);
-                    warn.AddButton(gtk.Stock.No, gtk.ResponseType.No);
+                    gtk.MessageDialog warn = new(null, gtk.DialogFlags.DestroyWithParent, gtk.MessageType.Warning, gtk.ButtonsType.YesNo, "File already exists.");
+                    warn.Resize(100, 200);
+                    warn.Resizable = false;
+                    warn.DefaultResponse = gtk.ResponseType.No;
+                    //warn.AddButton(gtk.Stock.Cancel, gtk.ResponseType.Cancel);
+                    //warn.AddButton(gtk.Stock.No, gtk.ResponseType.No);
+                    //warn.AddButton(gtk.Stock.Yes, gtk.ResponseType.Yes); 
+
+                    //? not working
+                    warn.Add(new gtk.Label(save.Filename + $"already exists.{c.n}Do you want to replace the existing file?"));
 
                     gtk.ResponseType warnResponse = (gtk.ResponseType)warn.Run();
-                    if (warnResponse == gtk.ResponseType.No) { // Don't replace  
-
+                    if (warnResponse == gtk.ResponseType.No) { // Don't replace   
                         replacing = true;
                         warn.Destroy();
-
                     } else if (warnResponse == gtk.ResponseType.Cancel) {
                         warn.Destroy();
+                        save.Destroy();
                         return;
                     } // Cancel
                 }
