@@ -39,13 +39,15 @@ namespace ScreenFIRE.Modules.Companion {
                                                     ).LegalCopyright;
         /// <summary> Get current version field </summary>
         public static readonly Version version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
-        /// <summary> Simple .NET new line (Environment.NewLine) </summary>
+        /// <summary> Simple .NET new line (<see cref="Environment.NewLine"/>) </summary>
         public static readonly string n = Environment.NewLine;
+        /// <summary> Double! .NET new line (<see cref="Environment.NewLine"/>) </summary>
+        public static readonly string n_double = Environment.NewLine + Environment.NewLine;
         /// <summary> Simple html new line (&lt;br/&gt;) </summary>
         public static readonly string br = "<br/>";
         /// <summary> Tab: (Unicode) U+3000 | (HTML) And#12288; | (Description) Ideographic Space </summary>
         public static readonly string tab = @"　";
-        /// <summary> Double Tab: (Unicode) U+3000 | (HTML) And#12288; | (Description) Ideographic Space </summary>
+        /// <summary> Double! Tab: (Unicode) U+3000 | (HTML) And#12288; | (Description) Ideographic Space </summary>
         public static readonly string tab_double = @"　　";
 
         #endregion
