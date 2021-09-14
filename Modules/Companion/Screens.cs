@@ -17,6 +17,12 @@ namespace ScreenFIRE.Modules.Companion {
         public Rectangle AllRectangle { get; private set; }
 
 
+        public static g.Monitor[] GetMonitors() {
+            g.Monitor[] monitors = new g.Monitor[Count];
+            for (int i = 0; i < Count; i++)
+                monitors[i] = g.Display.Default.GetMonitor(i);
+            return monitors;
+        }
 
         /// <returns> <see cref=" Rectangle"/> array of each screen </returns>
         private Rectangle[] Rectangles_Auto() {
