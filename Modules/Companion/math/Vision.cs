@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Linq;
-using g = Gdk;
+using gdk = Gdk;
 
 namespace ScreenFIRE.Modules.Companion.math {
 
@@ -45,23 +44,36 @@ namespace ScreenFIRE.Modules.Companion.math {
 
         /// <param name="monitor"> The monitor to be captured </param>
         /// <returns> Screenshot <see cref="Image"/> of the <paramref name="monitor"/> </returns>
-        public static Image ScreenCapture(g.Monitor monitor) {
-            g.Rectangle rectangle = monitor.Geometry;
-            if (monitor.Geometry.Width / monitor.Workarea.Width > 1 || monitor.Geometry.Height / monitor.Workarea.Height > 1) {
-                rectangle = new g.Rectangle(0, 0, monitor.Workarea.Width + monitor.Workarea.X, monitor.Workarea.Height + monitor.Workarea.Y);
-            }
-            return Screenshot(new(rectangle.X, rectangle.Y, rectangle.Width, rectangle.Height));
+        public static gdk.Pixbuf ScreenCapture(gdk.Monitor monitor) {
+
+            // TODO: Update this to the new Screenshot()
+
+            gdk.Rectangle rectangle = monitor.Geometry;
+            if ((monitor.Geometry.Width / monitor.Workarea.Width) > 1
+               | (monitor.Geometry.Height / monitor.Workarea.Height) > 1)
+                rectangle = new(monitor.Geometry.X, monitor.Geometry.Y,
+                                monitor.Workarea.Width + monitor.Workarea.X,
+                                monitor.Workarea.Height + monitor.Workarea.Y);
+
+
+            return Screenshot(rectangle);
         }
 
 
-        /// <param name="rect">Rectangle to be captured</param>
-        /// <returns>Screenshot <see cref="Image"/> of the <paramref name="rect"/></returns>
-        public static Image Screenshot(Rectangle rect) {
-            g.Pixbuf img = g.Pixbuf.LoadFromResource( , rect.Width, rect.Height);
-            Bitmap bmp = new(rect.Width, rect.Height, new Bitmap(1, 1, Graphics.FromHwnd(IntPtr.Zero)).PixelFormat);
-            Graphics.FromImage(bmp).
-                CopyFromScreen(rect.Left, rect.Top, 0, 0, bmp.Size, CopyPixelOperation.SourceCopy);
-            return bmp;
+        /// <param name = "rect" > Rectangle to be captured</param>
+        /// <returns>Screenshot<see cref="Image"/> of the<paramref name="rect"/></returns>
+        public static Gdk.Pixbuf Screenshot(Gdk.Rectangle rect) {
+
+            gdk.Window root = gdk.Global.DefaultRootWindow;
+            //root.GetGeometry(out int x, out int y, out int w, out int h);
+            gdk.Pixbuf pixbuf = new(root, rect.X, rect.Y, rect.Width, rect.Height);
+            return pixbuf;
+
+            //! Original (using `System.Drawing.Image`)
+            //Bitmap bmp = new(rect.width, rect.height, new bitmap(1, 1, graphics.fromhwnd(intptr.zero)).pixelformat);
+            //graphics.fromimage(bmp).copyfromscreen(rect.left, rect.top, 0, 0, bmp.size, copypixeloperation.sourcecopy);
+            //return bmp;
+
 
             //
             // TODO: Convert this to Gdk !
@@ -116,12 +128,12 @@ namespace ScreenFIRE.Modules.Companion.math {
             /// <summary> Find the bounding rectangle of several rectangles </summary> 
             /// <param name="rectangles">Rectangles to process</param>
             /// <returns><see cref="Gdk.Rectangle"/> which contains all <paramref name="rectangles"/>[]</returns>
-            public static Rectangle BoundingRectangle(Rectangle[] rectangles) {
+            public static gdk.Rectangle BoundingRectangle(gdk.Rectangle[] rectangles) {
                 int xMin = rectangles.Min(s => s.X),
                     yMin = rectangles.Min(s => s.Y),
                     xMax = rectangles.Max(s => s.X + s.Width),
                     yMax = rectangles.Max(s => s.Y + s.Height);
-                return new Rectangle(xMin, yMin, xMax - xMin, yMax - yMin);
+                return new gdk.Rectangle(xMin, yMin, xMax - xMin, yMax - yMin);
             }
 
             /// <param name="boundsRect">Original rectangle to convert</param>
