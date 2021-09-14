@@ -1,6 +1,5 @@
-﻿using ScreenFIRE.Modules.Companion.math;
-using System.Drawing;
-using g = Gdk;
+﻿using Gdk;
+using ScreenFIRE.Modules.Companion.math;
 
 namespace ScreenFIRE.Modules.Companion {
 
@@ -8,7 +7,7 @@ namespace ScreenFIRE.Modules.Companion {
     class Screens {
 
         /// <summary> Number of monitors </summary>
-        public static int Count => g.Display.Default.NMonitors;
+        public static int Count => Display.Default.NMonitors;
 
         /// <summary> <see cref="Rectangle"/> array of each screen</summary> 
         public Rectangle[] Rectangles { get; private set; }
@@ -17,19 +16,19 @@ namespace ScreenFIRE.Modules.Companion {
         public Rectangle AllRectangle { get; private set; }
 
 
-        public static g.Monitor[] GetMonitors() {
-            g.Monitor[] monitors = new g.Monitor[Count];
+        public static Monitor[] GetMonitors() {
+            Monitor[] monitors = new Monitor[Count];
             for (int i = 0; i < Count; i++)
-                monitors[i] = g.Display.Default.GetMonitor(i);
+                monitors[i] = Display.Default.GetMonitor(i);
             return monitors;
         }
 
         /// <returns> <see cref=" Rectangle"/> array of each screen </returns>
         private Rectangle[] Rectangles_Auto() {
             Rectangles = new Rectangle[Count]; //? Reset
-            g.Rectangle gRect;  // outside || Prevent redeclaring every loop  
+            Rectangle gRect;  // outside || Prevent redeclaring every loop  
             for (int i = 0; i < Count; i++) {
-                gRect = g.Display.Default.GetMonitor(i).Geometry;
+                gRect = Display.Default.GetMonitor(i).Geometry;
                 Rectangles[i] = new(gRect.X, gRect.Y, gRect.Width, gRect.Height); // convert from Gdk to System.Drawing
             }
             return Rectangles;
