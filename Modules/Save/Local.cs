@@ -2,7 +2,6 @@
 using ScreenFIRE.Modules.Capture.Companion;
 using ScreenFIRE.Modules.Companion;
 using ScreenFIRE.Modules.Companion.math;
-using System.Drawing;
 using System.IO;
 using gtk = Gtk;
 
@@ -25,7 +24,7 @@ namespace ScreenFIRE.Modules.Save {
         /// <summary> ••• GUI ••• <br/>
         /// Save a <see cref="Screenshot"/> locally </summary>
         public static void Local(Screenshot screenshot, ISaveFormat saveFormat = ISaveFormat.png) {
-            Image ss = Vision.Screenshot(screenshot.ImageRectangle);
+            Gdk.Pixbuf ss = Vision.Screenshot(screenshot.ImageRectangle);
 
             gtk.FileChooserDialog save = new("Save As", null, gtk.FileChooserAction.Save);
             save.AddButton(gtk.Stock.Cancel, gtk.ResponseType.Cancel);
@@ -70,7 +69,7 @@ namespace ScreenFIRE.Modules.Save {
                         )
                         + (replacing ? ("-" + screenshot.UID.ToString()[..6]) : string.Empty)
                         + "." + saveFormat.ToString(),
-                        SaveFormat.ToImageFormat(saveFormat));
+                        saveFormat.ToString());
             }
             save.Destroy();
         }
