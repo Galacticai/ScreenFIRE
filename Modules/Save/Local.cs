@@ -1,4 +1,5 @@
-﻿using ScreenFIRE.Modules.Capture;
+﻿using GLib;
+using ScreenFIRE.Modules.Capture;
 using ScreenFIRE.Modules.Capture.Companion;
 using ScreenFIRE.Modules.Companion;
 using ScreenFIRE.Modules.Companion.math;
@@ -9,21 +10,17 @@ namespace ScreenFIRE.Modules.Save {
 
     partial class Save {
 
-        /// <summary> ••• AUTO ••• <br/>
+        /// <summary> ••• GUI ••• <br/>
         /// Save a <see cref="Screenshot"/> locally </summary>
-        public static void Local_Auto(Screenshot screenshot, ISaveFormat saveFormat = ISaveFormat.png) {
-            Local(screenshot, ("", "")); //! PLACEHOLDER
+        public static void Local(Screenshot screenshot, ISaveFormat saveFormat = ISaveFormat.png) {
+
         }
 
         /// <summary> ••• Specific ••• <br/>
         /// Save a <see cref="Screenshot"/> locally </summary>
-        public static void Local(Screenshot screenshot, (string folder, string file) name, ISaveFormat saveFormat = ISaveFormat.png) {
-            if (!Directory.Exists(name.folder)) ; //! NOT DONE
-        }
+        public static void Local(Screenshot screenshot, IFile file, ISaveFormat saveFormat = ISaveFormat.png) {
+            file.MakeDirectory(new()); //! NOT DONE
 
-        /// <summary> ••• GUI ••• <br/>
-        /// Save a <see cref="Screenshot"/> locally </summary>
-        public static void Local(Screenshot screenshot, ISaveFormat saveFormat = ISaveFormat.png) {
             Gdk.Pixbuf ss = Vision.Screenshot(screenshot.ImageRectangle);
 
             gtk.FileChooserDialog save = new("Save As", null, gtk.FileChooserAction.Save);
@@ -31,7 +28,7 @@ namespace ScreenFIRE.Modules.Save {
             save.AddButton(gtk.Stock.Save, gtk.ResponseType.Ok);
             save.DefaultResponse = gtk.ResponseType.Ok;
             save.SelectMultiple = false;
-            save.SetCurrentFolder(c.SF);
+            save.SetCurrentFolder(Common.SF);
 
             gtk.ResponseType response = (gtk.ResponseType)save.Run();
 
@@ -51,7 +48,7 @@ namespace ScreenFIRE.Modules.Save {
                     //warn.AddButton(gtk.Stock.Yes, gtk.ResponseType.Yes); 
 
                     //? not working
-                    warn.Add(new gtk.Label(save.Filename + $"already exists.{c.n}Do you want to replace the existing file?"));
+                    warn.Add(new gtk.Label(save.Filename + $"already exists.{Common.n}Do you want to replace the existing file?"));
 
                     gtk.ResponseType warnResponse = (gtk.ResponseType)warn.Run();
                     if (warnResponse == gtk.ResponseType.No) { // Don't replace   
@@ -63,15 +60,27 @@ namespace ScreenFIRE.Modules.Save {
                         return;
                     } // Cancel
                 }
-                ss.Save(Path.Combine(
-                            Path.GetDirectoryName(save.Filename),
-                            Path.GetFileNameWithoutExtension(save.File.Basename)
-                        )
-                        + (replacing ? ("-" + screenshot.UID.ToString()[..6]) : string.Empty)
-                        + "." + saveFormat.ToString(),
-                        saveFormat.ToString());
+                ss.Save(
+                        //! Folder + File - extension
+                        Path.Combine(
+                            save.CurrentFolder,
+                            Path.GetFileNameWithoutExtension(save.File.Basename) ?? "ScreenFIRE")
+
+                        //! _yyMMdd-HHmmff
+                        + (replacing ? ($"_{screenshot.Time:yyMMdd-HHmmff}") : string.Empty)
+
+                        //! .extension
+                        + $".{saveFormat}",
+
+                        $"{saveFormat}");
             }
             save.Destroy();
+        }
+
+        /// <summary> ••• AUTO ••• <br/>
+        /// Save a <see cref="Screenshot"/> locally </summary>
+        public static void Local_Auto(Screenshot screenshot, ISaveFormat saveFormat = ISaveFormat.png) {
+            //! Local(screenshot, ("", "")); //! PLACEHOLDER
         }
     }
 }
