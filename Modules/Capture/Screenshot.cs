@@ -18,14 +18,12 @@ namespace ScreenFIRE.Modules.Capture {
         public Gdk.Rectangle ImageRectangle { get; private set; }
         //public Screens Screens { get; private set; }
 
-        public static Screenshot New(IScreenshotType screenshotType,
-                                     Gdk.Rectangle imageRectangle)
-            => new() {
-                UID = Guid.NewGuid(),
-                Time = DateTime.Now,
-                ScreenshotType = screenshotType,
-                ImageRectangle = imageRectangle
-            };
-
+        public Screenshot(IScreenshotType screenshotType,
+                          Gdk.Rectangle imageRectangle) {
+            UID = Guid.NewGuid();
+            Time = DateTime.Now;
+            ScreenshotType = screenshotType;
+            ImageRectangle = imageRectangle;
+        }
     }
 }

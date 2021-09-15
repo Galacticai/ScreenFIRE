@@ -48,17 +48,15 @@ namespace ScreenFIRE.Modules.Companion {
 
 
         /// <summary> AUTO </summary>
-        public Screens New()
-                => new() {
-                    AllRectangle = AllRectangle_Auto(), //! It updates both props
-                    Rectangles = Rectangles //? No need to find, already done above
-                };
+        public Screens() {
+            AllRectangle = AllRectangle_Auto(); //! It updates both props
+            /*Rectangles = Rectangles;*/ //? No need to find, already done above
+        }
 
-        /// <summary> MANUAL </summary>
-        public Screens New(Rectangle[] rectangles)
-                => new() {
-                    AllRectangle = AllRectangle_Auto(rectangles),
-                    Rectangles = rectangles
-                };
+        /// <summary> MANUAL </summary> 
+        public Screens(Rectangle[] rectangles) {
+            AllRectangle = AllRectangle_Auto(rectangles);
+            Rectangles = rectangles;
+        }
     }
 }
