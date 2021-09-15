@@ -18,7 +18,7 @@ namespace ScreenFIRE {
             if (!PlatformIsSupported)
                 throw new PlatformNotSupportedException(
                                 $"Sorry ScreenFIRE does not support Platform ID \"{Environment.OSVersion.Platform}\""
-                                + $"{c.n}Please run ScreenFIRE on Windows or Linux.");
+                                + $"{Common.n}Please run ScreenFIRE on Windows or Linux.");
 
             PrepareEnvironment.Run();
 
