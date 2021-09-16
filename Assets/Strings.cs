@@ -8,7 +8,7 @@ namespace ScreenFIRE.Assets {
 
     }
 
-    public record struct Strings {
+    public record Strings {
         /// <summary> Fetch a specific string </summary>
         /// <param name="name"></param>
         /// <returns>Localized string according to requested language / or system language if not specified</returns>
