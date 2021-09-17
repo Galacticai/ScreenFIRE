@@ -1,9 +1,5 @@
 ﻿using Gdk;
-using GLib;
 using ScreenFIRE.Modules.Companion.math;
-using System;
-using System.Collections.Generic;
-using System.Runtime.InteropServices;
 
 namespace ScreenFIRE.Modules.Companion {
 
@@ -12,31 +8,63 @@ namespace ScreenFIRE.Modules.Companion {
 
 
         #region Static methods
-        public static Monitor Monitor(int index)
-            => Display.Default.GetMonitor(index);
-        public static Monitor PrimaryMonitor()
-            => Display.Default.PrimaryMonitor;
-        public static Point Pointer_Coords() {
+
+        /// <param name="index"> <see cref="Monitor"/> index </param>
+        /// <returns> <see cref=" Monitor"/> according to <paramref name="index"/> </returns>
+        public static Monitor GetMonitor(int index) {
+            return Display.Default.GetMonitor(index);
+        }
+
+        /// <returns> <see cref="Monitor"/>[] containing all available <see cref="Monitor"/>s </returns>
+        public static Monitor[] GetMonitors() {
+            Monitor[] monitors = new Monitor[Count];
+            for (int i = 0; i < Count; i++)
+                monitors[i] = GetMonitor(i);
+            return monitors;
+        }
+
+        /// <returns> Primary <see cref="Monitor"/> </returns>
+        public static Monitor PrimaryMonitor() {
+            return Display.Default.PrimaryMonitor;
+        }
+
+        /// <returns> <see cref="Point"/> coordinates of the mouse pointer </returns>
+        public static Point Pointer_Point() {
             Display.Default.GetPointer(out int x, out int y);
             return new Point(x, y);
         }
 
-        /// <returns>Window <see cref="Rectangle"/> at the mouse pointer</returns>
-        public static Rectangle WindowAtPointer_Coords() {
-            Device pointer = Display.Default.DefaultSeat.Pointer;
-
-            Point pointLocation = Pointer_Coords();
-
-            Window windowAtPosition
-                = pointer.GetWindowAtPosition(out pointLocation.X, out pointLocation.Y);
-
+        /// <returns> Window <see cref="Rectangle"/> at the mouse pointer </returns>
+        public static Rectangle WindowAtPointer_Rectangle() {
+            Point pointLocation = Pointer_Point();
+            Window windowAtPosition = WindowAtPoint(pointLocation);
             windowAtPosition.GetGeometry(out int x, out int y, out int w, out int h);
             return new Rectangle(x, y, w, h);
         }
 
-        public static Rectangle MonitorRectangle(int index) {
-            Rectangle work = Monitor(index).Workarea;
-            Rectangle geo = Monitor(index).Geometry;
+        /// <param name="point"> Focus <see cref="Point"/> </param>
+        /// <returns> <see cref="Window"/> at the <paramref name="point"/> </returns>
+        public static Window WindowAtPoint(Point point) {
+            Device pointer = Display.Default.DefaultSeat.Pointer;
+            return pointer.GetWindowAtPosition(out point.X, out point.Y);
+        }
+
+        /// <returns> Monitor <see cref="Rectangle"/> at the mouse pointer </returns>
+        public static Rectangle MonitorAtPointer_Rectangle() {
+            return Monitor_Rectangle(MonitorAtPoint(Pointer_Point()));
+        }
+
+        /// <param name="point"> Focus <see cref="Point"/> </param>
+        /// <returns> <see cref="Monitor"/> at the <paramref name="point"/> </returns>
+        public static Monitor MonitorAtPoint(Point point) {
+            return Display.Default.GetMonitorAtPoint(point.X, point.Y);
+        }
+
+        /// <param name="index"> <see cref="Monitor"/> index </param>
+        /// <returns> <see cref="Rectangle"/> of the monitor (The bigger one out of Geometry or Workarea) </returns>
+        public static Rectangle Monitor_Rectangle(Monitor monitor) {
+            Rectangle work = monitor.Workarea;
+            Rectangle geo = monitor.Geometry;
             if ((geo.Width / work.Width) > 1
               | (geo.Height / work.Height) > 1)
                 geo = new(geo.X, geo.Y,
@@ -45,12 +73,6 @@ namespace ScreenFIRE.Modules.Companion {
             return geo;
         }
 
-        public static Monitor[] GetMonitors() {
-            Monitor[] monitors = new Monitor[Count];
-            for (int i = 0; i < Count; i++)
-                monitors[i] = Monitor(i);
-            return monitors;
-        }
 
         #endregion
 
