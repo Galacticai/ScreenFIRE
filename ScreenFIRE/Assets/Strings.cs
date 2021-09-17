@@ -3,8 +3,10 @@
 namespace ScreenFIRE.Assets {
 
     public enum IStrings {
+        ScreenFIRE,
 
-        ScreenFIRE
+        SaveAs,
+
 
     }
 
@@ -12,12 +14,12 @@ namespace ScreenFIRE.Assets {
         /// <summary> Fetch a specific string </summary>
         /// <param name="name"></param>
         /// <returns>Localized string according to requested language / or system language if not specified</returns>
-        public static string Fetch(IStrings name)//, ILanguage language = ILanguage.System)
-             => Language.GetSystemLanguage() switch {
+        public static string Fetch(IStrings name)
+             => Language.GetSystemLanguage() switch { //! System language
                  ILanguage.Arabic => Ar(name),
                  ILanguage.Chinese => Zh(name),
 
-                 //! System / English / Other
+                 //! English / Other
                  _ => En(name),
              };
 
@@ -30,7 +32,11 @@ namespace ScreenFIRE.Assets {
 
               IStrings.ScreenFIRE => "ScreenFIRE",
 
-              _ => string.Empty, //! PLACEHOLDER
+              IStrings.SaveAs => "Save As",
+
+
+              //!? Last resort
+              _ => $"⚠ STRING MISSING: \"{Name}\" ⚠",
           };
 
         private static string Ar(IStrings Name)
@@ -38,7 +44,11 @@ namespace ScreenFIRE.Assets {
 
               IStrings.ScreenFIRE => "حريق الشاشة ScreenFIRE",
 
-              _ => string.Empty, //! PLACEHOLDER
+              IStrings.SaveAs => "حفظ باسم",
+
+
+              //? Fallback to English.
+              _ => En(Name)
           };
 
         private static string Zh(IStrings Name)
@@ -46,7 +56,11 @@ namespace ScreenFIRE.Assets {
 
               IStrings.ScreenFIRE => "屏幕火 ScreenFIRE",
 
-              _ => string.Empty, //! PLACEHOLDER
+              IStrings.SaveAs => "另存为",
+
+
+              //? Fallback to English.
+              _ => En(Name)
           };
 
         #endregion
