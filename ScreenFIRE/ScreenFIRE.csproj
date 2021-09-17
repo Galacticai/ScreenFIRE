@@ -2,11 +2,24 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net5.0</TargetFramework>
+	<TargetFramework>net5.0</TargetFramework>
+	<LangVersion>preview</LangVersion>
     <Platforms>AnyCPU;x64</Platforms>
-     <LangVersion>preview</LangVersion> 
     <PackageIcon>ScreenFIRE-x128.png</PackageIcon>
-    <ApplicationIcon>Assets\images\Logo\ScreenFIRE.ico</ApplicationIcon> 
+    <ApplicationIcon>Assets\images\Logo\ScreenFIRE.ico</ApplicationIcon>
+    <PackageProjectUrl>https://github.com/NHKomaiha/ScreenFIRE</PackageProjectUrl>
+    <Copyright>Ⓒ2021 NHKomaiha</Copyright>
+    <Description>Sophisticated screenshot utility for Linux and Windows!</Description>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/NHKomaiha/ScreenFIRE</RepositoryUrl>
+    <PackageTags>windows, linux, widnows, linux-app, windows-app,  screenshot, gtk, winforms, xamarin, screenshot-utility, dotnet</PackageTags>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <AssemblyVersion>1.0.0.1</AssemblyVersion>
+    <FileVersion>1.0.0.1</FileVersion>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+    <RepositoryType>git</RepositoryType>
+    <Company>NHKomaiha</Company> 
   </PropertyGroup>
 
   <ItemGroup>
@@ -38,6 +51,9 @@
       <Pack>True</Pack>
     </None>
     <None Update="Assets\images\Logo\ScreenFIRE.png">
+      <Pack>True</Pack>
+    </None>
+    <None Update="README.md">
       <Pack>True</Pack>
     </None>
   </ItemGroup>

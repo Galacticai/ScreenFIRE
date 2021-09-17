@@ -14,7 +14,7 @@ namespace ScreenFIRE.Modules.Companion {
         }
 
         /// <returns> <see cref="Monitor"/>[] containing all available <see cref="Monitor"/>s </returns>
-        public static Monitor[] GetMonitors() {
+        public static Monitor[] GetAllMonitors() {
             Monitor[] monitors = new Monitor[Count];
             for (int i = 0; i < Count; i++)
                 monitors[i] = GetMonitor(i);
@@ -33,13 +33,27 @@ namespace ScreenFIRE.Modules.Companion {
         }
 
         /// <returns> Window <see cref="Rectangle"/> at the mouse pointer </returns>
+        public static Rectangle ActiveWindow_Rectangle() {
+            Point pointLocation = Pointer_Point();
+            Window windowAtPosition = WindowAtPoint(pointLocation);
+            windowAtPosition.GetGeometry(out int x, out int y, out int w, out int h);
+            return new Rectangle(x, y, w, h);
+        }
+        /// <param name="point"> Focus <see cref="Point"/> </param>
+        /// <returns> <see cref="Window"/> at the <paramref name="point"/> </returns>
+        public static Window ActiveWindow(Point point) {
+            Window window = Gtk.
+
+            return pointer.GetWindowAtPosition(out point.X, out point.Y);
+        }
+
+        /// <returns> Window <see cref="Rectangle"/> at the mouse pointer </returns>
         public static Rectangle WindowAtPointer_Rectangle() {
             Point pointLocation = Pointer_Point();
             Window windowAtPosition = WindowAtPoint(pointLocation);
             windowAtPosition.GetGeometry(out int x, out int y, out int w, out int h);
             return new Rectangle(x, y, w, h);
         }
-
         /// <param name="point"> Focus <see cref="Point"/> </param>
         /// <returns> <see cref="Window"/> at the <paramref name="point"/> </returns>
         public static Window WindowAtPoint(Point point) {
@@ -51,7 +65,6 @@ namespace ScreenFIRE.Modules.Companion {
         public static Rectangle MonitorAtPointer_Rectangle() {
             return Monitor_Rectangle(MonitorAtPoint(Pointer_Point()));
         }
-
         /// <param name="point"> Focus <see cref="Point"/> </param>
         /// <returns> <see cref="Monitor"/> at the <paramref name="point"/> </returns>
         public static Monitor MonitorAtPoint(Point point) {
@@ -118,7 +131,7 @@ namespace ScreenFIRE.Modules.Companion {
 
         /// <summary> AUTO </summary>
         public Monitors() {
-            AllMonitors = GetMonitors();
+            AllMonitors = GetAllMonitors();
 
             AllRectangle = AllRectangle_Auto(); //! It updates both props
             /*Rectangles = Rectangles;*/ //? No need to find, already done above
@@ -126,7 +139,7 @@ namespace ScreenFIRE.Modules.Companion {
 
         /// <summary> MANUAL </summary> 
         public Monitors(Rectangle[] rectangles) {
-            AllMonitors = GetMonitors();
+            AllMonitors = GetAllMonitors();
 
             AllRectangle = AllRectangle_Auto(rectangles);
             Rectangles = rectangles;

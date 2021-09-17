@@ -30,7 +30,7 @@ namespace ScreenFIRE.GUI {
 
         private int _counter;
         private void ss_Button_Clicked(object sender, EventArgs ev) {
-            Screenshot ss = Screenshot.New(IScreenshotType.All, new Screens().New().AllRectangle);
+            Screenshot ss = new(IScreenshotType.All, new Monitors().AllRectangle);
 
             Save.Local(ss);
 

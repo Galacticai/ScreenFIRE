@@ -10,18 +10,13 @@ namespace ScreenFIRE.Modules.Save {
 
     partial class Save {
 
+        private static Gdk.Pixbuf img(Gdk.Rectangle rect) => Vision.Screenshot(rect);
+
+
         /// <summary> ••• GUI ••• <br/>
         /// Save a <see cref="Screenshot"/> locally </summary>
         public static void Local(Screenshot screenshot, ISaveFormat saveFormat = ISaveFormat.png) {
 
-        }
-
-        /// <summary> ••• Specific ••• <br/>
-        /// Save a <see cref="Screenshot"/> locally </summary>
-        public static void Local(Screenshot screenshot, IFile file, ISaveFormat saveFormat = ISaveFormat.png) {
-            file.MakeDirectory(new()); //! NOT DONE
-
-            Gdk.Pixbuf ss = Vision.Screenshot(screenshot.ImageRectangle);
 
             gtk.FileChooserDialog save = new("Save As", null, gtk.FileChooserAction.Save);
             save.AddButton(gtk.Stock.Cancel, gtk.ResponseType.Cancel);
@@ -60,11 +55,25 @@ namespace ScreenFIRE.Modules.Save {
                         return;
                     } // Cancel
                 }
-                ss.Save(
+
+            }
+            save.Destroy();
+        }
+
+        /// <summary> ••• Specific ••• <br/>
+        /// Save a <see cref="Screenshot"/> locally </summary>
+        public static void Local(Screenshot screenshot, IFile file, ISaveFormat saveFormat = ISaveFormat.png) {
+
+            file.MakeDirectory(new()); //! NOT DONE
+
+
+            Gdk.Pixbuf ss = Vision.Screenshot(screenshot.ImageRectangle);
+
+            ss.Save(
                         //! Folder + File - extension
                         Path.Combine(
-                            save.CurrentFolder,
-                            Path.GetFileNameWithoutExtension(save.File.Basename) ?? "ScreenFIRE")
+                            file.Parent.ParsedName,
+                            Path.GetFileNameWithoutExtension(file.Basename) ?? "ScreenFIRE")
 
                         //! _yyMMdd-HHmmff
                         + (replacing ? ($"_{screenshot.Time:yyMMdd-HHmmff}") : string.Empty)
@@ -73,8 +82,6 @@ namespace ScreenFIRE.Modules.Save {
                         + $".{saveFormat}",
 
                         $"{saveFormat}");
-            }
-            save.Destroy();
         }
 
         /// <summary> ••• AUTO ••• <br/>
