@@ -1,5 +1,5 @@
 ﻿<p align="center">
-    <img width=550 src="Assets/images/Logo/ScreenFIRE-Splash.png" />
+    <img width=550 src="ScreenFIRE/Assets/images/Logo/ScreenFIRE-Splash.png" />
 </p>
 
 ### ﻿<p align="center"><b>Sophisticated screenshot utility for Linux and Windows!</b></p>
@@ -82,5 +82,5 @@ Lorem Ipsum is simply dummy text  Lorem Ipsum has been the industry's, when an u
 
 ---
 <p align="center">
-    <img height=120 src="Assets/images/readme.md/footer.svg" />
+    <img height=120 src="ScreenFIRE/Assets/images/readme.md/footer.svg" />
 </p>
