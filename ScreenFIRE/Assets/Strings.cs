@@ -5,8 +5,12 @@ namespace ScreenFIRE.Assets {
     public enum IStrings {
         ScreenFIRE,
 
-        SaveAs,
+        dot,
 
+        SaveAs,
+        FileAlreadyExists,
+        alreadyExists,
+        DoYouWantToReplaceTheExistingFile,
 
     }
 
@@ -32,11 +36,16 @@ namespace ScreenFIRE.Assets {
 
               IStrings.ScreenFIRE => "ScreenFIRE",
 
+              IStrings.dot => ".",
+
               IStrings.SaveAs => "Save As",
+              IStrings.FileAlreadyExists => "File already exists",
+              IStrings.alreadyExists => "already exists.",
+              IStrings.DoYouWantToReplaceTheExistingFile => "Do you want to replace the existing file?",
 
 
               //!? Last resort
-              _ => $"⚠ STRING MISSING: \"{Name}\" ⚠",
+              _ => $"⚠ STRING MISSING: \"{Name}\" ⚠"
           };
 
         private static string Ar(IStrings Name)
@@ -44,7 +53,12 @@ namespace ScreenFIRE.Assets {
 
               IStrings.ScreenFIRE => "حريق الشاشة ScreenFIRE",
 
+              IStrings.dot => ".",
+
               IStrings.SaveAs => "حفظ باسم",
+              IStrings.FileAlreadyExists => "الملف موجود مسبقاً.",
+              IStrings.alreadyExists => "موجود مسبقاً.",
+              IStrings.DoYouWantToReplaceTheExistingFile => "هل تودّ استبدال الملف السابق؟",
 
 
               //? Fallback to English.
@@ -56,7 +70,12 @@ namespace ScreenFIRE.Assets {
 
               IStrings.ScreenFIRE => "屏幕火 ScreenFIRE",
 
+              IStrings.dot => "。",
+
               IStrings.SaveAs => "另存为",
+              IStrings.FileAlreadyExists => "文件已存在。",
+              IStrings.alreadyExists => "已经存在。",
+              IStrings.DoYouWantToReplaceTheExistingFile => "是否要替换现有文件？",
 
 
               //? Fallback to English.
