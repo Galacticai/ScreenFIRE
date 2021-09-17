@@ -3,9 +3,7 @@ using ScreenFIRE.Modules.Companion.math;
 
 namespace ScreenFIRE.Modules.Companion {
 
-    /// <summary> Screens rectangles </summary>
     class Monitors {
-
 
         #region Static methods
 
@@ -80,6 +78,9 @@ namespace ScreenFIRE.Modules.Companion {
         /// <summary> Number of monitors </summary>
         public static int Count => Display.Default.NMonitors;
 
+        public Monitor[] AllMonitors { get; }
+
+
         /// <summary> <see cref="Rectangle"/> array of each screen</summary> 
         public Rectangle[] Rectangles { get; private set; }
 
@@ -101,26 +102,35 @@ namespace ScreenFIRE.Modules.Companion {
 
         /// <summary> AUTO </summary>
         /// <returns> <see cref="Rectangle"/> spanning over all screens </returns>
-        private Rectangle AllRectangle_Auto()
-                => AllRectangle = Vision.Geometry.BoundingRectangle(Rectangles_Auto());
+        private Rectangle AllRectangle_Auto() {
+            return AllRectangle
+                        = Vision.Geometry.BoundingRectangle(Rectangles_Auto());
+        }
 
         /// <summary> MANUAL </summary>
         /// <returns> <see cref="Rectangle"/> spanning over all screens </returns>
-        private Rectangle AllRectangle_Auto(Rectangle[] rectangles)
-                => AllRectangle = Vision.Geometry.BoundingRectangle(rectangles);
+        private Rectangle AllRectangle_Auto(Rectangle[] rectangles) {
+            return AllRectangle
+                        = Vision.Geometry.BoundingRectangle(rectangles);
+        }
 
 
 
         /// <summary> AUTO </summary>
         public Monitors() {
+            AllMonitors = GetMonitors();
+
             AllRectangle = AllRectangle_Auto(); //! It updates both props
             /*Rectangles = Rectangles;*/ //? No need to find, already done above
         }
 
         /// <summary> MANUAL </summary> 
         public Monitors(Rectangle[] rectangles) {
+            AllMonitors = GetMonitors();
+
             AllRectangle = AllRectangle_Auto(rectangles);
             Rectangles = rectangles;
+
         }
     }
 }
