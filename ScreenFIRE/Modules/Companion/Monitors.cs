@@ -1,5 +1,6 @@
 ﻿using Gdk;
 using ScreenFIRE.Modules.Companion.math;
+using System;
 
 namespace ScreenFIRE.Modules.Companion {
 
@@ -34,17 +35,17 @@ namespace ScreenFIRE.Modules.Companion {
 
         /// <returns> Window <see cref="Rectangle"/> at the mouse pointer </returns>
         public static Rectangle ActiveWindow_Rectangle() {
-            Point pointLocation = Pointer_Point();
-            Window windowAtPosition = WindowAtPoint(pointLocation);
-            windowAtPosition.GetGeometry(out int x, out int y, out int w, out int h);
+            LastActiveWindow().GetGeometry(out int x, out int y, out int w, out int h);
             return new Rectangle(x, y, w, h);
         }
         /// <param name="point"> Focus <see cref="Point"/> </param>
-        /// <returns> <see cref="Window"/> at the <paramref name="point"/> </returns>
-        public static Window ActiveWindow(Point point) {
-            Window window = Gtk.
-
-            return pointer.GetWindowAtPosition(out point.X, out point.Y);
+        /// <returns> Last active <see cref="Window"/> </returns>
+        public static Window LastActiveWindow() {
+            //!? Unknown if can throw an exception
+            return Display.Default.DefaultSeat.Pointer.LastEventWindow
+                ?? Display.Default.DefaultSeat.Keyboard.LastEventWindow
+                ?? Global.DefaultRootWindow; //!? NOT TESTED
+            // TODO: Test this
         }
 
         /// <returns> Window <see cref="Rectangle"/> at the mouse pointer </returns>
