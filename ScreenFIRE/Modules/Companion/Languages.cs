@@ -1,4 +1,4 @@
-﻿using Google.Cloud.Translation.V2;
+﻿
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -82,20 +82,20 @@ namespace ScreenFIRE.Modules.Companion {
         #endregion
 
 
-        /// <summary> Translate a string using Google Translate API </summary>
-        /// <param name="input"> <see cref="string"/> to be translated </param>
-        /// <param name="toLanguage"> Destination language </param> 
-        /// <returns> Translated <see cref="string"/> + <see cref="out"/> Detected original language</returns>
-        public static string Translate(string input, ILanguages toLanguage) {
-            TranslationClient translationclient = TranslationClient.Create();
-            TranslationResult translationResult
-                    = translationclient.TranslateText(input, ILanguagesToGoogleLanguageCodes(toLanguage));
-            return translationResult.TranslatedText;
-        }
+        ///// <summary> Translate a string using Google Translate API </summary>
+        ///// <param name="input"> <see cref="string"/> to be translated </param>
+        ///// <param name="toLanguage"> Destination language </param> 
+        ///// <returns> Translated <see cref="string"/> + <see cref="out"/> Detected original language</returns>
+        //public static string Translate(string input, ILanguages toLanguage) {
+        //    TranslationClient translationclient = TranslationClient.Create();
+        //    TranslationResult translationResult
+        //            = translationclient.TranslateText(input, ILanguagesToGoogleLanguageCodes(toLanguage));
+        //    return translationResult.TranslatedText;
+        //}
 
         public static async Task<string> TranslateText(string input, ILanguages toLanguage) {
             string url = string.Format("https://translate.google.com/?text={0}&tl={1}",
-                                    input, ILanguagesToGoogleLanguageCodes(toLanguage));
+                                        input, ILanguagesToGoogleLanguageCodes(toLanguage));
             string result = await new HttpClient().GetStringAsync(url);
             result = result[(result.IndexOf("<span title=\"") + "<span title=\"".Length)..];
             result = result[(result.IndexOf(">") + 1)..];
@@ -114,7 +114,7 @@ namespace ScreenFIRE.Modules.Companion {
         /// <returns> ScreenFIRE <see cref="ILanguages"/> corresponding to the provided <paramref name="language"/></returns>
         public static ILanguages DotNetToILanguages(string language = null)
             => (language ?? TwoLetterISOLanguageName) switch {
-                //"iv" => ILanguages.InvariantLanguage_InvariantCountry,
+                //// "iv" => ILanguages.InvariantLanguage_InvariantCountry,
                 "af" => ILanguages.Afrikaans,
                 "am" => ILanguages.Amharic,
                 "ar" => ILanguages.Arabic,
