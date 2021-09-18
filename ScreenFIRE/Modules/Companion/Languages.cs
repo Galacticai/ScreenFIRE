@@ -1,5 +1,7 @@
 ﻿using Google.Cloud.Translation.V2;
 using System;
+using System.Net.Http;
+using System.Threading.Tasks;
 using cult = System.Globalization.CultureInfo;
 
 namespace ScreenFIRE.Modules.Companion {
@@ -91,6 +93,16 @@ namespace ScreenFIRE.Modules.Companion {
             return translationResult.TranslatedText;
         }
 
+        public static async Task<string> TranslateText(string input, ILanguages toLanguage) {
+            string url = string.Format("https://translate.google.com/?text={0}&tl={1}",
+                                    input, ILanguagesToGoogleLanguageCodes(toLanguage));
+            string result = await new HttpClient().GetStringAsync(url);
+            result = result[(result.IndexOf("<span title=\"") + "<span title=\"".Length)..];
+            result = result[(result.IndexOf(">") + 1)..];
+            result = result[0..result.IndexOf("</span>")];
+            result = result.Trim();
+            return result;
+        }
 
         /// <returns> <see cref="DotNetToILanguages()"/> </returns>
         [Obsolete("GetSystemLanguage is useless. Just use DotNetToILanguages()")]
