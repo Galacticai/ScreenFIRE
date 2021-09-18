@@ -10,10 +10,10 @@
     /// </list>
     /// </summary>
     enum IScreenshotType {
-        All,
+        AllMonitors,
         MonitorAtPointer,
         WindowAtPointer,
-        ActiveWindow,
-        Custom
+        ActiveWindow //,
+        //Custom
     }
 }
