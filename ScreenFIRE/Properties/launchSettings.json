@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "ScreenFIRE": {
+      "commandName": "Project",
+      "nativeDebugging": false
+    }
+  }
+}
