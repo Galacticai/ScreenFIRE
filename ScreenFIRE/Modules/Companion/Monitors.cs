@@ -1,6 +1,5 @@
 ﻿using Gdk;
 using ScreenFIRE.Modules.Companion.math;
-using System;
 
 namespace ScreenFIRE.Modules.Companion {
 
@@ -35,8 +34,8 @@ namespace ScreenFIRE.Modules.Companion {
 
         /// <returns> Window <see cref="Rectangle"/> at the mouse pointer </returns>
         public static Rectangle ActiveWindow_Rectangle() {
-            LastActiveWindow().GetGeometry(out int x, out int y, out int w, out int h);
-            return new Rectangle(x, y, w, h);
+            //LastActiveWindow().GetGeometry(out int x, out int y, out int w, out int h);
+            return LastActiveWindow().FrameExtents;//new Rectangle(x, y, w, h);
         }
         /// <param name="point"> Focus <see cref="Point"/> </param>
         /// <returns> Last active <see cref="Window"/> </returns>
@@ -52,13 +51,15 @@ namespace ScreenFIRE.Modules.Companion {
         public static Rectangle WindowAtPointer_Rectangle() {
             Point pointLocation = Pointer_Point();
             Window windowAtPosition = WindowAtPoint(pointLocation);
-            windowAtPosition.GetGeometry(out int x, out int y, out int w, out int h);
-            return new Rectangle(x, y, w, h);
+            //windowAtPosition.GetGeometry(out int x, out int y, out int w, out int h);
+            return windowAtPosition.FrameExtents; //new Rectangle(x, y, w, h);
         }
         /// <param name="point"> Focus <see cref="Point"/> </param>
         /// <returns> <see cref="Window"/> at the <paramref name="point"/> </returns>
         public static Window WindowAtPoint(Point point) {
             Device pointer = Display.Default.DefaultSeat.Pointer;
+
+            //!? This returns null!
             return pointer.GetWindowAtPosition(out point.X, out point.Y);
         }
 
