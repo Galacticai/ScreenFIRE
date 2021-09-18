@@ -15,25 +15,29 @@ namespace ScreenFIRE.Assets {
     }
 
     public record Strings {
-        /// <summary> Fetch a specific string </summary>
-        /// <param name="name"></param>
-        /// <returns>Localized string according to requested language / or system language if not specified</returns>
-        public static string Fetch(IStrings name)
-             => Language.GetSystemLanguage() switch { //! System language
-                 ILanguage.Arabic => Ar(name),
-                 ILanguage.Chinese => Zh(name),
 
-                 //! English / Other
-                 _ => En(name),
-             };
+
+
+        /// <summary> Fetch a specific string </summary>
+        /// <param name="Name"> String name provided by <see cref="IStrings"/> </param>
+        /// <returns> Localized string according to requested language / or system language if not specified </returns>
+        public static string Fetch(IStrings Name) {
+            ILanguages language = Languages.DotNetToILanguages();
+            return language switch { //! System language
+                ILanguages.English => En(Name),
+                ILanguages.Arabic => Ar(Name),
+                //ILanguages.Chinese => Zh(name),
+
+                //! English / Other
+                _ => Languages.Translate(En(Name), language),
+            };
+        }
 
 
         #region Localized strings
 
         private static string En(IStrings Name)
           => Name switch {
-              //? name => "value"
-
               IStrings.ScreenFIRE => "ScreenFIRE",
 
               IStrings.dot => ".",
@@ -50,7 +54,6 @@ namespace ScreenFIRE.Assets {
 
         private static string Ar(IStrings Name)
           => Name switch {
-
               IStrings.ScreenFIRE => "حريق الشاشة ScreenFIRE",
 
               IStrings.dot => ".",
@@ -65,22 +68,22 @@ namespace ScreenFIRE.Assets {
               _ => En(Name)
           };
 
-        private static string Zh(IStrings Name)
-          => Name switch {
+        //private static string Zh(IStrings Name)
+        //  => Name switch {
 
-              IStrings.ScreenFIRE => "屏幕火 ScreenFIRE",
+        //      IStrings.ScreenFIRE => "屏幕火 ScreenFIRE",
 
-              IStrings.dot => "。",
+        //      IStrings.dot => "。",
 
-              IStrings.SaveAs => "另存为",
-              IStrings.FileAlreadyExists => "文件已存在。",
-              IStrings.alreadyExists => "已经存在。",
-              IStrings.DoYouWantToReplaceTheExistingFile => "是否要替换现有文件？",
+        //      IStrings.SaveAs => "另存为",
+        //      IStrings.FileAlreadyExists => "文件已存在。",
+        //      IStrings.alreadyExists => "已经存在。",
+        //      IStrings.DoYouWantToReplaceTheExistingFile => "是否要替换现有文件？",
 
 
-              //? Fallback to English.
-              _ => En(Name)
-          };
+        //      //? Fallback to English.
+        //      _ => En(Name)
+        //  };
 
         #endregion
 
