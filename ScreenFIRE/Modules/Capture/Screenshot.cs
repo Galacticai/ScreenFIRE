@@ -1,7 +1,9 @@
-﻿using ScreenFIRE.Modules.Capture.Companion;
+﻿using Gdk;
+using ScreenFIRE.Modules.Capture.Companion;
 using ScreenFIRE.Modules.Companion;
 using ScreenFIRE.Modules.Companion.math;
 using System;
+
 
 namespace ScreenFIRE.Modules.Capture {
 
@@ -16,35 +18,35 @@ namespace ScreenFIRE.Modules.Capture {
         /// <summary> Date and time of screen firing </summary>
         public DateTime Time { get; }
 
-        public IScreenshotType ScreenshotType { get; }// init; }
-        public Gdk.Rectangle ImageRectangle { get; }// init; }
-        public Gdk.Pixbuf Image { get; }// init; } 
+        public IScreenshotType? ScreenshotType { get; }// init; }
+        public Rectangle ImageRectangle { get; }// init; }
+        public Pixbuf Image { get; }// init; } 
 
-        private static Gdk.Rectangle? GetRectangle(IScreenshotType screenshotType)
+        private static Gdk.Rectangle GetRectangle(IScreenshotType screenshotType)
             => screenshotType switch {
-                IScreenshotType.All => new Monitors().AllRectangle,
-                IScreenshotType.MonitorAtPointer => Monitors.MonitorAtPointer_Rectangle,
-                IScreenshotType.WindowAtPointer => Monitors.WindowAtPointer_Rectangle,
-                IScreenshotType.ActiveWindow => Monitors.ActiveWindow_Rectangle,
+                IScreenshotType.MonitorAtPointer => Monitors.MonitorAtPointer_Rectangle(),
+                IScreenshotType.WindowAtPointer => Monitors.WindowAtPointer_Rectangle(),
+                IScreenshotType.ActiveWindow => Monitors.ActiveWindow_Rectangle(),
                 //IScreenshotType.Custom => ,
 
-                _ => null
+                //! IScreenshotType.All  
+                _ => new Monitors().AllRectangle
             };
 
         public Screenshot(IScreenshotType screenshotType) {
             UID = Guid.NewGuid();
             Time = DateTime.Now;
             ScreenshotType = screenshotType;
-            ImageRectangle = imageRectangle;
-            Image = Vision.Screenshot(imageRectangle);
+            ImageRectangle = GetRectangle(screenshotType);
+            Image = Vision.Screenshot(ImageRectangle);
         }
 
         /// <summary> Custom </summary>
         /// <param name="imageRectangle"> Rectangle to be captured</param>
-        public Screenshot(Gdk.Rectangle imageRectangle) {
+        public Screenshot(Rectangle imageRectangle) {
             UID = Guid.NewGuid();
             Time = DateTime.Now;
-            ScreenshotType = IScreenshotType.Custom;
+            ScreenshotType = null;
             ImageRectangle = imageRectangle;
             Image = Vision.Screenshot(imageRectangle);
         }
