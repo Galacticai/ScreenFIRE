@@ -22,7 +22,7 @@ namespace ScreenFIRE.Modules.Capture {
         public Rectangle ImageRectangle { get; }// init; }
         public Pixbuf Image { get; }// init; } 
 
-        private static Gdk.Rectangle GetRectangle(IScreenshotType screenshotType)
+        private static Rectangle GetRectangle(IScreenshotType screenshotType)
             => screenshotType switch {
                 IScreenshotType.MonitorAtPointer => Monitors.MonitorAtPointer_Rectangle(),
                 IScreenshotType.WindowAtPointer => Monitors.WindowAtPointer_Rectangle(),
@@ -33,6 +33,8 @@ namespace ScreenFIRE.Modules.Capture {
                 _ => new Monitors().AllRectangle
             };
 
+        /// <summary> Auto (using <see cref="IScreenshotType"/>) </summary>
+        /// <param name="imageRectangle"> Rectangle to be captured</param>
         public Screenshot(IScreenshotType screenshotType) {
             UID = Guid.NewGuid();
             Time = DateTime.Now;
