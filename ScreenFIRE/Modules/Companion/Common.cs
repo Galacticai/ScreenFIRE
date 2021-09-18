@@ -43,13 +43,15 @@ namespace ScreenFIRE.Modules.Companion {
         public static string n => env.NewLine;
         /// <summary> Double! .NET new line (<see cref="env.NewLine"/>) <br/>
         /// \r\n\r\n for non-Unix platforms, or \n\n for Unix platforms. </summary>
-        public static string n_double => env.NewLine + env.NewLine;
+        public static string nn => n + n;
         /// <summary> Simple html new line (&lt;br/&gt;) </summary>
         public static string br => "<br/>";
+        /// <summary> Double! Simple html new line (&lt;br/&gt;) </summary>
+        public static string brbr => br + br;
         /// <summary> Tab: (Unicode) U+3000 | (HTML) And#12288; | (Description) Ideographic Space </summary>
         public static string tab => @"　";
         /// <summary> Double! Tab: (Unicode) U+3000 | (HTML) And#12288; | (Description) Ideographic Space </summary>
-        public static string tab_double => @"　　";
+        public static string tabtab => tab + tab;
 
         #endregion 
 
