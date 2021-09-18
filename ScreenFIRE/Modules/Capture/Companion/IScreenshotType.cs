@@ -13,7 +13,7 @@
         AllMonitors,
         MonitorAtPointer,
         WindowAtPointer,
-        ActiveWindow //,
-        //Custom
+        ActiveWindow,
+        /*Custom*///? Already being treated in Screenshot.cs
     }
 }
