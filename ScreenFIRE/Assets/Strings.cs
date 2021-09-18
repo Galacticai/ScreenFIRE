@@ -1,4 +1,5 @@
 ﻿using ScreenFIRE.Modules.Companion;
+using System.Threading.Tasks;
 
 namespace ScreenFIRE.Assets {
 
@@ -21,15 +22,15 @@ namespace ScreenFIRE.Assets {
         /// <summary> Fetch a specific string </summary>
         /// <param name="Name"> String name provided by <see cref="IStrings"/> </param>
         /// <returns> Localized string according to requested language / or system language if not specified </returns>
-        public static string Fetch(IStrings Name) {
+        public static async Task<string> Fetch(IStrings Name) {
             ILanguages language = Languages.DotNetToILanguages();
             return language switch { //! System language
-                ILanguages.English => En(Name),
+                //ILanguages.English => En(Name),
                 ILanguages.Arabic => Ar(Name),
                 //ILanguages.Chinese => Zh(name),
 
                 //! English / Other
-                _ => Languages.Translate(En(Name), language),
+                _ => await Languages.TranslateText(En(Name), ILanguages.Arabic)// language)
             };
         }
 
