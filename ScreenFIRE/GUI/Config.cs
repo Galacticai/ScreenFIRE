@@ -1,7 +1,6 @@
 using Gtk;
 using ScreenFIRE.Modules.Capture;
 using ScreenFIRE.Modules.Capture.Companion;
-using ScreenFIRE.Modules.Companion;
 using ScreenFIRE.Modules.Save;
 using System;
 using UI = Gtk.Builder.ObjectAttribute;
@@ -29,10 +28,10 @@ namespace ScreenFIRE.GUI {
                 => Application.Quit();
 
         private int _counter;
-        private void ss_Button_Clicked(object sender, EventArgs ev) {
+        private async void ss_Button_Clicked(object sender, EventArgs ev) {
             Screenshot ss = new(IScreenshotType.AllMonitors);
 
-            Save.Local(ss, this);
+            await Save.Local(ss, this);
 
             _label1.Text = $"Fired a Screenshot!\n\nThis button has been clicked {(1 + (_counter++))} time{(_counter > 1 ? "s" : "")}.";
         }

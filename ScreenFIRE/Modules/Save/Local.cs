@@ -4,6 +4,7 @@ using ScreenFIRE.Modules.Capture;
 using ScreenFIRE.Modules.Capture.Companion;
 using ScreenFIRE.Modules.Companion;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace ScreenFIRE.Modules.Save {
 
@@ -11,9 +12,9 @@ namespace ScreenFIRE.Modules.Save {
     partial class Save {
 
         /// <summary> ••• GUI ••• Save a <see cref="Screenshot"/> locally </summary>
-        public static bool Local(Screenshot screenshot, Window parentWindow) {
+        public static async Task<bool> Local(Screenshot screenshot, Window parentWindow) {
 
-            FileChooserDialog save = new(Strings.Fetch(IStrings.SaveAs), null, FileChooserAction.Save);
+            FileChooserDialog save = new(await Strings.Fetch(IStrings.SaveAs), null, FileChooserAction.Save);
             save.AddButton(Stock.Cancel, ResponseType.Cancel);
             save.AddButton(Stock.Save, ResponseType.Ok);
             save.DefaultResponse = ResponseType.Ok;
@@ -37,7 +38,7 @@ namespace ScreenFIRE.Modules.Save {
                     warn.Resizable = false;
                     warn.DefaultResponse = ResponseType.No;
 
-                    if (!Local(screenshot, save.Filename, warnDialog: warn))
+                    if (!await Local(screenshot, save.Filename, warnDialog: warn))
                         save.Destroy();
                 }
             } else {
@@ -50,14 +51,15 @@ namespace ScreenFIRE.Modules.Save {
 
 
         /// <summary> ••• AUTO ••• Save a <see cref="Screenshot"/> locally </summary>
-        public static void Local_Auto(Screenshot screenshot, ISaveFormat saveFormat = ISaveFormat.png) {
-            //! Local(screenshot, ("", "")); //! PLACEHOLDER
+        public static async Task<bool> Local_Auto(Screenshot screenshot, ISaveFormat saveFormat = ISaveFormat.png) {
+            //! Local(screenshot, ); //! PLACEHOLDER
+            return false;
         }
 
 
         /// <summary> ••• Specific ••• Save a <see cref="Screenshot"/> locally </summary>
         /// <returns> false if cancelled of failed to save</returns>
-        public static bool Local(Screenshot screenshot,
+        public static async Task<bool> Local(Screenshot screenshot,
                                  string path,
                                  bool replaceExisting = false,
                                  ISaveFormat saveFormat = ISaveFormat.png,
