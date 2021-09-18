@@ -1,93 +1,98 @@
-﻿using GLib;
+﻿using Gtk;
+using ScreenFIRE.Assets;
 using ScreenFIRE.Modules.Capture;
 using ScreenFIRE.Modules.Capture.Companion;
 using ScreenFIRE.Modules.Companion;
-using ScreenFIRE.Modules.Companion.math;
 using System.IO;
-using gtk = Gtk;
 
 namespace ScreenFIRE.Modules.Save {
 
+
     partial class Save {
 
-        private static Gdk.Pixbuf img(Gdk.Rectangle rect) => Vision.Screenshot(rect);
+        /// <summary> ••• GUI ••• Save a <see cref="Screenshot"/> locally </summary>
+        public static bool Local(Screenshot screenshot, Window parentWindow) {
 
-
-        /// <summary> ••• GUI ••• <br/>
-        /// Save a <see cref="Screenshot"/> locally </summary>
-        public static void Local(Screenshot screenshot, ISaveFormat saveFormat = ISaveFormat.png) {
-
-
-            gtk.FileChooserDialog save = new("Save As", null, gtk.FileChooserAction.Save);
-            save.AddButton(gtk.Stock.Cancel, gtk.ResponseType.Cancel);
-            save.AddButton(gtk.Stock.Save, gtk.ResponseType.Ok);
-            save.DefaultResponse = gtk.ResponseType.Ok;
+            FileChooserDialog save = new(Strings.Fetch(IStrings.SaveAs), null, FileChooserAction.Save);
+            save.AddButton(Stock.Cancel, ResponseType.Cancel);
+            save.AddButton(Stock.Save, ResponseType.Ok);
+            save.DefaultResponse = ResponseType.Ok;
             save.SelectMultiple = false;
             save.SetCurrentFolder(Common.SF);
 
-            gtk.ResponseType response = (gtk.ResponseType)save.Run();
+            ResponseType response = (ResponseType)save.Run();
 
 
-            bool replacing = false;
-            if (response == gtk.ResponseType.Ok
-               & Directory.Exists(save.CurrentFolder)
-               & ss != null) {
+            if (response == ResponseType.Ok
+               & Directory.Exists(save.CurrentFolder)) {
                 if (save.File.Exists) {
 
-                    gtk.MessageDialog warn = new(null, gtk.DialogFlags.DestroyWithParent, gtk.MessageType.Warning, gtk.ButtonsType.YesNo, "File already exists.");
-                    warn.Resize(100, 200);
+                    MessageDialog warn
+                        = new(parentWindow, DialogFlags.DestroyWithParent,
+                              MessageType.Warning, ButtonsType.YesNo,
+                              Strings.Fetch(IStrings.FileAlreadyExists)
+                              + Common.nn
+                              + Strings.Fetch(IStrings.DoYouWantToReplaceTheExistingFile));
+                    warn.Resize(100, 250);
                     warn.Resizable = false;
-                    warn.DefaultResponse = gtk.ResponseType.No;
-                    //warn.AddButton(gtk.Stock.Cancel, gtk.ResponseType.Cancel);
-                    //warn.AddButton(gtk.Stock.No, gtk.ResponseType.No);
-                    //warn.AddButton(gtk.Stock.Yes, gtk.ResponseType.Yes); 
+                    warn.DefaultResponse = ResponseType.No;
 
-                    //? not working
-                    warn.Add(new gtk.Label(save.Filename + $"already exists.{Common.n}Do you want to replace the existing file?"));
-
-                    gtk.ResponseType warnResponse = (gtk.ResponseType)warn.Run();
-                    if (warnResponse == gtk.ResponseType.No) { // Don't replace   
-                        replacing = true;
-                        warn.Destroy();
-                    } else if (warnResponse == gtk.ResponseType.Cancel) {
-                        warn.Destroy();
+                    if (!Local(screenshot, save.Filename, warnDialog: warn))
                         save.Destroy();
-                        return;
-                    } // Cancel
                 }
-
+            } else {
+                save.Destroy();
+                return false;
             }
             save.Destroy();
+            return true;
         }
 
-        /// <summary> ••• Specific ••• <br/>
-        /// Save a <see cref="Screenshot"/> locally </summary>
-        public static void Local(Screenshot screenshot, IFile file, ISaveFormat saveFormat = ISaveFormat.png) {
 
-            file.MakeDirectory(new()); //! NOT DONE
-
-
-            Gdk.Pixbuf ss = Vision.Screenshot(screenshot.ImageRectangle);
-
-            ss.Save(
-                        //! Folder + File - extension
-                        Path.Combine(
-                            file.Parent.ParsedName,
-                            Path.GetFileNameWithoutExtension(file.Basename) ?? "ScreenFIRE")
-
-                        //! _yyMMdd-HHmmff
-                        + (replacing ? ($"_{screenshot.Time:yyMMdd-HHmmff}") : string.Empty)
-
-                        //! .extension
-                        + $".{saveFormat}",
-
-                        $"{saveFormat}");
-        }
-
-        /// <summary> ••• AUTO ••• <br/>
-        /// Save a <see cref="Screenshot"/> locally </summary>
+        /// <summary> ••• AUTO ••• Save a <see cref="Screenshot"/> locally </summary>
         public static void Local_Auto(Screenshot screenshot, ISaveFormat saveFormat = ISaveFormat.png) {
             //! Local(screenshot, ("", "")); //! PLACEHOLDER
+        }
+
+
+        /// <summary> ••• Specific ••• Save a <see cref="Screenshot"/> locally </summary>
+        /// <returns> false if cancelled of failed to save</returns>
+        public static bool Local(Screenshot screenshot,
+                                 string path,
+                                 bool replaceExisting = false,
+                                 ISaveFormat saveFormat = ISaveFormat.png,
+                                 MessageDialog warnDialog = null) {
+
+
+            bool replacing = File.Exists(path);
+            if (warnDialog != null) {
+                ResponseType warnResponse = (ResponseType)warnDialog.Run();
+                if (warnResponse == ResponseType.No) { // Don't replace   
+                    replacing = true;
+                    warnDialog.Destroy();
+                } else if (warnResponse == ResponseType.Cancel) {
+                    warnDialog.Destroy();
+                    return false; //Cancel signal
+                } // Cancel
+            } else {
+
+            }
+
+            screenshot.Image.Save(
+                        //! Folder + File - extension
+                        Path.Combine(
+                            Path.GetDirectoryName(path),
+                            Path.GetFileNameWithoutExtension(path) ?? "ScreenFIRE")
+
+                        //! + _yyMMdd-HHmmff
+                        + (replacing & replaceExisting ? ($"_{screenshot.Time:yyMMdd-HHmmff}") : string.Empty)
+
+                        //! + .extension
+                        + $".{saveFormat}",
+                        //
+                        $"{saveFormat}");
+
+            return true; // Save successful
         }
     }
 }
