@@ -53,7 +53,7 @@ namespace ScreenFIRE.Assets {
 
             //? Do not remove the following:
 
-            //!? string joint = "#!#";//! Where strings will be joined/split
+            //!? string joint = "\u21da\u21db"; //! ⇚⇛ Where strings will be joined/split
             //!? 
             //!? string joined = string.Join(joint, result);
             //!? 
@@ -73,7 +73,7 @@ namespace ScreenFIRE.Assets {
         public static string Fetch(IStrings Name, bool translate = true) {
             ILanguages language = Languages.DotNetToILanguages();
             return language switch { //! System language
-                //ILanguages.English => En(Name),
+                //ILanguages.English => En(Name), 
                 ILanguages.Arabic => Ar(Name),
                 //ILanguages.Chinese => Zh(name),
 
