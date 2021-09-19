@@ -70,15 +70,15 @@ namespace ScreenFIRE.Assets {
         /// <summary> Fetch a specific string </summary>
         /// <param name="Name"> String name provided by <see cref="IStrings"/> </param>
         /// <returns> Localized <see cref="string"/> according to system language </returns>
-        public static async Task<string> Fetch(IStrings Name, bool translate = true) {
-            ILanguages language = Languages.DotNetToILanguages();
-            return language switch { //! System language
+        public static async Task<string> Fetch(IStrings Name, bool translate = true, ILanguages? language = null) {
+
+            return (language ??= Languages.DotNetToILanguages()) switch { //! System language
                 //ILanguages.English => En(Name), 
                 ILanguages.Arabic => Ar(Name),
                 //ILanguages.Chinese => Zh(name),
 
                 //! English / Other
-                _ => translate ? En(Name)/*await Languages.TranslateText(En(Name), language)*/ : En(Name),
+                _ => En(Name) //translate ? await Languages.TranslateText(En(Name), language) : En(Name),
             };
         }
 
