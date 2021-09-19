@@ -31,8 +31,8 @@ namespace ScreenFIRE.Assets {
 
     public record Strings {
 
-        public static string FetchAndJoin(params IStrings[] Names) {
-            return string.Join(" ", Fetch(Names));
+        public static async Task<string> FetchAndJoin(params IStrings[] Names) {
+            return string.Join(" ", await Fetch(Names));
         }
 
         /// <summary> Fetch a set of strings </summary>
@@ -41,7 +41,7 @@ namespace ScreenFIRE.Assets {
         public static async Task<string[]> Fetch(params IStrings[] Names) {
             List<string> result = new();
             foreach (var name in Names)
-                result.Add(Fetch(name,
+                result.Add(await Fetch(name,
                                   false)); //! skip translation when fetching multiple strings 
 
 
@@ -70,7 +70,7 @@ namespace ScreenFIRE.Assets {
         /// <summary> Fetch a specific string </summary>
         /// <param name="Name"> String name provided by <see cref="IStrings"/> </param>
         /// <returns> Localized <see cref="string"/> according to system language </returns>
-        public static string Fetch(IStrings Name, bool translate = true) {
+        public static async Task<string> Fetch(IStrings Name, bool translate = true) {
             ILanguages language = Languages.DotNetToILanguages();
             return language switch { //! System language
                 //ILanguages.English => En(Name), 
