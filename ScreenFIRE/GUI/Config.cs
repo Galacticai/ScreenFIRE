@@ -24,15 +24,15 @@ namespace ScreenFIRE.GUI {
         private static async Task<string> txt(int index) {
             return (txt_privatenameusedonlybythisfunction_238157203985ty9486t4
                    ??= (await Strings.Fetch(IStrings.FiredAScreenshot_,//0
-                            IStrings.ThisButtonHasBeenClicked,//1
-                            IStrings.times_1,//2
-                            IStrings.times_2,//3
-                            IStrings.SomethingWentWrong___,//4
-                            IStrings.ChooseHowYouWouldLikeToFireYourScreenshot_,//5
-                            IStrings.AllMonitors,//6
-                            IStrings.MonitorAtPointer,//7
-                            IStrings.WindowAtPointer,//8
-                            IStrings.ActiveWindow))//9
+                                            IStrings.ThisButtonHasBeenClicked,//1
+                                            IStrings.times_1,//2
+                                            IStrings.times_2,//3
+                                            IStrings.SomethingWentWrong___,//4
+                                            IStrings.ChooseHowYouWouldLikeToFireYourScreenshot_,//5
+                                            IStrings.AllMonitors,//6
+                                            IStrings.MonitorAtPointer,//7
+                                            IStrings.WindowAtPointer,//8
+                                            IStrings.ActiveWindow))//9
                         )[index];
         }
         private void AssignEvents() {
