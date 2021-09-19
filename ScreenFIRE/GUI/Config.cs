@@ -7,6 +7,7 @@ using ScreenFIRE.Modules.Companion;
 using ScreenFIRE.Modules.Companion.math;
 using ScreenFIRE.Modules.Save;
 using System;
+using System.Threading.Tasks;
 using UI = Gtk.Builder.ObjectAttribute;
 
 namespace ScreenFIRE.GUI {
@@ -19,17 +20,21 @@ namespace ScreenFIRE.GUI {
         [UI] private readonly Button SF_Button_WindowAtPointer = null;
         [UI] private readonly Button SF_Button_ActiveWindow = null;
 
-        private static readonly string[] txt
-            = Strings.Fetch(IStrings.FiredAScreenshot_,
-                            IStrings.ThisButtonHasBeenClicked,
-                            IStrings.times_1,
-                            IStrings.times_2,
-                            IStrings.SomethingWentWrong___,
-                            IStrings.ChooseHowYouWouldLikeToFireYourScreenshot_,
-                            IStrings.AllMonitors,
-                            IStrings.MonitorAtPointer,
-                            IStrings.WindowAtPointer,
-                            IStrings.ActiveWindow);
+        private static string[] txt_privatenameusedonlybythisfunction_238157203985ty9486t4 = null;
+        private static async Task<string> txt(int index) {
+            return (txt_privatenameusedonlybythisfunction_238157203985ty9486t4
+                   ??= (await Strings.Fetch(IStrings.FiredAScreenshot_,//0
+                            IStrings.ThisButtonHasBeenClicked,//1
+                            IStrings.times_1,//2
+                            IStrings.times_2,//3
+                            IStrings.SomethingWentWrong___,//4
+                            IStrings.ChooseHowYouWouldLikeToFireYourScreenshot_,//5
+                            IStrings.AllMonitors,//6
+                            IStrings.MonitorAtPointer,//7
+                            IStrings.WindowAtPointer,//8
+                            IStrings.ActiveWindow))//9
+                        )[index];
+        }
         private void AssignEvents() {
             DeleteEvent += Window_DeleteEvent;
             SF_Button_AllMonitors.Clicked += SF_Button_AllMonitors_Clicked;
@@ -48,11 +53,11 @@ namespace ScreenFIRE.GUI {
                 = new Gdk.Pixbuf(Vision.BitmapToByteArray(SF.Logo))
                             .ScaleSimple(360, 360, Gdk.InterpType.Bilinear);
             LogoImage.SetSizeRequest(360, 360);
-            _label1.Text = txt[5];
-            SF_Button_AllMonitors.Label = txt[6];
-            SF_Button_MonitorAtPointer.Label = txt[7];
-            SF_Button_WindowAtPointer.Label = txt[8];
-            SF_Button_ActiveWindow.Label = txt[9];
+            _label1.Text = txt(5).Result;
+            SF_Button_AllMonitors.Label = txt(6).Result;
+            SF_Button_MonitorAtPointer.Label = txt(7).Result;
+            SF_Button_WindowAtPointer.Label = txt(8).Result;
+            SF_Button_ActiveWindow.Label = txt(9).Result;
         }
 
         private void Window_DeleteEvent(object sender, DeleteEventArgs ev)
@@ -60,9 +65,9 @@ namespace ScreenFIRE.GUI {
 
 
         private int _counter;
-        private void UpdateLabel() {
-            _label1.Text = txt[0] + Common.nn
-                         + txt[1] + (1 + (_counter++)) + (_counter > 1 ? txt[3] : txt[2]);
+        private async void UpdateLabel() {
+            _label1.Text = await txt(0) + Common.nn
+                         + await txt(1) + (1 + (_counter++)) + (_counter > 1 ? await txt(3) : await txt(2));
         }
         private void SF_Button_AllMonitors_Clicked(object sender, EventArgs ev) {
             Capture(IScreenshotType.AllMonitors);
@@ -76,18 +81,21 @@ namespace ScreenFIRE.GUI {
         private void SF_Button_ActiveWindow_Clicked(object sender, EventArgs ev) {
             Capture(IScreenshotType.ActiveWindow);
         }
-        private void Capture(IScreenshotType screenshotType) {
+        private async void Capture(IScreenshotType screenshotType) {
             //Timer timer = new(timerCallback);
             //timer.Change(2000, Timeout.Infinite);
             //void timerCallback(object state) {
             Screenshot ss = new(screenshotType);
-            if (!Save.Local(ss, this))
-                new MessageDialog(this,
-                                  DialogFlags.Modal,
-                                  MessageType.Warning,
-                                  ButtonsType.Ok,
-                                  txt[9])
-                    .Run();
+            if (!await Save.Local(ss, this)) {
+                MessageDialog failDialog = new(this,
+                                               DialogFlags.Modal,
+                                               MessageType.Warning,
+                                               ButtonsType.Ok,
+                                               await txt(4));
+                failDialog.Run();
+                failDialog.Destroy();
+            }
+
             UpdateLabel();
             //}
 
