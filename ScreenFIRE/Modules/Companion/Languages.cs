@@ -92,7 +92,8 @@ namespace ScreenFIRE.Modules.Companion {
         //    return translationResult.TranslatedText;
         //}
 
-        public static async Task<string> TranslateText(string input, ILanguages toLanguage) {
+        public static async Task<string> TranslateText(string input, ILanguages? toLanguage) {
+            toLanguage ??= DotNetToILanguages();
             return string.Empty; //! PLACEHOLDER
 
             string url = string.Format("https://translate.google.com/?text={0}&tl={1}",
@@ -115,6 +116,9 @@ namespace ScreenFIRE.Modules.Companion {
         /// <returns> ScreenFIRE <see cref="ILanguages"/> corresponding to the provided <paramref name="language"/></returns>
         public static ILanguages DotNetToILanguages(string language = null)
             => (language ?? TwoLetterISOLanguageName) switch {
+                //!
+                //! Commented = not supported by Google Translate API
+                //! 
                 //// "iv" => ILanguages.InvariantLanguage_InvariantCountry,
                 "af" => ILanguages.Afrikaans,
                 "am" => ILanguages.Amharic,
@@ -243,8 +247,8 @@ namespace ScreenFIRE.Modules.Companion {
         /// <summary> Convert <see cref="ILanguages"/> to <see cref="string"/> readable by Google Translate API </summary>
         /// <param name="language"> Language to convert </param>
         /// <returns> Google Translate language code <see cref="string"/> corresponding to the provided <paramref name="language"/></returns>
-        public static string ILanguagesToGoogleLanguageCodes(ILanguages language)
-            => language switch {
+        public static string ILanguagesToGoogleLanguageCodes(ILanguages? language)
+            => (language ?? DotNetToILanguages()) switch {
                 ILanguages.Afrikaans => "af",
                 ILanguages.Amharic => "am",
                 ILanguages.Arabic => "ar",
