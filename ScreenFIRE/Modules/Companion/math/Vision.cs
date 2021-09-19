@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
@@ -9,6 +10,20 @@ namespace ScreenFIRE.Modules.Companion.math {
 
     /// <summary> Visual math </summary>
     internal class Vision {
+
+        /// <param name="byteArr">input to be converted</param>
+        /// <returns></returns>
+        [Obsolete("Just directly use `new gdk.Pixbuf(byteArr);`")]
+        public static gdk.Pixbuf ByteArrayToPixbuf(byte[] byteArr) {
+            return new gdk.Pixbuf(byteArr);
+        }
+
+        /// <param name="bitmap"> <see cref="Bitmap"/> input to be converted </param>
+        /// <returns> <see cref="Bitmap"/> as <see cref="byte"/>[] </returns>
+        public static byte[] BitmapToByteArray(Bitmap bitmap) {
+            return (byte[])new ImageConverter().ConvertTo(bitmap, typeof(byte[]));
+        }
+
         /// <summary>  Blends the specified colors together. </summary>
         /// <param name="foreColor">Color to blend onto the background color.</param>
         /// <param name="backColor">Color to blend the other color onto.</param>
@@ -17,15 +32,16 @@ namespace ScreenFIRE.Modules.Companion.math {
         /// <item>-1 to use Alpha of <paramref name="foreColor"/> </item>
         /// </list> </param>
         /// <returns>The blended color.</returns>
-        public static Color BlendColors(Color foreColor, Color backColor, float amount = -1) {
+        public static gdk.Color BlendColors(gdk.RGBA foreColor, gdk.Color backColor, double amount = -1) {
             //if amount not set, Use  foreColor.A  [ 0 >=> 1 ]
             if (amount == -1)
-                amount = foreColor.A / 255; // convert alpha 0<=<255 to 0<=<1
+                amount = foreColor.Alpha / 255; // convert alpha 0<=<255 to 0<=<1
+            mathMisc.ForcedInRange(amount, 0, 255); //failsafe
 
-            byte R = (byte)((foreColor.R * amount) + backColor.R * (1 - amount)),
-                 G = (byte)((foreColor.G * amount) + backColor.G * (1 - amount)),
-                 B = (byte)((foreColor.B * amount) + backColor.B * (1 - amount));
-            return Color.FromArgb(R, G, B);
+            byte R = (byte)((foreColor.Red * amount) + backColor.Red * (1 - amount)),
+                 G = (byte)((foreColor.Green * amount) + backColor.Green * (1 - amount)),
+                 B = (byte)((foreColor.Blue * amount) + backColor.Blue * (1 - amount));
+            return new gdk.Color(R, G, B);
         }
 
         /// <returns>true if brightness matrix hashes are of the images are equal</returns>
@@ -95,7 +111,7 @@ namespace ScreenFIRE.Modules.Companion.math {
 
             /// <summary> Find the bounding rectangle of several rectangles </summary> 
             /// <param name="rectangles">Rectangles to process</param>
-            /// <returns><see cref="Gdk.Rectangle"/> which contains all <paramref name="rectangles"/>[]</returns>
+            /// <returns><see cref="gdk.Rectangle"/> which contains all <paramref name="rectangles"/>[]</returns>
             public static gdk.Rectangle BoundingRectangle(gdk.Rectangle[] rectangles) {
                 int xMin = rectangles.Min(s => s.X),
                     yMin = rectangles.Min(s => s.Y),
