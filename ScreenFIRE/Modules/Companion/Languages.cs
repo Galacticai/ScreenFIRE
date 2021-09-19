@@ -14,7 +14,6 @@ namespace ScreenFIRE.Modules.Companion {
     /// </list>
     /// </summary>
     public enum ILanguages {
-        System,
 
         Arabic, Afrikaans, Amharic, Azerbaijani, Armenian, Albanian,
 
@@ -67,7 +66,7 @@ namespace ScreenFIRE.Modules.Companion {
 
         Zulu,
 
-        Other,
+        Other, //! Will default to English
     }
 
     public class Languages {
@@ -94,12 +93,14 @@ namespace ScreenFIRE.Modules.Companion {
         //}
 
         public static async Task<string> TranslateText(string input, ILanguages toLanguage) {
+            return string.Empty; //! PLACEHOLDER
+
             string url = string.Format("https://translate.google.com/?text={0}&tl={1}",
                                         input, ILanguagesToGoogleLanguageCodes(toLanguage));
             string result = await new HttpClient().GetStringAsync(url);
             result = result[(result.IndexOf("<span title=\"") + "<span title=\"".Length)..];
             result = result[(result.IndexOf(">") + 1)..];
-            result = result[0..result.IndexOf("</span>")];
+            result = result[..result.IndexOf("</span>")];
             result = result.Trim();
             return result;
         }
