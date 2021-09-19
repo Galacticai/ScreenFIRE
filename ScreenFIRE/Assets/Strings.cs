@@ -6,11 +6,15 @@ namespace ScreenFIRE.Assets {
     public enum IStrings {
         ScreenFIRE,
 
-        ChooseHowYouWouldLikeToFireYourScreen_,
+        OK, Yes, No, Cancel,
+
+        ChooseHowYouWouldLikeToFireYourScreenshot_,
         FiredAScreenshot_,
         ThisButtonHasBeenClicked,
         times_1,
         times_2,
+
+        SomethingWentWrong___,
 
         AllMonitors,
         MonitorAtPointer,
@@ -63,11 +67,18 @@ namespace ScreenFIRE.Assets {
           => Name switch {
               IStrings.ScreenFIRE => "ScreenFIRE",
 
-              IStrings.ChooseHowYouWouldLikeToFireYourScreen_ => "Choose how you would like to to fire your screen!",
+              IStrings.OK => "OK",
+              IStrings.Yes => "Yes",
+              IStrings.No => "No",
+              IStrings.Cancel => "Cancel",
+
+              IStrings.ChooseHowYouWouldLikeToFireYourScreenshot_ => "Choose how you would like to to fire your screenshot!",
               IStrings.FiredAScreenshot_ => "Fired a screenshot!",
               IStrings.ThisButtonHasBeenClicked => "This button has been clicked",
               IStrings.times_1 => "time",
               IStrings.times_2 => "times",
+
+              IStrings.SomethingWentWrong___ => "Something went wrong...",
 
               IStrings.AllMonitors => "All monitors",
               IStrings.MonitorAtPointer => "Monitor at pointer",
@@ -88,11 +99,18 @@ namespace ScreenFIRE.Assets {
           => Name switch {
               IStrings.ScreenFIRE => "حريق الشاشة ScreenFIRE",
 
-              IStrings.ChooseHowYouWouldLikeToFireYourScreen_ => "اختر كيف تود الطلق على شاشتك!",
+              IStrings.OK => "حسناً",
+              IStrings.Yes => "نعم",
+              IStrings.No => "لا",
+              IStrings.Cancel => "إلغاء",
+
+              IStrings.ChooseHowYouWouldLikeToFireYourScreenshot_ => "اختر كيف تود طلق صورة شاشتك!",
               IStrings.FiredAScreenshot_ => "تم اطلاق صورة الشاشة!",
               IStrings.ThisButtonHasBeenClicked => "هذا الزر قد ضغط",
               IStrings.times_1 => "مرة",
               IStrings.times_2 => "مرات",
+
+              IStrings.SomethingWentWrong___ => "حدث خطأ ما...",
 
               IStrings.AllMonitors => "جميع الشاشات",
               IStrings.MonitorAtPointer => "الشاشة عند المؤشر",
