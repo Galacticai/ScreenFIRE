@@ -38,14 +38,24 @@
 	
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" /> 
 	
+    <PackageReference Include="System.Resources.Extensions" Version="5.0.0" /> 
     <PackageReference Include="System.Drawing.Common" Version="5.0.2" />
-    <PackageReference Include="System.Drawing.Primitives" Version="4.3.0" /> 
+    <PackageReference Include="System.Drawing.Primitives" Version="4.3.0" />
   </ItemGroup>
   
   <ItemGroup> 
     <None Remove="Modules\Capture\Companion\ImageMetrics.cs.disable" /> 
     <None Remove="Modules\Companion\strings.json" /> 
     <None Include="Assets\Strings.cs" /> 
+    <Compile Update="Assets\Embedded\SF.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>SF.resx</DependentUpon>
+    </Compile> 
+    <EmbeddedResource Update="Assets\Embedded\SF.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>SF.Designer.cs</LastGenOutput>
+    </EmbeddedResource> 
 	  
     <None Update="Assets\images\Logo\ScreenFIRE-x128.png">
       <Pack>True</Pack>
