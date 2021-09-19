@@ -1,5 +1,6 @@
 ﻿using ScreenFIRE.Modules.Companion;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace ScreenFIRE.Assets {
 
@@ -37,12 +38,33 @@ namespace ScreenFIRE.Assets {
         /// <summary> Fetch a set of strings </summary>
         /// <param name="Name"> String names provided by <see cref="IStrings"/> </param>
         /// <returns> Localized <see cref="string"/>[] array according to system language </returns>
-        public static string[] Fetch(params IStrings[] Names) {
+        public static async Task<string[]> Fetch(params IStrings[] Names) {
             List<string> result = new();
             foreach (var name in Names)
                 result.Add(Fetch(name,
-                                  false)); //! skip translation when fetching multiple strings
-            return result.ToArray();/*await Languages.TranslateText(result, language)*/ //! translate all at once
+                                  false)); //! skip translation when fetching multiple strings 
+
+
+            //! >> Translation is currently disabled || `Languages.TranslateText` is broken 
+
+
+            //? Remove this if enabling translation:
+            return result.ToArray();
+
+            //? Do not remove the following:
+
+            //!? string joint = "#!#";//! Where strings will be joined/split
+            //!? 
+            //!? string joined = string.Join(joint, result);
+            //!? 
+            //!? string joined_Translated
+            //!?     = await Languages.TranslateText(joined,
+            //!?                                     Languages.DotNetToILanguages(
+            //!?                                         Languages.TwoLetterISOLanguageName)); //! translate all at once
+            //!? 
+            //!? string[] result_Translated = joined_Translated.Split(joint);
+            //!? 
+            //!? return result_Translated;
         }
 
         /// <summary> Fetch a specific string </summary>
