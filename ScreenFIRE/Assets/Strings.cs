@@ -21,6 +21,7 @@ namespace ScreenFIRE.Assets {
         MonitorAtPointer,
         WindowAtPointer,
         ActiveWindow,
+        FreeAreaSelection,
 
         SaveAs___,
         FileAlreadyExists_,
@@ -42,7 +43,7 @@ namespace ScreenFIRE.Assets {
             List<string> result = new();
             foreach (var name in Names)
                 result.Add(await Fetch(name,
-                                  false)); //! skip translation when fetching multiple strings 
+                                       false)); //! skip translation when fetching multiple strings 
 
 
             //! >> Translation is currently disabled || `Languages.TranslateText` is broken 
@@ -106,6 +107,7 @@ namespace ScreenFIRE.Assets {
               IStrings.MonitorAtPointer => "Monitor at pointer",
               IStrings.WindowAtPointer => "Window at pointer",
               IStrings.ActiveWindow => "Active window",
+              IStrings.FreeAreaSelection => "Free area selection",
 
               IStrings.SaveAs___ => "Save as...",
               IStrings.FileAlreadyExists_ => "File already exists.",
@@ -138,6 +140,7 @@ namespace ScreenFIRE.Assets {
               IStrings.MonitorAtPointer => "الشاشة عند المؤشر",
               IStrings.WindowAtPointer => "النافذة عند المؤشر",
               IStrings.ActiveWindow => "النافذة الفعالة",
+              IStrings.FreeAreaSelection => "تحديد مساحة حرة",
 
               IStrings.SaveAs___ => "حفظ باسم...",
               IStrings.FileAlreadyExists_ => "الملف موجود مسبقاً.",
