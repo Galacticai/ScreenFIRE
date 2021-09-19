@@ -4,23 +4,30 @@ using ScreenFIRE.Modules.Capture;
 using ScreenFIRE.Modules.Capture.Companion;
 using ScreenFIRE.Modules.Companion;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace ScreenFIRE.Modules.Save {
 
 
     partial class Save {
 
-        private static string[] s
-                = Strings.Fetch(IStrings.SaveAs___, //0
-                                IStrings.Yes, //1
-                                IStrings.No, //2
-                                IStrings.Cancel,//3
-                                IStrings.FileAlreadyExists_,//4
-                                IStrings.WouldYouLikeToReplaceTheExistingFile_//5
-                                );
+        private static string[] txt_privatenameusedonlybythisfunction_028357023857203109841234 = null;
+        private static async Task<string> txt(int index) {
+            return (txt_privatenameusedonlybythisfunction_028357023857203109841234
+                   //! Set while fetching
+                   ??= await Strings.Fetch(IStrings.SaveAs___, /*0*/
+                                            IStrings.OK, /*1*/
+                                            IStrings.Yes, /*2*/
+                                            IStrings.No, /*3*/
+                                            IStrings.Cancel, /*4*/
+                                            IStrings.FileAlreadyExists_, /*5*/
+                                            IStrings.WouldYouLikeToReplaceTheExistingFile_ /*6*/
+                                            )
+                        )[index];
+        }
 
         /// <summary> ••• GUI ••• Save a <see cref="Screenshot"/> locally </summary>
-        public static bool Local(Screenshot screenshot, Window parentWindow) {
+        public static async Task<bool> Local(Screenshot screenshot, Window parentWindow) {
 
             //! Parameters to be passed
             //Screenshot screenshot;
@@ -31,7 +38,7 @@ namespace ScreenFIRE.Modules.Save {
 
             //! Let the user choose a path to the file
             FileChooserDialog choose
-                    = new(s[0],
+                    = new(await txt(0),
                           parentWindow,
                           FileChooserAction.Save);
             choose.SelectMultiple = false;
@@ -54,7 +61,7 @@ namespace ScreenFIRE.Modules.Save {
                                   DialogFlags.DestroyWithParent,
                                   MessageType.Question,
                                   ButtonsType.YesNo,
-                                  s[4] + Common.nn + s[5]);
+                                  await txt(5) + Common.nn + await txt(6));
                     ResponseType fileExistsResponse = (ResponseType)fileExistsDialog.Run();
                     //! User chose to replace the file
                     if (fileExistsResponse == ResponseType.Yes)
