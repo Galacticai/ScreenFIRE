@@ -48,7 +48,7 @@ namespace ScreenFIRE.GUI
             SF_Button_MonitorAtPointer.Clicked += SF_Button_MonitorAtPointer_Clicked;
             SF_Button_WindowAtPointer.Clicked += SF_Button_WindowAtPointer_Clicked;
             SF_Button_ActiveWindow.Clicked += SF_Button_ActiveWindow_Clicked;
-            SF_Button_ActiveWindow.Clicked += SF_Button_ActiveWindow_Clicked;
+            // SF_Button_ActiveWindow.Clicked += SF_Button_ActiveWindow_Clicked;
             SF_Button_Custom.Clicked += SF_Button_Custom_Clicked;
         }
 
@@ -103,7 +103,8 @@ namespace ScreenFIRE.GUI
             Thread.Sleep(1000);
 
             Screenshot ss = new(screenshotType);
-            if (!await Save.Local(ss, this)) {
+            if (!await Save.Local(ss, this))
+            {
                 MessageDialog failDialog = new(this,
                                                DialogFlags.Modal,
                                                MessageType.Warning,
@@ -111,9 +112,11 @@ namespace ScreenFIRE.GUI
                                                await txt(4));
                 failDialog.Run();
                 failDialog.Destroy();
-            } else {
-            _label1.Text = await txt(0) + Common.nn
-                         + await txt(1) + " " + (1 + _counter++) + " " + (_counter > 1 ? await txt(3) : await txt(2));
+            }
+            else
+            {
+                _label1.Text = await txt(0) + Common.nn
+                             + await txt(1) + " " + (1 + _counter++) + " " + (_counter > 1 ? await txt(3) : await txt(2));
             }
 
             AcceptFocus = true;
