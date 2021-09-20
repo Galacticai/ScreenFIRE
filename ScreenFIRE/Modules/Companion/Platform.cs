@@ -7,14 +7,14 @@ namespace ScreenFIRE.Modules.Companion {
     public static class Platform {
 
         //!? TESTS 
-        //! >> " ID=" is common between all
-        //! >> "VERSION_ID" is common (except Arch & old CentOS 6/5)
+        //! >> $ID is common (All)
+        //! >> $VERSION_ID is common (Except Arch || CentOS 6~5)
 
-        //! >> can be used
+        //! >> Can be used
         //! $ . /etc/*-release && echo $name
         //? (output: value of name)
 
-        //!? ==== Tests on Ubuntu 20.04 ===================== 
+        //!? Ubuntu 20.04 ===================================
         //! $ cat /etc/*-release
         //  DISTRIB_ID=Ubuntu
         //  DISTRIB_RELEASE=20.04
@@ -43,7 +43,7 @@ namespace ScreenFIRE.Modules.Companion {
         //  VERSION_ID="20.04"
         //!? ================================================
 
-        //!? ==== Tests on Arch v?? ========================= 
+        //!? Arch v?? ======================================= 
         //! $ cat /etc/os-release
         //  NAME="Arch Linux"
         //  ID=arch
@@ -63,7 +63,7 @@ namespace ScreenFIRE.Modules.Companion {
         //? Empty: `/etc/arch-version`
         //!? ================================================
 
-        //!? ==== Tests on Amazon Linux 2016.09 ============= 
+        //!? Amazon Linux 2016.09 =========================== 
         //! $ cat /etc/os-release
         //  NAME="Amazon Linux AMI"
         //  VERSION="2016.09"
