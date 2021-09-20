@@ -1,5 +1,6 @@
 ﻿using Gdk;
 using ScreenFIRE.Modules.Companion.math;
+using ScreenFIRE.Modules.Companion.OS;
 
 namespace ScreenFIRE.Modules.Companion {
 
