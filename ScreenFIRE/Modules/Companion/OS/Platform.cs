@@ -1,7 +1,8 @@
-﻿using System;
+﻿using ScreenFIRE.Modules.Companion.OS.Companion;
+using System;
 using System.Runtime.InteropServices;
 
-namespace ScreenFIRE.Modules.Companion {
+namespace ScreenFIRE.Modules.Companion.OS {
 
     /// <summary> Common class for general ScreenFIRE stuff </summary>
     public static class Platform {
@@ -31,16 +32,7 @@ namespace ScreenFIRE.Modules.Companion {
         //  BUG_REPORT_URL="https://bugs.launchpad.net/ubuntu/"
         //  PRIVACY_POLICY_URL="https://www.ubuntu.com/legal/terms-and-policies/privacy-policy"
         //  VERSION_CODENAME=focal
-        //  UBUNTU_CODENAME = focal
-        //
-        //! $ cat /etc/*-release | grep "DISTRIB_ID="
-        //  DISTRIB_ID=Ubuntu
-        //
-        //! $ cat /etc/*-release | grep "ID_LIKE="
-        //  ID_LIKE=debian
-        //
-        //! $ cat /etc/*-release | grep "VERSION_ID="
-        //  VERSION_ID="20.04"
+        //  UBUNTU_CODENAME = focal 
         //!? ================================================
 
         //!? Arch v?? ======================================= 
@@ -157,11 +149,7 @@ namespace ScreenFIRE.Modules.Companion {
         //  # /etc/SuSE-release is deprecated and will be removed in the future, use /etc/os-release instead
         //!? ================================================
 
-        public record ILinuxVersion_PLACEHOLDER { //! ... PLACEHOLDER
-            //!                            Name        Version(Major, Minor)        // PLATFORM ID
-            public static readonly Version Ubuntu = new Version(10, 0);          // Win32NT
-            public static readonly Version Windows81 = new Version(6, 3);           // Win32NT
-        }
+
 
         /// <summary> Indicate if the current platform is Unix based </summary>
         public static bool RunningLinux
@@ -170,21 +158,7 @@ namespace ScreenFIRE.Modules.Companion {
 
 
 
-        /// <summary> Windows versions </summary>
-        public record IWindowsVersion {
-            //!                            Windows     Version(Major, Minor)        // PLATFORM ID
-            public static readonly Version Windows10 = new Version(10, 0);          // Win32NT
-            public static readonly Version Windows81 = new Version(6, 3);           // Win32NT
-            public static readonly Version Windows8 = new Version(6, 2);            // Win32NT
-            public static readonly Version Windows7_2008r2 = new Version(6, 1);     // Win32NT
-            public static readonly Version WindowsVista_2008 = new Version(6, 0);   // Win32NT
-            public static readonly Version Windows2003 = new Version(5, 2);         // Win32NT
-            public static readonly Version WindowsXP = new Version(5, 1);           // Win32NT
-            public static readonly Version Windows2000 = new Version(5, 0);         // Win32NT
-            public static readonly Version WindowsMe = new Version(4, 90);          // Win32Windows
-            public static readonly Version Windows98 = new Version(4, 10);          // Win32Windows
-            public static readonly Version Windows95_NT40 = new Version(4, 0);      // Win32Windows
-        }
+
 
         /// <summary> Indicate if the current platform is Win32NT based (Windows NT and above) </summary>
         public static bool RunningWindows
@@ -199,7 +173,6 @@ namespace ScreenFIRE.Modules.Companion {
 
 
         /// <summary> Indicates whether the current platform is supported by ScreenFIRE (Linux or Windows) </summary>
-        public static bool IsSupported
-                => Platform.RunningLinux | Platform.RunningWindows;
+        public static bool IsSupported => (RunningLinux | RunningWindows);
     }
 }
