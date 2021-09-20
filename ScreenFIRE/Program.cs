@@ -1,6 +1,7 @@
 using Gtk;
 using ScreenFIRE.GUI;
 using ScreenFIRE.Modules.Companion;
+using ScreenFIRE.Modules.Companion.OS;
 using System;
 
 namespace ScreenFIRE {
