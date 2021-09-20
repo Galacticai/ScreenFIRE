@@ -32,10 +32,20 @@ namespace ScreenFIRE.Modules.Companion {
             return new Point(x, y);
         }
 
+        private static Rectangle FixWindowRectangle_ForWindows10(Rectangle rectangle) {
+            //! Window.FrameExtents on Windows is bigger than the usable window size
+            rectangle.X += 7;
+            rectangle.Height -= 7;
+            rectangle.Width -= 7 + 7; // right offset - additional X (left) offset 
+            return rectangle;
+        }
+
         /// <returns> Window <see cref="Rectangle"/> at the mouse pointer </returns>
         public static Rectangle ActiveWindow_Rectangle() {
-            //LastActiveWindow().GetGeometry(out int x, out int y, out int w, out int h);
-            return LastActiveWindow().FrameExtents;//new Rectangle(x, y, w, h);
+            Rectangle rectangle = LastActiveWindow().FrameExtents;
+            return Platform.RunningWindows10
+                   ? FixWindowRectangle_ForWindows10(rectangle)
+                   : rectangle;
         }
         /// <param name="point"> Focus <see cref="Point"/> </param>
         /// <returns> Last active <see cref="Window"/> </returns>
@@ -43,16 +53,16 @@ namespace ScreenFIRE.Modules.Companion {
             //!? Unknown if can throw an exception
             return Display.Default.DefaultSeat.Pointer.LastEventWindow
                 ?? Display.Default.DefaultSeat.Keyboard.LastEventWindow
-                ?? Global.DefaultRootWindow; //!? NOT TESTED
-            // TODO: Test this
+                ?? Global.DefaultRootWindow; //! Fallback
         }
 
         /// <returns> Window <see cref="Rectangle"/> at the mouse pointer </returns>
         public static Rectangle WindowAtPointer_Rectangle() {
             Point pointLocation = Pointer_Point();
             Window windowAtPosition = WindowAtPoint(pointLocation);
-            //windowAtPosition.GetGeometry(out int x, out int y, out int w, out int h);
-            return windowAtPosition.FrameExtents; //new Rectangle(x, y, w, h);
+            return Platform.RunningWindows10
+                   ? FixWindowRectangle_ForWindows10(windowAtPosition.FrameExtents)
+                   : windowAtPosition.FrameExtents;
         }
         /// <param name="point"> Focus <see cref="Point"/> </param>
         /// <returns> <see cref="Window"/> at the <paramref name="point"/> </returns>
@@ -73,7 +83,7 @@ namespace ScreenFIRE.Modules.Companion {
             return Display.Default.GetMonitorAtPoint(point.X, point.Y);
         }
 
-        /// <param name="index"> <see cref="Monitor"/> index </param>
+        /// <param name="monitor"> Target <see cref="Monitor"/> </param>
         /// <returns> <see cref="Rectangle"/> of the monitor (The bigger one out of Geometry or Workarea) </returns>
         public static Rectangle Monitor_Rectangle(Monitor monitor) {
             Rectangle work = monitor.Workarea;
