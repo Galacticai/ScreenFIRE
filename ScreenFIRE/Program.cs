@@ -9,6 +9,10 @@ namespace ScreenFIRE {
 
         public const string packageName = "com.nhk.ScreenFIRE";
 
+        public static Application ScreenFIRE = new(packageName, GLib.ApplicationFlags.None);
+
+        public static Config Config = new();
+        public static ScreenshotFullScreen ScreenshotFullScreen = new();
         private static bool PlatformIsSupported
             => Environment.OSVersion.Platform == PlatformID.Unix
              | Environment.OSVersion.Platform == PlatformID.Win32NT;
@@ -24,13 +28,12 @@ namespace ScreenFIRE {
 
             Application.Init();
 
-            Application ScreenFIRE = new(packageName, GLib.ApplicationFlags.None);
             ScreenFIRE.Register(GLib.Cancellable.Current);
 
-            Config ScreenFIRE_config = new();
-            ScreenFIRE.AddWindow(ScreenFIRE_config);
+            ScreenFIRE.AddWindow(Config);
+            ScreenFIRE.AddWindow(ScreenshotFullScreen);
 
-            ScreenFIRE_config.Show();
+            Config.Show();
             Application.Run();
         }
     }
