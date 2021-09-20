@@ -13,13 +13,10 @@ namespace ScreenFIRE {
 
         public static Config Config = new();
         public static ScreenshotFullScreen ScreenshotFullScreen = new();
-        private static bool PlatformIsSupported
-            => Environment.OSVersion.Platform == PlatformID.Unix
-             | Environment.OSVersion.Platform == PlatformID.Win32NT;
 
         [STAThread]
         public static void Main(string[] args) {
-            if (!PlatformIsSupported)
+            if (!Platform.IsSupported)
                 throw new PlatformNotSupportedException(
                                 $"Sorry ScreenFIRE does not support Platform ID \"{Environment.OSVersion.Platform}\""
                                 + $"{Common.n}Please run ScreenFIRE on Windows or Linux.");

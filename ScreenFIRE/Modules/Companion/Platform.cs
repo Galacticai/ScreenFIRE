@@ -196,5 +196,9 @@ namespace ScreenFIRE.Modules.Companion {
                     (Environment.OSVersion.Version.ToString(2)
                         == IWindowsVersion.Windows10.ToString(2));
 
+
+        /// <summary> Indicates whether the current platform is supported by ScreenFIRE (Linux or Windows) </summary>
+        private static bool IsSupported
+                => Platform.RunningLinux | Platform.RunningWindows;
     }
 }
