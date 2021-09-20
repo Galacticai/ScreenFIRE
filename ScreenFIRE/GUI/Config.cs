@@ -7,6 +7,7 @@ using ScreenFIRE.Modules.Companion;
 using ScreenFIRE.Modules.Companion.math;
 using ScreenFIRE.Modules.Save;
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 using UI = Gtk.Builder.ObjectAttribute;
 
@@ -19,6 +20,7 @@ namespace ScreenFIRE.GUI {
         [UI] private readonly Button SF_Button_MonitorAtPointer = null;
         [UI] private readonly Button SF_Button_WindowAtPointer = null;
         [UI] private readonly Button SF_Button_ActiveWindow = null;
+        [UI] private readonly Button SF_Button_Custom = null;
 
         private static string[] txt_privatenameusedonlybythisfunction_238157203985ty9486t4 = null;
         private static async Task<string> txt(int index) {
@@ -32,7 +34,8 @@ namespace ScreenFIRE.GUI {
                                             IStrings.AllMonitors,//6
                                             IStrings.MonitorAtPointer,//7
                                             IStrings.WindowAtPointer,//8
-                                            IStrings.ActiveWindow))//9
+                                            IStrings.ActiveWindow,
+                                            IStrings.FreeAreaSelection))//9
                         )[index];
         }
         private void AssignEvents() {
@@ -41,6 +44,8 @@ namespace ScreenFIRE.GUI {
             SF_Button_MonitorAtPointer.Clicked += SF_Button_MonitorAtPointer_Clicked;
             SF_Button_WindowAtPointer.Clicked += SF_Button_WindowAtPointer_Clicked;
             SF_Button_ActiveWindow.Clicked += SF_Button_ActiveWindow_Clicked;
+            SF_Button_ActiveWindow.Clicked += SF_Button_ActiveWindow_Clicked;
+            SF_Button_Custom.Clicked += SF_Button_Custom_Clicked;
         }
 
         public Config() : this(new Builder("Config.glade")) { }
@@ -65,26 +70,27 @@ namespace ScreenFIRE.GUI {
 
 
         private int _counter;
-        private async void UpdateLabel() {
-            _label1.Text = await txt(0) + Common.nn
-                         + await txt(1) + (1 + (_counter++)) + (_counter > 1 ? await txt(3) : await txt(2));
+        private async void SF_Button_AllMonitors_Clicked(object sender, EventArgs ev) {
+            await Capture(IScreenshotType.AllMonitors);
         }
-        private void SF_Button_AllMonitors_Clicked(object sender, EventArgs ev) {
-            Capture(IScreenshotType.AllMonitors);
+        private async void SF_Button_MonitorAtPointer_Clicked(object sender, EventArgs ev) {
+            await Capture(IScreenshotType.MonitorAtPointer);
         }
-        private void SF_Button_MonitorAtPointer_Clicked(object sender, EventArgs ev) {
-            Capture(IScreenshotType.MonitorAtPointer);
+        private async void SF_Button_WindowAtPointer_Clicked(object sender, EventArgs ev) {
+            await Capture(IScreenshotType.WindowAtPointer);
         }
-        private void SF_Button_WindowAtPointer_Clicked(object sender, EventArgs ev) {
-            Capture(IScreenshotType.WindowAtPointer);
+        private async void SF_Button_ActiveWindow_Clicked(object sender, EventArgs ev) {
+            await Capture(IScreenshotType.ActiveWindow);
         }
-        private void SF_Button_ActiveWindow_Clicked(object sender, EventArgs ev) {
-            Capture(IScreenshotType.ActiveWindow);
+        private void SF_Button_Custom_Clicked(object sender, EventArgs ev) {
+            Program.ScreenshotFullScreen.ShowAll();
         }
-        private async void Capture(IScreenshotType screenshotType) {
-            //Timer timer = new(timerCallback);
-            //timer.Change(2000, Timeout.Infinite);
-            //void timerCallback(object state) {
+
+        private async Task Capture(IScreenshotType screenshotType) {
+            Visible = false;
+            AcceptFocus = false;
+            Thread.Sleep(1000);
+
             Screenshot ss = new(screenshotType);
             if (!await Save.Local(ss, this)) {
                 MessageDialog failDialog = new(this,
@@ -94,11 +100,13 @@ namespace ScreenFIRE.GUI {
                                                await txt(4));
                 failDialog.Run();
                 failDialog.Destroy();
+            } else {
+                _label1.Text = await txt(0) + Common.nn
+                             + await txt(1) + (1 + _counter++) + (_counter > 1 ? await txt(3) : await txt(2));
             }
 
-            UpdateLabel();
-            //}
-
+            AcceptFocus = true;
+            ShowAll();
         }
     }
 }
