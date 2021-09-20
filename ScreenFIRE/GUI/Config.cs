@@ -11,9 +11,11 @@ using System.Threading;
 using System.Threading.Tasks;
 using UI = Gtk.Builder.ObjectAttribute;
 
-namespace ScreenFIRE.GUI {
+namespace ScreenFIRE.GUI
+{
 
-    class Config : Window {
+    class Config : Window
+    {
         [UI] private readonly Label _label1 = null;
         [UI] private readonly Image LogoImage = null;
         [UI] private readonly Button SF_Button_AllMonitors = null;
@@ -23,7 +25,8 @@ namespace ScreenFIRE.GUI {
         [UI] private readonly Button SF_Button_Custom = null;
 
         private static string[] txt_privatenameusedonlybythisfunction_238157203985ty9486t4 = null;
-        private static async Task<string> txt(int index) {
+        private static async Task<string> txt(int index)
+        {
             return (txt_privatenameusedonlybythisfunction_238157203985ty9486t4
                    ??= (await Strings.Fetch(IStrings.FiredAScreenshot_,//0
                                             IStrings.ThisButtonHasBeenClicked,//1
@@ -38,19 +41,21 @@ namespace ScreenFIRE.GUI {
                                             IStrings.FreeAreaSelection))//9
                         )[index];
         }
-        private void AssignEvents() {
+        private void AssignEvents()
+        {
             DeleteEvent += Window_DeleteEvent;
             SF_Button_AllMonitors.Clicked += SF_Button_AllMonitors_Clicked;
             SF_Button_MonitorAtPointer.Clicked += SF_Button_MonitorAtPointer_Clicked;
             SF_Button_WindowAtPointer.Clicked += SF_Button_WindowAtPointer_Clicked;
             SF_Button_ActiveWindow.Clicked += SF_Button_ActiveWindow_Clicked;
-            SF_Button_ActiveWindow.Clicked += SF_Button_ActiveWindow_Clicked;
+            // SF_Button_ActiveWindow.Clicked += SF_Button_ActiveWindow_Clicked;
             SF_Button_Custom.Clicked += SF_Button_Custom_Clicked;
         }
 
         public Config() : this(new Builder("Config.glade")) { }
 
-        private Config(Builder builder) : base(builder.GetRawOwnedObject("Config")) {
+        private Config(Builder builder) : base(builder.GetRawOwnedObject("Config"))
+        {
             builder.Autoconnect(this);
 
             AssignEvents();
@@ -70,29 +75,36 @@ namespace ScreenFIRE.GUI {
 
 
         private int _counter;
-        private async void SF_Button_AllMonitors_Clicked(object sender, EventArgs ev) {
+        private async void SF_Button_AllMonitors_Clicked(object sender, EventArgs ev)
+        {
             await Capture(IScreenshotType.AllMonitors);
         }
-        private async void SF_Button_MonitorAtPointer_Clicked(object sender, EventArgs ev) {
+        private async void SF_Button_MonitorAtPointer_Clicked(object sender, EventArgs ev)
+        {
             await Capture(IScreenshotType.MonitorAtPointer);
         }
-        private async void SF_Button_WindowAtPointer_Clicked(object sender, EventArgs ev) {
+        private async void SF_Button_WindowAtPointer_Clicked(object sender, EventArgs ev)
+        {
             await Capture(IScreenshotType.WindowAtPointer);
         }
-        private async void SF_Button_ActiveWindow_Clicked(object sender, EventArgs ev) {
+        private async void SF_Button_ActiveWindow_Clicked(object sender, EventArgs ev)
+        {
             await Capture(IScreenshotType.ActiveWindow);
         }
-        private void SF_Button_Custom_Clicked(object sender, EventArgs ev) {
+        private void SF_Button_Custom_Clicked(object sender, EventArgs ev)
+        {
             Program.ScreenshotFullScreen.ShowAll();
         }
 
-        private async Task Capture(IScreenshotType screenshotType) {
+        private async Task Capture(IScreenshotType screenshotType)
+        {
             Visible = false;
             AcceptFocus = false;
             Thread.Sleep(1000);
 
             Screenshot ss = new(screenshotType);
-            if (!await Save.Local(ss, this)) {
+            if (!await Save.Local(ss, this))
+            {
                 MessageDialog failDialog = new(this,
                                                DialogFlags.Modal,
                                                MessageType.Warning,
@@ -100,9 +112,11 @@ namespace ScreenFIRE.GUI {
                                                await txt(4));
                 failDialog.Run();
                 failDialog.Destroy();
-            } else {
+            }
+            else
+            {
                 _label1.Text = await txt(0) + Common.nn
-                             + await txt(1) + (1 + _counter++) + (_counter > 1 ? await txt(3) : await txt(2));
+                             + await txt(1) + " " + (1 + _counter++) + " " + (_counter > 1 ? await txt(3) : await txt(2));
             }
 
             AcceptFocus = true;
