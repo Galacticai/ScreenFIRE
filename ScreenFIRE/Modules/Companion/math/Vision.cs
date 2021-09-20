@@ -36,7 +36,7 @@ namespace ScreenFIRE.Modules.Companion.math {
             //if amount not set, Use  foreColor.A  [ 0 >=> 1 ]
             if (amount == -1)
                 amount = foreColor.Alpha / 255; // convert alpha 0<=<255 to 0<=<1
-            mathMisc.ForcedInRange(amount, 0, 255); //failsafe
+            amount = mathMisc.ForcedInRange(amount, 0, 255); //failsafe
 
             byte R = (byte)((foreColor.Red * amount) + backColor.Red * (1 - amount)),
                  G = (byte)((foreColor.Green * amount) + backColor.Green * (1 - amount)),
