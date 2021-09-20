@@ -45,6 +45,7 @@ namespace ScreenFIRE.Modules.Save {
             choose.AddButton(Stock.Ok, ResponseType.Ok);
             choose.AddButton(Stock.Cancel, ResponseType.Cancel);
             choose.SetCurrentFolder(Common.SF);
+            choose.SetPosition(WindowPosition.CenterOnParent);
 
             ResponseType chooseResponse = (ResponseType)choose.Run();
 
@@ -62,6 +63,7 @@ namespace ScreenFIRE.Modules.Save {
                                   MessageType.Question,
                                   ButtonsType.YesNo,
                                   await txt(5) + Common.nn + await txt(6));
+                    fileExistsDialog.SetPosition(WindowPosition.CenterOnParent);
                     ResponseType fileExistsResponse = (ResponseType)fileExistsDialog.Run();
                     //! User chose to replace the file
                     if (fileExistsResponse == ResponseType.Yes)
