@@ -10,7 +10,8 @@ namespace ScreenFIRE.Modules.Companion {
         //! >> " ID=" is common between all
         //! >> "VERSION_ID" is common (except Arch & old CentOS 6/5)
 
-        //! $ . /etc/something && echo $name
+        //! >> can be used
+        //! $ . /etc/*-release && echo $name
         //? (output: value of name)
 
         //!? ==== Tests on Ubuntu 20.04 ===================== 
@@ -198,7 +199,7 @@ namespace ScreenFIRE.Modules.Companion {
 
 
         /// <summary> Indicates whether the current platform is supported by ScreenFIRE (Linux or Windows) </summary>
-        private static bool IsSupported
+        public static bool IsSupported
                 => Platform.RunningLinux | Platform.RunningWindows;
     }
 }
