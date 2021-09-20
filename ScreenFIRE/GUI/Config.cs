@@ -44,7 +44,6 @@ namespace ScreenFIRE.GUI {
             SF_Button_MonitorAtPointer.Clicked += SF_Button_MonitorAtPointer_Clicked;
             SF_Button_WindowAtPointer.Clicked += SF_Button_WindowAtPointer_Clicked;
             SF_Button_ActiveWindow.Clicked += SF_Button_ActiveWindow_Clicked;
-            // SF_Button_ActiveWindow.Clicked += SF_Button_ActiveWindow_Clicked;
             SF_Button_Custom.Clicked += SF_Button_Custom_Clicked;
         }
 
