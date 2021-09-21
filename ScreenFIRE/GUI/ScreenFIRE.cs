@@ -2,6 +2,7 @@ using Gtk;
 using ScreenFIRE.Assets;
 using ScreenFIRE.Modules.Capture;
 using ScreenFIRE.Modules.Capture.Companion;
+using System;
 using System.Threading.Tasks;
 using UI = Gtk.Builder.ObjectAttribute;
 
@@ -13,6 +14,7 @@ namespace ScreenFIRE.GUI {
 		private Screenshot Screenshot { get; set; }
 
 		[UI] private readonly Image ScreenshotImage = null;
+		[UI] private readonly Button Close_Button = null;
 
 		private static string[] txt_privatenameusedonlybythisfunction_238157203985ty9486t4 = null;
 		private static async Task<string> txt(int index) {
@@ -24,7 +26,7 @@ namespace ScreenFIRE.GUI {
 		}
 		private void AssignEvents() {
 			DeleteEvent += Window_DeleteEvent;
-
+			Close_Button.Clicked += Close_Button_Clicked;
 		}
 
 		public ScreenFIRE() : this(new Builder("ScreenFIRE.glade")) {
@@ -42,9 +44,8 @@ namespace ScreenFIRE.GUI {
 		private void Window_DeleteEvent(object sender, DeleteEventArgs ev)
 				=> Application.Quit();
 
-		private void ScreenshotImage_mod(object sender, DeleteEventArgs ev) {
-			return;
-		}
+		private void Close_Button_Clicked(object sender, EventArgs ev)
+				=> Hide();
 
 	}
 }
