@@ -2,10 +2,13 @@
 <!-- Generated with glade 3.38.2 -->
 <interface>
   <requires lib="gtk+" version="3.24"/>
-  <object class="GtkWindow" id="Screenshot">
+  <object class="GtkWindow" id="ScreenFIRE">
     <property name="can-focus">False</property>
+    <property name="type">popup</property>
+    <property name="title">ScreenFIRE</property>
     <property name="resizable">False</property>
-    <property name="window-position">center</property>
+    <property name="modal">True</property>
+    <property name="icon-name">application-x-executable</property>
     <property name="skip-taskbar-hint">True</property>
     <property name="skip-pager-hint">True</property>
     <property name="urgency-hint">True</property>
@@ -14,7 +17,7 @@
       <object class="GtkImage" id="ScreenshotImage">
         <property name="visible">True</property>
         <property name="can-focus">False</property>
-        <property name="icon-name">network-workgroup</property>
+        <property name="icon-name">application-x-executable</property>
       </object>
     </child>
   </object>
