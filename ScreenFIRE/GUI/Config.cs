@@ -6,7 +6,6 @@ using ScreenFIRE.Modules.Capture.Companion;
 using ScreenFIRE.Modules.Companion;
 using ScreenFIRE.Modules.Companion.math;
 using ScreenFIRE.Modules.Save;
-using System;
 using System.Threading;
 using System.Threading.Tasks;
 using UI = Gtk.Builder.ObjectAttribute;
@@ -39,12 +38,18 @@ namespace ScreenFIRE.GUI {
 						)[index];
 		}
 		private void AssignEvents() {
-			DeleteEvent += Window_DeleteEvent;
-			SF_Button_AllMonitors.Clicked += SF_Button_AllMonitors_Clicked;
-			SF_Button_MonitorAtPointer.Clicked += SF_Button_MonitorAtPointer_Clicked;
-			SF_Button_WindowAtPointer.Clicked += SF_Button_WindowAtPointer_Clicked;
-			SF_Button_ActiveWindow.Clicked += SF_Button_ActiveWindow_Clicked;
-			SF_Button_Custom.Clicked += SF_Button_Custom_Clicked;
+			DeleteEvent += delegate { Application.Quit(); };
+
+			SF_Button_AllMonitors.Clicked
+				+= async delegate { await Capture(IScreenshotType.AllMonitors); };
+			SF_Button_MonitorAtPointer.Clicked
+				+= async delegate { await Capture(IScreenshotType.MonitorAtPointer); };
+			SF_Button_WindowAtPointer.Clicked
+				+= async delegate { await Capture(IScreenshotType.WindowAtPointer); };
+			SF_Button_ActiveWindow.Clicked
+				+= async delegate { await Capture(IScreenshotType.ActiveWindow); };
+
+			SF_Button_Custom.Clicked += delegate { Program.ScreenFIRE.ShowAll(); };
 		}
 
 		public Config() : this(new Builder("Config.glade")) { }
@@ -64,26 +69,9 @@ namespace ScreenFIRE.GUI {
 			SF_Button_ActiveWindow.Label = txt(9).Result;
 		}
 
-		private void Window_DeleteEvent(object sender, DeleteEventArgs ev)
-				=> Application.Quit();
 
 
 		private int _counter;
-		private async void SF_Button_AllMonitors_Clicked(object sender, EventArgs ev) {
-			await Capture(IScreenshotType.AllMonitors);
-		}
-		private async void SF_Button_MonitorAtPointer_Clicked(object sender, EventArgs ev) {
-			await Capture(IScreenshotType.MonitorAtPointer);
-		}
-		private async void SF_Button_WindowAtPointer_Clicked(object sender, EventArgs ev) {
-			await Capture(IScreenshotType.WindowAtPointer);
-		}
-		private async void SF_Button_ActiveWindow_Clicked(object sender, EventArgs ev) {
-			await Capture(IScreenshotType.ActiveWindow);
-		}
-		private void SF_Button_Custom_Clicked(object sender, EventArgs ev) {
-			Program.ScreenFIRE.ShowAll();
-		}
 
 		private async Task Capture(IScreenshotType screenshotType) {
 			Visible = false;
