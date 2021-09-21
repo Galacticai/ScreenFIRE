@@ -9,56 +9,56 @@ namespace ScreenFIRE.Modules.Companion {
     /// <summary>
     /// <list type="bullet">
     /// <item> System • Current system language (<see cref="English"/> if system language not supported) </item>
-    /// <item> (Google Translate API supported languages) </item> 
+    /// <item> (Google Translate API supported languages) </item>
     /// <item> Other • Any language not listed </item>
     /// </list>
     /// </summary>
     public enum ILanguages {
 
-        Arabic, Afrikaans, Amharic, Azerbaijani, Armenian, Albanian,
+        Afrikaans, Albanian, Amharic, Arabic, Armenian, Azerbaijani,
 
-        Belarusian, Bulgarian, Bengali, Bosnian, Basque,
+        Basque, Belarusian, Bengali, Bosnian, Bulgarian,
 
-        Catalan, Cebuano, Corsican, Czech, Croatian, Chichewa,
-        ChineseSimplified, ChineseTraditional,
+        Catalan, Cebuano, Chichewa, ChineseSimplified, ChineseTraditional,
+        Corsican, Croatian, Czech,
 
         Danish, Dutch,
 
         English, Esperanto, Estonian,
 
-        Finnish, French, Frisian, Filipino,
+        Filipino, Finnish, French, Frisian,
 
-        German, Greek, Galician, Gujarati, Georgian,
+        Gujarati, Galician, Georgian, German, Greek,
 
-        Hausa, Hawaiian, Hindi, Hmong, HaitianCreole, Hungarian,
+        HaitianCreole, Hausa, Hawaiian, Hindi, Hmong, Hungarian,
 
-        Irish, Indonesian, Igbo, Icelandic, Italian,
+        Icelandic, Igbo, Indonesian, Irish, Italian,
 
         Japanese, Javanese,
 
-        Kazakh, Khmer, Kannada, Korean, KurdishKurmanji, Kyrgyz,
+        Kannada, Kazakh, Khmer, Korean, KurdishKurmanji, Kyrgyz,
 
         Latin, Luxembourgish, Lao, Lithuanian, Latvian,
 
-        Malagasy, Maori, Macedonian, Malayalam, Mongolian, Marathi,
-        Malay, Maltese, MyanmarBurmese,
+        Macedonian, Malagasy, Malay, Malayalam, Maltese, Maori,
+        Marathi, Mongolian, MyanmarBurmese,
 
         Nepali, Norwegian,
 
-        Persian, Punjabi, Polish, Pashto, Portuguese,
+        Pashto, Persian, Polish, Portuguese, Punjabi,
 
         Romanian, Russian,
 
-        Spanish, ScotsGaelic, Sindhi, Sinhala, Slovak, Slovenian,
-        Samoan, Shona, Somali, Serbian, Sesotho, Sundanese, Swedish, Swahili,
+        Samoan, ScotsGaelic, Serbian, Sesotho, Shona, Sindhi, Sinhala, Slovak,
+        Slovenian, Somali, Spanish, Sundanese, Swahili, Swedish,
 
-        Tamil, Telugu, Tajik, Thai, Turkish,
+        Tajik, Tamil, Telugu, Thai, Turkish,
 
         Ukrainian, Urdu, Uzbek,
 
-        Welsh,
-
         Vietnamese,
+
+        Welsh,
 
         Xhosa,
 
@@ -83,7 +83,7 @@ namespace ScreenFIRE.Modules.Companion {
 
         ///// <summary> Translate a string using Google Translate API </summary>
         ///// <param name="input"> <see cref="string"/> to be translated </param>
-        ///// <param name="toLanguage"> Destination language </param> 
+        ///// <param name="toLanguage"> Destination language </param>
         ///// <returns> Translated <see cref="string"/> + <see cref="out"/> Detected original language</returns>
         //public static string Translate(string input, ILanguages toLanguage) {
         //    TranslationClient translationclient = TranslationClient.Create();
@@ -118,7 +118,7 @@ namespace ScreenFIRE.Modules.Companion {
             => (language ?? TwoLetterISOLanguageName) switch {
                 //!
                 //! Commented = not supported by Google Translate API
-                //! 
+                //!
                 //// "iv" => ILanguages.InvariantLanguage_InvariantCountry,
                 "af" => ILanguages.Afrikaans,
                 "am" => ILanguages.Amharic,
@@ -250,104 +250,104 @@ namespace ScreenFIRE.Modules.Companion {
         public static string ILanguagesToGoogleLanguageCodes(ILanguages? language)
             => (language ?? DotNetToILanguages()) switch {
                 ILanguages.Afrikaans => "af",
+                ILanguages.Albanian => "sq",
                 ILanguages.Amharic => "am",
                 ILanguages.Arabic => "ar",
+                ILanguages.Armenian => "hy",
                 ILanguages.Azerbaijani => "az",
+                ILanguages.Basque => "eu",
                 ILanguages.Belarusian => "be",
-                ILanguages.Bulgarian => "bg",
                 ILanguages.Bengali => "bn",
                 ILanguages.Bosnian => "bs",
+                ILanguages.Bulgarian => "bg",
                 ILanguages.Catalan => "ca",
                 ILanguages.Cebuano => "ceb",
-                ILanguages.Corsican => "co",
-                ILanguages.Czech => "cs",
                 ILanguages.Chichewa => "ny",
                 ILanguages.ChineseSimplified => "zh",
                 ILanguages.ChineseTraditional => "zh-TW",
-                ILanguages.Welsh => "cy",
+                ILanguages.Corsican => "co",
+                ILanguages.Croatian => "hr",
+                ILanguages.Czech => "cs",
                 ILanguages.Danish => "da",
-                ILanguages.German => "de",
-                ILanguages.Greek => "el",
+                ILanguages.Dutch => "nl",
                 ILanguages.English => "en",
                 ILanguages.Esperanto => "eo",
-                ILanguages.Spanish => "es",
                 ILanguages.Estonian => "et",
-                ILanguages.Basque => "eu",
-                ILanguages.Persian => "fa",
+                ILanguages.Filipino => "tl",
                 ILanguages.Finnish => "fi",
                 ILanguages.French => "fr",
                 ILanguages.Frisian => "fy",
-                ILanguages.Irish => "ga",
-                ILanguages.ScotsGaelic => "gd",
                 ILanguages.Galician => "gl",
+                ILanguages.Georgian => "ka",
+                ILanguages.German => "de",
+                ILanguages.Greek => "el",
                 ILanguages.Gujarati => "gu",
+                ILanguages.HaitianCreole => "ht",
                 ILanguages.Hausa => "ha",
                 ILanguages.Hawaiian => "haw",
                 ILanguages.Hindi => "hi",
                 ILanguages.Hmong => "hmn",
-                ILanguages.Croatian => "hr",
-                ILanguages.HaitianCreole => "ht",
                 ILanguages.Hungarian => "hu",
-                ILanguages.Armenian => "hy",
-                ILanguages.Indonesian => "id",
-                ILanguages.Igbo => "ig",
                 ILanguages.Icelandic => "is",
+                ILanguages.Igbo => "ig",
+                ILanguages.Indonesian => "id",
+                ILanguages.Irish => "ga",
                 ILanguages.Italian => "it",
                 ILanguages.Japanese => "ja",
                 ILanguages.Javanese => "jw",
-                ILanguages.Georgian => "ka",
+                ILanguages.Kannada => "kn",
                 ILanguages.Kazakh => "kk",
                 ILanguages.Khmer => "km",
-                ILanguages.Kannada => "kn",
                 ILanguages.Korean => "ko",
                 ILanguages.KurdishKurmanji => "ku",
                 ILanguages.Kyrgyz => "ky",
-                ILanguages.Latin => "la",
-                ILanguages.Luxembourgish => "lb",
                 ILanguages.Lao => "lo",
-                ILanguages.Lithuanian => "lt",
+                ILanguages.Latin => "la",
                 ILanguages.Latvian => "lv",
-                ILanguages.Malagasy => "mg",
-                ILanguages.Maori => "mi",
+                ILanguages.Lithuanian => "lt",
+                ILanguages.Luxembourgish => "lb",
                 ILanguages.Macedonian => "mk",
-                ILanguages.Malayalam => "ml",
-                ILanguages.Mongolian => "mn",
-                ILanguages.Marathi => "mr",
+                ILanguages.Malagasy => "mg",
                 ILanguages.Malay => "ms",
+                ILanguages.Malayalam => "ml",
                 ILanguages.Maltese => "mt",
+                ILanguages.Maori => "mi",
+                ILanguages.Marathi => "mr",
+                ILanguages.Mongolian => "mn",
                 ILanguages.MyanmarBurmese => "my",
                 ILanguages.Nepali => "ne",
-                ILanguages.Dutch => "nl",
                 ILanguages.Norwegian => "no",
-                ILanguages.Punjabi => "pa",
-                ILanguages.Polish => "pl",
                 ILanguages.Pashto => "ps",
+                ILanguages.Persian => "fa",
+                ILanguages.Polish => "pl",
                 ILanguages.Portuguese => "pt",
+                ILanguages.Punjabi => "pa",
                 ILanguages.Romanian => "ro",
                 ILanguages.Russian => "ru",
+                ILanguages.Samoan => "sm",
+                ILanguages.ScotsGaelic => "gd",
+                ILanguages.Serbian => "sr",
+                ILanguages.Sesotho => "st",
+                ILanguages.Shona => "sn",
                 ILanguages.Sindhi => "sd",
                 ILanguages.Sinhala => "si",
                 ILanguages.Slovak => "sk",
                 ILanguages.Slovenian => "sl",
-                ILanguages.Samoan => "sm",
-                ILanguages.Shona => "sn",
                 ILanguages.Somali => "so",
-                ILanguages.Albanian => "sq",
-                ILanguages.Serbian => "sr",
-                ILanguages.Sesotho => "st",
+                ILanguages.Spanish => "es",
                 ILanguages.Sundanese => "su",
-                ILanguages.Swedish => "sv",
                 ILanguages.Swahili => "sw",
+                ILanguages.Swedish => "sv",
+                ILanguages.Tajik => "tg",
                 ILanguages.Tamil => "ta",
                 ILanguages.Telugu => "te",
-                ILanguages.Tajik => "tg",
                 ILanguages.Thai => "th",
-                ILanguages.Filipino => "tl",
                 ILanguages.Turkish => "tr",
                 ILanguages.Ukrainian => "uk",
                 ILanguages.Urdu => "ur",
                 ILanguages.Uzbek => "uz",
                 ILanguages.Vietnamese => "vi",
+                ILanguages.Welsh => "cy",
                 ILanguages.Xhosa => "xh",
                 ILanguages.Yiddish => "yi",
                 ILanguages.Yoruba => "yo",
