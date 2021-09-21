@@ -1,6 +1,6 @@
 ﻿namespace ScreenFIRE.Modules.Capture.Companion {
 
-    /// <summary> Saving format of the <see cref="Screenshot"/> 
+    /// <summary> Saving format of the <see cref="Screenshot"/>
     /// <list type="bullet">
     /// <item> 0 • bmp </item>
     /// <item> 1 • png </item>
