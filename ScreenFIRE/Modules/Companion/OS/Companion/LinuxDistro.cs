@@ -2,97 +2,120 @@
 using System;
 
 namespace ScreenFIRE.Modules.Companion.OS.Companion {
-    public enum ILinuxDistro {
-        AmazonLinux,
-        Arch,
-        CentOS7,
-        Debian,
-        ElementaryOS,
-        Fedora,
-        LinuxMint,
-        OpenSUSE,
-        OracleLinux,
-        SparkyLinux,
-        SUSE,
-        Ubuntu,
-        ZorinOS,
+	public enum ILinuxDistro {
+		AlpineLinux,
+		AmazonLinux,
+		Arch,
+		CentOS7,
+		Debian,
+		ElementaryOS,
+		Fedora,
+		LinuxMint,
+		OpenSUSE,
+		OracleLinux,
+		SparkyLinux,
+		SUSE,
+		Ubuntu,
+		ZorinOS,
 
-        Other
-    }
+		Other
+	}
 
-    public class LinuxDistro {
-        public static ILinuxDistro FromID(string linuxDistro)
-            => linuxDistro.ToLower() switch {
-                "amzn" => ILinuxDistro.AmazonLinux,
-                "arch" => ILinuxDistro.Arch,
-                "centos" => ILinuxDistro.CentOS7,
-                "debian" => ILinuxDistro.Debian,
-                "elementary" => ILinuxDistro.ElementaryOS,
-                "fedora" => ILinuxDistro.Fedora,
-                "linuxmint" => ILinuxDistro.LinuxMint,
-                "ol" => ILinuxDistro.OracleLinux,
-                "opensuse" => ILinuxDistro.OpenSUSE,
-                "opensuse-leap" => ILinuxDistro.OpenSUSE,
-                "rhel fedora" => ILinuxDistro.Fedora,
-                "sparky" => ILinuxDistro.SparkyLinux,
-                "suse opensuse" => ILinuxDistro.OpenSUSE,
-                "suse" => ILinuxDistro.SUSE,
-                "ubuntu" => ILinuxDistro.Ubuntu,
-                "zorin" => ILinuxDistro.ZorinOS,
+	public class LinuxDistro {
+		public static ILinuxDistro FromID(string linuxDistro)
+			=> linuxDistro.ToLower() switch {
 
-                _ => ILinuxDistro.Other
-            };
+				"alpine" => ILinuxDistro.AlpineLinux,
+				"amzn" => ILinuxDistro.AmazonLinux,
+				"arch" => ILinuxDistro.Arch,
+				"centos" => ILinuxDistro.CentOS7,
+				"debian" => ILinuxDistro.Debian,
+				"elementary" => ILinuxDistro.ElementaryOS,
+				"fedora" => ILinuxDistro.Fedora,
+				"linuxmint" => ILinuxDistro.LinuxMint,
+				"ol" => ILinuxDistro.OracleLinux,
 
+				"opensuse" => ILinuxDistro.OpenSUSE,
+				"opensuse-leap" => ILinuxDistro.OpenSUSE,
+				"suse opensuse" => ILinuxDistro.OpenSUSE,
 
-        /// <summary> Information about the currently running Linux OS </summary>
-        public record struct Current {
-
-            private static Bash _Bash = null;
-            private static Bash Bash => _Bash ??= new();
+				"rhel fedora" => ILinuxDistro.Fedora,
+				"sparky" => ILinuxDistro.SparkyLinux,
+				"suse" => ILinuxDistro.SUSE,
+				"ubuntu" => ILinuxDistro.Ubuntu,
+				"zorin" => ILinuxDistro.ZorinOS,
 
 
-            private static string ParseCommandString(string variable)
-                => ". /etc/*-release && echo $" + variable;
+				_ => ILinuxDistro.Other
+			};
 
-            /// <summary> <c> >> /etc/*-release >> $ID </c> <br/>
-            ///     ID of this distro <br/><br/>
-            ///     # Example: ubuntu
-            /// </summary>
-            public static ILinuxDistro ID
-                => FromID(Bash.Command(ParseCommandString("ID")).Output);
 
-            /// <summary> <c> >> /etc/*-release >> $ID_LIKE </c> <br/>
-            ///     ID of the distro this is based on <br/><br/>
-            ///     # Example: debian (<see cref="string"/>)
-            /// </summary>
-            public static ILinuxDistro BaseID
-                => FromID(Bash.Command(ParseCommandString("ID_LIKE")).Output);
+		/// <summary> Information about the currently running Linux OS </summary>
+		public record struct Current {
 
-            /// <summary> <c> >> /etc/*-release >> $VERSION_ID </c> <br/>
-            ///     Version presented in a numerical way <br/><br/>
-            ///     # Example: 20.04 (<see cref="System.Version"/>) <br/>
-            ///     <br/>
-            ///  !!!  Except Arch and CentOS 5~6 AND maybe others ¯\_(ツ)_/¯
-            /// </summary>
-            public static Version Version
-                => Version.Parse(Bash.Command(ParseCommandString("VERSION_ID")).Output);
+			private static Bash _Bash = null;
+			private static Bash Bash => _Bash ??= new();
 
-            /// <summary> <c> >> /etc/*-release >> $PRETTY_NAME </c> <br/>
-            ///     Name of this distro <br/><br/>
-            ///     # Example: Ubuntu 20.04 LTS
-            /// </summary>
-            public static string Name
-                => Bash.Command(ParseCommandString("PRETTY_NAME")).Output;
 
-            /// <summary> <c> >> /etc/*-release >> $HOME_URL </c> <br/>
-            ///     Home page URL (<see cref="string"/>) of this distro <br/><br/>
-            ///     # Example: https://www.ubuntu.com/ (<see cref="string"/>)
-            /// </summary>
-            public static string Homepage
-                => Bash.Command(ParseCommandString("HOME_URL")).Output;
+			private static string _KernelString => Bash.Command("uname -r").Output;
 
-        }
-    }
+			/// <summary> Indicates whether this linux is running in WSL (Windows Subsystem for Linux) </summary>
+			public static bool IsWSL => _KernelString.Contains("Microsoft");
+
+			/// <summary> <c> uname -r </c> >> (Trimmed down to version only) <br/>
+			///     Kernel version <br/><br/>
+			///     # Example: 5.13.0 (as <see cref="System.Version"/>)
+			/// </summary>
+			public static Version Kernel {
+				get {
+					string output = _KernelString;
+					return Version.Parse(output[..output.IndexOf("-")]);
+				}
+			}
+
+			private static string ParseReleaseCommandString(string variable)
+				=> ". /etc/*-release && echo $" + variable;
+
+
+			/// <summary> <c> >> /etc/*-release >> $ID </c> <br/>
+			///     ID of this distro <br/><br/>
+			///     # Example: ubuntu
+			/// </summary>
+			public static ILinuxDistro ID
+				=> FromID(Bash.Command(ParseReleaseCommandString("ID")).Output);
+
+			/// <summary> <c> >> /etc/*-release >> $ID_LIKE </c> <br/>
+			///     ID of the distro this is based on <br/><br/>
+			///     # Example: debian (<see cref="string"/>)
+			/// </summary>
+			public static ILinuxDistro BaseID
+				=> FromID(Bash.Command(ParseReleaseCommandString("ID_LIKE")).Output);
+
+			/// <summary> <c> >> /etc/*-release >> $VERSION_ID </c> <br/>
+			///     Version presented in a numerical way <br/><br/>
+			///     # Example: 20.04 (as <see cref="System.Version"/>) <br/>
+			///     <br/>
+			///  !!!  Except Arch and CentOS 5~6 AND maybe others ¯\_(ツ)_/¯
+			/// </summary>
+			public static Version Version
+				=> Version.Parse(Bash.Command(ParseReleaseCommandString("VERSION_ID")).Output);
+
+			/// <summary> <c> >> /etc/*-release >> $PRETTY_NAME </c> <br/>
+			///     Name of this distro <br/><br/>
+			///     # Example: Ubuntu 20.04 LTS
+			/// </summary>
+			public static string Name
+				=> Bash.Command(ParseReleaseCommandString("PRETTY_NAME")).Output;
+
+			/// <summary> <c> >> /etc/*-release >> $HOME_URL </c> <br/>
+			///     Home page URL (<see cref="string"/>) of this distro <br/><br/>
+			///     # Example: https://www.ubuntu.com/ (as <see cref="string"/>)
+			/// </summary>
+			public static string Homepage
+				=> Bash.Command(ParseReleaseCommandString("HOME_URL")).Output;
+
+		}
+	}
 }
 
 
