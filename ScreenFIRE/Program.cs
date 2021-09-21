@@ -6,33 +6,34 @@ using System;
 
 namespace ScreenFIRE {
 
-    class Program {
+	class Program {
 
-        public const string packageName = "com.nhk.ScreenFIRE";
+		public const string packageName = "com.nhk.ScreenFIRE";
 
-        public static Application ScreenFIRE = new(packageName, GLib.ApplicationFlags.None);
+		public static Application app = new(packageName, GLib.ApplicationFlags.None);
 
-        public static Config Config = new();
-        public static ScreenshotFullScreen ScreenshotFullScreen = new();
+		public static Config Config = new();
+		public static GUI.ScreenFIRE ScreenFIRE = new();
 
-        [STAThread]
-        public static void Main(string[] args) {
-            if (!Platform.IsSupported)
-                throw new PlatformNotSupportedException(
-                                $"Sorry ScreenFIRE does not support Platform ID \"{Environment.OSVersion.Platform}\""
-                                + $"{Common.n}Please run ScreenFIRE on Windows or Linux.");
+		[STAThread]
+		public static void Main(string[] args) {
+			if (!Platform.IsSupported)
+				throw new PlatformNotSupportedException(
+								$"Sorry ScreenFIRE does not support Platform ID \"{Environment.OSVersion.Platform}\""
+								+ $"{Common.n}Please run ScreenFIRE on Windows or Linux.");
 
-            PrepareEnvironment.Run();
+			PrepareEnvironment.Run();
 
-            Application.Init();
+			Application.Init();
 
-            ScreenFIRE.Register(GLib.Cancellable.Current);
+			app.Register(GLib.Cancellable.Current);
 
-            ScreenFIRE.AddWindow(Config);
-            ScreenFIRE.AddWindow(ScreenshotFullScreen);
+			app.AddWindow(Config);
+			app.AddWindow(ScreenFIRE);
 
-            Config.Show();
-            Application.Run();
-        }
-    }
+			Config.Show();
+			//ScreenFIRE.Show();
+			Application.Run();
+		}
+	}
 }
