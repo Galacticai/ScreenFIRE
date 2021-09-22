@@ -37,13 +37,16 @@
         </child>
         <child type="overlay">
           <object class="GtkButton" id="Close_Button">
-            <property name="label" translatable="yes">CLOSE</property>
+            <property name="label">gtk-quit</property>
             <property name="visible">True</property>
             <property name="can-focus">True</property>
             <property name="receives-default">True</property>
+            <property name="opacity">0.75</property>
             <property name="halign">center</property>
             <property name="valign">center</property>
-            <property name="relief">half</property>
+            <property name="use-stock">True</property>
+            <property name="image-position">top</property>
+            <property name="always-show-image">True</property>
           </object>
           <packing>
             <property name="index">10</property>

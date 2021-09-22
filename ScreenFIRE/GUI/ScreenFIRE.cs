@@ -2,9 +2,12 @@ using Gtk;
 using ScreenFIRE.Assets;
 using ScreenFIRE.Modules.Capture;
 using ScreenFIRE.Modules.Capture.Companion;
+using ScreenFIRE.Modules.Companion;
+using ScreenFIRE.Modules.Companion.math;
 using System;
+using System.Threading;
 using System.Threading.Tasks;
-using gui = Gtk.Builder.ObjectAttribute;
+using gdk = Gdk;
 
 namespace ScreenFIRE.GUI {
 
@@ -13,12 +16,12 @@ namespace ScreenFIRE.GUI {
 
 		private Screenshot Screenshot { get; set; }
 
-		[gui]
+		[Builder.Object]
 		private readonly Image ScreenshotImage = null;
-		[gui]
+		[Builder.Object]
 		private readonly Button Close_Button = null;
-		[gui]
-		private readonly DrawingArea drawingArea = null;
+		[Builder.Object]
+		private readonly DrawingArea SS_DrawingArea = null;
 
 		private static string[] txt_privatenameusedonlybythisfunction_238157203985ty9486t4 = null;
 		private static async Task<string> txt(int index) {
@@ -30,8 +33,14 @@ namespace ScreenFIRE.GUI {
 		}
 		private void AssignEvents() {
 			DeleteEvent += delegate { Application.Quit(); };
+			Hidden += OnHidden;
+			Destroyed += OnHidden;
+			Shown += OnShown;
 			Close_Button.Clicked += Close_Button_Clicked;
-			//drawingArea.ond += OnExpose;
+
+			SS_DrawingArea.DragBegin += Draw_DragBegin;
+			SS_DrawingArea.DragMotion += Draw_DragMotion;
+			SS_DrawingArea.DragEnd += Draw_DragEnd;
 		}
 
 		public ScreenFIRE() : this(new Builder("ScreenFIRE.glade")) { }
@@ -39,37 +48,48 @@ namespace ScreenFIRE.GUI {
 		private ScreenFIRE(Builder builder) : base(builder.GetRawOwnedObject("ScreenFIRE")) {
 			builder.Autoconnect(this);
 			AssignEvents();
+		}
+
+		private void OnHidden(object sender, EventArgs ev) {
+			Program.Config.ShowAll();
+		}
+		private void OnShown(object sender, EventArgs ev) {
+			Program.Config.Hide();
+			Thread.Sleep(1000);
 
 			Screenshot = new Screenshot(IScreenshotType.AllMonitors);
 			ScreenshotImage.Pixbuf = Screenshot.Image;
 			Move(0, 0);
+
+			SS_DrawingArea.SetAllocation(Screenshot.ImageRectangle);
 		}
+
 		private void Close_Button_Clicked(object sender, EventArgs ev)
 				=> Hide();
 
-		//protected override bool OnDrawn(Context g) {
-		//
-		//}
-		//void OnExpose(object sender, ExposeEventArgs args) {
-		//	DrawingArea area = (DrawingArea)sender;
-		//	Cairo.Context cr = Gdk.CairoHelper.Create(area.GdkWindow);
-		//
-		//	cr.LineWidth = 9;
-		//	cr.SetSourceRGB(0.7, 0.2, 0.0);
-		//
-		//	int width, height;
-		//	width = Allocation.Width;
-		//	height = Allocation.Height;
-		//
-		//	cr.Translate(width / 2, height / 2);
-		//	cr.Arc(0, 0, (width < height ? width : height) / 2 - 10, 0, 2 * Math.PI);
-		//	cr.StrokePreserve();
-		//
-		//	cr.SetSourceRGB(0.3, 0.4, 0.6);
-		//	cr.Fill();
-		//
-		//	((IDisposable)cr.Target).Dispose();
-		//	((IDisposable)cr).Dispose();
-		//}
+
+		private gdk.Point startPoint;
+		private gdk.Point endPoint;
+		private Cairo.Context g;
+
+		private void Draw_DragBegin(object sender, DragBeginArgs ev) {
+			startPoint = Monitors.Pointer_Point(); //set the start point
+			g = gdk.CairoHelper.Create(SS_DrawingArea.Window); //prepare the context
+
+
+		}
+		private void Draw_DragMotion(object sender, DragMotionArgs args) {
+			endPoint = Monitors.Pointer_Point(); //set the end point on motion
+
+			gdk.Rectangle gdkRect = Vision.Geometry.PointsToRectangle(startPoint, endPoint);
+
+			g.Rectangle(gdkRect.Top, gdkRect.Y, gdkRect.Width, gdkRect.Height);
+		}
+		private void Draw_DragEnd(object sender, DragEndArgs args) {
+
+
+			g.GetTarget().Dispose();
+			Destroy();
+		}
 	}
 }
