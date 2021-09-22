@@ -1,10 +1,27 @@
 ﻿using Gdk;
 using ScreenFIRE.Modules.Companion.math;
 using ScreenFIRE.Modules.Companion.OS;
+using System;
 
 namespace ScreenFIRE.Modules.Companion {
 
-	class Monitors {
+	class Monitors : IDisposable {
+		#region IDisposable
+		bool disposed;
+		protected virtual void Dispose(bool disposing) {
+			if (!disposed) {
+				if (disposing) {
+					AllMonitors = null;
+					Rectangles = null;
+				}
+			}
+			disposed = true;
+		}
+		public void Dispose() {
+			Dispose(true);
+			GC.SuppressFinalize(this);
+		}
+		#endregion
 
 		#region Static methods
 
@@ -104,7 +121,7 @@ namespace ScreenFIRE.Modules.Companion {
 		/// <summary> Number of monitors </summary>
 		public static int Count => Display.Default.NMonitors;
 
-		public Monitor[] AllMonitors { get; }
+		public Monitor[] AllMonitors { get; private set; }
 
 
 		/// <summary> <see cref="Rectangle"/> array of each screen </summary>
