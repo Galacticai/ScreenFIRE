@@ -134,11 +134,8 @@ namespace ScreenFIRE.Modules.Companion {
 		/// <returns> <see cref=" Rectangle"/> array of each screen </returns>
 		private Rectangle[] Rectangles_Auto() {
 			Rectangles = new Rectangle[Count]; //? Reset
-			Rectangle gRect;  // outside || Prevent redeclaring every loop
-			for (int i = 0; i < Count; i++) {
-				gRect = Display.Default.GetMonitor(i).Geometry;
-				Rectangles[i] = new(gRect.X, gRect.Y, gRect.Width, gRect.Height); // convert from Gdk to System.Drawing
-			}
+			for (int i = 0; i < Count; i++)
+				Rectangles[i] = Display.Default.GetMonitor(i).Geometry;
 			return Rectangles;
 		}
 
