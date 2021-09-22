@@ -60,8 +60,7 @@ namespace ScreenFIRE.GUI {
 			AssignEvents();
 			LogoImage.Pixbuf
 				= new Gdk.Pixbuf(Vision.BitmapToByteArray(SF.Logo))
-							.ScaleSimple(256, 256, Gdk.InterpType.Bilinear);
-			LogoImage.SetSizeRequest(256, 256);
+							.ScaleSimple(128, 128, Gdk.InterpType.Bilinear);
 			_label1.Text = txt(5).Result;
 			SF_Button_AllMonitors.Label = txt(6).Result;
 			SF_Button_MonitorAtPointer.Label = txt(7).Result;
@@ -78,7 +77,7 @@ namespace ScreenFIRE.GUI {
 			AcceptFocus = false;
 			Thread.Sleep(1000); //! temprary to make sure the window is fully hidden
 
-			Screenshot ss = new(screenshotType);
+			using var ss = new Screenshot(screenshotType);
 			if (!await Save.Local(ss, this)) {
 				MessageDialog failDialog = new(this,
 											   DialogFlags.Modal,
@@ -94,6 +93,7 @@ namespace ScreenFIRE.GUI {
 
 			AcceptFocus = true;
 			ShowAll();
+
 		}
 	}
 }

@@ -64,35 +64,39 @@ namespace ScreenFIRE.GUI {
 			SS_DrawingArea.SetAllocation(Screenshot.ImageRectangle);
 		}
 
-		private void Close_Button_Clicked(object sender, EventArgs ev)
-				=> Hide();
+		private void Close_Button_Clicked(object sender, EventArgs ev) {
+			Screenshot.Dispose();
+			Hide();
+		}
 
 
 		private gdk.Point startPoint;
 		private gdk.Point endPoint;
 		private Context g;
-		private Surface surface;
 
 		private void Draw_DragBegin(object sender, DragBeginArgs ev) {
 			startPoint = Monitors.Pointer_Point(); //set the start point
-			surface = new ImageSurface(Format.Argb32, Screenshot.Image.Width, Screenshot.Image.Height);
-			g = new Context(surface); //prepare the context
+			g = new Context(new ImageSurface(Format.Argb32,
+											 Screenshot.Image.Width,
+											 Screenshot.Image.Height)
+											 ); //prepare the context
 
 		}
 		private void Draw_DragMotion(object sender, DragMotionArgs args) {
 			endPoint = Monitors.Pointer_Point(); //set the end point on motion
 
 			gdk.Rectangle gdkRect = Vision.Geometry.PointsToRectangle(startPoint, endPoint);
+			g.MoveTo(gdkRect.X, gdkRect.Y);
 			Rectangle rect = new(gdkRect.X, gdkRect.Y, gdkRect.Width, gdkRect.Height);
 			g.SetSourceRGB(0.3, 0.4, 0.6);
 			g.Rectangle(rect);
+			g.Stroke();
 			g.Fill();
 
+			SS_DrawingArea.QueueDraw();
 
 		}
 		private void Draw_DragEnd(object sender, DragEndArgs args) {
-
-
 			g.GetTarget().Dispose();
 			g.Dispose();
 			Destroy();
