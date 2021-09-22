@@ -1,3 +1,4 @@
+using Cairo;
 using Gtk;
 using ScreenFIRE.Assets;
 using ScreenFIRE.Modules.Capture;
@@ -69,25 +70,31 @@ namespace ScreenFIRE.GUI {
 
 		private gdk.Point startPoint;
 		private gdk.Point endPoint;
-		private Cairo.Context g;
+		private Context g;
+		private Surface surface;
 
 		private void Draw_DragBegin(object sender, DragBeginArgs ev) {
 			startPoint = Monitors.Pointer_Point(); //set the start point
-			g = gdk.CairoHelper.Create(SS_DrawingArea.Window); //prepare the context
-
+			surface = new ImageSurface(Format.Argb32, Screenshot.Image.Width, Screenshot.Image.Height);
+			g = new Context(surface); //prepare the context
 
 		}
 		private void Draw_DragMotion(object sender, DragMotionArgs args) {
 			endPoint = Monitors.Pointer_Point(); //set the end point on motion
 
 			gdk.Rectangle gdkRect = Vision.Geometry.PointsToRectangle(startPoint, endPoint);
+			Rectangle rect = new(gdkRect.X, gdkRect.Y, gdkRect.Width, gdkRect.Height);
+			g.SetSourceRGB(0.3, 0.4, 0.6);
+			g.Rectangle(rect);
+			g.Fill();
 
-			g.Rectangle(gdkRect.Top, gdkRect.Y, gdkRect.Width, gdkRect.Height);
+
 		}
 		private void Draw_DragEnd(object sender, DragEndArgs args) {
 
 
 			g.GetTarget().Dispose();
+			g.Dispose();
 			Destroy();
 		}
 	}
