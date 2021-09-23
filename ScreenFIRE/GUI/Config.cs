@@ -12,7 +12,7 @@ using UI = Gtk.Builder.ObjectAttribute;
 
 namespace ScreenFIRE.GUI {
 
-	class Config : Window {
+	class Config : ApplicationWindow {
 		[UI] private readonly Label _label1 = null;
 		[UI] private readonly Image LogoImage = null;
 		[UI] private readonly Button SF_Button_AllMonitors = null;
