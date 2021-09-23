@@ -18,7 +18,7 @@
     <child>
       <object class="GtkOverlay">
         <property name="visible">True</property>
-        <property name="can-focus">False</property>
+        <property name="can-focus">True</property>
         <child>
           <object class="GtkImage" id="ScreenshotImage">
             <property name="visible">True</property>

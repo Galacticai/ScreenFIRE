@@ -80,6 +80,7 @@ namespace ScreenFIRE.GUI {
 											 Screenshot.Image.Width,
 											 Screenshot.Image.Height)
 											 ); //prepare the context
+			SS_DrawingArea.Realize();
 
 		}
 		private void Draw_DragMotion(object sender, DragMotionArgs args) {
@@ -87,8 +88,8 @@ namespace ScreenFIRE.GUI {
 
 			gdk.Rectangle gdkRect = Vision.Geometry.PointsToRectangle(startPoint, endPoint);
 			g.MoveTo(gdkRect.X, gdkRect.Y);
-			Rectangle rect = new(gdkRect.X, gdkRect.Y, gdkRect.Width, gdkRect.Height);
 			g.SetSourceRGB(0.3, 0.4, 0.6);
+			Rectangle rect = new(gdkRect.X, gdkRect.Y, gdkRect.Width, gdkRect.Height);
 			g.Rectangle(rect);
 			g.Stroke();
 			g.Fill();
