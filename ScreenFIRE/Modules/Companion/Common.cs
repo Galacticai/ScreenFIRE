@@ -11,19 +11,22 @@ namespace ScreenFIRE.Modules.Companion {
 
         #region ScreenFIRE environment
         /// <summary> (<see cref="Environment.SpecialFolder.UserProfile"/>) </summary>
-        public static string UserProfile => Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+        public static string UserProfile
+            => Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
 
-        /// <summary> (<see cref="Environment.SpecialFolder.MyPictures"/>) > ScreenFIRE </summary>
-        public static string SF
-            => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder
-                                .MyPictures),
-                            "ScreenFIRE");
+        /// <summary> (<see cref="Environment.SpecialFolder.MyPictures"/>) </summary>
+        public static string PicturesDir
+            => Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
 
-        /// <summary> (<see cref="env.SpecialFolder.ApplicationData"/>) > ScreenFIRE </summary>
-        public static string SF_Data
-            => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder
-                                .ApplicationData),
-                            "ScreenFIRE");
+        /// <summary> (<see cref="Environment.SpecialFolder.ApplicationData"/>) </summary>
+        public static string AppData
+            => Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+
+        /// <summary> (<see cref="Environment.SpecialFolder.MyPictures"/>) >> ScreenFIRE </summary>
+        public static string SF => Path.Combine(PicturesDir, "ScreenFIRE");
+
+        /// <summary> (<see cref="Environment.SpecialFolder.ApplicationData"/>) >> ScreenFIRE </summary>
+        public static string SF_Data => Path.Combine(AppData, "ScreenFIRE");
 
         #endregion
 
@@ -31,9 +34,9 @@ namespace ScreenFIRE.Modules.Companion {
         #region Public Abbreviations
 
         /// <returns> Current copyright string </returns>
-        public static string Copyright => FileVersionInfo.GetVersionInfo(
-                                                Assembly.GetExecutingAssembly().Location
-                                          ).LegalCopyright;
+        public static string Copyright => FileVersionInfo.GetVersionInfo
+                                                (Assembly.GetExecutingAssembly().Location)
+                                            .LegalCopyright;
 
         /// <returns> Get current version field </summary>
         public static Version Version => Assembly.GetExecutingAssembly().GetName().Version;
