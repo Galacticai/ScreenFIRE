@@ -100,7 +100,7 @@ namespace ScreenFIRE.GUI {
                                                DialogFlags.Modal,
                                                MessageType.Warning,
                                                ButtonsType.Ok,
-                                               await txt(6));
+                                               await txt(5));
                 failDialog.Run();
                 failDialog.Destroy();
             } else {
