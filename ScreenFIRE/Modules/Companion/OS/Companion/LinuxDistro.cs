@@ -51,7 +51,7 @@ namespace ScreenFIRE.Modules.Companion.OS.Companion {
 
 
 		/// <summary> Information about the currently running Linux OS </summary>
-		public record struct Current {
+		public record Current {
 
 			private static Bash _Bash = null;
 			private static Bash Bash => _Bash ??= new();
@@ -69,7 +69,8 @@ namespace ScreenFIRE.Modules.Companion.OS.Companion {
 			public static Version Kernel {
 				get {
 					string output = _KernelString;
-					return Version.Parse(output[..output.IndexOf("-")]);
+					if (output.IndexOf("-") >= 0) output = output[..output.IndexOf("-")];
+					return Version.Parse(output);
 				}
 			}
 
