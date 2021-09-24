@@ -15,6 +15,9 @@ namespace ScreenFIRE.GUI {
     class Config : ApplicationWindow {
         [UI] private readonly Label _label1 = null;
         [UI] private readonly Image LogoImage = null;
+        [UI] private readonly Label Screenshot_TabButton = null;
+        [UI] private readonly Label SaveOptions_TabButton = null;
+        [UI] private readonly Label About_TabButton = null;
         [UI] private readonly Button SF_Button_AllMonitors = null;
         [UI] private readonly Button SF_Button_MonitorAtPointer = null;
         [UI] private readonly Button SF_Button_WindowAtPointer = null;
@@ -35,7 +38,11 @@ namespace ScreenFIRE.GUI {
                                             IStrings.MonitorAtPointer,//8
                                             IStrings.WindowAtPointer,//9
                                             IStrings.ActiveWindow,//10
-                                            IStrings.FreeAreaSelection))//11
+                                            IStrings.FreeAreaSelection,//11
+                                            IStrings.Screenshot,//12
+                                            IStrings.SavingOptions,//13
+                                            IStrings.About//14
+                                            ))
                         )[index];
         }
         private void AssignEvents() {
@@ -58,8 +65,12 @@ namespace ScreenFIRE.GUI {
         private Config(Builder builder) : base(builder.GetRawOwnedObject("Config")) {
             builder.Autoconnect(this);
 
-            Title = txt(0).Result;
             AssignEvents();
+
+            Title = txt(0).Result;
+            Screenshot_TabButton.Text = txt(12).Result;
+            SaveOptions_TabButton.Text = txt(13).Result;
+            About_TabButton.Text = txt(14).Result;
 
             LogoImage.Pixbuf
                 = new Gdk.Pixbuf(Vision.BitmapToByteArray(SF.Logo))
@@ -69,7 +80,7 @@ namespace ScreenFIRE.GUI {
             SF_Button_MonitorAtPointer.Label = txt(8).Result;
             SF_Button_WindowAtPointer.Label = txt(9).Result;
             SF_Button_ActiveWindow.Label = txt(10).Result;
-
+            SF_Button_Custom.Label = txt(11).Result;
         }
 
 

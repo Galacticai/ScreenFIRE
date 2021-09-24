@@ -8,6 +8,10 @@ namespace ScreenFIRE.Assets {
         ScreenFIRE,
         ScreenFIREConfig,
 
+        Screenshot,
+        SavingOptions,
+        About,
+
         OK, Yes, No, Cancel,
 
         ChooseHowYouWouldLikeToFireYourScreenshot_,
@@ -69,20 +73,22 @@ namespace ScreenFIRE.Assets {
             //!? return result_Translated;
         }
 
+#pragma warning disable CS1998 //>> "Async method lacks 'await' operators and will run synchronously"
         /// <summary> Fetch a specific string </summary>
         /// <param name="Name"> String name provided by <see cref="IStrings"/> </param>
         /// <returns> Localized <see cref="string"/> according to system language </returns>
         public static async Task<string> Fetch(IStrings Name, bool translate = true, ILanguages? language = null) {
 
-            return (language ??= Languages.DotNetToILanguages()) switch { //! System language
+            return (language ?? Languages.DotNetToILanguages()) switch { //! System language
                 //ILanguages.English => En(Name),
                 ILanguages.Arabic => Ar(Name),
-                //ILanguages.Chinese => Zh(name),
+                ILanguages.ChineseSimplified => Zh(Name),
 
                 //! English / Other
-                _ => En(Name) //translate ? await Languages.TranslateText(En(Name), language) : En(Name),
+                _ => Zh(Name) //translate ? await Languages.TranslateText(En(Name), language) : En(Name),
             };
         }
+#pragma warning restore CS1998 //<< "Async method lacks 'await' operators and will run synchronously"
 
 
         #region Localized strings
@@ -91,6 +97,10 @@ namespace ScreenFIRE.Assets {
           => Name switch {
               IStrings.ScreenFIRE => "ScreenFIRE",
               IStrings.ScreenFIREConfig => "ScreenFIRE Configuration",
+
+              IStrings.Screenshot => "Screenshot",
+              IStrings.SavingOptions => "Saving options",
+              IStrings.About => "About",
 
               IStrings.OK => "OK",
               IStrings.Yes => "Yes",
@@ -103,7 +113,7 @@ namespace ScreenFIRE.Assets {
               IStrings.times_1 => "time",
               IStrings.times_2 => "times",
 
-              IStrings.SomethingWentWrong___ => "Something went wrong...",
+              IStrings.SomethingWentWrong___ => $"Something went wrong{Common.Ellipses }",
 
               IStrings.AllMonitors => "All monitors",
               IStrings.MonitorAtPointer => "Monitor at pointer",
@@ -111,7 +121,7 @@ namespace ScreenFIRE.Assets {
               IStrings.ActiveWindow => "Active window",
               IStrings.FreeAreaSelection => "Free area selection",
 
-              IStrings.SaveAs___ => "Save as...",
+              IStrings.SaveAs___ => $"Save as{Common.Ellipses }",
               IStrings.FileAlreadyExists_ => "File already exists.",
               IStrings.alreadyExists => "already exists",
               IStrings.WouldYouLikeToReplaceTheExistingFile_ => "Would you like to replace the existing file?",
@@ -123,8 +133,12 @@ namespace ScreenFIRE.Assets {
 
         private static string Ar(IStrings Name)
           => Name switch {
-              //IStrings.ScreenFIRE => "حريق الشاشة ScreenFIRE",
+              IStrings.ScreenFIRE => "حريق الشاشة ScreenFIRE",
               IStrings.ScreenFIREConfig => "إعدادات ScreenFIRE",
+
+              IStrings.Screenshot => "لقطة شاشة",
+              IStrings.SavingOptions => "خيارات الحفظ",
+              IStrings.About => "حول هذا",
 
               IStrings.OK => "حسناً",
               IStrings.Yes => "نعم",
@@ -137,7 +151,7 @@ namespace ScreenFIRE.Assets {
               IStrings.times_1 => "مرة",
               IStrings.times_2 => "مرات",
 
-              IStrings.SomethingWentWrong___ => "حدث خطأ ما...",
+              IStrings.SomethingWentWrong___ => $"حدث خطأ ما{Common.Ellipses }",
 
               IStrings.AllMonitors => "جميع الشاشات",
               IStrings.MonitorAtPointer => "الشاشة عند المؤشر",
@@ -145,7 +159,7 @@ namespace ScreenFIRE.Assets {
               IStrings.ActiveWindow => "النافذة الفعالة",
               IStrings.FreeAreaSelection => "تحديد مساحة حرة",
 
-              IStrings.SaveAs___ => "حفظ باسم...",
+              IStrings.SaveAs___ => $"حفظ باسم{Common.Ellipses }",
               IStrings.FileAlreadyExists_ => "الملف موجود مسبقاً.",
               IStrings.alreadyExists => "موجود مسبقاً",
               IStrings.WouldYouLikeToReplaceTheExistingFile_ => "هل تودّ استبدال الملف السابق؟",
@@ -155,22 +169,43 @@ namespace ScreenFIRE.Assets {
               _ => En(Name)
           };
 
-        //private static string Zh(IStrings Name)
-        //  => Name switch {
+        private static string Zh(IStrings Name)
+          => Name switch {
+              IStrings.ScreenFIRE => "屏幕火 ScreenFIRE",
+              IStrings.ScreenFIREConfig => "ScreenFIRE 配置",
 
-        //      IStrings.ScreenFIRE => "屏幕火 ScreenFIRE",
+              IStrings.Screenshot => "截屏",
+              IStrings.SavingOptions => "保存选项",
+              IStrings.About => "对这个",
 
-        //      IStrings.dot => "。",
+              IStrings.OK => "好的",
+              IStrings.Yes => "是的",
+              IStrings.No => "不",
+              IStrings.Cancel => "取消",
 
-        //      IStrings.SaveAs => "另存为",
-        //      IStrings.FileAlreadyExists => "文件已存在。",
-        //      IStrings.alreadyExists => "已经存在。",
-        //      IStrings.DoYouWantToReplaceTheExistingFile => "是否要替换现有文件？",
+              IStrings.ChooseHowYouWouldLikeToFireYourScreenshot_ => "选择您希望如何触发屏幕截图！",
+              IStrings.FiredAScreenshot_ => "发了截图！",
+              IStrings.ThisButtonHasBeenClicked => "此按钮已被点击",
+              IStrings.times_1 => "次",
+              IStrings.times_2 => "次",
+
+              IStrings.SomethingWentWrong___ => $"出了些问题{Common.Ellipses }",
+
+              IStrings.AllMonitors => "所有显示器",
+              IStrings.MonitorAtPointer => "在指针处监控",
+              IStrings.WindowAtPointer => "指针处的窗口",
+              IStrings.ActiveWindow => "活动窗口",
+              IStrings.FreeAreaSelection => "区域选择",
+
+              IStrings.SaveAs___ => $"另存为{Common.Ellipses }",
+              IStrings.FileAlreadyExists_ => "文件已存在。",
+              IStrings.alreadyExists => "已经存在",
+              IStrings.WouldYouLikeToReplaceTheExistingFile_ => "您想替换现有文件吗？",
 
 
-        //      //? Fallback to English.
-        //      _ => En(Name)
-        //  };
+              //? Fallback to English.
+              _ => En(Name)
+          };
 
         #endregion
 
