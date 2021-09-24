@@ -47,7 +47,7 @@ namespace ScreenFIRE.GUI {
         }
         private void AssignEvents() {
             DeleteEvent += delegate { Application.Quit(); };
-
+            this.
             SF_Button_AllMonitors.Clicked
                 += async delegate { await Capture(IScreenshotType.AllMonitors); };
             SF_Button_MonitorAtPointer.Clicked
@@ -81,6 +81,8 @@ namespace ScreenFIRE.GUI {
             SF_Button_WindowAtPointer.Label = txt(9).Result;
             SF_Button_ActiveWindow.Label = txt(10).Result;
             SF_Button_Custom.Label = txt(11).Result;
+
+
         }
 
 
