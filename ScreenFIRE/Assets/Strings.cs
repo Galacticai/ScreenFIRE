@@ -6,6 +6,7 @@ namespace ScreenFIRE.Assets {
 
     public enum IStrings {
         ScreenFIRE,
+        ScreenFIREConfig,
 
         OK, Yes, No, Cancel,
 
@@ -43,10 +44,10 @@ namespace ScreenFIRE.Assets {
             List<string> result = new();
             foreach (var name in Names)
                 result.Add(await Fetch(name,
-                                       false)); //! skip translation when fetching multiple strings 
+                                       false)); //! skip translation when fetching multiple strings
 
 
-            //! >> Translation is currently disabled || `Languages.TranslateText` is broken 
+            //! >> Translation is currently disabled || `Languages.TranslateText` is broken
 
 
             //? Remove this if enabling translation:
@@ -55,16 +56,16 @@ namespace ScreenFIRE.Assets {
             //? Do not remove the following:
 
             //!? string joint = "\u21da\u21db"; //! ⇚⇛ Where strings will be joined/split
-            //!? 
+            //!?
             //!? string joined = string.Join(joint, result);
-            //!? 
+            //!?
             //!? string joined_Translated
             //!?     = await Languages.TranslateText(joined,
             //!?                                     Languages.DotNetToILanguages(
             //!?                                         Languages.TwoLetterISOLanguageName)); //! translate all at once
-            //!? 
+            //!?
             //!? string[] result_Translated = joined_Translated.Split(joint);
-            //!? 
+            //!?
             //!? return result_Translated;
         }
 
@@ -74,7 +75,7 @@ namespace ScreenFIRE.Assets {
         public static async Task<string> Fetch(IStrings Name, bool translate = true, ILanguages? language = null) {
 
             return (language ??= Languages.DotNetToILanguages()) switch { //! System language
-                //ILanguages.English => En(Name), 
+                //ILanguages.English => En(Name),
                 ILanguages.Arabic => Ar(Name),
                 //ILanguages.Chinese => Zh(name),
 
@@ -89,6 +90,7 @@ namespace ScreenFIRE.Assets {
         private static string En(IStrings Name)
           => Name switch {
               IStrings.ScreenFIRE => "ScreenFIRE",
+              IStrings.ScreenFIREConfig => "ScreenFIRE Configuration",
 
               IStrings.OK => "OK",
               IStrings.Yes => "Yes",
@@ -121,7 +123,8 @@ namespace ScreenFIRE.Assets {
 
         private static string Ar(IStrings Name)
           => Name switch {
-              IStrings.ScreenFIRE => "حريق الشاشة ScreenFIRE",
+              //IStrings.ScreenFIRE => "حريق الشاشة ScreenFIRE",
+              IStrings.ScreenFIREConfig => "إعدادات ScreenFIRE",
 
               IStrings.OK => "حسناً",
               IStrings.Yes => "نعم",
