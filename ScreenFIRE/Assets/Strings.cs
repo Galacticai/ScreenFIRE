@@ -85,7 +85,7 @@ namespace ScreenFIRE.Assets {
                 ILanguages.ChineseSimplified => Zh(Name),
 
                 //! English / Other
-                _ => Zh(Name) //translate ? await Languages.TranslateText(En(Name), language) : En(Name),
+                _ => En(Name) //translate ? await Languages.TranslateText(En(Name), language) : En(Name),
             };
         }
 #pragma warning restore CS1998 //<< "Async method lacks 'await' operators and will run synchronously"
