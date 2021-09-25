@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ScreenFIRE.Assets;
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
@@ -9,7 +10,7 @@ namespace ScreenFIRE.Modules.Companion {
     /// <summary> Common class for general ScreenFIRE stuff </summary>
     static class Common {
 
-        #region ScreenFIRE environment
+        #region Abbreviations for ScreenFIRE
         /// <summary> (<see cref="Environment.SpecialFolder.UserProfile"/>) </summary>
         public static string UserProfile
             => Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
@@ -28,18 +29,38 @@ namespace ScreenFIRE.Modules.Companion {
         /// <summary> (<see cref="Environment.SpecialFolder.ApplicationData"/>) >> ScreenFIRE </summary>
         public static string SF_Data => Path.Combine(AppData, "ScreenFIRE");
 
+        /// <returns> GNU GPL v3.0 license link <c>(https://www.gnu.org/licenses/gpl-3.0.html)</c> </returns>
+        public const string SF_License = "https://www.gnu.org/licenses/gpl-3.0.html";
+
+        /// <returns> ScreenFIRE repository link <c>(https://github.com/NHKomaiha/ScreenFIRE)</c> </returns>
+        public const string SF_GitRepo = "https://github.com/NHKomaiha/ScreenFIRE";
+        /// <returns> ScreenFIRE repository >> issues link <c>(https://github.com/NHKomaiha/ScreenFIRE/issues)</c> </returns>
+        public const string SF_GitRepo_issues = $"{SF_GitRepo}/issues";
+
         #endregion
 
 
-        #region Public Abbreviations
+        #region General Abbreviations
+
+        /// <returns> Get current version field </summary>
+        public static Version Version => Assembly.GetExecutingAssembly().GetName().Version;
+        public static string VersionString(bool MajMin_only = false, bool includePhase = true) {
+            Version version = Version; //! Get once
+            return $"{(MajMin_only ? string.Empty : "v")}"
+                 + $"{version.Major}.{version.Minor}"
+                 + (includePhase & !MajMin_only ? $" #{PhaseString()}" : string.Empty);
+        }
+        public static string PhaseString()
+            => Version.Build switch {
+                2 => Strings.Fetch(IStrings.Development).Result,
+                1 => Strings.Fetch(IStrings.Beta).Result,
+                _ => Strings.Fetch(IStrings.Public).Result,
+            };
 
         /// <returns> Current copyright string </returns>
         public static string Copyright => FileVersionInfo.GetVersionInfo
                                                 (Assembly.GetExecutingAssembly().Location)
                                             .LegalCopyright;
-
-        /// <returns> Get current version field </summary>
-        public static Version Version => Assembly.GetExecutingAssembly().GetName().Version;
 
         /// <returns> Simple .NET new line (<see cref="Environment.NewLine"/>) <br/>
         /// \r\n for non-Unix platforms, or \n for Unix platforms. </returns>
