@@ -5,14 +5,21 @@ using System.Threading.Tasks;
 namespace ScreenFIRE.Assets {
 
     public enum IStrings {
+        ScreenFIRE_Stylized,
         ScreenFIRE,
         ScreenFIREConfig,
+        ScreenFIRERepositoryAtGitHub,
+
+        GNUGeneralPublicLicensev3_0___,
+
+        OK, Yes, No, Cancel,
 
         Screenshot,
         SavingOptions,
         About,
 
-        OK, Yes, No, Cancel,
+        Version, Phase, Public, Beta, Development,
+
 
         ChooseHowYouWouldLikeToFireYourScreenshot_,
         FiredAScreenshot_,
@@ -32,6 +39,12 @@ namespace ScreenFIRE.Assets {
         FileAlreadyExists_,
         alreadyExists,
         WouldYouLikeToReplaceTheExistingFile_,
+
+        Original,
+        Quality,
+        Efficiency,
+        Animated,
+        Video,
 
     }
 
@@ -95,12 +108,22 @@ namespace ScreenFIRE.Assets {
 
         private static string En(IStrings Name)
           => Name switch {
+              IStrings.ScreenFIRE_Stylized => @"Screen 🅵🅸🆁🅴",
               IStrings.ScreenFIRE => "ScreenFIRE",
               IStrings.ScreenFIREConfig => "ScreenFIRE Configuration",
+              IStrings.ScreenFIRERepositoryAtGitHub => $"ScreenFIRE repository at GitHub",
+
+              IStrings.GNUGeneralPublicLicensev3_0___ => $"GNU General Public License v3.0 {Common.Ellipses}",
 
               IStrings.Screenshot => "Screenshot",
               IStrings.SavingOptions => "Saving options",
               IStrings.About => "About",
+
+              IStrings.Version => "Version",
+              IStrings.Phase => "Phase",
+              IStrings.Public => "Public",
+              IStrings.Beta => "Beta",
+              IStrings.Development => "Development",
 
               IStrings.OK => "OK",
               IStrings.Yes => "Yes",
@@ -113,7 +136,7 @@ namespace ScreenFIRE.Assets {
               IStrings.times_1 => "time",
               IStrings.times_2 => "times",
 
-              IStrings.SomethingWentWrong___ => $"Something went wrong{Common.Ellipses }",
+              IStrings.SomethingWentWrong___ => $"Something went wrong{Common.Ellipses}",
 
               IStrings.AllMonitors => "All monitors",
               IStrings.MonitorAtPointer => "Monitor at pointer",
@@ -121,10 +144,16 @@ namespace ScreenFIRE.Assets {
               IStrings.ActiveWindow => "Active window",
               IStrings.FreeAreaSelection => "Free area selection",
 
-              IStrings.SaveAs___ => $"Save as{Common.Ellipses }",
+              IStrings.SaveAs___ => $"Save as{Common.Ellipses}",
               IStrings.FileAlreadyExists_ => "File already exists.",
               IStrings.alreadyExists => "already exists",
               IStrings.WouldYouLikeToReplaceTheExistingFile_ => "Would you like to replace the existing file?",
+
+              IStrings.Original => "Original",
+              IStrings.Quality => "Quality",
+              IStrings.Efficiency => "Efficiency",
+              IStrings.Animated => "Animated",
+              IStrings.Video => "Video",
 
 
               //!? Last resort
@@ -133,12 +162,22 @@ namespace ScreenFIRE.Assets {
 
         private static string Ar(IStrings Name)
           => Name switch {
-              IStrings.ScreenFIRE => "حريق الشاشة ScreenFIRE",
+              IStrings.ScreenFIRE_Stylized => @"Screen 🅵🅸🆁🅴",
+              IStrings.ScreenFIRE => "(حريق الشاشة) ScreenFIRE",
               IStrings.ScreenFIREConfig => "إعدادات ScreenFIRE",
+              IStrings.ScreenFIRERepositoryAtGitHub => $"مستودع ScreenFIRE على GitHub",
+
+              IStrings.GNUGeneralPublicLicensev3_0___ => $"رخصة GNU العامة v3.0 {Common.Ellipses}",
 
               IStrings.Screenshot => "لقطة شاشة",
               IStrings.SavingOptions => "خيارات الحفظ",
               IStrings.About => "حول هذا",
+
+              IStrings.Version => "الإصدار",
+              IStrings.Phase => "المرحلة",
+              IStrings.Public => "عام",
+              IStrings.Beta => "بيتا",
+              IStrings.Development => "تطوير",
 
               IStrings.OK => "حسناً",
               IStrings.Yes => "نعم",
@@ -151,7 +190,7 @@ namespace ScreenFIRE.Assets {
               IStrings.times_1 => "مرة",
               IStrings.times_2 => "مرات",
 
-              IStrings.SomethingWentWrong___ => $"حدث خطأ ما{Common.Ellipses }",
+              IStrings.SomethingWentWrong___ => $"حدث خطأ ما{Common.Ellipses}",
 
               IStrings.AllMonitors => "جميع الشاشات",
               IStrings.MonitorAtPointer => "الشاشة عند المؤشر",
@@ -159,10 +198,16 @@ namespace ScreenFIRE.Assets {
               IStrings.ActiveWindow => "النافذة الفعالة",
               IStrings.FreeAreaSelection => "تحديد مساحة حرة",
 
-              IStrings.SaveAs___ => $"حفظ باسم{Common.Ellipses }",
+              IStrings.SaveAs___ => $"حفظ باسم{Common.Ellipses}",
               IStrings.FileAlreadyExists_ => "الملف موجود مسبقاً.",
               IStrings.alreadyExists => "موجود مسبقاً",
               IStrings.WouldYouLikeToReplaceTheExistingFile_ => "هل تودّ استبدال الملف السابق؟",
+
+              IStrings.Original => "الأصل",
+              IStrings.Quality => "جودة",
+              IStrings.Efficiency => "كفاءة",
+              IStrings.Animated => "متحركة",
+              IStrings.Video => "فيديو",
 
 
               //? Fallback to English.
@@ -171,12 +216,22 @@ namespace ScreenFIRE.Assets {
 
         private static string Zh(IStrings Name)
           => Name switch {
-              IStrings.ScreenFIRE => "屏幕火 ScreenFIRE",
+              IStrings.ScreenFIRE_Stylized => @"Screen 🅵🅸🆁🅴",
+              IStrings.ScreenFIRE => "（屏幕火） ScreenFIRE",
               IStrings.ScreenFIREConfig => "ScreenFIRE 配置",
+              IStrings.ScreenFIRERepositoryAtGitHub => $"GitHub 上的 ScreenFIRE 存储库",
+
+              IStrings.GNUGeneralPublicLicensev3_0___ => $"GNU 通用公共许可证 v3.0 {Common.Ellipses}",
 
               IStrings.Screenshot => "截屏",
               IStrings.SavingOptions => "保存选项",
               IStrings.About => "对这个",
+
+              IStrings.Version => "版本",
+              IStrings.Phase => "阶段",
+              IStrings.Public => "公共",
+              IStrings.Beta => "测试版",
+              IStrings.Development => "发展",
 
               IStrings.OK => "好的",
               IStrings.Yes => "是的",
@@ -189,7 +244,7 @@ namespace ScreenFIRE.Assets {
               IStrings.times_1 => "次",
               IStrings.times_2 => "次",
 
-              IStrings.SomethingWentWrong___ => $"出了些问题{Common.Ellipses }",
+              IStrings.SomethingWentWrong___ => $"出了些问题{Common.Ellipses}",
 
               IStrings.AllMonitors => "所有显示器",
               IStrings.MonitorAtPointer => "在指针处监控",
@@ -197,10 +252,16 @@ namespace ScreenFIRE.Assets {
               IStrings.ActiveWindow => "活动窗口",
               IStrings.FreeAreaSelection => "区域选择",
 
-              IStrings.SaveAs___ => $"另存为{Common.Ellipses }",
+              IStrings.SaveAs___ => $"另存为{Common.Ellipses}",
               IStrings.FileAlreadyExists_ => "文件已存在。",
               IStrings.alreadyExists => "已经存在",
               IStrings.WouldYouLikeToReplaceTheExistingFile_ => "您想替换现有文件吗？",
+
+              IStrings.Original => "原来的",
+              IStrings.Quality => "质量",
+              IStrings.Efficiency => "效率",
+              IStrings.Animated => "动画",
+              IStrings.Video => "视频",
 
 
               //? Fallback to English.
