@@ -234,11 +234,10 @@
             <property name="margin_bottom">10</property>
             <property name="orientation">vertical</property>
             <child>
-              <object class="GtkImage">
+              <object class="GtkImage" id="AboutSVG_Image">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="pixel_size">128</property>
-                <property name="icon_name">emblem-symbolic-link</property>
                 <property name="use_fallback">True</property>
               </object>
               <packing>
@@ -302,13 +301,10 @@
             <property name="margin_end">12</property>
             <property name="margin_top">10</property>
             <property name="margin_bottom">10</property>
+            <property name="pixbuf">../Assets/images/Logo/ScreenFIRE-x128.png</property>
             <property name="pixel_size">128</property>
-            <property name="icon_name">computer</property>
             <property name="use_fallback">True</property>
           </object>
-          <packing>
-            <property name="tab_fill">False</property>
-          </packing>
         </child>
       </object>
     </child>

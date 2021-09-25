@@ -18,6 +18,7 @@ namespace ScreenFIRE.GUI {
         [UI] private readonly Label Screenshot_TabButton = null;
         [UI] private readonly Label SaveOptions_TabButton = null;
         [UI] private readonly Label About_TabButton = null;
+        [UI] private readonly Image AboutSVG_Image = null;
         [UI] private readonly Button SF_Button_AllMonitors = null;
         [UI] private readonly Button SF_Button_MonitorAtPointer = null;
         [UI] private readonly Button SF_Button_WindowAtPointer = null;
@@ -75,20 +76,21 @@ namespace ScreenFIRE.GUI {
             LogoImage.Pixbuf
                 = new Gdk.Pixbuf(Vision.BitmapToByteArray(SF.Logo))
                             .ScaleSimple(128, 128, Gdk.InterpType.Bilinear);
+
+            Gdk.Pixbuf footerPixbuf = new(SF.footer_svg);
+            System.Drawing.Size footerSize = mathMisc.ScaleToHeight(new(footerPixbuf.Width, footerPixbuf.Height), 128);
+            AboutSVG_Image.Pixbuf = footerPixbuf.ScaleSimple(footerSize.Width, footerSize.Height, Gdk.InterpType.Bilinear);
+
             _label1.Text = txt(6).Result;
             SF_Button_AllMonitors.Label = txt(7).Result;
             SF_Button_MonitorAtPointer.Label = txt(8).Result;
             SF_Button_WindowAtPointer.Label = txt(9).Result;
             SF_Button_ActiveWindow.Label = txt(10).Result;
             SF_Button_Custom.Label = txt(11).Result;
-
-
         }
 
 
-
         private int _counter;
-
         private async Task Capture(IScreenshotType screenshotType) {
             Visible = false;
             AcceptFocus = false;
