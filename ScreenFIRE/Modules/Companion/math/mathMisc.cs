@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Drawing;
+using System.Linq;
 
 namespace ScreenFIRE.Modules.Companion.math {
 
@@ -44,22 +45,25 @@ namespace ScreenFIRE.Modules.Companion.math {
         public static bool IsInRange(double input, double min, double max)
             => input >= min & input <= max;
 
+        /// <summary>
+        /// Scale a <see cref="Size"/> height and keep the width proportionally correct
+        /// </summary>
+        /// <param name="input"> Initial input <see cref="Size"/> </param>
+        /// <param name="destHeight"> Desired height (Width will follow proportionally) </param>
+        /// <returns> Scaled <see cref="Size"/> </returns>
+        public static Size ScaleToHeight(Size input, int destHeight)
+            => new(input.Width / (input.Height / destHeight), destHeight);
+
+
         public struct Arrays {
 
-            /// <summary> Add an <paramref name="element"/> item to the end of <paramref name="array"/></summary>
-            /// <typeparam name="type">Type of the array to be used</typeparam>
-            /// <param name="array">Array to manipulate</param>
-            /// <param name="element">Element to add to <paramref name="array"/></param>
-            /// <returns>Array {<paramref name="array"/>, <paramref name="element"/>} as <typeparamref name="type"/>[]</returns>
-            public static type[] AddArrays<type>(type[] array, type element)
-                => AddArrays(array, new type[] { element });
-            /// <summary> Add an <paramref name="expansion"/> array to the end of <paramref name="array"/></summary>
+            /// <summary> Add <paramref name="elements"/> array to the end of <paramref name="array"/></summary>
             /// <typeparam name="type">Type of the array to be used</typeparam>
             /// <param name="array">Array to manipulate</param>
             /// <param name="expansion">Element to add to <paramref name="array"/></param>
             /// <returns>Array {<paramref name="array"/>, <paramref name="expansion"/>} as <typeparamref name="type"/>[]</returns>
-            public static type[] AddArrays<type>(type[] array, type[] expansion)
-                => array.Concat(expansion).ToArray();
+            public static type[] AddArrays<type>(type[] array, params type[] elements)
+                => array.Concat(elements).ToArray();
             //{
             //type[] expandedArray = new type[array.Length + 1]; // set expandedArray size to "length" (bigger by 1)
             //for (int i = 0; i < array.Length; i++)
