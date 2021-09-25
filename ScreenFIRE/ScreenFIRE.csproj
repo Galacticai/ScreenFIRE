@@ -14,12 +14,20 @@
     <RepositoryUrl>https://github.com/NHKomaiha/ScreenFIRE</RepositoryUrl>
     <PackageTags>windows, linux, widnows, linux-app, windows-app,  screenshot, gtk, winforms, xamarin, screenshot-utility, dotnet</PackageTags>
     <NeutralLanguage>en-US</NeutralLanguage>
-    <AssemblyVersion>1.0.0.1</AssemblyVersion>
-    <FileVersion>1.0.0.1</FileVersion>
+    <AssemblyVersion>1.0.2.1</AssemblyVersion>
+    <FileVersion>1.0.2.1</FileVersion>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <RepositoryType>git</RepositoryType>
     <Company>NHKomaiha</Company> 
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
 
   <ItemGroup>
@@ -49,11 +57,23 @@
     <None Remove="Modules\Capture\Companion\ImageMetrics.cs.disable" /> 
     <None Remove="Modules\Companion\strings.json" /> 
     <None Include="Assets\Strings.cs" /> 
+    <Compile Update="Assets\Embedded\icons.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>icons.resx</DependentUpon>
+    </Compile> 
     <Compile Update="Assets\Embedded\SF.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>SF.resx</DependentUpon>
     </Compile> 
+    <Compile Update="Modules\Companion\OpenLink.cs">
+      <Generator>ResXFileCodeGenerator</Generator>
+    </Compile> 
+    <EmbeddedResource Update="Assets\Embedded\icons.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>icons.Designer.cs</LastGenOutput>
+    </EmbeddedResource> 
     <EmbeddedResource Update="Assets\Embedded\SF.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>SF.Designer.cs</LastGenOutput>
