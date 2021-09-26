@@ -49,6 +49,8 @@
 
     <PackageReference Include="Shell.NET" Version="0.2.2" />
 
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="5.0.0" />
+
     <PackageReference Include="System.Resources.Extensions" Version="5.0.0" />
     <PackageReference Include="System.Drawing.Common" Version="5.0.2" />
     <PackageReference Include="System.Drawing.Primitives" Version="4.3.0" />
@@ -62,6 +64,11 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>icons.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Assets\Embedded\SaveOptions.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>SaveOptions.settings</DependentUpon>
     </Compile>
     <Compile Update="Assets\Embedded\SF.Designer.cs">
       <DesignTime>True</DesignTime>
@@ -79,6 +86,10 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>SF.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Update="Assets\Embedded\SaveOptions.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>SaveOptions.Designer.cs</LastGenOutput>
+    </None>
 
     <None Update="Assets\images\Logo\ScreenFIRE-x128.png">
       <Pack>True</Pack>
