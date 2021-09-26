@@ -2,8 +2,8 @@
 using System.Diagnostics;
 
 namespace ScreenFIRE.Modules.Companion {
-    public static class OpenLink {
-        public static bool Run(string url) {
+    public static class Link {
+        public static bool Open(string url) {
             try {
                 Process.Start(url);
             } catch {

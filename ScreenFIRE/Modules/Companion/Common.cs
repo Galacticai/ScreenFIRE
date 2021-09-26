@@ -1,7 +1,5 @@
 ﻿using ScreenFIRE.Assets;
-using System;
 using System.Diagnostics;
-using System.IO;
 using System.Reflection;
 
 
@@ -46,15 +44,16 @@ namespace ScreenFIRE.Modules.Companion {
         public static Version Version => Assembly.GetExecutingAssembly().GetName().Version;
         public static string VersionString(bool MajMin_only = false, bool includePhase = true) {
             Version version = Version; //! Get once
-            return $"{(MajMin_only ? string.Empty : "v")}"
-                 + $"{version.Major}.{version.Minor}"
-                 + (includePhase & !MajMin_only ? $" #{PhaseString()}" : string.Empty);
+            string v = $"{(MajMin_only ? string.Empty : "v")}",
+                   X_x = $"{version.Major}.{version.Minor}",
+                   _Phase = (includePhase & !MajMin_only ? PhaseString(true) : string.Empty);
+            return $"{v}{X_x}{_Phase}";
         }
-        public static string PhaseString()
+        public static string PhaseString(bool withHash = false)
             => Version.Build switch {
-                2 => Strings.Fetch(IStrings.Development).Result,
-                1 => Strings.Fetch(IStrings.Beta).Result,
-                _ => Strings.Fetch(IStrings.Public).Result,
+                2 => (withHash ? "#" : string.Empty) + Strings.Fetch(IStrings.Public).Result,
+                1 => (withHash ? "#" : string.Empty) + Strings.Fetch(IStrings.Beta).Result,
+                _ => (withHash ? "#" : string.Empty) + Strings.Fetch(IStrings.Development).Result,
             };
 
         /// <returns> Current copyright string </returns>
