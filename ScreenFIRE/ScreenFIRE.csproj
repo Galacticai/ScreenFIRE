@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-	<TargetFramework>net6.0</TargetFramework>
+	<TargetFramework>net5.0</TargetFramework>
 	<LangVersion>preview</LangVersion>
     <Platforms>AnyCPU;x64</Platforms>
     <PackageIcon>ScreenFIRE-x128.png</PackageIcon>
@@ -14,13 +14,12 @@
     <RepositoryUrl>https://github.com/NHKomaiha/ScreenFIRE</RepositoryUrl>
     <PackageTags>windows, linux, widnows, linux-app, windows-app,  screenshot, gtk, winforms, xamarin, screenshot-utility, dotnet</PackageTags>
     <NeutralLanguage>en-US</NeutralLanguage>
-    <AssemblyVersion>1.0.0.0</AssemblyVersion>
-    <FileVersion>1.0.2.0</FileVersion>
+    <AssemblyVersion>1.0.2.1</AssemblyVersion>
+    <FileVersion>1.0.2.1</FileVersion>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <RepositoryType>git</RepositoryType>
-    <Company>NHKomaiha</Company>
-    <StartupObject>ScreenFIRE.Program</StartupObject> 
+    <Company>NHKomaiha</Company> 
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -68,7 +67,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>SF.resx</DependentUpon>
     </Compile> 
-    <Compile Update="Modules\Companion\Link.cs">
+    <Compile Update="Modules\Companion\OpenLink.cs">
       <Generator>ResXFileCodeGenerator</Generator>
     </Compile> 
     <EmbeddedResource Update="Assets\Embedded\icons.resx">
