@@ -1,5 +1,4 @@
 ﻿using System.Drawing;
-using System.Linq;
 
 namespace ScreenFIRE.Modules.Companion.math {
 
@@ -46,14 +45,15 @@ namespace ScreenFIRE.Modules.Companion.math {
             => input >= min & input <= max;
 
         /// <summary>
-        /// Scale a <see cref="Size"/> height and keep the width proportionally correct
+        /// Scale to fit a <see cref="Size"/> to the <paramref name="destSize"/> while respecting the proportions
         /// </summary>
         /// <param name="input"> Initial input <see cref="Size"/> </param>
         /// <param name="destHeight"> Desired height (Width will follow proportionally) </param>
-        /// <returns> Scaled <see cref="Size"/> </returns>
-        public static Size ScaleToHeight(Size input, int destHeight)
-            => new(input.Width / (input.Height / destHeight), destHeight);
-
+        /// <returns> Scaled <see cref="Size"/> (Fit mode)</returns>
+        public static Size Scale_Fit(Size input, int destSize)
+            => (input.Width > input.Height) //!? scale to fit, not fill
+                ? new(destSize, input.Height / (input.Height / destSize))
+                : new(input.Width / (input.Height / destSize), destSize);
 
         public struct Arrays {
 
