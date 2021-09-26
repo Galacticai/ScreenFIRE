@@ -15,12 +15,12 @@
     <PackageTags>windows, linux, widnows, linux-app, windows-app,  screenshot, gtk, winforms, xamarin, screenshot-utility, dotnet</PackageTags>
     <NeutralLanguage>en-US</NeutralLanguage>
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
-    <FileVersion>1.0.2.0</FileVersion>
+    <FileVersion>1.0.0.0</FileVersion>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <RepositoryType>git</RepositoryType>
     <Company>NHKomaiha</Company>
-    <StartupObject>ScreenFIRE.Program</StartupObject> 
+    <StartupObject>ScreenFIRE.Program</StartupObject>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -40,46 +40,46 @@
       <LogicalName>%(Filename)%(Extension)</LogicalName>
     </EmbeddedResource>
   </ItemGroup>
-  
-  <ItemGroup> 
-	
-    <PackageReference Include="GtkSharp" Version="3.24.24.34" /> 
-	
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" /> 
-	
-    <PackageReference Include="Shell.NET" Version="0.2.2" /> 
-	
-    <PackageReference Include="System.Resources.Extensions" Version="5.0.0" /> 
+
+  <ItemGroup>
+
+    <PackageReference Include="GtkSharp" Version="3.24.24.34" />
+
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+
+    <PackageReference Include="Shell.NET" Version="0.2.2" />
+
+    <PackageReference Include="System.Resources.Extensions" Version="5.0.0" />
     <PackageReference Include="System.Drawing.Common" Version="5.0.2" />
     <PackageReference Include="System.Drawing.Primitives" Version="4.3.0" />
   </ItemGroup>
-  
-  <ItemGroup> 
-    <None Remove="Modules\Capture\Companion\ImageMetrics.cs.disable" /> 
-    <None Remove="Modules\Companion\strings.json" /> 
-    <None Include="Assets\Strings.cs" /> 
+
+  <ItemGroup>
+    <None Remove="Modules\Capture\Companion\ImageMetrics.cs.disable" />
+    <None Remove="Modules\Companion\strings.json" />
+    <None Include="Assets\Strings.cs" />
     <Compile Update="Assets\Embedded\icons.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>icons.resx</DependentUpon>
-    </Compile> 
+    </Compile>
     <Compile Update="Assets\Embedded\SF.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>SF.resx</DependentUpon>
-    </Compile> 
+    </Compile>
     <Compile Update="Modules\Companion\Link.cs">
       <Generator>ResXFileCodeGenerator</Generator>
-    </Compile> 
+    </Compile>
     <EmbeddedResource Update="Assets\Embedded\icons.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>icons.Designer.cs</LastGenOutput>
-    </EmbeddedResource> 
+    </EmbeddedResource>
     <EmbeddedResource Update="Assets\Embedded\SF.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>SF.Designer.cs</LastGenOutput>
-    </EmbeddedResource> 
-	  
+    </EmbeddedResource>
+
     <None Update="Assets\images\Logo\ScreenFIRE-x128.png">
       <Pack>True</Pack>
     </None>
