@@ -1,4 +1,5 @@
 ﻿using ScreenFIRE.Assets;
+using ScreenFIRE.Assets.Embedded;
 using System.Diagnostics;
 using System.Reflection;
 
@@ -34,6 +35,13 @@ namespace ScreenFIRE.Modules.Companion {
         public const string SF_GitRepo = "https://github.com/NHKomaiha/ScreenFIRE";
         /// <returns> ScreenFIRE repository >> issues link <c>(https://github.com/NHKomaiha/ScreenFIRE/issues)</c> </returns>
         public const string SF_GitRepo_issues = $"{SF_GitRepo}/issues";
+
+        #endregion
+
+
+        #region
+        private static SaveOptions _SaveOptions = null;
+        public static SaveOptions SaveOptions => _SaveOptions ??= new();
 
         #endregion
 
