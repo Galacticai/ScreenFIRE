@@ -15,6 +15,8 @@ namespace ScreenFIRE.GUI {
         [UI] private readonly Image LogoImage = null;
         [UI] private readonly Label Screenshot_TabButton = null;
         [UI] private readonly Label SaveOptions_TabButton = null;
+        [UI] private readonly Label Label_MenuButton_SaveOptions_Box = null;
+
         [UI] private readonly Label About_TabButton = null;
         [UI] private readonly Label ScreenFIRE_Label_About_Box = null;
         [UI] private readonly Label VersionTitle_Label_About_Box = null;
@@ -90,7 +92,11 @@ namespace ScreenFIRE.GUI {
             Title = txt(0).Result;
 
             Screenshot_TabButton.Text = txt(12).Result;
+
             SaveOptions_TabButton.Text = txt(13).Result;
+
+            Label_MenuButton_SaveOptions_Box.Text = "";
+
             About_TabButton.Text = txt(14).Result;
 
             ScreenFIRE_Label_About_Box.Text = txt(23).Result;
