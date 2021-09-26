@@ -6,8 +6,6 @@ using ScreenFIRE.Modules.Capture.Companion;
 using ScreenFIRE.Modules.Companion;
 using ScreenFIRE.Modules.Companion.math;
 using ScreenFIRE.Modules.Save;
-using System.Threading;
-using System.Threading.Tasks;
 using UI = Gtk.Builder.ObjectAttribute;
 
 namespace ScreenFIRE.GUI {
@@ -85,8 +83,8 @@ namespace ScreenFIRE.GUI {
                 += async delegate { await Capture(IScreenshotType.ActiveWindow); };
             SF_Button_Custom.Clicked += delegate { Program.ScreenFIRE.ShowAll(); };
 
-            SF_repo_Button_About_Box.Clicked += delegate { OpenLink.Run(Common.SF_GitRepo); };
-            License_Button_About_Box.Clicked += delegate { OpenLink.Run(Common.SF_License); };
+            SF_repo_Button_About_Box.Clicked += delegate { Link.Open(Common.SF_GitRepo); };
+            License_Button_About_Box.Clicked += delegate { Link.Open(Common.SF_License); };
         }
         private void AssignStrings() {
             Title = txt(0).Result;
@@ -97,9 +95,9 @@ namespace ScreenFIRE.GUI {
 
             ScreenFIRE_Label_About_Box.Text = txt(23).Result;
 
-            VersionTitle_Label_About_Box.Text = txt(21).Result;
+            VersionTitle_Label_About_Box.Text = txt(21).Result + ":";
             Version_Label_About_Box.Text = Common.VersionString(includePhase: false);
-            PhaseTitle_Label_About_Box.Text = txt(22).Result;
+            PhaseTitle_Label_About_Box.Text = txt(22).Result + ":";
             Phase_Label_About_Box.Text = Common.PhaseString();
 
             Label_SF_repo_Button_About_Box.Text = txt(15).Result;
@@ -137,7 +135,7 @@ namespace ScreenFIRE.GUI {
             //! = Image_SF_repo_Button_About_Box =====
             Gdk.Pixbuf SF_repo_Button_Image_Pixbuf = new(icons.GitHub_svg);
             System.Drawing.Size SF_repo_Button_Image_Size
-                = mathMisc.ScaleToHeight(new(SF_repo_Button_Image_Pixbuf.Width, SF_repo_Button_Image_Pixbuf.Height), 24);
+                = mathMisc.Scale_Fit(new(SF_repo_Button_Image_Pixbuf.Width, SF_repo_Button_Image_Pixbuf.Height), 24);
             Image_SF_repo_Button_About_Box.Pixbuf
                 = SF_repo_Button_Image_Pixbuf
                     .ScaleSimple(SF_repo_Button_Image_Size.Width,
@@ -146,9 +144,9 @@ namespace ScreenFIRE.GUI {
             //! ======================================
 
             //! = Image_License_Button_About_Box =====
-            Gdk.Pixbuf Image_License_Button_About_Box_Pixbuf = new(icons.LicenseBalance_svg);
+            Gdk.Pixbuf Image_License_Button_About_Box_Pixbuf = new(Vision.BitmapToByteArray(icons.Balance_png));
             System.Drawing.Size Image_License_Button_About_Box_Size
-                = mathMisc.ScaleToHeight(new(Image_License_Button_About_Box_Pixbuf.Width, Image_License_Button_About_Box_Pixbuf.Height), 24);
+                = mathMisc.Scale_Fit(new(Image_License_Button_About_Box_Pixbuf.Width, Image_License_Button_About_Box_Pixbuf.Height), 24);
             Image_License_Button_About_Box.Pixbuf
                 = Image_License_Button_About_Box_Pixbuf
                     .ScaleSimple(Image_License_Button_About_Box_Size.Width,
