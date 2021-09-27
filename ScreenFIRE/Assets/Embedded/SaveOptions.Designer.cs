@@ -34,5 +34,17 @@ namespace ScreenFIRE.Assets.Embedded {
                 this["Format"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Location {
+            get {
+                return ((string)(this["Location"]));
+            }
+            set {
+                this["Location"] = value;
+            }
+        }
     }
 }
