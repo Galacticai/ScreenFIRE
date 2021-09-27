@@ -75,6 +75,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>SF.resx</DependentUpon>
     </Compile>
+    <Compile Update="Assets\Embedded\Themes.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Themes.resx</DependentUpon>
+    </Compile>
     <Compile Update="Modules\Companion\Link.cs">
       <Generator>ResXFileCodeGenerator</Generator>
     </Compile>
@@ -85,6 +90,10 @@
     <EmbeddedResource Update="Assets\Embedded\SF.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>SF.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Assets\Embedded\Themes.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Themes.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Update="Assets\Embedded\SaveOptions.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
