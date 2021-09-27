@@ -3,8 +3,6 @@ using ScreenFIRE.Assets;
 using ScreenFIRE.Modules.Capture;
 using ScreenFIRE.Modules.Capture.Companion;
 using ScreenFIRE.Modules.Companion;
-using System.IO;
-using System.Threading.Tasks;
 
 namespace ScreenFIRE.Modules.Save {
 
@@ -37,20 +35,21 @@ namespace ScreenFIRE.Modules.Save {
             ///////////////////////////
 
             //! Let the user choose a path to the file
-            FileChooserDialog choose
-                    = new(await txt(0),
-                          parentWindow,
-                          FileChooserAction.Save);
+            FileChooserNative choose
+                        = new(await txt(0),
+                              parentWindow,
+                              FileChooserAction.Save,
+                              await txt(1), await txt(4));
             choose.SelectMultiple = false;
-            choose.AddButton(Stock.Ok, ResponseType.Ok);
-            choose.AddButton(Stock.Cancel, ResponseType.Cancel);
+            // choose.AddButton(Stock.Ok, ResponseType.Ok);
+            // choose.AddButton(Stock.Cancel, ResponseType.Cancel);
             choose.SetCurrentFolder(Common.SF);
-            choose.SetPosition(WindowPosition.CenterOnParent);
+            //choose.SetPosition(WindowPosition.CenterOnParent);
 
             ResponseType chooseResponse = (ResponseType)choose.Run();
 
             //! User closed the dialog
-            if (chooseResponse == ResponseType.Ok) {
+            if (chooseResponse == ResponseType.Accept) {
 
                 path = choose.Filename;
 
