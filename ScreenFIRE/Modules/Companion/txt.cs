@@ -1,5 +1,5 @@
 ﻿using ScreenFIRE.Modules.Companion.math;
-using System;
+using System.Text;
 
 namespace ScreenFIRE.Modules.Companion {
 
@@ -94,6 +94,18 @@ namespace ScreenFIRE.Modules.Companion {
         //    => (string.IsNullOrEmpty(inf.detail.code) | (inf.detail.code.IndexOf("-") < 1))
         //       ? "??" : inf.detail.code[..inf.detail.code.IndexOf("-")];
 
-
+        /// <summary> Generate SHA512 <see cref="string"/> from <paramref name="input"/> </summary>
+        /// <param name="input"> Target <see cref="string"/> to be processed</param>
+        /// <returns> SHA512 <see cref="string"/> </returns>
+        public static string ToSHA512(string input) {
+            using System.Security.Cryptography.SHA512 SHA512 = System.Security.Cryptography.SHA512.Create();
+            byte[] inputBytes = Encoding.ASCII.GetBytes(input);
+            byte[] hashBytes = SHA512.ComputeHash(inputBytes);
+            //! Convert the byte array to hexadecimal string
+            StringBuilder sb = new();
+            for (int i = 0; i < hashBytes.Length; i++)
+                sb.Append(hashBytes[i].ToString("X2"));
+            return sb.ToString();
+        }
     }
 }
