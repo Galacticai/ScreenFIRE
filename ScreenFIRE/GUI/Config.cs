@@ -166,11 +166,9 @@ namespace ScreenFIRE.GUI {
 
         private Config(Builder builder) : base(builder.GetRawOwnedObject("Config")) {
             builder.Autoconnect(this);
-
             AssignEvents();
             AssignStrings();
             AssignImages();
-            //if (Languages.CurrentLangIsArabic) {  }
         }
 
         private int _counter;
