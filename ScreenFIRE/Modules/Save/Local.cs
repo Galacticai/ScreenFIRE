@@ -41,10 +41,7 @@ namespace ScreenFIRE.Modules.Save {
                               FileChooserAction.Save,
                               await txt(1), await txt(4));
             choose.SelectMultiple = false;
-            // choose.AddButton(Stock.Ok, ResponseType.Ok);
-            // choose.AddButton(Stock.Cancel, ResponseType.Cancel);
-            choose.SetCurrentFolder(Common.SF);
-            //choose.SetPosition(WindowPosition.CenterOnParent);
+            choose.SetCurrentFolder(Common.SaveOptions.Location);
 
             ResponseType chooseResponse = (ResponseType)choose.Run();
 
