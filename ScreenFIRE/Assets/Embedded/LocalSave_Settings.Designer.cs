@@ -13,11 +13,11 @@ namespace ScreenFIRE.Assets.Embedded {
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.0.2.0")]
-    internal sealed partial class SaveOptions : global::System.Configuration.ApplicationSettingsBase {
+    internal sealed partial class LocalSave_Settings : global::System.Configuration.ApplicationSettingsBase {
         
-        private static SaveOptions defaultInstance = ((SaveOptions)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new SaveOptions())));
+        private static LocalSave_Settings defaultInstance = ((LocalSave_Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new LocalSave_Settings())));
         
-        public static SaveOptions Default {
+        public static LocalSave_Settings Default {
             get {
                 return defaultInstance;
             }

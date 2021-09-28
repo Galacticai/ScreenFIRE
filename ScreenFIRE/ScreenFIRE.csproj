@@ -65,10 +65,10 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>icons.resx</DependentUpon>
     </Compile>
-    <Compile Update="Assets\Embedded\SaveOptions.Designer.cs">
+    <Compile Update="Assets\Embedded\LocalSave_Settings.Designer.cs">
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <AutoGen>True</AutoGen>
-      <DependentUpon>SaveOptions.settings</DependentUpon>
+      <DependentUpon>LocalSave_Settings.settings</DependentUpon>
     </Compile>
     <Compile Update="Assets\Embedded\SF.Designer.cs">
       <DesignTime>True</DesignTime>
@@ -95,9 +95,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Themes.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Update="Assets\Embedded\SaveOptions.settings">
+    <None Update="Assets\Embedded\LocalSave_Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>SaveOptions.Designer.cs</LastGenOutput>
+      <LastGenOutput>LocalSave_Settings.Designer.cs</LastGenOutput>
     </None>
 
     <None Update="Assets\images\Logo\ScreenFIRE-x128.png">
