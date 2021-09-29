@@ -11,16 +11,34 @@ using UI = Gtk.Builder.ObjectAttribute;
 namespace ScreenFIRE.GUI {
 
     class Config : ApplicationWindow {
-        [UI] private readonly Label _label1 = null;
         [UI] private readonly Image LogoImage = null;
+
         [UI] private readonly Label Screenshot_TabButton = null;
+        [UI] private readonly Label _label1 = null;
+        [UI] private readonly Button SF_Button_AllMonitors = null;
+        [UI] private readonly Button SF_Button_MonitorAtPointer = null;
+        [UI] private readonly Button SF_Button_WindowAtPointer = null;
+        [UI] private readonly Button SF_Button_ActiveWindow = null;
+        [UI] private readonly Button SF_Button_Custom = null;
+
         [UI] private readonly Label SaveOptions_TabButton = null;
         [UI] private readonly Label Label_MenuButton_SaveOptions_Box = null;
+        [UI] private readonly FileChooserButton SaveLocation_FileChooserButton_SaveOptions_Box = null;
+        [UI] private readonly Popover SaveFormat_Popover = null;
+        [UI] private readonly Button bmp_Button_SaveFormat_Popover = null;
+        [UI] private readonly Button png_Button_SaveFormat_Popover = null;
+        [UI] private readonly Button jpg_Button_SaveFormat_Popover = null;
+        [UI] private readonly Button gif_Button_SaveFormat_Popover = null;
+        [UI] private readonly Button mp4_Button_SaveFormat_Popover = null;
+        [UI] private readonly Label Label_AutoSaveExisting_Box_SaveOptions_Box = null;
+        [UI] private readonly Switch Switch_AutoSaveExisting_Box_SaveOptions_Box = null;
 
         [UI] private readonly Label About_TabButton = null;
         [UI] private readonly Label ScreenFIRE_Label_About_Box = null;
         [UI] private readonly Label VersionTitle_Label_About_Box = null;
         [UI] private readonly Label Version_Label_About_Box = null;
+        //[UI] private readonly Box Version_Box_About_Box = null;
+        //[UI] private readonly Box Phase_Box_About_Box = null;
         [UI] private readonly Label PhaseTitle_Label_About_Box = null;
         [UI] private readonly Label Phase_Label_About_Box = null;
         [UI] private readonly Button SF_repo_Button_About_Box = null;
@@ -29,21 +47,14 @@ namespace ScreenFIRE.GUI {
         [UI] private readonly Button License_Button_About_Box = null;
         [UI] private readonly Image Image_License_Button_About_Box = null;
         [UI] private readonly Label Label_License_Button_About_Box = null;
-        [UI] private readonly Button SF_Button_AllMonitors = null;
-        [UI] private readonly Button SF_Button_MonitorAtPointer = null;
-        [UI] private readonly Button SF_Button_WindowAtPointer = null;
-        [UI] private readonly Button SF_Button_ActiveWindow = null;
-        [UI] private readonly Button SF_Button_Custom = null;
-        [UI] private readonly Button bmp_Button_SaveFormat_Popover = null;
-        [UI] private readonly Button png_Button_SaveFormat_Popover = null;
-        [UI] private readonly Button jpg_Button_SaveFormat_Popover = null;
-        [UI] private readonly Button gif_Button_SaveFormat_Popover = null;
-        [UI] private readonly Button mp4_Button_SaveFormat_Popover = null;
+        [UI] private readonly Label madeWith_Label_About_Box = null;
+
+
 
         private static string[] txt_privatenameusedonlybythisfunction_238157203985ty9486t4 = null;
         private static async Task<string> txt(int index) {
             return (txt_privatenameusedonlybythisfunction_238157203985ty9486t4
-                   ??= (await Strings.Fetch(IStrings.ScreenFIREConfig,//0
+                   ??= (await Assets.Strings.Fetch(IStrings.ScreenFIREConfig,//0
                                             IStrings.FiredAScreenshot_,//1
                                             IStrings.ThisButtonHasBeenClicked,//2
                                             IStrings.times_1,//3
@@ -67,7 +78,8 @@ namespace ScreenFIRE.GUI {
                                             IStrings.Version, //21
                                             IStrings.Phase, //22
                                             IStrings.ScreenFIRE_Stylized, //23
-                                            IStrings.GNUGeneralPublicLicensev3_0___ //24
+                                            IStrings.GNUGeneralPublicLicensev3_0___, //24
+                                            IStrings.MadeWith_NET_GTK_ //25
                                             )
                         )
                     )[index];
@@ -87,6 +99,20 @@ namespace ScreenFIRE.GUI {
 
             SF_repo_Button_About_Box.Clicked += delegate { Link.Open(Common.SF_GitRepo); };
             License_Button_About_Box.Clicked += delegate { Link.Open(Common.SF_License); };
+
+            SaveLocation_FileChooserButton_SaveOptions_Box.CurrentFolderChanged
+                += SaveLocation_FileChooserButton_SaveOptions_Box_CurrentFolderChanged;
+
+            bmp_Button_SaveFormat_Popover.Clicked += bmp_Button_SaveFormat_Popover_Clicked;
+            png_Button_SaveFormat_Popover.Clicked += png_Button_SaveFormat_Popover_Clicked;
+            jpg_Button_SaveFormat_Popover.Clicked += jpg_Button_SaveFormat_Popover_Clicked;
+
+            Switch_AutoSaveExisting_Box_SaveOptions_Box.StateChanged += delegate {
+                Common.LocalSave_Settings.AutoReplaceExisting
+                    = Switch_AutoSaveExisting_Box_SaveOptions_Box.State;
+            };
+
+
         }
         private void AssignStrings() {
             Title = txt(0).Result;
@@ -95,7 +121,16 @@ namespace ScreenFIRE.GUI {
 
             SaveOptions_TabButton.Text = txt(13).Result;
 
-            Label_MenuButton_SaveOptions_Box.Text = "";
+            Label_MenuButton_SaveOptions_Box.Text
+                = SaveFormat.StringWithDesctiption_From_SaveOptionsFormat(
+                    new[] { txt(17).Result, txt(16).Result, txt(18).Result, txt(19).Result, txt(20).Result });
+            bmp_Button_SaveFormat_Popover.Label = $"bmp ({txt(16).Result})";
+            png_Button_SaveFormat_Popover.Label = $"png ({txt(17).Result})";
+            jpg_Button_SaveFormat_Popover.Label = $"jpg ({txt(18).Result})";
+            gif_Button_SaveFormat_Popover.Label = $"gif ({txt(19).Result})";
+            mp4_Button_SaveFormat_Popover.Label = $"mp4 ({txt(20).Result})";
+
+            Label_AutoSaveExisting_Box_SaveOptions_Box.Text = "";
 
             About_TabButton.Text = txt(14).Result;
 
@@ -105,6 +140,7 @@ namespace ScreenFIRE.GUI {
             Version_Label_About_Box.Text = Common.VersionString(includePhase: false);
             PhaseTitle_Label_About_Box.Text = txt(22).Result + ":";
             Phase_Label_About_Box.Text = Common.PhaseString();
+            madeWith_Label_About_Box.Text = txt(25).Result;
 
             Label_SF_repo_Button_About_Box.Text = txt(15).Result;
             Label_License_Button_About_Box.Text = txt(24).Result;
@@ -115,12 +151,6 @@ namespace ScreenFIRE.GUI {
             SF_Button_WindowAtPointer.Label = txt(9).Result;
             SF_Button_ActiveWindow.Label = txt(10).Result;
             SF_Button_Custom.Label = txt(11).Result;
-
-            bmp_Button_SaveFormat_Popover.Label = $"bmp ({txt(16).Result})";
-            png_Button_SaveFormat_Popover.Label = $"png ({txt(17).Result})";
-            jpg_Button_SaveFormat_Popover.Label = $"jpg ({txt(18).Result})";
-            gif_Button_SaveFormat_Popover.Label = $"gif ({txt(19).Result})";
-            mp4_Button_SaveFormat_Popover.Label = $"mp4 ({txt(20).Result})";
 
         }
         private void AssignImages() {
@@ -161,14 +191,19 @@ namespace ScreenFIRE.GUI {
             //! ======================================
 
         }
+        private void AssignEtc() {
+            SaveLocation_FileChooserButton_SaveOptions_Box
+                .SetCurrentFolder(Common.LocalSave_Settings.Location);
+        }
 
         public Config() : this(new Builder("Config.glade")) { }
-
-        private Config(Builder builder) : base(builder.GetRawOwnedObject("Config")) {
+        private Config(Builder builder)
+                : base(builder.GetRawOwnedObject("Config")) {
             builder.Autoconnect(this);
             AssignEvents();
             AssignStrings();
             AssignImages();
+            AssignEtc();
         }
 
         private int _counter;
@@ -176,7 +211,7 @@ namespace ScreenFIRE.GUI {
             Hide();
             AcceptFocus = false;
 
-            Thread.Sleep(1000); //! temprary to make sure the window is fully hidden
+            Thread.Sleep(1000); //! Temp (For Windows) make sure the window is fully hidden
 
             using var ss = new Screenshot(screenshotType);
             if (!await Save.Local(ss, this)) {
@@ -197,5 +232,36 @@ namespace ScreenFIRE.GUI {
             ShowAll();
 
         }
+
+        private void SaveLocation_FileChooserButton_SaveOptions_Box_CurrentFolderChanged(object sender, EventArgs e) {
+            if (PathIsRW.Run(SaveLocation_FileChooserButton_SaveOptions_Box
+                                .CurrentFolder))
+                Common.LocalSave_Settings.Location
+                    = SaveLocation_FileChooserButton_SaveOptions_Box
+                            .CurrentFolder;
+            else SaveLocation_FileChooserButton_SaveOptions_Box
+                    .SetCurrentFolder(Common.SF);
+        }
+
+        public void png_Button_SaveFormat_Popover_Clicked(object sender, EventArgs e) {
+            Common.LocalSave_Settings.Format = 0;
+            Common.LocalSave_Settings.Save();
+            Label_MenuButton_SaveOptions_Box.Text = png_Button_SaveFormat_Popover.Label;
+            SaveFormat_Popover.Hide();
+        }
+        public void jpg_Button_SaveFormat_Popover_Clicked(object sender, EventArgs e) {
+            Common.LocalSave_Settings.Format = 1;
+            Common.LocalSave_Settings.Save();
+            Label_MenuButton_SaveOptions_Box.Text = jpg_Button_SaveFormat_Popover.Label;
+            SaveFormat_Popover.Hide();
+        }
+        public void bmp_Button_SaveFormat_Popover_Clicked(object sender, EventArgs e) {
+            Common.LocalSave_Settings.Format = 2;
+            Common.LocalSave_Settings.Save();
+            Label_MenuButton_SaveOptions_Box.Text = bmp_Button_SaveFormat_Popover.Label;
+            SaveFormat_Popover.Hide();
+        }
+
+
     }
 }
