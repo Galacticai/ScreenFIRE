@@ -20,15 +20,8 @@ namespace ScreenFIRE.Modules.Capture.Companion {
 
 
     public class SaveFormat {
-        public static ISaveFormat From_SaveOptionsFormat
-            => Common.LocalSave_Settings.Format switch {
-                2 => ISaveFormat.bmp,
-                1 => ISaveFormat.jpeg,
-                _ => ISaveFormat.png //0 & etc
-            };
-
         public static string StringWithDesctiption_From_SaveOptionsFormat(string[] txt_strings) {
-            return From_SaveOptionsFormat switch {
+            return Common.LocalSave_Settings.Format switch {
                 ISaveFormat.bmp => $"bmp ({txt_strings[2]})",
                 ISaveFormat.jpeg => $"jpg ({txt_strings[1]})",
                 _ => $"png ({txt_strings[0]})" //0 & etc
