@@ -24,8 +24,8 @@ namespace ScreenFIRE.Modules.Companion {
                 Directory.CreateDirectory(Common.SF_Data);
 
             //! SaveOptions
-            if (string.IsNullOrEmpty(Common.SaveOptions.Location))
-                Common.SaveOptions.Location = Common.SF;
+            if (string.IsNullOrEmpty(Common.LocalSave_Settings.Location))
+                Common.LocalSave_Settings.Location = Common.SF;
 
             return true;
         }
