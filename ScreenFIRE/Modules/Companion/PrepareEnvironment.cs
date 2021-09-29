@@ -1,4 +1,5 @@
-﻿using env = System.Environment;
+﻿using ScreenFIRE.Assets;
+using env = System.Environment;
 
 namespace ScreenFIRE.Modules.Companion {
 
@@ -26,6 +27,9 @@ namespace ScreenFIRE.Modules.Companion {
             //! SaveOptions
             if (string.IsNullOrEmpty(Common.LocalSave_Settings.Location))
                 Common.LocalSave_Settings.Location = Common.SF;
+
+            //! Rebuild previously fetched strings according to current language
+            Strings.RebuildStorage(Languages.DotNetToILanguages());
 
             return true;
         }
