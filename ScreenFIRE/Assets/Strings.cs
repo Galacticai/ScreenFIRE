@@ -1,6 +1,7 @@
-﻿using ScreenFIRE.Modules.Companion;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using ScreenFIRE.Modules.Companion;
+using System.Text;
 
 namespace ScreenFIRE.Assets {
 
@@ -19,7 +20,7 @@ namespace ScreenFIRE.Assets {
         About,
 
         Version, Phase, Public, Beta, Development,
-
+        MadeWith_NET_GTK_,
 
         ChooseHowYouWouldLikeToFireYourScreenshot_,
         FiredAScreenshot_,
@@ -48,14 +49,48 @@ namespace ScreenFIRE.Assets {
 
     }
 
-    public record Strings {
+    public static class Strings {
+        private static IStrings ToIStrings(this string value)
+            => (IStrings)Enum.Parse(typeof(IStrings), value, true);
+
+        private static Dictionary<IStrings, string> Storage = new();
+        public static void RebuildStorage(ILanguages language) {
+            //! Check if the locale file exists
+            string stringsFilePath = Path.Combine(Common.SF_Data, "Locale", $"{language}.json");
+            if (!File.Exists(stringsFilePath))
+                //! Fallback to English
+                stringsFilePath = Path.Combine(Common.SF_Data, "Locale", $"{language = ILanguages.English}.json");
+            //! Cancel if no English
+            if (!File.Exists(stringsFilePath)) return;
+
+            Storage.Clear();
+            using StreamReader stream_stringsFromFile
+                    = File.OpenText(Path.Combine(Common.SF_Data, "Locale", $"{language}.json"));
+            JObject stringsFromFile
+                = (JObject)JToken.ReadFrom(new JsonTextReader(stream_stringsFromFile));
+
+            foreach (var strings in stringsFromFile)
+                Storage.Add(strings.Key.ToIStrings(), strings.Value.ToString());
+
+        }
+
+        private static void SaveStorage(ILanguages language) {
+            JObject stringsAsJson =
+                    new JObject(new JProperty(language.ToString(),
+                            new JObject(new JProperty("Strings",
+                                    new JArray(from item in Storage
+                                               orderby item.Key
+                                               select new JObject(new JProperty(item.Key.ToString(), item.Value)))))));
+            File.WriteAllBytes(Path.Combine(Common.SF_Data, "Locale", $"{language}.json"),
+                               Encoding.ASCII.GetBytes(stringsAsJson.ToString()));
+        }
 
         public static async Task<string> FetchAndJoin(params IStrings[] Names) {
             return string.Join(" ", await Fetch(Names));
         }
 
         /// <summary> Fetch a set of strings </summary>
-        /// <param name="Name"> String names provided by <see cref="IStrings"/> </param>
+        /// <param name="Names"> String names provided by <see cref="IStrings"/> </param>
         /// <returns> Localized <see cref="string"/>[] array according to system language </returns>
         public static async Task<string[]> Fetch(params IStrings[] Names) {
             List<string> result = new();
@@ -90,16 +125,28 @@ namespace ScreenFIRE.Assets {
         /// <summary> Fetch a specific string </summary>
         /// <param name="Name"> String name provided by <see cref="IStrings"/> </param>
         /// <returns> Localized <see cref="string"/> according to system language </returns>
-        public static async Task<string> Fetch(IStrings Name, bool translate = true, ILanguages? language = null) {
+        public static async Task<string> Fetch(IStrings Name, bool translate = true, ILanguages language = ILanguages.System) {
+            //! Get exising string if already stored
+            if (Storage.TryGetValue(Name, out string result))
+                return result;
 
-            return (language ?? Languages.DotNetToILanguages()) switch { //! System language
-                //ILanguages.English => En(Name),
-                ILanguages.Arabic => Ar(Name),
-                ILanguages.ChineseSimplified => Zh(Name),
+            //! Fetch
+            result = ((language == ILanguages.System)
+                      ? Languages.DotNetToILanguages() : language)
+                      switch {
+                          //ILanguages.English => En(Name),
+                          ILanguages.Arabic => Ar(Name),
+                          ILanguages.ChineseSimplified => Zh(Name),
 
-                //! English / Other
-                _ => En(Name) //translate ? await Languages.TranslateText(En(Name), language) : En(Name),
-            };
+                          //! English / Other
+                          _ => En(Name) //translate ? await Languages.TranslateText(En(Name), language) : En(Name),
+                      };
+
+            //! Store it for later use
+            Storage.Add(Name, result);
+            SaveStorage(language);
+
+            return result;
         }
 #pragma warning restore CS1998 //<< "Async method lacks 'await' operators and will run synchronously"
 
@@ -124,6 +171,7 @@ namespace ScreenFIRE.Assets {
               IStrings.Public => "Public",
               IStrings.Beta => "Beta",
               IStrings.Development => "Development",
+              IStrings.MadeWith_NET_GTK_ => "Made with .NET & GTK#",
 
               IStrings.OK => "OK",
               IStrings.Yes => "Yes",
@@ -178,6 +226,7 @@ namespace ScreenFIRE.Assets {
               IStrings.Public => "عام",
               IStrings.Beta => "بيتا",
               IStrings.Development => "تطوير",
+              IStrings.MadeWith_NET_GTK_ => "تم إنشاؤه باستخدام .NET و GTK#",
 
               IStrings.OK => "حسناً",
               IStrings.Yes => "نعم",
@@ -232,6 +281,7 @@ namespace ScreenFIRE.Assets {
               IStrings.Public => "公共",
               IStrings.Beta => "测试版",
               IStrings.Development => "发展",
+              IStrings.MadeWith_NET_GTK_ => "使用 .NET 和 GTK# 制作",
 
               IStrings.OK => "好的",
               IStrings.Yes => "是的",
