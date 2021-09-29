@@ -2,16 +2,16 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-	<TargetFramework>net6.0</TargetFramework>
-	<LangVersion>preview</LangVersion>
+	  <TargetFramework>net6.0</TargetFramework>
+	  <LangVersion>preview</LangVersion>
     <Platforms>AnyCPU;x64</Platforms>
     <PackageIcon>ScreenFIRE-x128.png</PackageIcon>
     <ApplicationIcon>Assets\images\Logo\ScreenFIRE.ico</ApplicationIcon>
-    <PackageProjectUrl>https://github.com/NHKomaiha/ScreenFIRE</PackageProjectUrl>
-    <Copyright>Ⓒ2021 NHKomaiha</Copyright>
+    <PackageProjectUrl>https://github.com/xeroling/ScreenFIRE</PackageProjectUrl>
+    <Copyright>Ⓒ2021 xeroling</Copyright>
     <Description>Sophisticated screenshot utility for Linux and Windows!</Description>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <RepositoryUrl>https://github.com/NHKomaiha/ScreenFIRE</RepositoryUrl>
+    <RepositoryUrl>https://github.com/xeroling/ScreenFIRE</RepositoryUrl>
     <PackageTags>windows, linux, widnows, linux-app, windows-app,  screenshot, gtk, winforms, xamarin, screenshot-utility, dotnet</PackageTags>
     <NeutralLanguage>en-US</NeutralLanguage>
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
@@ -19,7 +19,7 @@
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <RepositoryType>git</RepositoryType>
-    <Company>NHKomaiha</Company>
+    <Company>xeroling</Company>
     <StartupObject>ScreenFIRE.Program</StartupObject>
   </PropertyGroup>
 
@@ -65,10 +65,15 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>icons.resx</DependentUpon>
     </Compile>
-    <Compile Update="Assets\Embedded\LocalSave_Settings.Designer.cs">
+    <Compile Update="Modules\Save\LocalSave_Settings.Designer.cs">
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <AutoGen>True</AutoGen>
       <DependentUpon>LocalSave_Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Update="Assets\Embedded\Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Update="Assets\Embedded\SF.Designer.cs">
       <DesignTime>True</DesignTime>
@@ -95,9 +100,13 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Themes.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Update="Assets\Embedded\LocalSave_Settings.settings">
+    <None Update="Modules\Save\LocalSave_Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>LocalSave_Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="Assets\Embedded\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
 
     <None Update="Assets\images\Logo\ScreenFIRE-x128.png">
