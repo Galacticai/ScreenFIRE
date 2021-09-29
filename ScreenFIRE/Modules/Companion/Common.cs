@@ -1,5 +1,6 @@
 ﻿using ScreenFIRE.Assets;
 using ScreenFIRE.Assets.Embedded;
+using ScreenFIRE.Modules.Save;
 using System.Diagnostics;
 using System.Reflection;
 
@@ -31,17 +32,18 @@ namespace ScreenFIRE.Modules.Companion {
         /// <returns> GNU GPL v3.0 license link <c>(https://www.gnu.org/licenses/gpl-3.0.html)</c> </returns>
         public const string SF_License = "https://www.gnu.org/licenses/gpl-3.0.html";
 
-        /// <returns> ScreenFIRE repository link <c>(https://github.com/NHKomaiha/ScreenFIRE)</c> </returns>
-        public const string SF_GitRepo = "https://github.com/NHKomaiha/ScreenFIRE";
-        /// <returns> ScreenFIRE repository >> issues link <c>(https://github.com/NHKomaiha/ScreenFIRE/issues)</c> </returns>
+        /// <returns> ScreenFIRE repository link <c>(https://github.com/xeroling/ScreenFIRE)</c> </returns>
+        public const string SF_GitRepo = "https://github.com/xeroling/ScreenFIRE";
+        /// <returns> ScreenFIRE repository >> issues link <c>(https://github.com/xeroling/ScreenFIRE/issues)</c> </returns>
         public const string SF_GitRepo_issues = $"{SF_GitRepo}/issues";
 
         #endregion
 
 
-        #region
-        private static SaveOptions _SaveOptions = null;
-        public static SaveOptions SaveOptions => _SaveOptions ??= new();
+        #region Config
+
+        public static Settings Settings => Settings.Default;
+        public static LocalSave_Settings LocalSave_Settings => LocalSave_Settings.Default;
 
         #endregion
 
