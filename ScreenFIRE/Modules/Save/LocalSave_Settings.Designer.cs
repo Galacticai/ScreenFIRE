@@ -8,7 +8,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ScreenFIRE.Assets.Embedded {
+using ScreenFIRE.Modules.Capture.Companion;
+
+namespace ScreenFIRE.Modules.Save {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
@@ -17,34 +19,30 @@ namespace ScreenFIRE.Assets.Embedded {
         
         private static LocalSave_Settings defaultInstance = ((LocalSave_Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new LocalSave_Settings())));
         
-        public static LocalSave_Settings Default {
-            get {
-                return defaultInstance;
-            }
-        }
-        
+        public static LocalSave_Settings Default => defaultInstance;
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int Format {
-            get {
-                return ((int)(this["Format"]));
-            }
-            set {
-                this["Format"] = value;
-            }
+        [global::System.Configuration.DefaultSettingValueAttribute("ISaveFormat.png")]
+        public ISaveFormat Format {
+            get { return ((ISaveFormat)(this["Format"])); }
+            set { this["Format"] = value; }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string Location {
-            get {
-                return ((string)(this["Location"]));
-            }
-            set {
-                this["Location"] = value;
-            }
+            get { return ((string)(this["Location"])); }
+            set { this["Location"] = value; }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool AutoReplaceExisting {
+            get { return ((bool)(this["AutoReplaceExisting"])); }
+            set { this["AutoReplaceExisting"] = value; }
         }
     }
 }
