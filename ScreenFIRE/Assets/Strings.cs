@@ -94,7 +94,7 @@ namespace ScreenFIRE.Assets {
         /// <returns> Localized <see cref="string"/> according to system language </returns>
         public static async Task<string> Fetch(IStrings Name, bool translate = true, ILanguages language = ILanguages.System) {
             //! Get exising string if already stored
-            if (Storage.TryGetValue(Name, out string result))
+            if (StringsStore.TryGetValue(Name, out string result))
                 return result;
 
             //! Fetch
@@ -110,7 +110,7 @@ namespace ScreenFIRE.Assets {
                       };
 
             //! Store it for later use
-            Storage.Add(Name, result);
+            StringsStore.Add(Name, result);
 
             return result;
         }
