@@ -35,7 +35,7 @@ namespace ScreenFIRE.GUI {
         [UI] private readonly Button gif_Button_SaveFormat_Popover = null;
         [UI] private readonly Button mp4_Button_SaveFormat_Popover = null;
         [UI] private readonly Label Label_AutoSaveExisting_Box_SaveOptions_Box = null;
-        [UI] private readonly Gtk.Switch Switch_AutoSaveExisting_Box_SaveOptions_Box = null;
+        [UI] private readonly Gtk.Switch Switch_AutoDelete1MonthOldFiles_Box_SaveOptions_Box = null;
 
         [UI] private readonly Label About_TabButton = null;
         [UI] private readonly Label ScreenFIRE_Label_About_Box = null;
@@ -84,9 +84,9 @@ namespace ScreenFIRE.GUI {
             png_Button_SaveFormat_Popover.Clicked += png_Button_SaveFormat_Popover_Clicked;
             jpg_Button_SaveFormat_Popover.Clicked += jpg_Button_SaveFormat_Popover_Clicked;
 
-            Switch_AutoSaveExisting_Box_SaveOptions_Box.StateChanged += delegate {
-                Common.LocalSave_Settings.AutoReplaceExisting
-                    = Switch_AutoSaveExisting_Box_SaveOptions_Box.State;
+            Switch_AutoDelete1MonthOldFiles_Box_SaveOptions_Box.StateChanged += delegate {
+                Common.LocalSave_Settings.AutoDelete1MonthOldFiles
+                    = Switch_AutoDelete1MonthOldFiles_Box_SaveOptions_Box.State;
             };
 
 
@@ -184,7 +184,6 @@ namespace ScreenFIRE.GUI {
             AssignEtc();
         }
 
-        private int _counter;
         private async Task Capture(IScreenshotType screenshotType) {
             Hide();
             AcceptFocus = false;

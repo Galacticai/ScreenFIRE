@@ -160,9 +160,6 @@
               </packing>
             </child>
             <child>
-              <placeholder/>
-            </child>
-            <child>
               <object class="GtkButtonBox">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
@@ -396,11 +393,11 @@
               <placeholder/>
             </child>
             <child>
-              <object class="GtkBox" id="AutoSaveExisting_Box_SaveOptions_Box">
+              <object class="GtkBox" id="AutoDelete1MonthOldFiles_Box_SaveOptions_Box">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
                 <child>
-                  <object class="GtkSwitch" id="Switch_AutoSaveExisting_Box_SaveOptions_Box">
+                  <object class="GtkSwitch" id="Switch_AutoDelete1MonthOldFiles_Box_SaveOptions_Box">
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
                     <property name="halign">end</property>
@@ -417,7 +414,7 @@
                   <object class="GtkLabel" id="Label_AutoSaveExisting_Box_SaveOptions_Box">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
-                    <property name="label" translatable="yes">Auto replace existing file</property>
+                    <property name="label" translatable="yes">Auto delete 1 month old files</property>
                   </object>
                   <packing>
                     <property name="expand">False</property>
