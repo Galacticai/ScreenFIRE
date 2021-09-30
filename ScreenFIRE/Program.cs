@@ -1,8 +1,8 @@
 using Gtk;
+using ScreenFIRE.Assets;
 using ScreenFIRE.GUI;
 using ScreenFIRE.Modules.Companion;
 using ScreenFIRE.Modules.Companion.OS;
-using System;
 
 namespace ScreenFIRE {
 
@@ -28,10 +28,16 @@ namespace ScreenFIRE {
 
             Application.Init();
 
+            app.Shutdown += delegate { Strings.SaveStorage(); };
+
             app.Register(GLib.Cancellable.Current);
 
             app.AddWindow(Config);
             app.AddWindow(ScreenFIRE);
+
+            foreach (string arg in args)
+                if (arg.ToLower() == "screenshot")
+                    ScreenFIRE.Show();
 
             Config.Show();
 
