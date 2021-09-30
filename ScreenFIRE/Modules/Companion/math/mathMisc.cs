@@ -55,7 +55,6 @@ namespace ScreenFIRE.Modules.Companion.math {
             int w = (int)(input.Width * scalePercent),
                 h = (int)(input.Height * scalePercent);
             return new Size(w, h);
-
         }
 
         public struct Arrays {
