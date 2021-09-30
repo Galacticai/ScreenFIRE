@@ -23,7 +23,7 @@ namespace ScreenFIRE.Modules.Save {
 
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("ISaveFormat.png")]
+        [global::System.Configuration.DefaultSettingValueAttribute("png")]
         public ISaveFormat Format {
             get { return ((ISaveFormat)(this["Format"])); }
             set { this["Format"] = value; }
