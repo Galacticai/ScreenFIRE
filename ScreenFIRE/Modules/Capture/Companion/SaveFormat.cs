@@ -1,4 +1,5 @@
-﻿using ScreenFIRE.Modules.Companion;
+﻿using ScreenFIRE.Assets;
+using ScreenFIRE.Modules.Companion;
 
 namespace ScreenFIRE.Modules.Capture.Companion {
 
@@ -20,11 +21,11 @@ namespace ScreenFIRE.Modules.Capture.Companion {
 
 
     public class SaveFormat {
-        public static string StringWithDesctiption_From_SaveOptionsFormat(string[] txt_strings) {
+        public static string StringWithDesctiption_From_SaveOptionsFormat() {
             return Common.LocalSave_Settings.Format switch {
-                ISaveFormat.bmp => $"bmp ({txt_strings[2]})",
-                ISaveFormat.jpeg => $"jpg ({txt_strings[1]})",
-                _ => $"png ({txt_strings[0]})" //0 & etc
+                ISaveFormat.bmp => $"bmp ({Strings.Fetch(IStrings.Original).Result})",
+                ISaveFormat.jpeg => $"jpg ({Strings.Fetch(IStrings.Efficiency).Result})",
+                _ => $"png ({Strings.Fetch(IStrings.Quality).Result})" //0 & etc
             };
         }
     }
