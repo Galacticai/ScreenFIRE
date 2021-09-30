@@ -73,21 +73,13 @@ namespace ScreenFIRE.Assets.Embedded {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Logo {
-            get {
-                object obj = ResourceManager.GetObject("Logo", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
+        internal static byte[] Logo 
+            => (byte[])(ResourceManager.GetObject("Logo", resourceCulture));
         
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
-        internal static System.Drawing.Icon Logo_ico {
-            get {
-                object obj = ResourceManager.GetObject("Logo_ico", resourceCulture);
-                return ((System.Drawing.Icon)(obj));
-            }
-        }
+        internal static System.Drawing.Icon Logo_ico
+            => (System.Drawing.Icon)(ResourceManager.GetObject("Logo_ico", resourceCulture));
     }
 }

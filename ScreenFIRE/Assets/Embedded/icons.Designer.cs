@@ -63,10 +63,10 @@ namespace ScreenFIRE.Assets.Embedded {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Balance_png {
+        internal static byte[] Balance_png {
             get {
                 object obj = ResourceManager.GetObject("Balance_png", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((byte[])(obj));
             }
         }
         

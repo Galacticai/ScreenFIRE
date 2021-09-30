@@ -134,7 +134,7 @@ namespace ScreenFIRE.GUI {
         private void AssignImages() {
             //! = LogoImage ==========================
             LogoImage.Pixbuf
-                = new Gdk.Pixbuf(Vision.BitmapToByteArray(SF.Logo))
+                = new Gdk.Pixbuf(/*Vision.BitmapToByteArray(*/SF.Logo/*)*/)
                             .ScaleSimple(128, 128, Gdk.InterpType.Bilinear);
             //! ======================================
 
@@ -158,7 +158,7 @@ namespace ScreenFIRE.GUI {
             //! ======================================
 
             //! = Image_License_Button_About_Box =====
-            Gdk.Pixbuf Image_License_Button_About_Box_Pixbuf = new(Vision.BitmapToByteArray(icons.Balance_png));
+            Gdk.Pixbuf Image_License_Button_About_Box_Pixbuf = new(/*Vision.BitmapToByteArray(*/icons.Balance_png/*)*/);
             System.Drawing.Size Image_License_Button_About_Box_Size
                 = mathMisc.Scale_Fit(new(Image_License_Button_About_Box_Pixbuf.Width, Image_License_Button_About_Box_Pixbuf.Height), 24);
             Image_License_Button_About_Box.Pixbuf
