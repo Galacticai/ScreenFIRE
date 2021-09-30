@@ -117,14 +117,39 @@
             <property name="margin-bottom">24</property>
             <property name="orientation">vertical</property>
             <child>
-              <object class="GtkButton">
+              <object class="GtkButton" id="ssPreview_Button_Screenshot_Box">
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="receives-default">True</property>
+                <property name="relief">none</property>
                 <child>
-                  <object class="GtkImage" id="Preview_Image_Screenshot_Box">
+                  <object class="GtkBox">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
+                    <property name="orientation">vertical</property>
+                    <child>
+                      <object class="GtkImage" id="Image_ssPreview_Button_Screenshot_Box">
+                        <property name="can-focus">False</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="Label_ssPreview_Button_Screenshot_Box">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="label" translatable="yes">View screenshots</property>
+                        <property name="justify">center</property>
+                      </object>
+                      <packing>
+                        <property name="expand">True</property>
+                        <property name="fill">True</property>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
                   </object>
                 </child>
               </object>
@@ -133,6 +158,9 @@
                 <property name="fill">True</property>
                 <property name="position">0</property>
               </packing>
+            </child>
+            <child>
+              <placeholder/>
             </child>
             <child>
               <object class="GtkButtonBox">
@@ -211,7 +239,7 @@
                 <property name="expand">False</property>
                 <property name="fill">True</property>
                 <property name="pack-type">end</property>
-                <property name="position">0</property>
+                <property name="position">10</property>
               </packing>
             </child>
             <child>
@@ -227,7 +255,7 @@
                 <property name="expand">False</property>
                 <property name="fill">True</property>
                 <property name="pack-type">end</property>
-                <property name="position">1</property>
+                <property name="position">11</property>
               </packing>
             </child>
             <child>
@@ -240,16 +268,14 @@
                 <property name="margin-top">8</property>
                 <property name="margin-bottom">10</property>
                 <property name="label" translatable="yes">Choose how you want to fire your screen!</property>
+                <property name="justify">center</property>
               </object>
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">True</property>
                 <property name="pack-type">end</property>
-                <property name="position">2</property>
+                <property name="position">12</property>
               </packing>
-            </child>
-            <child>
-              <placeholder/>
             </child>
           </object>
         </child>

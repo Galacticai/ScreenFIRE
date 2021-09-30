@@ -6,6 +6,7 @@ using ScreenFIRE.Modules.Capture.Companion;
 using ScreenFIRE.Modules.Companion;
 using ScreenFIRE.Modules.Companion.math;
 using ScreenFIRE.Modules.Save;
+using System.Diagnostics;
 using UI = Gtk.Builder.ObjectAttribute;
 
 namespace ScreenFIRE.GUI {
@@ -14,7 +15,9 @@ namespace ScreenFIRE.GUI {
         [UI] private readonly Image LogoImage = null;
 
         [UI] private readonly Label Screenshot_TabButton = null;
-        [UI] private readonly Image Preview_Image_Screenshot_Box = null;
+        [UI] private readonly Button ssPreview_Button_Screenshot_Box = null;
+        [UI] private readonly Image Image_ssPreview_Button_Screenshot_Box = null;
+        [UI] private readonly Label Label_ssPreview_Button_Screenshot_Box = null;
         [UI] private readonly Label _label1 = null;
         [UI] private readonly Button SF_Button_AllMonitors = null;
         [UI] private readonly Button SF_Button_MonitorAtPointer = null;
@@ -32,7 +35,7 @@ namespace ScreenFIRE.GUI {
         [UI] private readonly Button gif_Button_SaveFormat_Popover = null;
         [UI] private readonly Button mp4_Button_SaveFormat_Popover = null;
         [UI] private readonly Label Label_AutoSaveExisting_Box_SaveOptions_Box = null;
-        [UI] private readonly Switch Switch_AutoSaveExisting_Box_SaveOptions_Box = null;
+        [UI] private readonly Gtk.Switch Switch_AutoSaveExisting_Box_SaveOptions_Box = null;
 
         [UI] private readonly Label About_TabButton = null;
         [UI] private readonly Label ScreenFIRE_Label_About_Box = null;
@@ -52,6 +55,14 @@ namespace ScreenFIRE.GUI {
 
         private void AssignEvents() {
             DeleteEvent += delegate { Application.Quit(); };
+
+            ssPreview_Button_Screenshot_Box.Clicked += delegate {
+                Process.Start(new ProcessStartInfo() {
+                    FileName = Common.LocalSave_Settings.Location,
+                    UseShellExecute = true,
+                    Verb = "open"
+                });
+            };
 
             SF_Button_AllMonitors.Clicked
                 += async delegate { await Capture(IScreenshotType.AllMonitors); };
@@ -85,6 +96,15 @@ namespace ScreenFIRE.GUI {
 
             Screenshot_TabButton.Text = Strings.Fetch(IStrings.Screenshot).Result;
 
+            Label_ssPreview_Button_Screenshot_Box.Text = Strings.Fetch(IStrings.ViewScreenshots).Result;
+            _label1.Text = Strings.Fetch(IStrings.ChooseHowYouWouldLikeToFireYourScreenshot_).Result;
+            SF_Button_AllMonitors.Label = Strings.Fetch(IStrings.AllMonitors).Result;
+            SF_Button_MonitorAtPointer.Label = Strings.Fetch(IStrings.MonitorAtPointer).Result;
+            SF_Button_WindowAtPointer.Label = Strings.Fetch(IStrings.WindowAtPointer).Result;
+            SF_Button_ActiveWindow.Label = Strings.Fetch(IStrings.ActiveWindow).Result;
+            SF_Button_Custom.Label = Strings.Fetch(IStrings.FreeAreaSelection).Result;
+
+
             SaveOptions_TabButton.Text = Strings.Fetch(IStrings.SavingOptions).Result;
 
             Label_MenuButton_SaveOptions_Box.Text
@@ -109,13 +129,6 @@ namespace ScreenFIRE.GUI {
 
             Label_SF_repo_Button_About_Box.Text = Strings.Fetch(IStrings.ScreenFIRERepositoryAtGitHub).Result;
             Label_License_Button_About_Box.Text = Strings.Fetch(IStrings.GNUGeneralPublicLicensev3_0___).Result;
-
-            _label1.Text = Strings.Fetch(IStrings.ChooseHowYouWouldLikeToFireYourScreenshot_).Result;
-            SF_Button_AllMonitors.Label = Strings.Fetch(IStrings.AllMonitors).Result;
-            SF_Button_MonitorAtPointer.Label = Strings.Fetch(IStrings.MonitorAtPointer).Result;
-            SF_Button_WindowAtPointer.Label = Strings.Fetch(IStrings.WindowAtPointer).Result;
-            SF_Button_ActiveWindow.Label = Strings.Fetch(IStrings.ActiveWindow).Result;
-            SF_Button_Custom.Label = Strings.Fetch(IStrings.FreeAreaSelection).Result;
 
         }
         private void AssignImages() {
@@ -180,12 +193,15 @@ namespace ScreenFIRE.GUI {
 
             using var ss = new Screenshot(screenshotType);
             if (await Save.Local(ss, this)) {
-                _label1.Text = await Strings.Fetch(IStrings.FiredAScreenshot_) + Common.nn
-                             + await Strings.Fetch(IStrings.ThisButtonHasBeenClicked) + " " + (1 + _counter++) + " "
-                             + (_counter <= 1 ? await Strings.Fetch(IStrings.times_1)
-                                             : await Strings.Fetch(IStrings.times_2));
+                _label1.Text = await Strings.Fetch(IStrings.FiredAScreenshot_);
+                Timer label1Timer = new Timer(async (object state) => {
+                    _label1.Text = await Strings.Fetch(IStrings.ChooseHowYouWouldLikeToFireYourScreenshot_);
+                }, null, 3000, Timeout.Infinite);
                 System.Drawing.Size previewSize = mathMisc.Scale_Fit(new(ss.Image.Width, ss.Image.Height), 128);
-                Preview_Image_Screenshot_Box.Pixbuf =
+
+                Label_ssPreview_Button_Screenshot_Box.Destroy();
+                Image_ssPreview_Button_Screenshot_Box.Visible = true;
+                Image_ssPreview_Button_Screenshot_Box.Pixbuf =
                      ss.Image.ScaleSimple(previewSize.Width, previewSize.Height, Gdk.InterpType.Bilinear);
             } else {
                 MessageDialog failDialog = new(this,
