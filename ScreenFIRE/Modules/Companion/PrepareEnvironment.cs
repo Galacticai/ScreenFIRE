@@ -11,7 +11,7 @@ namespace ScreenFIRE.Modules.Companion {
             if (!Directory.Exists(Common.UserProfile))
                 return false;
 
-            //! User >> Pictures
+            //! (User) >> Pictures
             if (!Directory.Exists(env.GetFolderPath(env.SpecialFolder.MyPictures)))
                 Directory.CreateDirectory(
                             env.GetFolderPath(env.SpecialFolder.MyPictures));
