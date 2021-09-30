@@ -66,7 +66,11 @@ namespace ScreenFIRE.Modules.Companion {
         Other, //! Will default to English
     }
 
-    public class Languages {
+    public static class Languages {
+        public static ILanguages ToILanguages(this string language)
+            => SystemLanguage(language);
+        public static string ToGoogleLanguageID(this ILanguages language)
+            => GoogleLanguageID(language);
 
         /// <returns> Current .NET system language <see cref="string"/> code in 2 or 3 letters</returns>
         public static string TwoLetterISOLanguageName
@@ -90,12 +94,12 @@ namespace ScreenFIRE.Modules.Companion {
         //}
 
         public static async Task<string> TranslateText(string input, ILanguages toLanguage = ILanguages.System) {
-            if (toLanguage == ILanguages.System) toLanguage = DotNetToILanguages();
+            if (toLanguage == ILanguages.System) toLanguage = SystemLanguage();
 
             return string.Empty; //! PLACEHOLDER
 
             string url = string.Format("https://translate.google.com/?text={0}&tl={1}",
-                                        input, ILanguagesToGoogleLanguageCodes(toLanguage));
+                                        input, toLanguage.ToGoogleLanguageID());
             string result = await new HttpClient().GetStringAsync(url);
             result = result[(result.IndexOf("<span title=\"") + "<span title=\"".Length)..];
             result = result[(result.IndexOf(">") + 1)..];
@@ -104,15 +108,10 @@ namespace ScreenFIRE.Modules.Companion {
             return result;
         }
 
-        /// <returns> <see cref="DotNetToILanguages()"/> </returns>
-        [Obsolete("GetSystemLanguage is useless. Just use DotNetToILanguages()")]
-        public static ILanguages GetSystemLanguage()
-             => DotNetToILanguages();
-
         /// <summary> Convert .NET language code <see cref="string"/> to <see cref="ILanguages"/> readable by ScreenFIRE </summary>
         /// <param name="language"> Language to convert || Will use system language if null </param>
         /// <returns> ScreenFIRE <see cref="ILanguages"/> corresponding to the provided <paramref name="language"/></returns>
-        public static ILanguages DotNetToILanguages(string language = null)
+        public static ILanguages SystemLanguage(string language = null)
             => (language ?? TwoLetterISOLanguageName) switch {
                 //!
                 //! Commented = not supported by Google Translate API
@@ -245,9 +244,9 @@ namespace ScreenFIRE.Modules.Companion {
         /// <summary> Convert <see cref="ILanguages"/> to <see cref="string"/> readable by Google Translate API </summary>
         /// <param name="language"> Language to convert </param>
         /// <returns> Google Translate language code <see cref="string"/> corresponding to the provided <paramref name="language"/></returns>
-        public static string ILanguagesToGoogleLanguageCodes(ILanguages language = ILanguages.System)
+        public static string GoogleLanguageID(ILanguages language = ILanguages.System)
             => (language == ILanguages.System
-                ? DotNetToILanguages() : language) switch {
+                ? SystemLanguage() : language) switch {
                     ILanguages.Afrikaans => "af",
                     ILanguages.Albanian => "sq",
                     ILanguages.Amharic => "am",
