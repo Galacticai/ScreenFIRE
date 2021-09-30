@@ -9,21 +9,6 @@ namespace ScreenFIRE.Modules.Save {
 
     partial class Save {
 
-        private static string[] txt_privatenameusedonlybythisfunction_028357023857203109841234 = null;
-        private static async Task<string> txt(int index) {
-            return (txt_privatenameusedonlybythisfunction_028357023857203109841234
-                   //! Set while fetching
-                   ??= await Strings.Fetch(IStrings.SaveAs___, /*0*/
-                                            IStrings.OK, /*1*/
-                                            IStrings.Yes, /*2*/
-                                            IStrings.No, /*3*/
-                                            IStrings.Cancel, /*4*/
-                                            IStrings.FileAlreadyExists_, /*5*/
-                                            IStrings.WouldYouLikeToReplaceTheExistingFile_ /*6*/
-                                            )
-                        )[index];
-        }
-
         /// <summary> ••• GUI ••• Save a <see cref="Screenshot"/> locally </summary>
         public static async Task<bool> Local(Screenshot screenshot, Window parentWindow) {
 
@@ -36,12 +21,12 @@ namespace ScreenFIRE.Modules.Save {
 
             //! Let the user choose a path to the file
             FileChooserNative choose
-                        = new(await txt(0),
+                        = new(await Strings.Fetch(IStrings.SaveAs___),
                               parentWindow,
                               FileChooserAction.Save,
-                              await txt(1), await txt(4));
+                              await Strings.Fetch(IStrings.OK), await Strings.Fetch(IStrings.Cancel));
             choose.SelectMultiple = false;
-            choose.SetCurrentFolder(Common.SaveOptions.Location);
+            choose.SetCurrentFolder(Common.LocalSave_Settings.Location);
 
             ResponseType chooseResponse = (ResponseType)choose.Run();
 
@@ -58,7 +43,8 @@ namespace ScreenFIRE.Modules.Save {
                                   DialogFlags.DestroyWithParent,
                                   MessageType.Question,
                                   ButtonsType.YesNo,
-                                  await txt(5) + Common.nn + await txt(6));
+                                  await Strings.Fetch(IStrings.FileAlreadyExists_) + Common.nn
+                                  + await Strings.Fetch(IStrings.WouldYouLikeToReplaceTheExistingFile_));
                     fileExistsDialog.SetPosition(WindowPosition.CenterOnParent);
                     ResponseType fileExistsResponse = (ResponseType)fileExistsDialog.Run();
                     //! User chose to replace the file
