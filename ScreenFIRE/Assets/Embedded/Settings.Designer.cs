@@ -23,14 +23,10 @@ namespace ScreenFIRE.Assets.Embedded {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public ILanguages LastLanguage {
-            get {
-                return ((ILanguages)(this["LastLanguage"]));
-            }
-            set {
-                this["LastLanguage"] = value;
-            }
+        [global::System.Configuration.DefaultSettingValueAttribute("English")]
+        public ILanguages Language {
+            get { return ((ILanguages)(this["Language"])); }
+            set { this["Language"] = value; }
         }
     }
 }
