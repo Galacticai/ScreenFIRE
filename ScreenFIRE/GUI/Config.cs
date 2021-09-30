@@ -95,7 +95,7 @@ namespace ScreenFIRE.GUI {
             gif_Button_SaveFormat_Popover.Label = $"gif ({Strings.Fetch(IStrings.Animated).Result})";
             mp4_Button_SaveFormat_Popover.Label = $"mp4 ({Strings.Fetch(IStrings.Video).Result})";
 
-            Label_AutoSaveExisting_Box_SaveOptions_Box.Text = Strings.Fetch(IStrings.).Result;
+            Label_AutoSaveExisting_Box_SaveOptions_Box.Text = Strings.Fetch(IStrings.AutoDelete1MonthOldFiles).Result;
 
             About_TabButton.Text = Strings.Fetch(IStrings.About).Result;
 
