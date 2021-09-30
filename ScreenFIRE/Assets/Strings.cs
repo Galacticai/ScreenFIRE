@@ -1,7 +1,4 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using ScreenFIRE.Modules.Companion;
-using System.Text;
+﻿using ScreenFIRE.Modules.Companion;
 
 namespace ScreenFIRE.Assets {
 
@@ -41,6 +38,7 @@ namespace ScreenFIRE.Assets {
         alreadyExists,
         WouldYouLikeToReplaceTheExistingFile_,
 
+        AutoDelete1MonthOldFiles,
         Original,
         Quality,
         Efficiency,
@@ -49,41 +47,10 @@ namespace ScreenFIRE.Assets {
 
     }
 
-    public static class Strings {
-        private static IStrings ToIStrings(this string value)
+    public static partial class Strings {
+        public static IStrings ToIStrings(this string value)
             => (IStrings)Enum.Parse(typeof(IStrings), value, true);
 
-        private static Dictionary<IStrings, string> Storage = new();
-        public static void RebuildStorage(ILanguages language) {
-            //! Check if the locale file exists
-            string stringsFilePath = Path.Combine(Common.SF_Data, "Locale", $"{language}.json");
-            if (!File.Exists(stringsFilePath))
-                //! Fallback to English
-                stringsFilePath = Path.Combine(Common.SF_Data, "Locale", $"{language = ILanguages.English}.json");
-            //! Cancel if no English
-            if (!File.Exists(stringsFilePath)) return;
-
-            Storage.Clear();
-            using StreamReader stream_stringsFromFile
-                    = File.OpenText(Path.Combine(Common.SF_Data, "Locale", $"{language}.json"));
-            JObject stringsFromFile
-                = (JObject)JToken.ReadFrom(new JsonTextReader(stream_stringsFromFile));
-
-            foreach (var strings in stringsFromFile)
-                Storage.Add(strings.Key.ToIStrings(), strings.Value.ToString());
-
-        }
-
-        private static void SaveStorage(ILanguages language) {
-            JObject stringsAsJson =
-                    new JObject(new JProperty(language.ToString(),
-                            new JObject(new JProperty("Strings",
-                                    new JArray(from item in Storage
-                                               orderby item.Key
-                                               select new JObject(new JProperty(item.Key.ToString(), item.Value)))))));
-            File.WriteAllBytes(Path.Combine(Common.SF_Data, "Locale", $"{language}.json"),
-                               Encoding.ASCII.GetBytes(stringsAsJson.ToString()));
-        }
 
         public static async Task<string> FetchAndJoin(params IStrings[] Names) {
             return string.Join(" ", await Fetch(Names));
@@ -132,7 +99,7 @@ namespace ScreenFIRE.Assets {
 
             //! Fetch
             result = ((language == ILanguages.System)
-                      ? Languages.DotNetToILanguages() : language)
+                      ? Languages.SystemLanguage() : language)
                       switch {
                           //ILanguages.English => En(Name),
                           ILanguages.Arabic => Ar(Name),
@@ -144,7 +111,6 @@ namespace ScreenFIRE.Assets {
 
             //! Store it for later use
             Storage.Add(Name, result);
-            SaveStorage(language);
 
             return result;
         }
@@ -197,6 +163,7 @@ namespace ScreenFIRE.Assets {
               IStrings.alreadyExists => "already exists",
               IStrings.WouldYouLikeToReplaceTheExistingFile_ => "Would you like to replace the existing file?",
 
+              IStrings.AutoDelete1MonthOldFiles => "Auto delete 1 month old files",
               IStrings.Original => "Original",
               IStrings.Quality => "Quality",
               IStrings.Efficiency => "Efficiency",
@@ -252,6 +219,7 @@ namespace ScreenFIRE.Assets {
               IStrings.alreadyExists => "موجود مسبقاً",
               IStrings.WouldYouLikeToReplaceTheExistingFile_ => "هل تودّ استبدال الملف السابق؟",
 
+              IStrings.AutoDelete1MonthOldFiles => "حذف تلقائي للملفات التي مضى عليها شهر",
               IStrings.Original => "الأصل",
               IStrings.Quality => "جودة",
               IStrings.Efficiency => "كفاءة",
@@ -307,6 +275,7 @@ namespace ScreenFIRE.Assets {
               IStrings.alreadyExists => "已经存在",
               IStrings.WouldYouLikeToReplaceTheExistingFile_ => "您想替换现有文件吗？",
 
+              IStrings.AutoDelete1MonthOldFiles => "自动删除 1 个月前的文件",
               IStrings.Original => "原来的",
               IStrings.Quality => "质量",
               IStrings.Efficiency => "效率",
