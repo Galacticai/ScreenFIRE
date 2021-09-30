@@ -27,6 +27,7 @@ namespace ScreenFIRE.Assets {
 
         SomethingWentWrong___,
 
+        ViewScreenshots,
         AllMonitors,
         MonitorAtPointer,
         WindowAtPointer,
@@ -152,6 +153,7 @@ namespace ScreenFIRE.Assets {
 
               IStrings.SomethingWentWrong___ => $"Something went wrong{Common.Ellipses}",
 
+              IStrings.ViewScreenshots => $"View screenshots{Common.Ellipses}",
               IStrings.AllMonitors => "All monitors",
               IStrings.MonitorAtPointer => "Monitor at pointer",
               IStrings.WindowAtPointer => "Window at pointer",
@@ -208,6 +210,7 @@ namespace ScreenFIRE.Assets {
 
               IStrings.SomethingWentWrong___ => $"حدث خطأ ما{Common.Ellipses}",
 
+              IStrings.ViewScreenshots => $"عرض القطات{Common.Ellipses}",
               IStrings.AllMonitors => "جميع الشاشات",
               IStrings.MonitorAtPointer => "الشاشة عند المؤشر",
               IStrings.WindowAtPointer => "النافذة عند المؤشر",
@@ -264,6 +267,7 @@ namespace ScreenFIRE.Assets {
 
               IStrings.SomethingWentWrong___ => $"出了些问题{Common.Ellipses}",
 
+              IStrings.ViewScreenshots => $"查看屏幕截图{Common.Ellipses}",
               IStrings.AllMonitors => "所有显示器",
               IStrings.MonitorAtPointer => "在指针处监控",
               IStrings.WindowAtPointer => "指针处的窗口",
