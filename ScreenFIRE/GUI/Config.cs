@@ -179,7 +179,15 @@ namespace ScreenFIRE.GUI {
             Thread.Sleep(1000); //! Temp (For Windows) make sure the window is fully hidden
 
             using var ss = new Screenshot(screenshotType);
-            if (!await Save.Local(ss, this)) {
+            if (await Save.Local(ss, this)) {
+                _label1.Text = await Strings.Fetch(IStrings.FiredAScreenshot_) + Common.nn
+                             + await Strings.Fetch(IStrings.ThisButtonHasBeenClicked) + " " + (1 + _counter++) + " "
+                             + (_counter <= 1 ? await Strings.Fetch(IStrings.times_1)
+                                             : await Strings.Fetch(IStrings.times_2));
+                System.Drawing.Size previewSize = mathMisc.Scale_Fit(new(ss.Image.Width, ss.Image.Height), 128);
+                Preview_Image_Screenshot_Box.Pixbuf =
+                     ss.Image.ScaleSimple(previewSize.Width, previewSize.Height, Gdk.InterpType.Bilinear);
+            } else {
                 MessageDialog failDialog = new(this,
                                                DialogFlags.Modal,
                                                MessageType.Warning,
@@ -187,11 +195,6 @@ namespace ScreenFIRE.GUI {
                                                await Strings.Fetch(IStrings.SomethingWentWrong___));
                 failDialog.Run();
                 failDialog.Destroy();
-            } else {
-                _label1.Text = await Strings.Fetch(IStrings.FiredAScreenshot_) + Common.nn
-                             + await Strings.Fetch(IStrings.ThisButtonHasBeenClicked) + " " + (1 + _counter++) + " "
-                             + (_counter <= 1 ? await Strings.Fetch(IStrings.times_1)
-                                             : await Strings.Fetch(IStrings.times_2));
             }
 
             AcceptFocus = true;
