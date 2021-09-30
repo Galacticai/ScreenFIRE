@@ -40,9 +40,9 @@ namespace ScreenFIRE.Modules.Save {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool AutoReplaceExisting {
-            get { return ((bool)(this["AutoReplaceExisting"])); }
-            set { this["AutoReplaceExisting"] = value; }
+        public bool AutoDelete1MonthOldFiles {
+            get { return ((bool)(this["AutoDelete1MonthOldFiles"])); }
+            set { this["AutoDelete1MonthOldFiles"] = value; }
         }
     }
 }
