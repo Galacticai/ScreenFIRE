@@ -29,7 +29,7 @@ namespace ScreenFIRE.Modules.Companion {
                 Common.LocalSave_Settings.Location = Common.SF;
 
             //! Rebuild previously fetched strings according to current language
-            Strings.RebuildStorage(Languages.DotNetToILanguages());
+            Strings.RebuildStorage(Languages.SystemLanguage());
 
             return true;
         }
