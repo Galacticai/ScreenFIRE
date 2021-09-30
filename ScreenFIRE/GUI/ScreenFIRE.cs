@@ -1,6 +1,5 @@
 using Cairo;
 using Gtk;
-using ScreenFIRE.Assets;
 using ScreenFIRE.Modules.Capture;
 using ScreenFIRE.Modules.Capture.Companion;
 using ScreenFIRE.Modules.Companion;
@@ -19,14 +18,7 @@ namespace ScreenFIRE.GUI {
         [UI] private readonly Button Close_Button = null;
         [UI] private readonly DrawingArea SS_DrawingArea = null;
 
-        private static string[] txt_privatenameusedonlybythisfunction_238157203985ty9486t4 = null;
-        private static async Task<string> txt(int index) {
-            return (txt_privatenameusedonlybythisfunction_238157203985ty9486t4
-                   ??= (await Strings.Fetch(IStrings.FiredAScreenshot_,//0
-                                            IStrings.ThisButtonHasBeenClicked //1
-                                            ))
-                        )[index];
-        }
+
         private void AssignEvents() {
             DeleteEvent += delegate { Application.Quit(); };
             Hidden += OnHidden;

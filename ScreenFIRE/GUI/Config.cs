@@ -14,6 +14,7 @@ namespace ScreenFIRE.GUI {
         [UI] private readonly Image LogoImage = null;
 
         [UI] private readonly Label Screenshot_TabButton = null;
+        [UI] private readonly Image Preview_Image_Screenshot_Box = null;
         [UI] private readonly Label _label1 = null;
         [UI] private readonly Button SF_Button_AllMonitors = null;
         [UI] private readonly Button SF_Button_MonitorAtPointer = null;
@@ -49,41 +50,6 @@ namespace ScreenFIRE.GUI {
         [UI] private readonly Label Label_License_Button_About_Box = null;
         [UI] private readonly Label madeWith_Label_About_Box = null;
 
-
-
-        private static string[] txt_privatenameusedonlybythisfunction_238157203985ty9486t4 = null;
-        private static async Task<string> txt(int index) {
-            return (txt_privatenameusedonlybythisfunction_238157203985ty9486t4
-                   ??= (await Assets.Strings.Fetch(IStrings.ScreenFIREConfig,//0
-                                            IStrings.FiredAScreenshot_,//1
-                                            IStrings.ThisButtonHasBeenClicked,//2
-                                            IStrings.times_1,//3
-                                            IStrings.times_2,//4
-                                            IStrings.SomethingWentWrong___,//5
-                                            IStrings.ChooseHowYouWouldLikeToFireYourScreenshot_,//6
-                                            IStrings.AllMonitors,//7
-                                            IStrings.MonitorAtPointer,//8
-                                            IStrings.WindowAtPointer,//9
-                                            IStrings.ActiveWindow,//10
-                                            IStrings.FreeAreaSelection,//11
-                                            IStrings.Screenshot,//12
-                                            IStrings.SavingOptions,//13
-                                            IStrings.About,//14
-                                            IStrings.ScreenFIRERepositoryAtGitHub, //15
-                                            IStrings.Original, //16
-                                            IStrings.Quality, //17
-                                            IStrings.Efficiency, //18
-                                            IStrings.Animated, //19
-                                            IStrings.Video, //20
-                                            IStrings.Version, //21
-                                            IStrings.Phase, //22
-                                            IStrings.ScreenFIRE_Stylized, //23
-                                            IStrings.GNUGeneralPublicLicensev3_0___, //24
-                                            IStrings.MadeWith_NET_GTK_ //25
-                                            )
-                        )
-                    )[index];
-        }
         private void AssignEvents() {
             DeleteEvent += delegate { Application.Quit(); };
 
@@ -115,42 +81,41 @@ namespace ScreenFIRE.GUI {
 
         }
         private void AssignStrings() {
-            Title = txt(0).Result;
+            Title = Strings.Fetch(IStrings.ScreenFIREConfig).Result;
 
-            Screenshot_TabButton.Text = txt(12).Result;
+            Screenshot_TabButton.Text = Strings.Fetch(IStrings.Screenshot).Result;
 
-            SaveOptions_TabButton.Text = txt(13).Result;
+            SaveOptions_TabButton.Text = Strings.Fetch(IStrings.SavingOptions).Result;
 
             Label_MenuButton_SaveOptions_Box.Text
-                = SaveFormat.StringWithDesctiption_From_SaveOptionsFormat(
-                    new[] { txt(17).Result, txt(16).Result, txt(18).Result, txt(19).Result, txt(20).Result });
-            bmp_Button_SaveFormat_Popover.Label = $"bmp ({txt(16).Result})";
-            png_Button_SaveFormat_Popover.Label = $"png ({txt(17).Result})";
-            jpg_Button_SaveFormat_Popover.Label = $"jpg ({txt(18).Result})";
-            gif_Button_SaveFormat_Popover.Label = $"gif ({txt(19).Result})";
-            mp4_Button_SaveFormat_Popover.Label = $"mp4 ({txt(20).Result})";
+                = SaveFormat.StringWithDesctiption_From_SaveOptionsFormat();
+            bmp_Button_SaveFormat_Popover.Label = $"bmp ({Strings.Fetch(IStrings.Original).Result})";
+            png_Button_SaveFormat_Popover.Label = $"png ({Strings.Fetch(IStrings.Quality).Result})";
+            jpg_Button_SaveFormat_Popover.Label = $"jpg ({Strings.Fetch(IStrings.Efficiency).Result})";
+            gif_Button_SaveFormat_Popover.Label = $"gif ({Strings.Fetch(IStrings.Animated).Result})";
+            mp4_Button_SaveFormat_Popover.Label = $"mp4 ({Strings.Fetch(IStrings.Video).Result})";
 
-            Label_AutoSaveExisting_Box_SaveOptions_Box.Text = "";
+            Label_AutoSaveExisting_Box_SaveOptions_Box.Text = Strings.Fetch(IStrings.).Result;
 
-            About_TabButton.Text = txt(14).Result;
+            About_TabButton.Text = Strings.Fetch(IStrings.About).Result;
 
-            ScreenFIRE_Label_About_Box.Text = txt(23).Result;
+            ScreenFIRE_Label_About_Box.Text = Strings.Fetch(IStrings.ScreenFIRE_Stylized).Result;
 
-            VersionTitle_Label_About_Box.Text = txt(21).Result + ":";
+            VersionTitle_Label_About_Box.Text = Strings.Fetch(IStrings.Version).Result + ":";
             Version_Label_About_Box.Text = Common.VersionString(includePhase: false);
-            PhaseTitle_Label_About_Box.Text = txt(22).Result + ":";
+            PhaseTitle_Label_About_Box.Text = Strings.Fetch(IStrings.Phase).Result + ":";
             Phase_Label_About_Box.Text = Common.PhaseString();
-            madeWith_Label_About_Box.Text = txt(25).Result;
+            madeWith_Label_About_Box.Text = Strings.Fetch(IStrings.MadeWith_NET_GTK_).Result;
 
-            Label_SF_repo_Button_About_Box.Text = txt(15).Result;
-            Label_License_Button_About_Box.Text = txt(24).Result;
+            Label_SF_repo_Button_About_Box.Text = Strings.Fetch(IStrings.ScreenFIRERepositoryAtGitHub).Result;
+            Label_License_Button_About_Box.Text = Strings.Fetch(IStrings.GNUGeneralPublicLicensev3_0___).Result;
 
-            _label1.Text = txt(6).Result;
-            SF_Button_AllMonitors.Label = txt(7).Result;
-            SF_Button_MonitorAtPointer.Label = txt(8).Result;
-            SF_Button_WindowAtPointer.Label = txt(9).Result;
-            SF_Button_ActiveWindow.Label = txt(10).Result;
-            SF_Button_Custom.Label = txt(11).Result;
+            _label1.Text = Strings.Fetch(IStrings.ChooseHowYouWouldLikeToFireYourScreenshot_).Result;
+            SF_Button_AllMonitors.Label = Strings.Fetch(IStrings.AllMonitors).Result;
+            SF_Button_MonitorAtPointer.Label = Strings.Fetch(IStrings.MonitorAtPointer).Result;
+            SF_Button_WindowAtPointer.Label = Strings.Fetch(IStrings.WindowAtPointer).Result;
+            SF_Button_ActiveWindow.Label = Strings.Fetch(IStrings.ActiveWindow).Result;
+            SF_Button_Custom.Label = Strings.Fetch(IStrings.FreeAreaSelection).Result;
 
         }
         private void AssignImages() {
@@ -219,13 +184,14 @@ namespace ScreenFIRE.GUI {
                                                DialogFlags.Modal,
                                                MessageType.Warning,
                                                ButtonsType.Ok,
-                                               await txt(5));
+                                               await Strings.Fetch(IStrings.SomethingWentWrong___));
                 failDialog.Run();
                 failDialog.Destroy();
             } else {
-                _label1.Text = await txt(1) + Common.nn
-                             + await txt(2) + " " + (1 + _counter++) + " "
-                             + (_counter > 1 ? await txt(4) : await txt(3));
+                _label1.Text = await Strings.Fetch(IStrings.FiredAScreenshot_) + Common.nn
+                             + await Strings.Fetch(IStrings.ThisButtonHasBeenClicked) + " " + (1 + _counter++) + " "
+                             + (_counter <= 1 ? await Strings.Fetch(IStrings.times_1)
+                                             : await Strings.Fetch(IStrings.times_2));
             }
 
             AcceptFocus = true;
@@ -244,19 +210,19 @@ namespace ScreenFIRE.GUI {
         }
 
         public void png_Button_SaveFormat_Popover_Clicked(object sender, EventArgs e) {
-            Common.LocalSave_Settings.Format = 0;
+            Common.LocalSave_Settings.Format = ISaveFormat.png;
             Common.LocalSave_Settings.Save();
             Label_MenuButton_SaveOptions_Box.Text = png_Button_SaveFormat_Popover.Label;
             SaveFormat_Popover.Hide();
         }
         public void jpg_Button_SaveFormat_Popover_Clicked(object sender, EventArgs e) {
-            Common.LocalSave_Settings.Format = 1;
+            Common.LocalSave_Settings.Format = ISaveFormat.jpeg;
             Common.LocalSave_Settings.Save();
             Label_MenuButton_SaveOptions_Box.Text = jpg_Button_SaveFormat_Popover.Label;
             SaveFormat_Popover.Hide();
         }
         public void bmp_Button_SaveFormat_Popover_Clicked(object sender, EventArgs e) {
-            Common.LocalSave_Settings.Format = 2;
+            Common.LocalSave_Settings.Format = ISaveFormat.bmp;
             Common.LocalSave_Settings.Save();
             Label_MenuButton_SaveOptions_Box.Text = bmp_Button_SaveFormat_Popover.Label;
             SaveFormat_Popover.Hide();
