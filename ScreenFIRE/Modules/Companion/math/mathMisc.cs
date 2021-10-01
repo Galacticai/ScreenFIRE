@@ -48,10 +48,12 @@ namespace ScreenFIRE.Modules.Companion.math {
         /// Scale to fit a <see cref="Size"/> to the <paramref name="destSize"/> while respecting the proportions
         /// </summary>
         /// <param name="input"> Initial input <see cref="Size"/> </param>
-        /// <param name="destSize"> Desired Widest|or|tallest value (Proportional) </param>
+        /// <param name="destSize"> Desired max <see cref="Size"/> (Proportional) </param>
         /// <returns> Scaled <see cref="Size"/> (Fit mode)</returns>
-        public static Size Scale_Fit(Size input, double destSize) {
-            double scalePercent = (destSize / ((input.Width < input.Height) ? input.Width : input.Height));
+        public static Size Scale_Fit(Size input, Size destSize) {
+            double scalePercent 
+                    = ((destSize.Width > destSize.Height) ? destSize.Width : destSize.Height)
+                        / ((input.Width > input.Height) ? input.Width : input.Height);
             int w = (int)(input.Width * scalePercent),
                 h = (int)(input.Height * scalePercent);
             return new Size(w, h);
