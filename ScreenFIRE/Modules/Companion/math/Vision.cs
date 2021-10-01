@@ -52,7 +52,7 @@ namespace ScreenFIRE.Modules.Companion.math {
 
 		public static gdk.Pixbuf InvertColors(gdk.Pixbuf input) {
 			//var test = input.
-
+			return null; //! PLACEHOLDER
 		}
 
 
