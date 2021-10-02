@@ -149,7 +149,7 @@ namespace ScreenFIRE.GUI {
             //! = Image_SF_repo_Button_About_Box =====
             Gdk.Pixbuf SF_repo_Button_Image_Pixbuf = new(icons.GitHub_svg);
             (double w, double h) SF_repo_Button_Image_Size
-                = mathMisc.Scale_Fit((SF_repo_Button_Image_Pixbuf.Width, SF_repo_Button_Image_Pixbuf.Height), (24, 24));
+                = mathMisc.Scale.Fit((SF_repo_Button_Image_Pixbuf.Width, SF_repo_Button_Image_Pixbuf.Height), (24, 24));
             Image_SF_repo_Button_About_Box.Pixbuf
                 = SF_repo_Button_Image_Pixbuf
                     .ScaleSimple((int)SF_repo_Button_Image_Size.w,
@@ -160,7 +160,7 @@ namespace ScreenFIRE.GUI {
             //! = Image_License_Button_About_Box =====
             Gdk.Pixbuf Image_License_Button_About_Box_Pixbuf = new(icons.Balance_png);
             (double w, double h) Image_License_Button_About_Box_Size
-                = mathMisc.Scale_Fit((Image_License_Button_About_Box_Pixbuf.Width, Image_License_Button_About_Box_Pixbuf.Height), (24, 24));
+                = mathMisc.Scale.Fit((Image_License_Button_About_Box_Pixbuf.Width, Image_License_Button_About_Box_Pixbuf.Height), (24, 24));
             Image_License_Button_About_Box.Pixbuf
                 = Image_License_Button_About_Box_Pixbuf
                     .ScaleSimple((int)Image_License_Button_About_Box_Size.w,
@@ -198,7 +198,8 @@ namespace ScreenFIRE.GUI {
                     _label1.Text = await Strings.Fetch(IStrings.ChooseHowYouWouldLikeToFireYourScreenshot_);
                 }, null, 5000, Timeout.Infinite);
 
-                var (w, h) = mathMisc.Scale_Fit((ss.Image.Width, ss.Image.Height), (Image_ssPreview_Button_Screenshot_Box.AllocatedWidth, 256));
+                var allocatedWidth = Image_ssPreview_Button_Screenshot_Box.AllocatedWidth;
+                var (w, h) = mathMisc.Scale.Fit((ss.Image.Width, ss.Image.Height), ((allocatedWidth > 200 ? allocatedWidth : 270), 256));
 
                 Label_ssPreview_Button_Screenshot_Box.Destroy();
                 Image_ssPreview_Button_Screenshot_Box.Visible = true;
