@@ -23,9 +23,9 @@ namespace ScreenFIRE.Modules.Capture.Companion {
     public class SaveFormat {
         public static string StringWithDesctiption(ISaveFormat? Specific_ISaveFormat = null) {
             return (Specific_ISaveFormat ?? Common.LocalSave_Settings.Format) switch {
-                ISaveFormat.bmp => $"bmp ({Strings.Fetch(IStrings.Original).Result})",
-                ISaveFormat.jpeg => $"jpg ({Strings.Fetch(IStrings.Efficiency).Result})",
-                _ => $"png ({Strings.Fetch(IStrings.Quality).Result})" //0 & etc
+                ISaveFormat.bmp => $"{Strings.Fetch(IStrings.Original).Result} {Common.RangeDash} bmp",
+                ISaveFormat.jpeg => $"{Strings.Fetch(IStrings.Efficiency).Result} {Common.RangeDash} jpg",
+                _ => $"{Strings.Fetch(IStrings.Quality).Result} {Common.RangeDash} png" //0 & etc
             };
         }
     }
