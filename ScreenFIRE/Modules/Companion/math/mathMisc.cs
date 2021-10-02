@@ -1,6 +1,4 @@
-﻿using System.Drawing;
-
-namespace ScreenFIRE.Modules.Companion.math {
+﻿namespace ScreenFIRE.Modules.Companion.math {
 
     /// <summary> Manipulate numbers and misc stuff </summary>
     internal class mathMisc {
@@ -17,7 +15,7 @@ namespace ScreenFIRE.Modules.Companion.math {
             /// <summary> Chooses a random object from input array </summary>
             /// <param name="arr">Input Object array</param>
             /// <returns>Random object from input array</returns>
-            public static type FromArray<type>(type[] arr)
+            public static T FromArray<T>(T[] arr)
                     => arr[Int(0, arr.Length - 1)]; // -1 because it starts from 0
         }
 
@@ -44,23 +42,29 @@ namespace ScreenFIRE.Modules.Companion.math {
         public static bool IsInRange(double input, double min, double max)
             => input >= min & input <= max;
 
-        /// <summary>
-        /// Scale to fit a <see cref="Size"/> to the <paramref name="destSize"/> while respecting the proportions
-        /// </summary>
-        /// <param name="input"> Initial input <see cref="Size"/> </param>
-        /// <param name="destSize"> Desired max <see cref="Size"/> (Proportional) </param>
-        /// <returns> Scaled <see cref="Size"/> (Fit mode)</returns>
-        public static (double w, double h) Scale_Fit((double w, double h) input,
-                                                     (double w, double h) destSize) {
-            double vertscale = destSize.h / input.w,
-                   horizscale = destSize.w / input.w;
+        /// <summary> Scale while respecting the proportions </summary>
+        public struct Scale {
+            /// <summary> Scale <paramref name="input"/> to fit <paramref name="bound"/> while respecting the proportions </summary>
+            /// <param name="input"> Target to be scaled </param>
+            /// <param name="bound"> Destination boundary </param>
+            /// <returns> Scaled Width &amp; Height (Fit mode) </returns>
+            public static (double Width, double Height) Fit((double Width, double Height) input,
+                                                            (double Width, double Height) bound) {
+                double scale = Math.Min(bound.Width / input.Width,
+                                        bound.Height / input.Height);
+                return (input.Width * scale, input.Height * scale);
+            }
+            /// <summary> Scale <paramref name="input"/> to fill <paramref name="bound"/> while respecting the proportions </summary>
+            /// <param name="input"> Target to be scaled </param>
+            /// <param name="bound"> Destination boundary </param>
+            /// <returns> Scaled Width &amp; Height (Fill mode) </returns>
+            public static (double Width, double h) Fill((double Width, double Height) input,
+                                                        (double Width, double Height) bound) {
+                double scale = Math.Max(bound.Width / input.Width,
+                                        bound.Height / input.Height);
+                return (input.Width * scale, input.Height * scale);
+            }
 
-            double scale = Math.Min(horizscale, vertscale);
-
-            double h = scale * input.h,
-                   w = scale * input.w;
-
-            return (w, h);
         }
 
         public struct Arrays {
