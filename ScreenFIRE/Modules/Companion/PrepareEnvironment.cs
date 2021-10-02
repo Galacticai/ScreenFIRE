@@ -31,6 +31,12 @@ namespace ScreenFIRE.Modules.Companion {
             //! Rebuild previously fetched strings according to current language
             Strings.RebuildStorage(Languages.SystemLanguage());
 
+            //! Delete 1 month old screenshots
+            foreach (var DateDir in Directory.EnumerateDirectories(Common.LocalSave_Settings.Location))
+                foreach (var file in Directory.EnumerateFiles(DateDir))
+                    if (new FileInfo(file).CreationTime < DateTime.Now.AddMonths(-1))
+                        File.Delete(file);
+
             return true;
         }
     }
