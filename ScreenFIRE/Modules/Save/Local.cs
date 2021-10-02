@@ -26,7 +26,7 @@ namespace ScreenFIRE.Modules.Save {
                               FileChooserAction.Save,
                               await Strings.Fetch(IStrings.OK), await Strings.Fetch(IStrings.Cancel));
             choose.SelectMultiple = false;
-            choose.SetCurrentFolder(Common.LocalSave_Settings.Location);
+            choose.SetCurrentFolder(Path.Combine(Common.LocalSave_Settings.Location, MonthDir));
 
             ResponseType chooseResponse = (ResponseType)choose.Run();
 
@@ -69,7 +69,7 @@ namespace ScreenFIRE.Modules.Save {
         public static bool Local(Screenshot screenshot, ISaveFormat saveFormat = ISaveFormat.png) {
             //! Pass to ••• Specific ••• but with auto generated info
             return Local(screenshot,
-                         path: Path.Combine(Common.SF,
+                         path: Path.Combine(Common.SF, MonthDir,
                                             Strings.Fetch(IStrings.ScreenFIRE)
                                             + $"_{screenshot.Time:yyMMdd-HHmmff}"
                                             + $".{saveFormat}"),
@@ -113,6 +113,14 @@ namespace ScreenFIRE.Modules.Save {
                 } catch { return false; } //! Something went wrong
 
             }
+        }
+
+        public static string MonthDir => PrepareMonthDir();
+        private static string PrepareMonthDir() {
+            string path = Path.Combine(Common.LocalSave_Settings.Location,
+                                       $"{DateTime.Now:MM-yyyy}");
+            if (!Directory.Exists(path)) Directory.CreateDirectory(path);
+            return path;
         }
     }
 }
