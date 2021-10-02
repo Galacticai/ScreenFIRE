@@ -387,12 +387,6 @@
               </packing>
             </child>
             <child>
-              <placeholder/>
-            </child>
-            <child>
-              <placeholder/>
-            </child>
-            <child>
               <object class="GtkBox" id="AutoDelete1MonthOldFiles_Box_SaveOptions_Box">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
@@ -426,7 +420,7 @@
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">True</property>
-                <property name="position">4</property>
+                <property name="position">2</property>
               </packing>
             </child>
             <child>
@@ -611,9 +605,6 @@
               </packing>
             </child>
             <child>
-              <placeholder/>
-            </child>
-            <child>
               <object class="GtkButton" id="License_Button_About_Box">
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
@@ -753,6 +744,7 @@
             <property name="margin-start">24</property>
             <property name="margin-end">24</property>
             <property name="margin-top">24</property>
+            <property name="margin-bottom">24</property>
             <property name="pixbuf">..\Assets\images\Logo\ScreenFIRE-x128.png</property>
             <property name="pixel-size">128</property>
             <property name="use-fallback">True</property>
