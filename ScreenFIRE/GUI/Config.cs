@@ -196,8 +196,8 @@ namespace ScreenFIRE.GUI {
                     _label1.Text = await Strings.Fetch(IStrings.FiredAScreenshot_);
                     Timer label1Timer = new Timer(async (object state) => {
                         _label1.Text = await Strings.Fetch(IStrings.ChooseHowYouWouldLikeToFireYourScreenshot_);
-                    }, null, 3000, Timeout.Infinite);
-                    System.Drawing.Size previewSize = mathMisc.Scale_Fit(new(ss.Image.Width, ss.Image.Height), new(ssPreview_Button_Screenshot_Box.Allocation.Size.Width, 128));
+                    }, null, 5000, Timeout.Infinite);
+                    System.Drawing.Size previewSize = mathMisc.Scale_Fit(new(ss.Image.Width, ss.Image.Height), new(256, 128));
 
                     Label_ssPreview_Button_Screenshot_Box.Destroy();
                     Image_ssPreview_Button_Screenshot_Box.Visible = true;
