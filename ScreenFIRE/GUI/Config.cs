@@ -7,6 +7,7 @@ using ScreenFIRE.Modules.Companion;
 using ScreenFIRE.Modules.Companion.math;
 using ScreenFIRE.Modules.Save;
 using System.Diagnostics;
+using io = System.IO;
 using UI = Gtk.Builder.ObjectAttribute;
 
 namespace ScreenFIRE.GUI {
@@ -58,7 +59,7 @@ namespace ScreenFIRE.GUI {
 
             ssPreview_Button_Screenshot_Box.Clicked += delegate {
                 Process.Start(new ProcessStartInfo() {
-                    FileName = Common.LocalSave_Settings.Location,
+                    FileName = io.Path.Combine(Common.LocalSave_Settings.Location, Save.MonthDir),
                     UseShellExecute = true,
                     Verb = "open"
                 });
@@ -109,11 +110,11 @@ namespace ScreenFIRE.GUI {
 
             Label_MenuButton_SaveOptions_Box.Text
                 = SaveFormat.StringWithDesctiption();
-            bmp_Button_SaveFormat_Popover.Label = $"bmp ({Strings.Fetch(IStrings.Original).Result})";
-            png_Button_SaveFormat_Popover.Label = $"png ({Strings.Fetch(IStrings.Quality).Result})";
-            jpg_Button_SaveFormat_Popover.Label = $"jpg ({Strings.Fetch(IStrings.Efficiency).Result})";
-            gif_Button_SaveFormat_Popover.Label = $"gif ({Strings.Fetch(IStrings.Animated).Result})";
-            mp4_Button_SaveFormat_Popover.Label = $"mp4 ({Strings.Fetch(IStrings.Video).Result})";
+            bmp_Button_SaveFormat_Popover.Label = $"{Strings.Fetch(IStrings.Original).Result} {Common.RangeDash} bmp";
+            png_Button_SaveFormat_Popover.Label = $"{Strings.Fetch(IStrings.Quality).Result} {Common.RangeDash} png";
+            jpg_Button_SaveFormat_Popover.Label = $"{Strings.Fetch(IStrings.Efficiency).Result} {Common.RangeDash} jpg";
+            gif_Button_SaveFormat_Popover.Label = $"{Strings.Fetch(IStrings.Animated).Result} {Common.RangeDash} gif";
+            mp4_Button_SaveFormat_Popover.Label = $"{Strings.Fetch(IStrings.Video).Result} {Common.RangeDash} mp4";
 
             Label_AutoSaveExisting_Box_SaveOptions_Box.Text = Strings.Fetch(IStrings.AutoDelete1MonthOldFiles).Result;
 
@@ -185,16 +186,16 @@ namespace ScreenFIRE.GUI {
         }
 
         private async Task Capture(IScreenshotType screenshotType) {
-            Hide();
+            Visible = false;
             AcceptFocus = false;
 
-            //Timer ss1Timer = new Timer(async (object state) => {
-            //    Thread.Sleep(1000); //! Temp (For Windows) make sure the window is fully hidden
+            //_ = new Timer(async (object obj) => {
+            Thread.Sleep(1000); //! Temp (For Windows) make sure the window is fully hidden
 
             using var ss = new Screenshot(screenshotType);
             if (await Save.Local(ss, this)) {
                 _label1.Text = await Strings.Fetch(IStrings.FiredAScreenshot_);
-                Timer label1Timer = new Timer(async (object state) => {
+                _ = new Timer(async (object obj) => {
                     _label1.Text = await Strings.Fetch(IStrings.ChooseHowYouWouldLikeToFireYourScreenshot_);
                 }, null, 5000, Timeout.Infinite);
 
@@ -216,8 +217,8 @@ namespace ScreenFIRE.GUI {
             }
 
             AcceptFocus = true;
-            ShowAll();
-            //}, null, 1400, Timeout.Infinite);
+            Visible = true;
+            //}, this, 2000, Timeout.Infinite);
         }
 
         private void SaveLocation_FileChooserButton_SaveOptions_Box_CurrentFolderChanged(object sender, EventArgs e) {
