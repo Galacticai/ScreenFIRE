@@ -1,15 +1,12 @@
 ﻿using System.Drawing;
 
-namespace ScreenFIRE.Modules.Companion.math
-{
+namespace ScreenFIRE.Modules.Companion.math {
 
     /// <summary> Manipulate numbers and misc stuff </summary>
-    internal class mathMisc
-    {
+    internal class mathMisc {
 
         /// <summary> Random manipulation </summary>
-        public struct Random
-        {
+        public struct Random {
             /// <summary> Generate a random integer between <c>min</c> and <c>max</c> paremeters </summary>
             /// <param name="min">Minimum range for output</param>
             /// <param name="max">Maximum range for output</param>
@@ -33,8 +30,7 @@ namespace ScreenFIRE.Modules.Companion.math
         /// <item>Returns <paramref name="min"/> — if <paramref name="target"/> &lt; <paramref name="min"/></item>
         /// <item>Returns <paramref name="target"/> — if already in range</item>
         /// </list></returns>
-        public static double ForcedInRange(out double target, double min, double max)
-        {
+        public static double ForcedInRange(ref double target, double min, double max) {
             if (target > max) return target = max;
             if (target < min) return target = min;
             return target;
@@ -54,18 +50,20 @@ namespace ScreenFIRE.Modules.Companion.math
         /// <param name="input"> Initial input <see cref="Size"/> </param>
         /// <param name="destSize"> Desired max <see cref="Size"/> (Proportional) </param>
         /// <returns> Scaled <see cref="Size"/> (Fit mode)</returns>
-        public static Size Scale_Fit(Size input, Size destSize) {
-            double w = (double)destSize.Width, h = (double)destSize.Height;
-            if (destSize.Width > destSize.Height) {
-                w *= (double)destSize.Height / (double)input.Height;
-            } else if (destSize.Width < destSize.Height) {
-                h *= (double)destSize.Width / (double)input.Width;
-            } 
-            return new Size((int)w, (int)h);
+        public static (double w, double h) Scale_Fit((double w, double h) input,
+                                                     (double w, double h) destSize) {
+            double vertscale = destSize.h / input.w,
+                   horizscale = destSize.w / input.w;
+
+            double scale = Math.Min(horizscale, vertscale);
+
+            double h = scale * input.h,
+                   w = scale * input.w;
+
+            return (w, h);
         }
 
-        public struct Arrays
-        {
+        public struct Arrays {
 
             /// <summary> Add <paramref name="elements"/> array to the end of <paramref name="array"/></summary>
             /// <typeparam name="T">Type of the array to be used</typeparam>
