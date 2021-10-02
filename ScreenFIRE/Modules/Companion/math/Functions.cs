@@ -1,14 +1,12 @@
-﻿using System;
-
-namespace ScreenFIRE.Modules.Companion.math {
+﻿namespace ScreenFIRE.Modules.Companion.math {
 
     /// <summary> Predefined functions </summary>
     internal class Functions {
 
-        // s    .- 
+        // s    .-
         // |   /
         // | _-
-        // 0一一一s  
+        // 0一一一s
 
         /// <summary>
         /// <list>
@@ -25,7 +23,7 @@ namespace ScreenFIRE.Modules.Companion.math {
         /// <param name="scale">Size of the wave (Half wave)</param>
         /// <returns>Returns <c>f(x)</c></returns>
         public static double cosSmoothStartEnd(double x, double scale) {
-            mathMisc.ForcedInRange(x, 0, scale); // force x between 0一一一s
+            mathMisc.ForcedInRange(ref x, 0, scale); // force x between 0一一一s
             return scale * (-Math.Cos(x * Math.PI) / (2 * scale) + 1 / 2);
         }
 
@@ -50,7 +48,7 @@ namespace ScreenFIRE.Modules.Companion.math {
         /// <param name="scale">Size of the wave (Half wave)</param>
         /// <returns>Returns <c>f(x)</c></returns>
         public static double sinSmoothEnd_01(double x, double scale) {
-            mathMisc.ForcedInRange(x, 0, scale); // force x between 0一一一s
+            mathMisc.ForcedInRange(ref x, 0, scale); // force x between 0一一一s
             return scale * (Math.Sin(x * Math.PI + Math.PI / 2) / 2 + 1 / 2);
         }
 
@@ -75,7 +73,7 @@ namespace ScreenFIRE.Modules.Companion.math {
         /// <param name="scale">Size of the wave (Half wave)</param>
         /// <returns>Returns <c>f(x)</c></returns>
         public static double sinSmoothEnd(double x, double scale) {
-            mathMisc.ForcedInRange(x, 0, scale); // force x between 0一一一s
+            mathMisc.ForcedInRange(ref x, 0, scale); // force x between 0一一一s
             return scale * (-Math.Sin(x * (Math.PI / 2) / scale) + 1);
         }
 
@@ -100,7 +98,7 @@ namespace ScreenFIRE.Modules.Companion.math {
         /// <param name="scale">Size of the wave (Half wave)</param>
         /// <returns>Returns <c>f(x)</c></returns>
         public static double sinSmoothStart(double x, double scale) {
-            mathMisc.ForcedInRange(x, 0, scale); // force x between 0一一一s
+            mathMisc.ForcedInRange(ref x, 0, scale); // force x between 0一一一s
             return scale * Math.Sin(x * (Math.PI / (2 * scale)) + Math.PI / 2);
         }
     }
