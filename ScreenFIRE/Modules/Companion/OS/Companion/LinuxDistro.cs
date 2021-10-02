@@ -10,6 +10,7 @@ namespace ScreenFIRE.Modules.Companion.OS.Companion {
 		Debian,
 		ElementaryOS,
 		Fedora,
+		KDENeon,
 		LinuxMint,
 		OpenSUSE,
 		OracleLinux,
@@ -34,6 +35,7 @@ namespace ScreenFIRE.Modules.Companion.OS.Companion {
 				"fedora" => ILinuxDistro.Fedora,
 				"linuxmint" => ILinuxDistro.LinuxMint,
 				"ol" => ILinuxDistro.OracleLinux,
+				"neon" => ILinuxDistro.KDENeon,
 
 				"opensuse" => ILinuxDistro.OpenSUSE,
 				"opensuse-leap" => ILinuxDistro.OpenSUSE,
@@ -43,6 +45,7 @@ namespace ScreenFIRE.Modules.Companion.OS.Companion {
 				"sparky" => ILinuxDistro.SparkyLinux,
 				"suse" => ILinuxDistro.SUSE,
 				"ubuntu" => ILinuxDistro.Ubuntu,
+				"ubuntu debian" => ILinuxDistro.Ubuntu,
 				"zorin" => ILinuxDistro.ZorinOS,
 
 
@@ -146,6 +149,35 @@ namespace ScreenFIRE.Modules.Companion.OS.Companion {
 //  PRIVACY_POLICY_URL="https://www.ubuntu.com/legal/terms-and-policies/privacy-policy"
 //  VERSION_CODENAME=focal
 //  UBUNTU_CODENAME = focal
+//!? ================================================
+
+//!? KDE Neon v5.22 =================================
+//! $ cat /etc/*-release
+//  DISTRIB_ID=neon
+//  DISTRIB_RELEASE=20.04
+//  DISTRIB_CODENAME=focal
+//  DISTRIB_DESCRIPTION="KDE neon User Edition 5.22"
+//  NAME="KDE neon"
+//  VERSION="5.22"
+//  ID=neon
+//  ID_LIKE="ubuntu debian"
+//  PRETTY_NAME="KDE neon User Edition 5.22"
+//  VARIANT="User Edition"
+//  VARIANT_ID=user
+//  VERSION_ID="20.04"
+//  HOME_URL="https://neon.kde.org/"
+//  SUPPORT_URL="https://neon.kde.org/"
+//. BUG_REPORT_URL="https://bugs.kde.org/"
+//  LOGO=start-here-kde-neon
+//  PRIVACY_POLICY_URL="https://www.ubuntu.com/legal/terms-and-policies/privacy-policy"
+//  VERSION_CODENAME=focal
+//  UBUNTU_CODENAME=focal
+
+// ! $ cat /etc/lsb-release
+//  DISTRIB_ID=neon
+//  DISTRIB_RELEASE=20.04
+//  DISTRIB_CODENAME=focal
+//  DISTRIB_DESCRIPTION="KDE neon User Edition 5.22"
 //!? ================================================
 
 //!? Arch v?? =======================================
