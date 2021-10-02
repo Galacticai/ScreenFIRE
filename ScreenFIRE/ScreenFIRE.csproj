@@ -75,6 +75,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    
     <Compile Update="Assets\Embedded\SF.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -120,4 +121,21 @@
     </None>
   </ItemGroup>
 
+  <Target Name="Resources">
+    <GenerateResource
+      Sources="Assets\Embedded\SF.resx"
+      OutputResources="Assets\Embedded\SF.resources">
+      <Output TaskParameter="OutputResources" ItemName="Resources"/>
+    </GenerateResource>
+    <GenerateResource
+      Sources="Assets\Embedded\icons.resx"
+      OutputResources="Assets\Embedded\icons.resources">
+      <Output TaskParameter="OutputResources" ItemName="Resources"/>
+    </GenerateResource>
+    <GenerateResource
+      Sources="Assets\Embedded\Themes.resx"
+      OutputResources="Assets\Embedded\Themes.resources">
+      <Output TaskParameter="OutputResources" ItemName="Resources"/>
+    </GenerateResource>
+  </Target>
 </Project>

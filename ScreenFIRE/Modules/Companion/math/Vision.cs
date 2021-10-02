@@ -12,7 +12,7 @@ namespace ScreenFIRE.Modules.Companion.math {
 	internal class Vision {
 
 		/// <param name="byteArr">input to be converted</param>
-		/// <returns></returns>
+		/// <returns><see cref="new gdk.Pixbuf(byteArr)"/></returns>
 		[Obsolete("Just directly use `new gdk.Pixbuf(byteArr);`")]
 		public static gdk.Pixbuf ByteArrayToPixbuf(byte[] byteArr)
 			=> new(byteArr);
@@ -48,6 +48,11 @@ namespace ScreenFIRE.Modules.Companion.math {
 			result.Green = (byte)((foreColor.Green * amount) + backColor.Green * (1 - amount));
 			result.Blue = (byte)((foreColor.Blue * amount) + backColor.Blue * (1 - amount));
 			return result;
+		}
+
+		public static gdk.Pixbuf InvertColors(gdk.Pixbuf input) {
+			//var test = input.
+			return null; //! PLACEHOLDER
 		}
 
 

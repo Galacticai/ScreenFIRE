@@ -1,12 +1,15 @@
 ﻿using System.Drawing;
 
-namespace ScreenFIRE.Modules.Companion.math {
+namespace ScreenFIRE.Modules.Companion.math
+{
 
     /// <summary> Manipulate numbers and misc stuff </summary>
-    internal class mathMisc {
+    internal class mathMisc
+    {
 
         /// <summary> Random manipulation </summary>
-        public struct Random {
+        public struct Random
+        {
             /// <summary> Generate a random integer between <c>min</c> and <c>max</c> paremeters </summary>
             /// <param name="min">Minimum range for output</param>
             /// <param name="max">Maximum range for output</param>
@@ -26,14 +29,15 @@ namespace ScreenFIRE.Modules.Companion.math {
         /// <param name="min">Minimum floor</param>
         /// <param name="max">Maximum ceiling</param>
         /// <returns><list type="bullet">
-        /// <item>Returns <paramref name="max"/> — if <paramref name="input"/> &gt; <paramref name="max"/></item>
-        /// <item>Returns <paramref name="min"/> — if <paramref name="input"/> &lt; <paramref name="min"/></item>
-        /// <item>Returns <paramref name="input"/> — if already in range</item>
+        /// <item>Returns <paramref name="max"/> — if <paramref name="target"/> &gt; <paramref name="max"/></item>
+        /// <item>Returns <paramref name="min"/> — if <paramref name="target"/> &lt; <paramref name="min"/></item>
+        /// <item>Returns <paramref name="target"/> — if already in range</item>
         /// </list></returns>
-        public static double ForcedInRange(double input, double min, double max) {
-            if (input > max) return max;
-            if (input < min) return min;
-            return input;
+        public static double ForcedInRange(out double target, double min, double max)
+        {
+            if (target > max) return target = max;
+            if (target < min) return target = min;
+            return target;
         }
 
         /// <summary> Check if <paramref name="input"/> is in range </summary>
@@ -48,23 +52,27 @@ namespace ScreenFIRE.Modules.Companion.math {
         /// Scale to fit a <see cref="Size"/> to the <paramref name="destSize"/> while respecting the proportions
         /// </summary>
         /// <param name="input"> Initial input <see cref="Size"/> </param>
-        /// <param name="destSize"> Desired Widest|or|tallest value (Proportional) </param>
+        /// <param name="destSize"> Desired max <see cref="Size"/> (Proportional) </param>
         /// <returns> Scaled <see cref="Size"/> (Fit mode)</returns>
-        public static Size Scale_Fit(Size input, double destSize) {
-            double scalePercent = (destSize / ((input.Width < input.Height) ? input.Width : input.Height));
-            int w = (int)(input.Width * scalePercent),
-                h = (int)(input.Height * scalePercent);
-            return new Size(w, h);
+        public static Size Scale_Fit(Size input, Size destSize) {
+            double w = (double)destSize.Width, h = (double)destSize.Height;
+            if (destSize.Width > destSize.Height) {
+                w *= (double)destSize.Height / (double)input.Height;
+            } else if (destSize.Width < destSize.Height) {
+                h *= (double)destSize.Width / (double)input.Width;
+            } 
+            return new Size((int)w, (int)h);
         }
 
-        public struct Arrays {
+        public struct Arrays
+        {
 
             /// <summary> Add <paramref name="elements"/> array to the end of <paramref name="array"/></summary>
-            /// <typeparam name="type">Type of the array to be used</typeparam>
+            /// <typeparam name="T">Type of the array to be used</typeparam>
             /// <param name="array">Array to manipulate</param>
             /// <param name="expansion">Element to add to <paramref name="array"/></param>
-            /// <returns>Array {<paramref name="array"/>, <paramref name="expansion"/>} as <typeparamref name="type"/>[]</returns>
-            public static type[] AddArrays<type>(type[] array, params type[] elements)
+            /// <returns>Array {<paramref name="array"/>, <paramref name="expansion"/>} as <typeparamref name="T"/>[]</returns>
+            public static T[] AddArrays<T>(T[] array, params T[] elements)
                 => array.Concat(elements).ToArray();
             //{
             //type[] expandedArray = new type[array.Length + 1]; // set expandedArray size to "length" (bigger by 1)
