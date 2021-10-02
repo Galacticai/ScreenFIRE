@@ -148,23 +148,23 @@ namespace ScreenFIRE.GUI {
 
             //! = Image_SF_repo_Button_About_Box =====
             Gdk.Pixbuf SF_repo_Button_Image_Pixbuf = new(icons.GitHub_svg);
-            System.Drawing.Size SF_repo_Button_Image_Size
-                = mathMisc.Scale_Fit(new(SF_repo_Button_Image_Pixbuf.Width, SF_repo_Button_Image_Pixbuf.Height), new(24, 24));
+            (double w, double h) SF_repo_Button_Image_Size
+                = mathMisc.Scale_Fit((SF_repo_Button_Image_Pixbuf.Width, SF_repo_Button_Image_Pixbuf.Height), (24, 24));
             Image_SF_repo_Button_About_Box.Pixbuf
                 = SF_repo_Button_Image_Pixbuf
-                    .ScaleSimple(SF_repo_Button_Image_Size.Width,
-                                 SF_repo_Button_Image_Size.Height,
+                    .ScaleSimple((int)SF_repo_Button_Image_Size.w,
+                                 (int)SF_repo_Button_Image_Size.h,
                                  Gdk.InterpType.Bilinear);
             //! ======================================
 
             //! = Image_License_Button_About_Box =====
             Gdk.Pixbuf Image_License_Button_About_Box_Pixbuf = new(icons.Balance_png);
-            System.Drawing.Size Image_License_Button_About_Box_Size
-                = mathMisc.Scale_Fit(new(Image_License_Button_About_Box_Pixbuf.Width, Image_License_Button_About_Box_Pixbuf.Height), new(24, 24));
+            (double w, double h) Image_License_Button_About_Box_Size
+                = mathMisc.Scale_Fit((Image_License_Button_About_Box_Pixbuf.Width, Image_License_Button_About_Box_Pixbuf.Height), (24, 24));
             Image_License_Button_About_Box.Pixbuf
                 = Image_License_Button_About_Box_Pixbuf
-                    .ScaleSimple(Image_License_Button_About_Box_Size.Width,
-                                 Image_License_Button_About_Box_Size.Height,
+                    .ScaleSimple((int)Image_License_Button_About_Box_Size.w,
+                                 (int)Image_License_Button_About_Box_Size.h,
                                  Gdk.InterpType.Bilinear);
             //! ======================================
 
@@ -188,33 +188,34 @@ namespace ScreenFIRE.GUI {
             Hide();
             AcceptFocus = false;
 
-            //Timer ss1Timer = new Timer(async (object state) => {                
-        //    Thread.Sleep(1000); //! Temp (For Windows) make sure the window is fully hidden
+            //Timer ss1Timer = new Timer(async (object state) => {
+            //    Thread.Sleep(1000); //! Temp (For Windows) make sure the window is fully hidden
 
-                using var ss = new Screenshot(screenshotType);
-                if (await Save.Local(ss, this)) {
-                    _label1.Text = await Strings.Fetch(IStrings.FiredAScreenshot_);
-                    Timer label1Timer = new Timer(async (object state) => {
-                        _label1.Text = await Strings.Fetch(IStrings.ChooseHowYouWouldLikeToFireYourScreenshot_);
-                    }, null, 5000, Timeout.Infinite);
-                    System.Drawing.Size previewSize = mathMisc.Scale_Fit(new(ss.Image.Width, ss.Image.Height), new(256, 128));
+            using var ss = new Screenshot(screenshotType);
+            if (await Save.Local(ss, this)) {
+                _label1.Text = await Strings.Fetch(IStrings.FiredAScreenshot_);
+                Timer label1Timer = new Timer(async (object state) => {
+                    _label1.Text = await Strings.Fetch(IStrings.ChooseHowYouWouldLikeToFireYourScreenshot_);
+                }, null, 5000, Timeout.Infinite);
 
-                    Label_ssPreview_Button_Screenshot_Box.Destroy();
-                    Image_ssPreview_Button_Screenshot_Box.Visible = true;
-                    Image_ssPreview_Button_Screenshot_Box.Pixbuf =
-                         ss.Image.ScaleSimple(previewSize.Width, previewSize.Height, Gdk.InterpType.Bilinear);
-                } else {
-                    MessageDialog failDialog = new(this,
-                                                   DialogFlags.Modal,
-                                                   MessageType.Warning,
-                                                   ButtonsType.Ok,
-                                                   await Strings.Fetch(IStrings.SomethingWentWrong___));
-                    failDialog.Run();
-                    failDialog.Destroy();
-                }
+                var (w, h) = mathMisc.Scale_Fit((ss.Image.Width, ss.Image.Height), (Image_ssPreview_Button_Screenshot_Box.AllocatedWidth, 256));
 
-                AcceptFocus = true;
-                ShowAll();
+                Label_ssPreview_Button_Screenshot_Box.Destroy();
+                Image_ssPreview_Button_Screenshot_Box.Visible = true;
+                Image_ssPreview_Button_Screenshot_Box.Pixbuf =
+                     ss.Image.ScaleSimple((int)w, (int)h, Gdk.InterpType.Bilinear);
+            } else {
+                MessageDialog failDialog = new(this,
+                                               DialogFlags.Modal,
+                                               MessageType.Warning,
+                                               ButtonsType.Ok,
+                                               await Strings.Fetch(IStrings.SomethingWentWrong___));
+                failDialog.Run();
+                failDialog.Destroy();
+            }
+
+            AcceptFocus = true;
+            ShowAll();
             //}, null, 1400, Timeout.Infinite);
         }
 
