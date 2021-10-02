@@ -46,6 +46,7 @@ namespace ScreenFIRE.Assets {
         Animated,
         Video,
 
+        ClicktoCopy___,
     }
 
     public static partial class Strings {
@@ -172,6 +173,7 @@ namespace ScreenFIRE.Assets {
               IStrings.Animated => "Animated",
               IStrings.Video => "Video",
 
+              IStrings.ClicktoCopy___ => $"Click to copy{Common.Ellipses}",
 
               //!? Last resort
               _ => $"⚠ STRING MISSING: \"{Name}\" ⚠"
@@ -229,6 +231,8 @@ namespace ScreenFIRE.Assets {
               IStrings.Animated => "متحركة",
               IStrings.Video => "فيديو",
 
+              IStrings.ClicktoCopy___ => $"انقر للنسخ{Common.Ellipses}",
+
 
               //? Fallback to English.
               _ => En(Name)
@@ -285,6 +289,8 @@ namespace ScreenFIRE.Assets {
               IStrings.Efficiency => "效率",
               IStrings.Animated => "动画",
               IStrings.Video => "视频",
+
+              IStrings.ClicktoCopy___ => $"点击复制{Common.Ellipses}",
 
 
               //? Fallback to English.

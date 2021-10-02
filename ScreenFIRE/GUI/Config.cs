@@ -42,8 +42,7 @@ namespace ScreenFIRE.GUI {
         [UI] private readonly Label ScreenFIRE_Label_About_Box = null;
         [UI] private readonly Label VersionTitle_Label_About_Box = null;
         [UI] private readonly Label Version_Label_About_Box = null;
-        //[UI] private readonly Box Version_Box_About_Box = null;
-        //[UI] private readonly Box Phase_Box_About_Box = null;
+        [UI] private readonly EventBox VersionPhase_Box_About_Box = null;
         [UI] private readonly Label PhaseTitle_Label_About_Box = null;
         [UI] private readonly Label Phase_Label_About_Box = null;
         [UI] private readonly Button SF_repo_Button_About_Box = null;
@@ -90,6 +89,10 @@ namespace ScreenFIRE.GUI {
                     = Switch_AutoDelete1MonthOldFiles_Box_SaveOptions_Box.State;
             };
 
+            VersionPhase_Box_About_Box.ButtonReleaseEvent += async delegate {
+                Clipboard.GetDefault(Gdk.Display.Default).Text
+                        = $"{await Strings.Fetch(IStrings.ScreenFIRE)} {Common.VersionString()}";
+            };
 
         }
         private void AssignStrings() {
@@ -122,6 +125,7 @@ namespace ScreenFIRE.GUI {
 
             ScreenFIRE_Label_About_Box.Text = Strings.Fetch(IStrings.ScreenFIRE_Stylized).Result;
 
+            VersionPhase_Box_About_Box.TooltipText = Strings.Fetch(IStrings.ClicktoCopy___).Result;
             VersionTitle_Label_About_Box.Text = Strings.Fetch(IStrings.Version).Result + ":";
             Version_Label_About_Box.Text = Common.VersionString(includePhase: false);
             PhaseTitle_Label_About_Box.Text = Strings.Fetch(IStrings.Phase).Result + ":";
@@ -199,8 +203,7 @@ namespace ScreenFIRE.GUI {
                     _label1.Text = await Strings.Fetch(IStrings.ChooseHowYouWouldLikeToFireYourScreenshot_);
                 }, null, 5000, Timeout.Infinite);
 
-                var allocatedWidth = Image_ssPreview_Button_Screenshot_Box.AllocatedWidth;
-                var (w, h) = mathMisc.Scale.Fit((ss.Image.Width, ss.Image.Height), ((allocatedWidth > 200 ? allocatedWidth : 270), 256));
+                var (w, h) = mathMisc.Scale.Fit((ss.Image.Width, ss.Image.Height), (270, 256));
 
                 Label_ssPreview_Button_Screenshot_Box.Destroy();
                 Image_ssPreview_Button_Screenshot_Box.Visible = true;
