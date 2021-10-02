@@ -108,7 +108,7 @@ namespace ScreenFIRE.GUI {
             SaveOptions_TabButton.Text = Strings.Fetch(IStrings.SavingOptions).Result;
 
             Label_MenuButton_SaveOptions_Box.Text
-                = SaveFormat.StringWithDesctiption_From_SaveOptionsFormat();
+                = SaveFormat.StringWithDesctiption();
             bmp_Button_SaveFormat_Popover.Label = $"bmp ({Strings.Fetch(IStrings.Original).Result})";
             png_Button_SaveFormat_Popover.Label = $"png ({Strings.Fetch(IStrings.Quality).Result})";
             jpg_Button_SaveFormat_Popover.Label = $"jpg ({Strings.Fetch(IStrings.Efficiency).Result})";
