@@ -44,7 +44,7 @@ namespace ScreenFIRE.Modules.Capture {
                 IScreenshotType.ActiveWindow => Monitors.ActiveWindow_Rectangle(),
 
                 //! IScreenshotType.All
-                _ => new Monitors().AllRectangle
+                _ => Monitors.BoundingRectangle()
             };
 
         /// <summary> Auto (using <see cref="IScreenshotType"/>) </summary>

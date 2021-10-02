@@ -3,37 +3,37 @@ using ScreenFIRE.Modules.Companion.OS;
 
 namespace ScreenFIRE.Modules.Companion {
 
-    class Monitors : IDisposable {
-        #region IDisposable
-        bool disposed;
-        protected virtual void Dispose(bool disposing) {
-            if (!disposed) {
-                if (disposing) {
-                    AllMonitors = null;
-                    Rectangles = null;
-                }
-            }
-            disposed = true;
-        }
-        public void Dispose() {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-        #endregion
+    public static class Monitors {
 
-        #region Static methods
+        /// <summary> Number of monitors </summary>
+        public static int Count => Gdk.Display.Default.NMonitors;
+
+
+        /// <summary> <see cref="Gdk.Rectangle"/> array of each screen </summary>
+        public static Gdk.Rectangle[] Rectangles() {
+            Gdk.Rectangle[] rectangles = new Gdk.Rectangle[Count]; //? Reset
+            for (int i = 0; i < Count; i++)
+                rectangles[i] = Gdk.Display.Default.GetMonitor(i).Geometry;
+            return rectangles;
+        }
+
+
+        /// <summary><see cref="Gdk.Rectangle"/> spanning over all screens</summary>
+        public static Gdk.Rectangle BoundingRectangle()
+            => Vision.Geometry.BoundingRectangle(Rectangles());
+
 
         /// <param name="index"> <see cref="Gdk.Monitor"/> index </param>
         /// <returns> <see cref="Gdk.Monitor"/> according to <paramref name="index"/> </returns>
-        public static Gdk.Monitor GetMonitor(int index) {
+        public static Gdk.Monitor Monitor(int index) {
             return Gdk.Display.Default.GetMonitor(index);
         }
 
         /// <returns> <see cref="Gdk.Monitor"/>[] containing all available <see cref="Gdk.Monitor"/>s </returns>
-        public static Gdk.Monitor[] GetAllMonitors() {
+        public static Gdk.Monitor[] AllMonitors() {
             Gdk.Monitor[] monitors = new Gdk.Monitor[Count];
             for (int i = 0; i < Count; i++)
-                monitors[i] = GetMonitor(i);
+                monitors[i] = Monitor(i);
             return monitors;
         }
 
@@ -112,65 +112,6 @@ namespace ScreenFIRE.Modules.Companion {
                           work.Width + work.X,
                           work.Height + work.Y);
             return geo;
-        }
-
-
-        #endregion
-
-
-        /// <summary> Number of monitors </summary>
-        public static int Count => Gdk.Display.Default.NMonitors;
-
-        public Gdk.Monitor[] AllMonitors { get; private set; }
-
-
-        /// <summary> <see cref="Gdk.Rectangle"/> array of each screen </summary>
-        public Gdk.Rectangle[] Rectangles { get; private set; }
-
-        /// <summary><see cref="Gdk.Rectangle"/> spanning over all screens</summary>
-        public Gdk.Rectangle AllRectangle { get; private set; }
-
-
-        /// <returns> <see cref="Gdk.Rectangle"/> array of each screen </returns>
-        private Gdk.Rectangle[] Rectangles_Auto() {
-            Rectangles = new Gdk.Rectangle[Count]; //? Reset
-            for (int i = 0; i < Count; i++)
-                Rectangles[i] = Gdk.Display.Default.GetMonitor(i).Geometry;
-            return Rectangles;
-        }
-
-
-        /// <summary> AUTO </summary>
-        /// <returns> <see cref="Gdk.Rectangle"/> spanning over all screens </returns>
-        private Gdk.Rectangle AllRectangle_Auto() {
-            return AllRectangle
-                        = Vision.Geometry.BoundingRectangle(Rectangles_Auto());
-        }
-
-        /// <summary> MANUAL </summary>
-        /// <returns> <see cref="Gdk.Rectangle"/> spanning over all screens </returns>
-        private Gdk.Rectangle AllRectangle_Auto(Gdk.Rectangle[] rectangles) {
-            return AllRectangle
-                        = Vision.Geometry.BoundingRectangle(rectangles);
-        }
-
-
-
-        /// <summary> AUTO </summary>
-        public Monitors() {
-            AllMonitors = GetAllMonitors();
-
-            AllRectangle = AllRectangle_Auto(); //! It updates both props
-            /*Rectangles = Rectangles;*/ //? No need to find, already done above
-        }
-
-        /// <summary> MANUAL </summary>
-        public Monitors(Gdk.Rectangle[] rectangles) {
-            AllMonitors = GetAllMonitors();
-
-            AllRectangle = AllRectangle_Auto(rectangles);
-            Rectangles = rectangles;
-
         }
     }
 }
