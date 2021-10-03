@@ -62,7 +62,7 @@ namespace ScreenFIRE.Assets {
             //! Get system language if generic (System)
             if (language == ILanguages.System) language = Languages.SystemLanguage();
             //! Save last used language
-            Common.Settings.Language = language;
+            Common.Settings.LastLanguage = language; Common.Settings.Save();
 
             //! Cancel if the cache is better than the runtime strings
             if (StringsStore != PreferredStore(language))
