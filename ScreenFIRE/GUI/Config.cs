@@ -29,7 +29,8 @@ namespace ScreenFIRE.GUI {
         [UI] private readonly Label SaveOptions_TabButton = null;
         [UI] private readonly Label Label_MenuButton_SaveOptions_Box = null;
         [UI] private readonly FileChooserButton SaveLocation_FileChooserButton_SaveOptions_Box = null;
-        [UI] private readonly Popover SaveFormat_Popover = null;
+        [UI] private readonly Popover SaveFormat_Popover = null; 
+        [UI] private readonly ComboBox Format_ComboBox_SaveOptions_Box = null;
         [UI] private readonly Button bmp_Button_SaveFormat_Popover = null;
         [UI] private readonly Button png_Button_SaveFormat_Popover = null;
         [UI] private readonly Button jpg_Button_SaveFormat_Popover = null;
@@ -80,13 +81,21 @@ namespace ScreenFIRE.GUI {
             SaveLocation_FileChooserButton_SaveOptions_Box.CurrentFolderChanged
                 += SaveLocation_FileChooserButton_SaveOptions_Box_CurrentFolderChanged;
 
+            //SaveFormat_EventBox_Popover.Shown += delegate { png_Button_SaveFormat_Popover.Activate(); };
             bmp_Button_SaveFormat_Popover.Clicked += bmp_Button_SaveFormat_Popover_Clicked;
             png_Button_SaveFormat_Popover.Clicked += png_Button_SaveFormat_Popover_Clicked;
             jpg_Button_SaveFormat_Popover.Clicked += jpg_Button_SaveFormat_Popover_Clicked;
 
+            Format_ComboBox_SaveOptions_Box.Changed += delegate { 
+                Common.LocalSave_Settings.Format 
+                    = (ISaveFormat)Enum.Parse(typeof(ISaveFormat),
+                                              Format_ComboBox_SaveOptions_Box.ActiveId,
+                                              true);
+              };
+
             Switch_AutoDelete1MonthOldFiles_Box_SaveOptions_Box.StateChanged += delegate {
                 Common.LocalSave_Settings.AutoDelete1MonthOldFiles
-                    = Switch_AutoDelete1MonthOldFiles_Box_SaveOptions_Box.State;
+                    =Switch_AutoDelete1MonthOldFiles_Box_SaveOptions_Box.State;
             };
 
             VersionPhase_Box_About_Box.ButtonReleaseEvent += async delegate {
@@ -177,6 +186,8 @@ namespace ScreenFIRE.GUI {
         private void AssignEtc() {
             SaveLocation_FileChooserButton_SaveOptions_Box
                 .SetCurrentFolder(Common.LocalSave_Settings.Location);
+
+            Format_ComboBox_SaveOptions_Box.ActiveId = Common.LocalSave_Settings.Format.ToString();
         }
 
         public Config() : this(new Builder("Config.glade")) { }
