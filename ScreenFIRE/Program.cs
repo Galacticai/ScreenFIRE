@@ -8,9 +8,9 @@ namespace ScreenFIRE {
 
     class Program {
 
-        public const string packageName = "com.nhk.ScreenFIRE";
+        public const string PackageName = "com.xeroling.ScreenFIRE";
 
-        public static Application app = new(packageName, GLib.ApplicationFlags.None);
+        public static Application app = new(PackageName, GLib.ApplicationFlags.None);
 
         public static Config Config = new();
         public static GUI.ScreenFIRE ScreenFIRE = new();
@@ -28,7 +28,9 @@ namespace ScreenFIRE {
 
             Application.Init();
 
-            app.Shutdown += delegate { Strings.SaveStorage(); };
+            app.Shutdown += delegate {
+                Strings.SaveStorage(Common.Settings.LastLanguage);
+            };
 
             app.Register(GLib.Cancellable.Current);
 
