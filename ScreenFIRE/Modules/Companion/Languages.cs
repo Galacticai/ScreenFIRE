@@ -1,5 +1,6 @@
 ﻿using cult = System.Globalization.CultureInfo;
-
+using System.Threading.Tasks;
+using System.Net.Http;
 namespace ScreenFIRE.Modules.Companion {
 
     /// <summary>
@@ -98,14 +99,14 @@ namespace ScreenFIRE.Modules.Companion {
 
             return string.Empty; //! PLACEHOLDER
 
-            string url = string.Format("https://translate.google.com/?text={0}&tl={1}",
-                                        input, toLanguage.ToGoogleLanguageID());
-            string result = await new HttpClient().GetStringAsync(url);
-            result = result[(result.IndexOf("<span title=\"") + "<span title=\"".Length)..];
-            result = result[(result.IndexOf(">") + 1)..];
-            result = result[..result.IndexOf("</span>")];
-            result = result.Trim();
-            return result;
+            // string url = string.Format("https://translate.google.com/?text={0}&tl={1}",
+            //                             input, toLanguage.ToGoogleLanguageID());
+            // string result = await new HttpClient().GetStringAsync(url);
+            // result = result[(result.IndexOf("<span title=\"") + "<span title=\"".Length)..];
+            // result = result[(result.IndexOf(">") + 1)..];
+            // result = result[..result.IndexOf("</span>")];
+            // result = result.Trim();
+            // return result;
         }
 
         /// <summary> Convert .NET language code <see cref="string"/> to <see cref="ILanguages"/> readable by ScreenFIRE </summary>

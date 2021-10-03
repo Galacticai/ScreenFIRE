@@ -3,7 +3,8 @@ using ScreenFIRE.Assets.Embedded;
 using ScreenFIRE.Modules.Save;
 using System.Diagnostics;
 using System.Reflection;
-
+using System.IO;
+using System;
 
 namespace ScreenFIRE.Modules.Companion {
 

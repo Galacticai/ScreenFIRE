@@ -1,4 +1,7 @@
-﻿namespace ScreenFIRE.Modules.Companion {
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+namespace ScreenFIRE.Modules.Companion {
     class Delete1MonthOldScreenshots {
         public static bool Run() {
             try {

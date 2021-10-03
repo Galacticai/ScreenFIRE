@@ -2,6 +2,9 @@
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using gdk = Gdk;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace ScreenFIRE.Modules.Companion.math {
 

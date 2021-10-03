@@ -2,6 +2,9 @@
 using Newtonsoft.Json.Linq;
 using ScreenFIRE.Modules.Companion;
 using System.Text;
+using System.IO;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace ScreenFIRE.Assets {
     public static partial class Strings {

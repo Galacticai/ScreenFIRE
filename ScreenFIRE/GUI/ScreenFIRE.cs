@@ -6,7 +6,8 @@ using ScreenFIRE.Modules.Companion;
 using ScreenFIRE.Modules.Companion.math;
 using gdk = Gdk;
 using UI = Gtk.Builder.ObjectAttribute;
-
+using System;
+using System.Threading;
 namespace ScreenFIRE.GUI {
 
 

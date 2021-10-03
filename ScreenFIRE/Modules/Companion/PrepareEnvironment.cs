@@ -1,4 +1,5 @@
-﻿using ScreenFIRE.Assets;
+﻿using System.IO;
+using ScreenFIRE.Assets;
 using env = System.Environment;
 
 namespace ScreenFIRE.Modules.Companion {

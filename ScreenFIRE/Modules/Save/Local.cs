@@ -1,4 +1,7 @@
-﻿using Gtk;
+﻿using System;
+using System.IO;
+using System.Threading.Tasks;
+using Gtk;
 using ScreenFIRE.Assets;
 using ScreenFIRE.Modules.Capture;
 using ScreenFIRE.Modules.Capture.Companion;

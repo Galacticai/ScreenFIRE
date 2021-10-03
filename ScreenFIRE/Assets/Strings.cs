@@ -1,5 +1,7 @@
 ﻿using ScreenFIRE.Modules.Companion;
-
+using System;
+using System.Threading.Tasks;
+using System.Collections.Generic;
 namespace ScreenFIRE.Assets {
 
     public enum IStrings {

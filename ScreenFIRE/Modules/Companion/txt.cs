@@ -1,4 +1,5 @@
 ﻿using ScreenFIRE.Modules.Companion.math;
+using System;
 using System.Text;
 
 namespace ScreenFIRE.Modules.Companion {

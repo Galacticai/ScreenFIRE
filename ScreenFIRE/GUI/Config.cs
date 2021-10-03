@@ -9,8 +9,12 @@ using ScreenFIRE.Modules.Save;
 using System.Diagnostics;
 using io = System.IO;
 using UI = Gtk.Builder.ObjectAttribute;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 
-namespace ScreenFIRE.GUI {
+namespace ScreenFIRE.GUI
+{
 
     class Config : ApplicationWindow {
         [UI] private readonly Image LogoImage = null;
@@ -196,7 +200,7 @@ namespace ScreenFIRE.GUI {
             //_ = new Timer(async (object obj) => {
             Thread.Sleep(1000); //! Temp (For Windows) make sure the window is fully hidden
 
-            using var ss = new Screenshot(screenshotType);
+            var ss = new Screenshot(screenshotType);
             if (await Save.Local(ss, this)) {
                 _label1.Text = await Strings.Fetch(IStrings.FiredAScreenshot_);
                 _ = new Timer(async (object obj) => {
