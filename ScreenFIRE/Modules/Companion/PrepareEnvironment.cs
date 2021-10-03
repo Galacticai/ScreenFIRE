@@ -32,7 +32,7 @@ namespace ScreenFIRE.Modules.Companion {
             Strings.RebuildStorage(Languages.SystemLanguage());
 
             //! Delete 1mo old screenshots
-            if (!Delete1MonthOldScreenshots.Run()) return false;
+            Delete1MonthOldScreenshots.Run();
 
             return true;
         }
