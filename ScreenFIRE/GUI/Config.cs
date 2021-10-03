@@ -27,10 +27,9 @@ namespace ScreenFIRE.GUI {
         [UI] private readonly Button SF_Button_Custom = null;
 
         [UI] private readonly Label SaveOptions_TabButton = null;
-        [UI] private readonly Label Label_MenuButton_SaveOptions_Box = null;
+        [UI] private readonly Label Label_Format_MenuButton_SaveOptions_Box = null;
         [UI] private readonly FileChooserButton SaveLocation_FileChooserButton_SaveOptions_Box = null;
-        [UI] private readonly Popover SaveFormat_Popover = null; 
-        [UI] private readonly ComboBox Format_ComboBox_SaveOptions_Box = null;
+        [UI] private readonly Popover SaveFormat_Popover = null;
         [UI] private readonly Button bmp_Button_SaveFormat_Popover = null;
         [UI] private readonly Button png_Button_SaveFormat_Popover = null;
         [UI] private readonly Button jpg_Button_SaveFormat_Popover = null;
@@ -86,16 +85,11 @@ namespace ScreenFIRE.GUI {
             png_Button_SaveFormat_Popover.Clicked += png_Button_SaveFormat_Popover_Clicked;
             jpg_Button_SaveFormat_Popover.Clicked += jpg_Button_SaveFormat_Popover_Clicked;
 
-            Format_ComboBox_SaveOptions_Box.Changed += delegate { 
-                Common.LocalSave_Settings.Format 
-                    = (ISaveFormat)Enum.Parse(typeof(ISaveFormat),
-                                              Format_ComboBox_SaveOptions_Box.ActiveId,
-                                              true);
-              };
+
 
             Switch_AutoDelete1MonthOldFiles_Box_SaveOptions_Box.StateChanged += delegate {
                 Common.LocalSave_Settings.AutoDelete1MonthOldFiles
-                    =Switch_AutoDelete1MonthOldFiles_Box_SaveOptions_Box.State;
+                    = Switch_AutoDelete1MonthOldFiles_Box_SaveOptions_Box.State;
             };
 
             VersionPhase_Box_About_Box.ButtonReleaseEvent += async delegate {
@@ -120,13 +114,14 @@ namespace ScreenFIRE.GUI {
 
             SaveOptions_TabButton.Text = Strings.Fetch(IStrings.SavingOptions).Result;
 
-            Label_MenuButton_SaveOptions_Box.Text
-                = SaveFormat.StringWithDesctiption();
+            Label_Format_MenuButton_SaveOptions_Box.Text = SaveFormat.StringWithDesctiption();
+
             bmp_Button_SaveFormat_Popover.Label = $"{Strings.Fetch(IStrings.Original).Result} {Common.RangeDash} bmp";
             png_Button_SaveFormat_Popover.Label = $"{Strings.Fetch(IStrings.Quality).Result} {Common.RangeDash} png";
             jpg_Button_SaveFormat_Popover.Label = $"{Strings.Fetch(IStrings.Efficiency).Result} {Common.RangeDash} jpg";
             gif_Button_SaveFormat_Popover.Label = $"{Strings.Fetch(IStrings.Animated).Result} {Common.RangeDash} gif";
             mp4_Button_SaveFormat_Popover.Label = $"{Strings.Fetch(IStrings.Video).Result} {Common.RangeDash} mp4";
+
 
             Label_AutoSaveExisting_Box_SaveOptions_Box.Text = Strings.Fetch(IStrings.AutoDelete1MonthOldFiles).Result;
 
@@ -187,7 +182,6 @@ namespace ScreenFIRE.GUI {
             SaveLocation_FileChooserButton_SaveOptions_Box
                 .SetCurrentFolder(Common.LocalSave_Settings.Location);
 
-            Format_ComboBox_SaveOptions_Box.ActiveId = Common.LocalSave_Settings.Format.ToString();
         }
 
         public Config() : this(new Builder("Config.glade")) { }
@@ -248,22 +242,20 @@ namespace ScreenFIRE.GUI {
         public void png_Button_SaveFormat_Popover_Clicked(object sender, EventArgs e) {
             Common.LocalSave_Settings.Format = ISaveFormat.png;
             Common.LocalSave_Settings.Save();
-            Label_MenuButton_SaveOptions_Box.Text = png_Button_SaveFormat_Popover.Label;
+            Label_Format_MenuButton_SaveOptions_Box.Text = png_Button_SaveFormat_Popover.Label;
             SaveFormat_Popover.Hide();
         }
         public void jpg_Button_SaveFormat_Popover_Clicked(object sender, EventArgs e) {
             Common.LocalSave_Settings.Format = ISaveFormat.jpeg;
             Common.LocalSave_Settings.Save();
-            Label_MenuButton_SaveOptions_Box.Text = jpg_Button_SaveFormat_Popover.Label;
+            Label_Format_MenuButton_SaveOptions_Box.Text = jpg_Button_SaveFormat_Popover.Label;
             SaveFormat_Popover.Hide();
         }
         public void bmp_Button_SaveFormat_Popover_Clicked(object sender, EventArgs e) {
             Common.LocalSave_Settings.Format = ISaveFormat.bmp;
             Common.LocalSave_Settings.Save();
-            Label_MenuButton_SaveOptions_Box.Text = bmp_Button_SaveFormat_Popover.Label;
+            Label_Format_MenuButton_SaveOptions_Box.Text = bmp_Button_SaveFormat_Popover.Label;
             SaveFormat_Popover.Hide();
         }
-
-
     }
 }
