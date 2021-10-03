@@ -50,7 +50,7 @@ namespace ScreenFIRE.Modules.Companion {
 
         /// <param name="rectangle"> Target <see cref="Gdk.Rectangle"/> to be fixed </param>
         /// <returns> Window <see cref="Gdk.Rectangle"/> without the extra empty space dedicated to the invisible window borders in Windows 10 </returns>
-        private static Gdk.Rectangle FixWindowRectangle_ForWindows10(Gdk.Rectangle rectangle) {
+        private static Gdk.Rectangle FrameExtents_Fixed(Gdk.Rectangle rectangle) {
             if (!Platform.RunningWindows10) return rectangle; //? failsafe
             rectangle.X += 7;
             rectangle.Height -= 7;
@@ -61,9 +61,7 @@ namespace ScreenFIRE.Modules.Companion {
         /// <returns> Window <see cref="Gdk.Rectangle"/> at the mouse pointer </returns>
         public static Gdk.Rectangle ActiveWindow_Rectangle() {
             Gdk.Rectangle rectangle = LastActiveWindow().FrameExtents;
-            return Platform.RunningWindows10
-                   ? FixWindowRectangle_ForWindows10(rectangle)
-                   : rectangle;
+            return FrameExtents_Fixed(rectangle);
         }
         /// <param name="point"> Focus <see cref="Point"/> </param>
         /// <returns> Last active <see cref="Window"/> </returns>
@@ -78,9 +76,7 @@ namespace ScreenFIRE.Modules.Companion {
         public static Gdk.Rectangle WindowAtPointer_Rectangle() {
             Gdk.Point pointLocation = Pointer_Point();
             Gdk.Window windowAtPosition = WindowAtPoint(pointLocation);
-            return Platform.RunningWindows10
-                   ? FixWindowRectangle_ForWindows10(windowAtPosition.FrameExtents)
-                   : windowAtPosition.FrameExtents;
+            return FrameExtents_Fixed(windowAtPosition.FrameExtents);
         }
         /// <param name="point"> Focus <see cref="Gdk.Point"/> </param>
         /// <returns> <see cref="Gdk.Window"/> at the <paramref name="point"/> </returns>
@@ -104,13 +100,13 @@ namespace ScreenFIRE.Modules.Companion {
         /// <param name="monitor"> Target <see cref="Gdk.Monitor"/> </param>
         /// <returns> <see cref="Gdk.Rectangle"/> of the monitor (The bigger one out of Geometry or Workarea) </returns>
         public static Gdk.Rectangle Monitor_Rectangle(Gdk.Monitor monitor) {
-            Gdk.Rectangle work = monitor.Workarea;
+            Gdk.Rectangle workA = monitor.Workarea;
             Gdk.Rectangle geo = monitor.Geometry;
-            if ((geo.Width / work.Width) > 1
-              | (geo.Height / work.Height) > 1)
+            if ((geo.Width / workA.Width) > 1
+              | (geo.Height / workA.Height) > 1)
                 geo = new(geo.X, geo.Y,
-                          work.Width + work.X,
-                          work.Height + work.Y);
+                          workA.Width + workA.X,
+                          workA.Height + workA.Y);
             return geo;
         }
     }
