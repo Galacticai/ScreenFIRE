@@ -70,7 +70,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>LocalSave_Settings.settings</DependentUpon>
     </Compile>
-    <Compile Update="Assets\Embedded\Settings.Designer.cs">
+    <Compile Update="Modules\Companion\Settings.Designer.cs">
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
@@ -105,7 +105,7 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>LocalSave_Settings.Designer.cs</LastGenOutput>
     </None>
-    <None Update="Assets\Embedded\Settings.settings">
+    <None Update="Modules\Companion\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
@@ -122,20 +122,14 @@
   </ItemGroup>
 
   <Target Name="Resources">
-    <GenerateResource
-      Sources="Assets\Embedded\SF.resx"
-      OutputResources="Assets\Embedded\SF.resources">
-      <Output TaskParameter="OutputResources" ItemName="Resources"/>
+    <GenerateResource Sources="Assets\Embedded\SF.resx" OutputResources="Assets\Embedded\SF.resources">
+      <Output TaskParameter="OutputResources" ItemName="Resources" />
     </GenerateResource>
-    <GenerateResource
-      Sources="Assets\Embedded\icons.resx"
-      OutputResources="Assets\Embedded\icons.resources">
-      <Output TaskParameter="OutputResources" ItemName="Resources"/>
+    <GenerateResource Sources="Assets\Embedded\icons.resx" OutputResources="Assets\Embedded\icons.resources">
+      <Output TaskParameter="OutputResources" ItemName="Resources" />
     </GenerateResource>
-    <GenerateResource
-      Sources="Assets\Embedded\Themes.resx"
-      OutputResources="Assets\Embedded\Themes.resources">
-      <Output TaskParameter="OutputResources" ItemName="Resources"/>
+    <GenerateResource Sources="Assets\Embedded\Themes.resx" OutputResources="Assets\Embedded\Themes.resources">
+      <Output TaskParameter="OutputResources" ItemName="Resources" />
     </GenerateResource>
   </Target>
 </Project>

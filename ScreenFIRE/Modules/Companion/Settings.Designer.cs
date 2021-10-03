@@ -8,9 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using ScreenFIRE.Modules.Companion;
-
-namespace ScreenFIRE.Assets.Embedded {
+namespace ScreenFIRE.Modules.Companion {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
@@ -19,14 +17,22 @@ namespace ScreenFIRE.Assets.Embedded {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
         
-        public static Settings Default => defaultInstance; 
+        public static Settings Default {
+            get {
+                return defaultInstance;
+            }
+        }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("English")]
-        public ILanguages Language {
-            get { return ((ILanguages)(this["Language"])); }
-            set { this["Language"] = value; }
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public ILanguages LastLanguage {
+            get {
+                return ((ILanguages)(this["LastLanguage"]));
+            }
+            set {
+                this["LastLanguage"] = value;
+            }
         }
     }
 }
