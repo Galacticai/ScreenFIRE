@@ -173,7 +173,7 @@
                 <property name="homogeneous">True</property>
                 <property name="layout-style">expand</property>
                 <child>
-                  <object class="GtkButton" id="SF_Button_AllMonitors">
+                  <object class="GtkButton" id="SS_Button_AllMonitors">
                     <property name="label" translatable="yes">All monitors</property>
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
@@ -186,7 +186,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkButton" id="SF_Button_MonitorAtPointer">
+                  <object class="GtkButton" id="SS_Button_MonitorAtPointer">
                     <property name="label" translatable="yes">Monitor at pointer</property>
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
@@ -199,7 +199,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkButton" id="SF_Button_ActiveWindow">
+                  <object class="GtkButton" id="SS_Button_ActiveWindow">
                     <property name="label" translatable="yes">Active window</property>
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
@@ -212,7 +212,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkButton" id="SF_Button_WindowAtPointer">
+                  <object class="GtkButton" id="SS_Button_WindowAtPointer">
                     <property name="label" translatable="yes">Window at pointer</property>
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
@@ -225,7 +225,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkButton" id="SF_Button_Custom">
+                  <object class="GtkButton" id="SS_Button_Custom">
                     <property name="label" translatable="yes">Free area selection</property>
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
@@ -549,7 +549,6 @@
                       <object class="GtkBox">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
-                        <property name="tooltip-text" translatable="yes">Click to copy ...</property>
                         <property name="spacing">12</property>
                         <property name="homogeneous">True</property>
                         <child>
@@ -590,7 +589,6 @@
                       <object class="GtkBox">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
-                        <property name="tooltip-text" translatable="yes">Click to copy ...</property>
                         <property name="spacing">12</property>
                         <property name="homogeneous">True</property>
                         <child>

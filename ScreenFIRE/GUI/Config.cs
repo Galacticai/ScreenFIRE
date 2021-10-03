@@ -20,11 +20,11 @@ namespace ScreenFIRE.GUI {
         [UI] private readonly Image Image_ssPreview_Button_Screenshot_Box = null;
         [UI] private readonly Label Label_ssPreview_Button_Screenshot_Box = null;
         [UI] private readonly Label _label1 = null;
-        [UI] private readonly Button SF_Button_AllMonitors = null;
-        [UI] private readonly Button SF_Button_MonitorAtPointer = null;
-        [UI] private readonly Button SF_Button_WindowAtPointer = null;
-        [UI] private readonly Button SF_Button_ActiveWindow = null;
-        [UI] private readonly Button SF_Button_Custom = null;
+        [UI] private readonly Button SS_Button_AllMonitors = null;
+        [UI] private readonly Button SS_Button_MonitorAtPointer = null;
+        [UI] private readonly Button SS_Button_WindowAtPointer = null;
+        [UI] private readonly Button SS_Button_ActiveWindow = null;
+        [UI] private readonly Button SS_Button_Custom = null;
 
         [UI] private readonly Label SaveOptions_TabButton = null;
         [UI] private readonly Label Label_Format_MenuButton_SaveOptions_Box = null;
@@ -60,15 +60,15 @@ namespace ScreenFIRE.GUI {
                 Process.Start(new ProcessStartInfo() { FileName = io.Path.Combine(Common.LocalSave_Settings.Location, Save.MonthDir), UseShellExecute = true, Verb = "open" });
             };
 
-            SF_Button_AllMonitors.Clicked
+            SS_Button_AllMonitors.Clicked
                 += async delegate { await Capture(IScreenshotType.AllMonitors); };
-            SF_Button_MonitorAtPointer.Clicked
+            SS_Button_MonitorAtPointer.Clicked
                 += async delegate { await Capture(IScreenshotType.MonitorAtPointer); };
-            SF_Button_WindowAtPointer.Clicked
+            SS_Button_WindowAtPointer.Clicked
                 += async delegate { await Capture(IScreenshotType.WindowAtPointer); };
-            SF_Button_ActiveWindow.Clicked
+            SS_Button_ActiveWindow.Clicked
                 += async delegate { await Capture(IScreenshotType.ActiveWindow); };
-            SF_Button_Custom.Clicked += delegate { Program.ScreenFIRE.ShowAll(); };
+            SS_Button_Custom.Clicked += delegate { Program.ScreenFIRE.ShowAll(); };
 
             SF_repo_Button_About_Box.Clicked += delegate { Link.Open(Common.SF_GitRepo); };
             License_Button_About_Box.Clicked += delegate { Link.Open(Common.SF_License); };
@@ -76,9 +76,9 @@ namespace ScreenFIRE.GUI {
             SaveLocation_FileChooserButton_SaveOptions_Box.CurrentFolderChanged
                 += SaveLocation_FileChooserButton_SaveOptions_Box_CurrentFolderChanged;
 
-            bmp_Button_SaveFormat_Popover.Toggled += bmp_Button_SaveFormat_Popover_Activated;
-            png_Button_SaveFormat_Popover.Toggled += png_Button_SaveFormat_Popover_Activated;
-            jpg_Button_SaveFormat_Popover.Toggled += jpg_Button_SaveFormat_Popover_Activated;
+            bmp_Button_SaveFormat_Popover.Toggled += bmp_Button_SaveFormat_Popover_Toggled;
+            png_Button_SaveFormat_Popover.Toggled += png_Button_SaveFormat_Popover_Toggled;
+            jpg_Button_SaveFormat_Popover.Toggled += jpg_Button_SaveFormat_Popover_Toggled;
 
             Switch_AutoDelete1MonthOldFiles_Box_SaveOptions_Box.StateChanged += delegate {
                 Common.LocalSave_Settings.AutoDelete1MonthOldFiles
@@ -98,18 +98,16 @@ namespace ScreenFIRE.GUI {
 
             Label_ssPreview_Button_Screenshot_Box.Text = Strings.Fetch(IStrings.ViewScreenshots).Result;
             _label1.Text = Strings.Fetch(IStrings.ChooseHowYouWouldLikeToFireYourScreenshot_).Result;
-            SF_Button_AllMonitors.Label = Strings.Fetch(IStrings.AllMonitors).Result;
-            SF_Button_MonitorAtPointer.Label = Strings.Fetch(IStrings.MonitorAtPointer).Result;
-            SF_Button_WindowAtPointer.Label = Strings.Fetch(IStrings.WindowAtPointer).Result;
-            SF_Button_ActiveWindow.Label = Strings.Fetch(IStrings.ActiveWindow).Result;
-            SF_Button_Custom.Label = Strings.Fetch(IStrings.FreeAreaSelection).Result;
+            SS_Button_AllMonitors.Label = Strings.Fetch(IStrings.AllMonitors).Result;
+            SS_Button_MonitorAtPointer.Label = Strings.Fetch(IStrings.MonitorAtPointer).Result;
+            SS_Button_WindowAtPointer.Label = Strings.Fetch(IStrings.WindowAtPointer).Result;
+            SS_Button_ActiveWindow.Label = Strings.Fetch(IStrings.ActiveWindow).Result;
+            SS_Button_Custom.Label = Strings.Fetch(IStrings.FreeAreaSelection).Result;
 
 
             SaveOptions_TabButton.Text = Strings.Fetch(IStrings.SavingOptions).Result;
 
             Label_Format_MenuButton_SaveOptions_Box.Text = SaveFormat.StringWithDesctiption();
-
-
             bmp_Button_SaveFormat_Popover.Label = $"{Strings.Fetch(IStrings.Original).Result} {Common.RangeDash} bmp";
             png_Button_SaveFormat_Popover.Label = $"{Strings.Fetch(IStrings.Quality).Result} {Common.RangeDash} png";
             jpg_Button_SaveFormat_Popover.Label = $"{Strings.Fetch(IStrings.Efficiency).Result} {Common.RangeDash} jpg";
@@ -208,7 +206,6 @@ namespace ScreenFIRE.GUI {
                 }, null, 5000, Timeout.Infinite);
 
                 var (w, h) = mathMisc.Scale.Fit((ss.Image.Width, ss.Image.Height), (270, 256));
-
                 Label_ssPreview_Button_Screenshot_Box.Destroy();
                 Image_ssPreview_Button_Screenshot_Box.Visible = true;
                 Image_ssPreview_Button_Screenshot_Box.Pixbuf =
@@ -238,6 +235,8 @@ namespace ScreenFIRE.GUI {
                     .SetCurrentFolder(Common.SF);
         }
 
+        /// <summary> Update Save format buttons to preview the current active one </summary>
+        /// <param name="selectedButton"> Chosen <see cref="ToggleButton"/> </param>
         private void SaveFormatButtons_Update(ToggleButton selectedButton) {
             bmp_Button_SaveFormat_Popover.Active = (selectedButton == bmp_Button_SaveFormat_Popover);
             png_Button_SaveFormat_Popover.Active = (selectedButton == png_Button_SaveFormat_Popover);
@@ -245,7 +244,7 @@ namespace ScreenFIRE.GUI {
             gif_Button_SaveFormat_Popover.Active = (selectedButton == gif_Button_SaveFormat_Popover);
             mp4_Button_SaveFormat_Popover.Active = (selectedButton == mp4_Button_SaveFormat_Popover);
         }
-        public void bmp_Button_SaveFormat_Popover_Activated(object sender, EventArgs e) {
+        public void bmp_Button_SaveFormat_Popover_Toggled(object sender, EventArgs e) {
             if (!bmp_Button_SaveFormat_Popover.Active) return;
             SaveFormatButtons_Update(bmp_Button_SaveFormat_Popover);
             Common.LocalSave_Settings.Format = ISaveFormat.bmp;
@@ -253,7 +252,7 @@ namespace ScreenFIRE.GUI {
             Label_Format_MenuButton_SaveOptions_Box.Text = bmp_Button_SaveFormat_Popover.Label;
             SaveFormat_Popover.Hide();
         }
-        public void png_Button_SaveFormat_Popover_Activated(object sender, EventArgs e) {
+        public void png_Button_SaveFormat_Popover_Toggled(object sender, EventArgs e) {
             if (!png_Button_SaveFormat_Popover.Active) return;
             SaveFormatButtons_Update(png_Button_SaveFormat_Popover);
             Common.LocalSave_Settings.Format = ISaveFormat.png;
@@ -261,7 +260,7 @@ namespace ScreenFIRE.GUI {
             Label_Format_MenuButton_SaveOptions_Box.Text = png_Button_SaveFormat_Popover.Label;
             SaveFormat_Popover.Hide();
         }
-        public void jpg_Button_SaveFormat_Popover_Activated(object sender, EventArgs e) {
+        public void jpg_Button_SaveFormat_Popover_Toggled(object sender, EventArgs e) {
             if (!jpg_Button_SaveFormat_Popover.Active) return;
             SaveFormatButtons_Update(jpg_Button_SaveFormat_Popover);
             Common.LocalSave_Settings.Format = ISaveFormat.jpeg;
