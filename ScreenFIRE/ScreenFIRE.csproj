@@ -45,6 +45,8 @@
 
     <PackageReference Include="GtkSharp" Version="3.24.24.34" />
 
+    <PackageReference Include="NETCore.Encrypt" Version="2.0.9.1" />
+
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
 
     <PackageReference Include="Shell.NET" Version="0.2.2" />
