@@ -24,7 +24,7 @@
             <property name="homogeneous">True</property>
             <property name="layout-style">spread</property>
             <child>
-              <object class="GtkButton" id="bmp_Button_SaveFormat_Popover">
+              <object class="GtkToggleButton" id="bmp_Button_SaveFormat_Popover">
                 <property name="label" translatable="yes">bmp (Original)</property>
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
@@ -38,7 +38,7 @@
               </packing>
             </child>
             <child>
-              <object class="GtkButton" id="png_Button_SaveFormat_Popover">
+              <object class="GtkToggleButton" id="png_Button_SaveFormat_Popover">
                 <property name="label" translatable="yes">png (Quality)</property>
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
@@ -52,7 +52,7 @@
               </packing>
             </child>
             <child>
-              <object class="GtkButton" id="jpg_Button_SaveFormat_Popover">
+              <object class="GtkToggleButton" id="jpg_Button_SaveFormat_Popover">
                 <property name="label" translatable="yes">jpg (Efficiency)</property>
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
@@ -66,7 +66,7 @@
               </packing>
             </child>
             <child>
-              <object class="GtkButton" id="gif_Button_SaveFormat_Popover">
+              <object class="GtkToggleButton" id="gif_Button_SaveFormat_Popover">
                 <property name="label" translatable="yes">gif (Animated)</property>
                 <property name="visible">True</property>
                 <property name="sensitive">False</property>
@@ -81,7 +81,7 @@
               </packing>
             </child>
             <child>
-              <object class="GtkButton" id="mp4_Button_SaveFormat_Popover">
+              <object class="GtkToggleButton" id="mp4_Button_SaveFormat_Popover">
                 <property name="label" translatable="yes">mp4 (Video)</property>
                 <property name="visible">True</property>
                 <property name="sensitive">False</property>
@@ -787,11 +787,5 @@
         </child>
       </object>
     </child>
-  </object>
-  <object class="GtkListStore" id="SaveFormats_ListStore">
-    <columns>
-      <!-- column-name Save -->
-      <column type="SaveFormats"/>
-    </columns>
   </object>
 </interface>
