@@ -173,12 +173,7 @@ namespace ScreenFIRE.GUI {
             SaveLocation_FileChooserButton_SaveOptions_Box
                 .SetCurrentFolder(Common.LocalSave_Settings.Location);
 
-            ToggleButton selectedButton = Common.LocalSave_Settings.Format switch {
-                ISaveFormat.png => png_Button_SaveFormat_Popover,
-                ISaveFormat.jpeg => jpg_Button_SaveFormat_Popover,
-                _ => bmp_Button_SaveFormat_Popover
-            };
-            selectedButton.Active = true;
+            SaveFormatButtons_Init();
         }
 
         public Config() : this(new Builder("Config.glade")) { }
@@ -225,7 +220,6 @@ namespace ScreenFIRE.GUI {
             //}, this, 2000, Timeout.Infinite);
         }
 
-        private static ToggleButton selectedFormat = null;
         private void SaveLocation_FileChooserButton_SaveOptions_Box_CurrentFolderChanged(object sender, EventArgs e) {
             if (PathIsRW.Run(SaveLocation_FileChooserButton_SaveOptions_Box
                                 .CurrentFolder))
@@ -236,23 +230,25 @@ namespace ScreenFIRE.GUI {
                     .SetCurrentFolder(Common.SF);
         }
 
-        /// <summary> Update Save format buttons to preview the current active one </summary>
-        /// <param name="selectedButton"> Chosen <see cref="ToggleButton"/> </param>
-        private void SaveFormatButtons_Update(ToggleButton selectedButton) {
+
+        private void SaveFormatButtons_Init() {
+            ToggleButton selectedButton = Common.LocalSave_Settings.Format switch {
+                ISaveFormat.png => png_Button_SaveFormat_Popover,
+                ISaveFormat.jpeg => jpg_Button_SaveFormat_Popover,
+                _ => bmp_Button_SaveFormat_Popover
+            };
+            selectedButton.Active = true;
         }
         private void Button_SaveFormat_Popover_Toggled(ToggleButton selectedButton) {
+            //! Avoid stack overflow - toggle each others
             if (!selectedButton.Active) { return; }
-            ////!? #DEBUG#: only step into when true. Do not set as variable bool to avoid triggering
-            bmp_Button_SaveFormat_Popover.Active = selectedButton == bmp_Button_SaveFormat_Popover;
-            png_Button_SaveFormat_Popover.Active = selectedButton == png_Button_SaveFormat_Popover;
-            jpg_Button_SaveFormat_Popover.Active = selectedButton == jpg_Button_SaveFormat_Popover;
-            gif_Button_SaveFormat_Popover.Active = selectedButton == gif_Button_SaveFormat_Popover;
-            mp4_Button_SaveFormat_Popover.Active = selectedButton == mp4_Button_SaveFormat_Popover;
-            Common.LocalSave_Settings.Format = (selectedButton == jpg_Button_SaveFormat_Popover)
-                                             ? ISaveFormat.jpeg
-                                             : ((selectedButton == png_Button_SaveFormat_Popover)
-                                             ? ISaveFormat.png
-                                             : ISaveFormat.bmp);
+            ISaveFormat saveFormat = ISaveFormat.bmp;
+            if (selectedButton == bmp_Button_SaveFormat_Popover) bmp_Button_SaveFormat_Popover.Active = true;
+            if (selectedButton == png_Button_SaveFormat_Popover) { saveFormat = ISaveFormat.png; png_Button_SaveFormat_Popover.Active = true; }
+            if (selectedButton == jpg_Button_SaveFormat_Popover) { saveFormat = ISaveFormat.bmp; jpg_Button_SaveFormat_Popover.Active = true; }
+            if (selectedButton == gif_Button_SaveFormat_Popover) gif_Button_SaveFormat_Popover.Active = true;
+            if (selectedButton == mp4_Button_SaveFormat_Popover) mp4_Button_SaveFormat_Popover.Active = true;
+            Common.LocalSave_Settings.Format = saveFormat;
             Common.LocalSave_Settings.Save();
             Label_Format_MenuButton_SaveOptions_Box.Text = selectedButton.Label;
             SaveFormat_Popover.Hide();
