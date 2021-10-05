@@ -393,34 +393,40 @@
               </packing>
             </child>
             <child>
-              <object class="GtkBox" id="AutoDelete1MonthOldFiles_Box_SaveOptions_Box">
+              <object class="GtkEventBox" id="AutoDelete1MonthOldFiles_EventBox_SaveOptions_Box">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
                 <child>
-                  <object class="GtkSwitch" id="Switch_AutoDelete1MonthOldFiles_Box_SaveOptions_Box">
-                    <property name="visible">True</property>
-                    <property name="can-focus">True</property>
-                    <property name="halign">end</property>
-                    <property name="active">True</property>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">False</property>
-                    <property name="pack-type">end</property>
-                    <property name="position">0</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkLabel" id="Label_AutoSaveExisting_Box_SaveOptions_Box">
+                  <object class="GtkBox" id="AutoDelete1MonthOldFiles_Box_SaveOptions_Box">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
-                    <property name="label" translatable="yes">Auto delete 1 month old files</property>
+                    <child>
+                      <object class="GtkSwitch" id="Switch_AutoDelete1MonthOldFiles_Box_SaveOptions_Box">
+                        <property name="visible">True</property>
+                        <property name="can-focus">True</property>
+                        <property name="halign">end</property>
+                        <property name="active">True</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">False</property>
+                        <property name="pack-type">end</property>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="Label_AutoSaveExisting_Box_SaveOptions_Box">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="label" translatable="yes">Auto delete 1 month old files</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
                   </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">1</property>
-                  </packing>
                 </child>
               </object>
               <packing>
@@ -430,7 +436,47 @@
               </packing>
             </child>
             <child>
-              <placeholder/>
+              <object class="GtkEventBox" id="CopyToClipboard_EventBox_SaveOptions_Box">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <child>
+                  <object class="GtkBox" id="CopyToClipboard_Box_SaveOptions_Box">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <child>
+                      <object class="GtkSwitch" id="Switch_CopyToClipboard_Box_SaveOptions_Box">
+                        <property name="visible">True</property>
+                        <property name="can-focus">True</property>
+                        <property name="halign">end</property>
+                        <property name="active">True</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">False</property>
+                        <property name="pack-type">end</property>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="Label_CopyToClipboard_Box_SaveOptions_Box">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="label" translatable="yes">Copy to clipboard</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">3</property>
+              </packing>
             </child>
             <child>
               <placeholder/>

@@ -36,7 +36,10 @@ namespace ScreenFIRE.GUI {
         [UI] private readonly ToggleButton gif_Button_SaveFormat_Popover = null;
         [UI] private readonly ToggleButton mp4_Button_SaveFormat_Popover = null;
         [UI] private readonly Label Label_AutoSaveExisting_Box_SaveOptions_Box = null;
+        [UI] private readonly EventBox AutoDelete1MonthOldFiles_EventBox_SaveOptions_Box = null;
         [UI] private readonly Gtk.Switch Switch_AutoDelete1MonthOldFiles_Box_SaveOptions_Box = null;
+        [UI] private readonly EventBox CopyToClipboard_EventBox_SaveOptions_Box = null;
+        [UI] private readonly Gtk.Switch Switch_CopyToClipboard_Box_SaveOptions_Box = null;
 
         [UI] private readonly Label About_TabButton = null;
         [UI] private readonly Label ScreenFIRE_Label_About_Box = null;
@@ -54,7 +57,10 @@ namespace ScreenFIRE.GUI {
         [UI] private readonly Label madeWith_Label_About_Box = null;
 
         private void AssignEvents() {
-            DeleteEvent += delegate { Application.Quit(); };
+            DeleteEvent += delegate {
+                Strings.SaveStorage(Common.Settings.LastLanguage);
+                Application.Quit();
+            };
 
             ssPreview_Button_Screenshot_Box.Clicked += delegate {
                 Process.Start(new ProcessStartInfo() { FileName = io.Path.Combine(Common.LocalSave_Settings.Location, Save.MonthDir), UseShellExecute = true, Verb = "open" });
@@ -84,6 +90,17 @@ namespace ScreenFIRE.GUI {
                 Common.LocalSave_Settings.AutoDelete1MonthOldFiles
                     = Switch_AutoDelete1MonthOldFiles_Box_SaveOptions_Box.State;
             };
+            AutoDelete1MonthOldFiles_EventBox_SaveOptions_Box.ButtonReleaseEvent
+                += delegate {
+                    Switch_AutoDelete1MonthOldFiles_Box_SaveOptions_Box.State
+                      = !Switch_AutoDelete1MonthOldFiles_Box_SaveOptions_Box.State;
+                };
+            CopyToClipboard_EventBox_SaveOptions_Box.ButtonReleaseEvent
+                += delegate {
+                    Switch_CopyToClipboard_Box_SaveOptions_Box.State
+                      = !Switch_CopyToClipboard_Box_SaveOptions_Box.State;
+                };
+
 
             VersionPhase_Box_About_Box.ButtonReleaseEvent += async delegate {
                 Clipboard.GetDefault(Gdk.Display.Default).Text
