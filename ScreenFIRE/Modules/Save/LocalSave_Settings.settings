@@ -2,11 +2,14 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="ScreenFIRE.Assets.Embedded" GeneratedClassName="LocalSave_Settings">
   <Profiles />
   <Settings>
-    <Setting Name="Format" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">0</Value>
+    <Setting Name="Format" Type="ScreenFIRE.Modules.Capture.Companion.ISaveFormat" Scope="User">
+      <Value Profile="(Default)">png</Value>
     </Setting>
     <Setting Name="Location" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="AutoDelete1MonthOldFiles" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="AutoReplaceExisting" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>

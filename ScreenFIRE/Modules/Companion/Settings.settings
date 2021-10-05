@@ -2,7 +2,10 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="ScreenFIRE.Assets.Embedded" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="LastLanguage" Type="System.String" Scope="User">
+    <Setting Name="LastLanguage" Type="ScreenFIRE.Modules.Companion.ILanguages" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="LastAes" Type="System.Security.Cryptography.Aes" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
   </Settings>

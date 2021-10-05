@@ -25,13 +25,23 @@ namespace ScreenFIRE.Modules.Companion {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public ILanguages LastLanguage {
+        public global::ScreenFIRE.Modules.Companion.ILanguages LastLanguage {
             get {
-                return ((ILanguages)(this["LastLanguage"]));
+                return ((global::ScreenFIRE.Modules.Companion.ILanguages)(this["LastLanguage"]));
             }
             set {
                 this["LastLanguage"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.Security.Cryptography.Aes LastAes {
+            get {
+                return ((global::System.Security.Cryptography.Aes)(this["LastAes"]));
+            }
+            set {
+                this["LastAes"] = value;
             }
         }
     }

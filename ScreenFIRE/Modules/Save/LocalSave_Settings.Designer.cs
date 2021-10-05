@@ -8,8 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using ScreenFIRE.Modules.Capture.Companion;
-
 namespace ScreenFIRE.Modules.Save {
     
     
@@ -19,30 +17,58 @@ namespace ScreenFIRE.Modules.Save {
         
         private static LocalSave_Settings defaultInstance = ((LocalSave_Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new LocalSave_Settings())));
         
-        public static LocalSave_Settings Default => defaultInstance;
-
+        public static LocalSave_Settings Default {
+            get {
+                return defaultInstance;
+            }
+        }
+        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("png")]
-        public ISaveFormat Format {
-            get { return ((ISaveFormat)(this["Format"])); }
-            set { this["Format"] = value; }
+        public global::ScreenFIRE.Modules.Capture.Companion.ISaveFormat Format {
+            get {
+                return ((global::ScreenFIRE.Modules.Capture.Companion.ISaveFormat)(this["Format"]));
+            }
+            set {
+                this["Format"] = value;
+            }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string Location {
-            get { return ((string)(this["Location"])); }
-            set { this["Location"] = value; }
+            get {
+                return ((string)(this["Location"]));
+            }
+            set {
+                this["Location"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool AutoDelete1MonthOldFiles {
+            get {
+                return ((bool)(this["AutoDelete1MonthOldFiles"]));
+            }
+            set {
+                this["AutoDelete1MonthOldFiles"] = value;
+            }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool AutoDelete1MonthOldFiles {
-            get { return ((bool)(this["AutoDelete1MonthOldFiles"])); }
-            set { this["AutoDelete1MonthOldFiles"] = value; }
+        public bool AutoReplaceExisting {
+            get {
+                return ((bool)(this["AutoReplaceExisting"]));
+            }
+            set {
+                this["AutoReplaceExisting"] = value;
+            }
         }
     }
 }
