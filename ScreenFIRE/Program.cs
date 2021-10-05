@@ -1,5 +1,4 @@
 using Gtk;
-using ScreenFIRE.Assets;
 using ScreenFIRE.GUI;
 using ScreenFIRE.Modules.Companion;
 using ScreenFIRE.Modules.Companion.OS;
@@ -27,10 +26,6 @@ namespace ScreenFIRE {
                     ("ScreenFIRE cannot be used with your current system state!");
 
             Application.Init();
-
-            app.Shutdown += delegate {
-                Strings.SaveStorage(Common.Settings.LastLanguage);
-            };
 
             app.Register(GLib.Cancellable.Current);
 
