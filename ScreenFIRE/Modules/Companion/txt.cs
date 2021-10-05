@@ -16,7 +16,7 @@ namespace ScreenFIRE.Modules.Companion {
             // Failsafe: return if only 1 line
             if (input.IndexOf(Environment.NewLine) < 1) return input;
             // Do
-            return input.Substring(0, input.IndexOf(Environment.NewLine));
+            return input[..input.IndexOf(Environment.NewLine)];
         }
 
         /// <summary>
@@ -32,7 +32,7 @@ namespace ScreenFIRE.Modules.Companion {
 
             // Do
             // ' Text Example>>(\n)blabla bla<<
-            return input.Substring(input.IndexOf(Environment.NewLine) + 1);
+            return input[(input.IndexOf(Environment.NewLine) + 1)..];
         }
 
         /// <summary>
@@ -53,7 +53,7 @@ namespace ScreenFIRE.Modules.Companion {
                 index += 1;
 
             // Do
-            return input.Substring(input.IndexOf(" ") + index, input.Length);
+            return input[(input.IndexOf(" ") + index)..];
         }
         /// <returns>Random string from a preset String() (open to edit preset array)</returns>
         public static string RandomWorkText
