@@ -1,4 +1,7 @@
-﻿namespace ScreenFIRE.Modules.Companion.math {
+﻿using System;
+using System.Linq;
+
+namespace ScreenFIRE.Modules.Companion.math {
 
     /// <summary> Manipulate numbers and misc stuff </summary>
     internal class mathMisc {

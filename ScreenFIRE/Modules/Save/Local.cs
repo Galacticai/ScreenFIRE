@@ -3,6 +3,9 @@ using ScreenFIRE.Assets;
 using ScreenFIRE.Modules.Capture;
 using ScreenFIRE.Modules.Capture.Companion;
 using ScreenFIRE.Modules.Companion;
+using System;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace ScreenFIRE.Modules.Save {
 

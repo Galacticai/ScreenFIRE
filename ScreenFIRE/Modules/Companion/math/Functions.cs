@@ -1,4 +1,6 @@
-﻿namespace ScreenFIRE.Modules.Companion.math {
+﻿using System;
+
+namespace ScreenFIRE.Modules.Companion.math {
 
     /// <summary> Predefined functions </summary>
     internal class Functions {

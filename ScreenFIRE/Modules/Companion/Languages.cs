@@ -1,4 +1,6 @@
-﻿using cult = System.Globalization.CultureInfo;
+﻿using System.Net.Http;
+using System.Threading.Tasks;
+using cult = System.Globalization.CultureInfo;
 
 namespace ScreenFIRE.Modules.Companion {
 

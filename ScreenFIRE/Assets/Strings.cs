@@ -1,4 +1,7 @@
 ﻿using ScreenFIRE.Modules.Companion;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace ScreenFIRE.Assets {
 

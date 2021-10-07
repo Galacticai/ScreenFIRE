@@ -1,4 +1,6 @@
-﻿namespace ScreenFIRE.Modules.Companion {
+﻿using System.IO;
+
+namespace ScreenFIRE.Modules.Companion {
     class PathIsRW {
         public static bool Run(string path) {
             try {

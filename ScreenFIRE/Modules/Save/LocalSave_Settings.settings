@@ -1,5 +1,8 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="ScreenFIRE.Assets.Embedded" GeneratedClassName="LocalSave_Settings">
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings"
+			  CurrentProfile="(Default)"
+			  GeneratedClassNamespace="ScreenFIRE.Assets.Embedded"
+			  GeneratedClassName="LocalSave_Settings">
   <Profiles />
   <Settings>
     <Setting Name="Format" Type="ScreenFIRE.Modules.Capture.Companion.ISaveFormat" Scope="User">

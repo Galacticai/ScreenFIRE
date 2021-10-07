@@ -6,7 +6,10 @@ using ScreenFIRE.Modules.Capture.Companion;
 using ScreenFIRE.Modules.Companion;
 using ScreenFIRE.Modules.Companion.math;
 using ScreenFIRE.Modules.Save;
+using System;
 using System.Diagnostics;
+using System.Threading;
+using System.Threading.Tasks;
 using io = System.IO;
 using UI = Gtk.Builder.ObjectAttribute;
 

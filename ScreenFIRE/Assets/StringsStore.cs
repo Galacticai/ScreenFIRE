@@ -1,5 +1,8 @@
 ﻿using Newtonsoft.Json.Linq;
 using ScreenFIRE.Modules.Companion;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 
 namespace ScreenFIRE.Assets {
     public static partial class Strings {

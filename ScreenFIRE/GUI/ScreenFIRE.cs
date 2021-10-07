@@ -4,6 +4,8 @@ using ScreenFIRE.Modules.Capture;
 using ScreenFIRE.Modules.Capture.Companion;
 using ScreenFIRE.Modules.Companion;
 using ScreenFIRE.Modules.Companion.math;
+using System;
+using System.Threading;
 using gdk = Gdk;
 using UI = Gtk.Builder.ObjectAttribute;
 

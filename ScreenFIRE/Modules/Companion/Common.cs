@@ -1,7 +1,8 @@
 ﻿using ScreenFIRE.Assets;
-using ScreenFIRE.Assets.Embedded;
 using ScreenFIRE.Modules.Save;
+using System;
 using System.Diagnostics;
+using System.IO;
 using System.Reflection;
 
 

@@ -2,6 +2,7 @@
 using ScreenFIRE.Modules.Capture.Companion;
 using ScreenFIRE.Modules.Companion;
 using ScreenFIRE.Modules.Companion.math;
+using System;
 
 namespace ScreenFIRE.Modules.Capture {
 
