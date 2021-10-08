@@ -93,16 +93,18 @@ namespace ScreenFIRE.GUI {
                 Common.LocalSave_Settings.AutoDelete1MonthOldFiles
                     = Switch_AutoDelete1MonthOldFiles_Box_SaveOptions_Box.State;
             };
-            AutoDelete1MonthOldFiles_EventBox_SaveOptions_Box.ButtonReleaseEvent
-                += delegate {
-                    Switch_AutoDelete1MonthOldFiles_Box_SaveOptions_Box.State
-                      = !Switch_AutoDelete1MonthOldFiles_Box_SaveOptions_Box.State;
-                };
-            CopyToClipboard_EventBox_SaveOptions_Box.ButtonReleaseEvent
-                += delegate {
-                    Switch_CopyToClipboard_Box_SaveOptions_Box.State
-                      = !Switch_CopyToClipboard_Box_SaveOptions_Box.State;
-                };
+            AutoDelete1MonthOldFiles_EventBox_SaveOptions_Box.ButtonReleaseEvent += delegate {
+                Switch_AutoDelete1MonthOldFiles_Box_SaveOptions_Box.State
+                  = !Switch_AutoDelete1MonthOldFiles_Box_SaveOptions_Box.State;
+            };
+            Switch_CopyToClipboard_Box_SaveOptions_Box.StateChanged += delegate {
+                Common.LocalSave_Settings.CopyToClipboard
+                = Switch_CopyToClipboard_Box_SaveOptions_Box.State;
+            };
+            CopyToClipboard_EventBox_SaveOptions_Box.ButtonReleaseEvent += delegate {
+                Switch_CopyToClipboard_Box_SaveOptions_Box.State
+                  = !Switch_CopyToClipboard_Box_SaveOptions_Box.State;
+            };
 
 
             VersionPhase_Box_About_Box.ButtonReleaseEvent += async delegate {
@@ -215,6 +217,10 @@ namespace ScreenFIRE.GUI {
 
             using var ss = new Screenshot(screenshotType);
             if (await Save.Local(ss, this)) {
+
+                if (Common.LocalSave_Settings.CopyToClipboard)
+                    Save.Clipboard(ss);
+
                 _label1.Text = await Strings.Fetch(IStrings.FiredAScreenshot_);
                 _ = new Timer(async (object obj) => {
                     _label1.Text = await Strings.Fetch(IStrings.ChooseHowYouWouldLikeToFireYourScreenshot_);
@@ -225,6 +231,7 @@ namespace ScreenFIRE.GUI {
                 Image_ssPreview_Button_Screenshot_Box.Visible = true;
                 Image_ssPreview_Button_Screenshot_Box.Pixbuf =
                      ss.Image.ScaleSimple((int)w, (int)h, Gdk.InterpType.Bilinear);
+
             } else {
                 MessageDialog failDialog = new(this,
                                                DialogFlags.Modal,

@@ -12,7 +12,7 @@ namespace ScreenFIRE.Modules.Save {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.0.2.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.0.3.0")]
     internal sealed partial class LocalSave_Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static LocalSave_Settings defaultInstance = ((LocalSave_Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new LocalSave_Settings())));
@@ -61,13 +61,13 @@ namespace ScreenFIRE.Modules.Save {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool AutoReplaceExisting {
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool CopyToClipboard {
             get {
-                return ((bool)(this["AutoReplaceExisting"]));
+                return ((bool)(this["CopyToClipboard"]));
             }
             set {
-                this["AutoReplaceExisting"] = value;
+                this["CopyToClipboard"] = value;
             }
         }
     }

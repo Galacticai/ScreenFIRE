@@ -14,8 +14,8 @@
     <Setting Name="AutoDelete1MonthOldFiles" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="AutoReplaceExisting" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
+	  <Setting Name="CopyToClipboard" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
     </Setting>
   </Settings>
 </SettingsFile>
