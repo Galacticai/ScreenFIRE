@@ -43,7 +43,7 @@
 
   <ItemGroup>
 
-    <PackageReference Include="GtkSharp" Version="3.24.24.34" />
+    <PackageReference Include="GtkSharp" Version="3.24.24.4" />
 
     <PackageReference Include="NETCore.Encrypt" Version="2.0.9.1" />
 
@@ -78,7 +78,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    
+
     <Compile Update="Assets\Embedded\SF.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
