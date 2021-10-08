@@ -6,10 +6,10 @@
   <Profiles />
   <Settings>
     <Setting Name="LastLanguage" Type="ScreenFIRE.Modules.Companion.ILanguages" Scope="User">
-      <Value Profile="(Default)" />
+		<Value Profile="(Default)">System</Value>
     </Setting>
     <Setting Name="LastAes" Type="System.Security.Cryptography.Aes" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)"/>
     </Setting>
   </Settings>
 </SettingsFile>
