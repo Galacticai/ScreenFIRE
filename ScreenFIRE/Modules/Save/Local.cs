@@ -105,7 +105,7 @@ namespace ScreenFIRE.Modules.Save {
                 //! Save
                 //screenshot.Image.Save(path, saveFormat.ToString());
                 //screenshot.Image.Savev(path, saveFormat.ToString(), null, null);
-                File.WriteAllBytes(path, screenshot.ImageBytes);
+                File.WriteAllBytes(path, screenshot.Image.PixelBytes.Data);
                 return true;
 
             } catch {
