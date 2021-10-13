@@ -13,9 +13,11 @@ namespace ScreenFIRE.Modules.Companion {
                 return false;
 
             //! (User) >> Pictures
-            if (!Directory.Exists(env.GetFolderPath(env.SpecialFolder.MyPictures)))
-                Directory.CreateDirectory(
-                            env.GetFolderPath(env.SpecialFolder.MyPictures));
+            string MyPicturesPath = string.IsNullOrEmpty(env.GetFolderPath(env.SpecialFolder.MyPictures))
+                                   ? Path.Combine(Common.UserProfile, "Pictures")
+                                   : env.GetFolderPath(env.SpecialFolder.MyPictures);
+            if (!Directory.Exists(MyPicturesPath))
+                Directory.CreateDirectory(MyPicturesPath);
 
             //! (User) >> Pictures >> ScreenFIRE
             if (!Directory.Exists(Common.SF))
