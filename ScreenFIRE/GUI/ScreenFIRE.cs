@@ -76,9 +76,9 @@ namespace ScreenFIRE.GUI {
             endPoint = Monitors.Pointer_Point(); //set the end point on motion
 
             gdk.Rectangle gdkRect = Vision.Geometry.PointsToRectangle(startPoint, endPoint);
-            g.MoveTo(gdkRect.X, gdkRect.Y);
-            g.SetSourceRGB(0.3, 0.4, 0.6);
             Rectangle rect = new(gdkRect.X, gdkRect.Y, gdkRect.Width, gdkRect.Height);
+            g.MoveTo(rect.X, rect.Y);
+            g.SetSourceRGB(0.3, 0.4, 0.6);
             g.Rectangle(rect);
             g.Stroke();
             g.Fill();
