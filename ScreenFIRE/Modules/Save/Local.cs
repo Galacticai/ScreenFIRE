@@ -3,7 +3,6 @@ using ScreenFIRE.Assets;
 using ScreenFIRE.Modules.Capture;
 using ScreenFIRE.Modules.Capture.Companion;
 using ScreenFIRE.Modules.Companion;
-using System;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -29,7 +28,7 @@ namespace ScreenFIRE.Modules.Save {
                               FileChooserAction.Save,
                               await Strings.Fetch(IStrings.OK), await Strings.Fetch(IStrings.Cancel));
             choose.SelectMultiple = false;
-            choose.SetCurrentFolder(Path.Combine(Common.LocalSave_Settings.Location, MonthDir));
+            choose.SetCurrentFolder(MonthDir);
 
             ResponseType chooseResponse = (ResponseType)choose.Run();
 
@@ -104,25 +103,27 @@ namespace ScreenFIRE.Modules.Save {
                     path += $".{saveFormat}";
 
                 //! Save
-                screenshot.Image.Save(path, saveFormat.ToString());
+                //screenshot.Image.Save(path, saveFormat.ToString());
+                //screenshot.Image.Savev(path, saveFormat.ToString(), null, null);
+                File.WriteAllBytes(path, screenshot.ImageBytes);
                 return true;
 
             } catch {
 
                 try { //! Try to use default path
-
                     return Local(screenshot, saveFormat); //! (Auto)
-
-                } catch { return false; } //! Something went wrong
-
+                } catch { //? Something went wrong
+                    return false;
+                }
             }
         }
 
         public static string MonthDir => PrepareMonthDir();
         private static string PrepareMonthDir() {
             string path = Path.Combine(Common.LocalSave_Settings.Location,
-                                       $"{DateTime.Now:MM-yyyy}");
-            if (!Directory.Exists(path)) Directory.CreateDirectory(path);
+                                       System.DateTime.Now.ToString($"MM-yyyy"));
+            if (!Directory.Exists(path))
+                Directory.CreateDirectory(path);
             return path;
         }
     }
