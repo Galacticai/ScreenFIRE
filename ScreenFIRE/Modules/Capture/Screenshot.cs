@@ -12,7 +12,8 @@ namespace ScreenFIRE.Modules.Capture {
         protected virtual void Dispose(bool disposing) {
             if (!disposed) {
                 if (disposing) {
-                    Image = null;
+                    ScreenshotType = null;
+                    Image.Dispose();
                 }
             }
             disposed = true;
@@ -29,12 +30,13 @@ namespace ScreenFIRE.Modules.Capture {
         /// Unique ID specific for this screenshot <br/><br/>
         /// >> Example: 0f8fad5b-d9cb-469f-a165-70867728950e
         /// </summary>
-        public Guid UID { get; }
+        public Guid UID { get; private set; }
 
         /// <summary> Date and time of screen firing </summary>
-        public DateTime Time { get; }
+        public DateTime Time { get; private set; }
 
         public IScreenshotType? ScreenshotType { get; private set; }
+
         public Rectangle ImageRectangle { get; private set; }
         public Pixbuf Image { get; private set; }
 
@@ -48,26 +50,30 @@ namespace ScreenFIRE.Modules.Capture {
                 _ => Monitors.BoundingRectangle()
             };
 
+        private void CommonSetting_Pre() {
+            UID = Guid.NewGuid();
+            Time = DateTime.Now;
+        }
+        private void CommonSetting_Post() {
+            Image = Vision.Screenshot(ImageRectangle);
+        }
+
         /// <summary> Auto (using <see cref="IScreenshotType"/>) </summary>
         /// <param name="imageRectangle"> Rectangle to be captured</param>
         public Screenshot(IScreenshotType screenshotType) {
-            //UIDAndTime_SHA512 = txt.ToSHA512($"{UID}_{Time.ToLongTimeString()}");
-            UID = Guid.NewGuid();
-            Time = DateTime.Now;
+            CommonSetting_Pre();
             ScreenshotType = screenshotType;
             ImageRectangle = GetRectangle(screenshotType);
-            Image = Vision.Screenshot(ImageRectangle);
+            CommonSetting_Post();
         }
 
         /// <summary> Custom </summary>
         /// <param name="imageRectangle"> Rectangle to be captured</param>
         public Screenshot(Rectangle imageRectangle) {
-            //UIDAndTime_SHA512 = txt.ToSHA512($"{UID}_{Time.ToLongTimeString()}");
-            UID = Guid.NewGuid();
-            Time = DateTime.Now;
+            CommonSetting_Pre();
             ScreenshotType = null;
             ImageRectangle = imageRectangle;
-            Image = Vision.Screenshot(imageRectangle);
+            CommonSetting_Post();
         }
     }
 }
