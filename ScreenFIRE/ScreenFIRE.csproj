@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-	  <TargetFramework>net6.0</TargetFramework>
+	  <TargetFramework>net5.0</TargetFramework>
 	  <LangVersion>preview</LangVersion>
     <Platforms>AnyCPU;x64</Platforms>
     <PackageIcon>ScreenFIRE-x128.png</PackageIcon>
