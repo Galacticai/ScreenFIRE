@@ -1,5 +1,6 @@
 ﻿using ScreenFIRE.Assets;
 using ScreenFIRE.Modules.Companion;
+using System.Drawing.Imaging;
 
 namespace ScreenFIRE.Modules.Capture.Companion {
 
@@ -20,12 +21,21 @@ namespace ScreenFIRE.Modules.Capture.Companion {
     }
 
 
-    public class SaveFormat {
+    public static class SaveFormat {
         public static string StringWithDesctiption(ISaveFormat? Specific_ISaveFormat = null) {
             return (Specific_ISaveFormat ?? Common.LocalSave_Settings.Format) switch {
                 ISaveFormat.bmp => $"{Strings.Fetch(IStrings.Original).Result} {Common.RangeDash} bmp",
                 ISaveFormat.jpeg => $"{Strings.Fetch(IStrings.Efficiency).Result} {Common.RangeDash} jpg",
                 _ => $"{Strings.Fetch(IStrings.Quality).Result} {Common.RangeDash} png" //0 & etc
+            };
+        }
+
+        public static ImageFormat ToSystemDrawing(this ISaveFormat saveFormat) {
+            return saveFormat switch {
+                ISaveFormat.bmp => ImageFormat.Bmp,
+                ISaveFormat.jpeg => ImageFormat.Jpeg,
+                //ISaveFormat.png
+                _ => ImageFormat.Png
             };
         }
     }
