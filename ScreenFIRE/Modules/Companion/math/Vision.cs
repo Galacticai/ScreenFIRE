@@ -1,5 +1,7 @@
-﻿using System;
+﻿using ScreenFIRE.Modules.Capture.Companion;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
@@ -66,11 +68,18 @@ namespace ScreenFIRE.Modules.Companion.math {
         }
 
 
-        /// <param name = "rect" > Rectangle to be captured</param>
-        /// <returns>Screenshot<see cref="Image"/> of the<paramref name="rect"/></returns>
-        public static gdk.Pixbuf Screenshot(gdk.Rectangle rect)
-            => new(gdk.Global.DefaultRootWindow, rect.X, rect.Y, rect.Width, rect.Height);
+        /// <param name = "rectangle" > Rectangle to be captured</param>
+        /// <returns>Screenshot <see cref="gdk.Pixbuf"/> of the <paramref name="rectangle"/></returns>
+        public static gdk.Pixbuf Screenshot(gdk.Rectangle rectangle)
+            => new(gdk.Global.DefaultRootWindow, rectangle.X, rectangle.Y, rectangle.Width, rectangle.Height);
 
+        /// <param name="pixbuf"> Target <see cref="gdk.Pixbuf"/> </param>
+        /// <param name="saveFormat"> Target format (<see cref="ISaveFormat"/>) </param>
+        /// <returns> <see cref="Bitmap"/> generated from <paramref name="pixbuf"/> bytes </returns>
+        public static Bitmap PixbufToBitmap(gdk.Pixbuf pixbuf, ISaveFormat saveFormat) {
+            return (Bitmap)TypeDescriptor.GetConverter(typeof(Bitmap))
+                        .ConvertFrom(pixbuf.SaveToBuffer(saveFormat.ToString()));
+        }
 
         [Obsolete]
         public static Bitmap Gradient(Size size, Color color1, Color color2, Color color3) {
