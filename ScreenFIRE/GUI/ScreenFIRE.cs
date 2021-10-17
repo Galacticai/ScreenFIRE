@@ -47,7 +47,7 @@ namespace ScreenFIRE.GUI {
             Thread.Sleep(1000);
 
             Screenshot = new Screenshot(IScreenshotType.AllMonitors);
-            ScreenshotImage.Pixbuf = Screenshot.Image;
+            ScreenshotImage.Pixbuf = Screenshot.GdkImage;
             Move(0, 0);
 
             SS_DrawingArea.SetAllocation(Screenshot.ImageRectangle);
@@ -66,8 +66,8 @@ namespace ScreenFIRE.GUI {
         private void Draw_DragBegin(object sender, DragBeginArgs ev) {
             startPoint = Monitors.Pointer_Point(); //set the start point
             g = new Context(new ImageSurface(Format.Argb32,
-                                             Screenshot.Image.Width,
-                                             Screenshot.Image.Height)
+                                             Screenshot.GdkImage.Width,
+                                             Screenshot.GdkImage.Height)
                                              ); //prepare the context
             SS_DrawingArea.Realize();
 

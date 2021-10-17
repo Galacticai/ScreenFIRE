@@ -226,11 +226,11 @@ namespace ScreenFIRE.GUI {
                     _label1.Text = await Strings.Fetch(IStrings.ChooseHowYouWouldLikeToFireYourScreenshot_);
                 }, null, 5000, Timeout.Infinite);
 
-                var (w, h) = mathMisc.Scale.Fit((ss.Image.Width, ss.Image.Height), (270, 256));
+                var (w, h) = mathMisc.Scale.Fit((ss.GdkImage.Width, ss.GdkImage.Height), (270, 256));
                 Label_ssPreview_Button_Screenshot_Box.Destroy();
                 Image_ssPreview_Button_Screenshot_Box.Visible = true;
                 Image_ssPreview_Button_Screenshot_Box.Pixbuf =
-                     ss.Image.ScaleSimple((int)w, (int)h, Gdk.InterpType.Bilinear);
+                     ss.GdkImage.ScaleSimple((int)w, (int)h, Gdk.InterpType.Bilinear);
 
             } else {
                 MessageDialog failDialog = new(this,
