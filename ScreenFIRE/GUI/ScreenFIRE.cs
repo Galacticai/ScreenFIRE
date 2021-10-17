@@ -1,4 +1,3 @@
-using Cairo;
 using Gtk;
 using ScreenFIRE.Modules.Capture;
 using ScreenFIRE.Modules.Capture.Companion;
@@ -7,6 +6,7 @@ using ScreenFIRE.Modules.Companion.math;
 using System;
 using System.Threading;
 using gdk = Gdk;
+using sysd = System.Drawing;
 using UI = Gtk.Builder.ObjectAttribute;
 
 namespace ScreenFIRE.GUI {
@@ -18,7 +18,8 @@ namespace ScreenFIRE.GUI {
 
         [UI] private readonly Image ScreenshotImage = null;
         [UI] private readonly Button Close_Button = null;
-        [UI] private readonly DrawingArea SS_DrawingArea = null;
+        [UI] private readonly Image SSOverlayImage = null;
+        [UI] private readonly EventBox EventBox_SSOverlayImage = null;
 
 
         private void AssignEvents() {
@@ -27,9 +28,9 @@ namespace ScreenFIRE.GUI {
             Shown += OnShown;
             Close_Button.Clicked += Close_Button_Clicked;
 
-            SS_DrawingArea.DragBegin += Draw_DragBegin;
-            SS_DrawingArea.DragMotion += Draw_DragMotion;
-            SS_DrawingArea.DragEnd += Draw_DragEnd;
+            //EventBox_SSOverlayImage.Drawn += Draw_DragBegin;
+            EventBox_SSOverlayImage.Drawn += Draw_DragMotion;
+            EventBox_SSOverlayImage.DragEnd += Draw_DragEnd;
         }
 
         public ScreenFIRE() : this(new Builder("ScreenFIRE.glade")) { }
@@ -50,46 +51,51 @@ namespace ScreenFIRE.GUI {
             ScreenshotImage.Pixbuf = Screenshot.GdkImage;
             Move(0, 0);
 
-            SS_DrawingArea.SetAllocation(Screenshot.ImageRectangle);
+            EventBox_SSOverlayImage.SetAllocation(Screenshot.ImageRectangle);
         }
 
         private void Close_Button_Clicked(object sender, EventArgs ev) {
             Screenshot.Dispose();
+            Overlay_Image.Dispose();
             Hide();
         }
 
 
         private gdk.Point startPoint;
         private gdk.Point endPoint;
-        private Context g;
+        private sysd.Graphics g;
+        private sysd.Bitmap Overlay_Image;
+        private readonly Random random = new();
 
-        private void Draw_DragBegin(object sender, DragBeginArgs ev) {
-            startPoint = Monitors.Pointer_Point(); //set the start point
-            g = new Context(new ImageSurface(Format.Argb32,
-                                             Screenshot.GdkImage.Width,
-                                             Screenshot.GdkImage.Height)
-                                             ); //prepare the context
-            SS_DrawingArea.Realize();
-
+        private void Draw_DragBegin(object sender, EventArgs ev) {
+            startPoint = Monitors.Pointer_Point();
+            g = sysd.Graphics.FromImage(Overlay_Image ??= new(Allocation.Width, Allocation.Height));
         }
-        private void Draw_DragMotion(object sender, DragMotionArgs args) {
-            endPoint = Monitors.Pointer_Point(); //set the end point on motion
+        private void Draw_DragMotion(object sender, EventArgs args) {
+            startPoint = Monitors.Pointer_Point();
+            g = sysd.Graphics.FromImage(Overlay_Image ??= new(Allocation.Width, Allocation.Height));
+            ////! Clean up
+            //if (Overlay_Image == null) Overlay_Image = new(Allocation.Width, Allocation.Height);
 
-            gdk.Rectangle gdkRect = Vision.Geometry.PointsToRectangle(startPoint, endPoint);
-            Rectangle rect = new(gdkRect.X, gdkRect.Y, gdkRect.Width, gdkRect.Height);
-            g.MoveTo(rect.X, rect.Y);
-            g.SetSourceRGB(0.3, 0.4, 0.6);
-            g.Rectangle(rect);
-            g.Stroke();
-            g.Fill();
+            endPoint = Monitors.Pointer_Point();
+            gdk.Rectangle gdk_rect = Vision.Geometry.PointsToRectangle(startPoint, endPoint);
+            //sysd.Rectangle rect = new(gdk_rect.X, gdk_rect.Y, gdk_rect.Width, gdk_rect.Height);
 
-            SS_DrawingArea.QueueDraw();
+            Gdk.Display.Default.GetPointer(out int x, out int y);
+            int w = random.Next(100, Allocation.Width),
+                h = random.Next(100, Allocation.Height);
+            //    x = random.Next(Allocation.Width - w),
+            //    y = random.Next(Allocation.Height - h);
+            g.DrawRectangle(new sysd.Pen(new sysd.SolidBrush(sysd.Color.DeepPink), 2), new(x, y, w, h));
 
-        }
-        private void Draw_DragEnd(object sender, DragEndArgs args) {
-            g.GetTarget().Dispose();
+
+            SSOverlayImage.Pixbuf = new((byte[])new sysd.ImageConverter().ConvertTo(Overlay_Image, typeof(byte[])));
             g.Dispose();
-            Destroy();
+            System.Threading.Thread.Sleep(100);
+        }
+
+        private void Draw_DragEnd(object sender, EventArgs args) {
+
         }
     }
 }

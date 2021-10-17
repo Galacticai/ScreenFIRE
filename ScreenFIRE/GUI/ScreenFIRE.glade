@@ -1,59 +1,66 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.38.2 -->
+<!-- Generated with glade 3.22.2 -->
 <interface>
   <requires lib="gtk+" version="3.24"/>
   <object class="GtkWindow" id="ScreenFIRE">
-    <property name="app-paintable">True</property>
-    <property name="can-focus">False</property>
+    <property name="app_paintable">True</property>
+    <property name="can_focus">False</property>
     <property name="type">popup</property>
     <property name="title">ScreenFIRE</property>
     <property name="resizable">False</property>
     <property name="modal">True</property>
-    <property name="icon-name">application-x-executable</property>
-    <property name="skip-taskbar-hint">True</property>
-    <property name="skip-pager-hint">True</property>
-    <property name="urgency-hint">True</property>
-    <property name="decorated">False</property>
+    <property name="icon_name">application-x-executable</property>
+    <property name="skip_taskbar_hint">True</property>
+    <property name="skip_pager_hint">True</property>
+    <property name="urgency_hint">True</property>
     <property name="deletable">False</property>
+    <child type="titlebar">
+      <placeholder/>
+    </child>
     <child>
       <object class="GtkOverlay">
         <property name="visible">True</property>
-        <property name="can-focus">True</property>
+        <property name="can_focus">True</property>
         <child>
           <object class="GtkImage" id="ScreenshotImage">
             <property name="visible">True</property>
-            <property name="can-focus">False</property>
-            <property name="icon-name">application-x-executable</property>
+            <property name="can_focus">False</property>
+            <property name="icon_name">application-x-executable</property>
           </object>
           <packing>
-            <property name="pass-through">True</property>
+            <property name="pass_through">True</property>
             <property name="index">-1</property>
           </packing>
         </child>
         <child type="overlay">
-          <object class="GtkDrawingArea" id="SS_DrawingArea">
+          <object class="GtkEventBox" id="EventBox_SSOverlayImage">
             <property name="visible">True</property>
-            <property name="can-focus">False</property>
+            <property name="can_focus">False</property>
+            <property name="above_child">True</property>
+            <child>
+              <object class="GtkImage" id="SSOverlayImage">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="stock">gtk-edit</property>
+              </object>
+            </child>
           </object>
-          <packing>
-            <property name="index">1</property>
-          </packing>
         </child>
         <child type="overlay">
           <object class="GtkButton" id="Close_Button">
             <property name="label">gtk-quit</property>
             <property name="visible">True</property>
-            <property name="can-focus">True</property>
-            <property name="receives-default">True</property>
-            <property name="opacity">0.90</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+            <property name="opacity">0.90000000000000002</property>
             <property name="halign">center</property>
             <property name="valign">center</property>
-            <property name="use-stock">True</property>
-            <property name="image-position">top</property>
-            <property name="always-show-image">True</property>
+            <property name="use_stock">True</property>
+            <property name="image_position">top</property>
+            <property name="always_show_image">True</property>
           </object>
           <packing>
-            <property name="index">2</property>
+            <property name="index">1</property>
           </packing>
         </child>
       </object>
