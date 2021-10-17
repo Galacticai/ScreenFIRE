@@ -3,6 +3,7 @@ using ScreenFIRE.Modules.Capture.Companion;
 using ScreenFIRE.Modules.Companion;
 using ScreenFIRE.Modules.Companion.math;
 using System;
+using sysd = System.Drawing;
 
 namespace ScreenFIRE.Modules.Capture {
 
@@ -13,7 +14,7 @@ namespace ScreenFIRE.Modules.Capture {
             if (!disposed) {
                 if (disposing) {
                     ScreenshotType = null;
-                    Image.Dispose();
+                    GdkImage.Dispose();
                 }
             }
             disposed = true;
@@ -38,7 +39,10 @@ namespace ScreenFIRE.Modules.Capture {
         public IScreenshotType? ScreenshotType { get; private set; }
 
         public Rectangle ImageRectangle { get; private set; }
-        public Pixbuf Image { get; private set; }
+        /// <summary> Image as <see cref="Pixbuf"/> </summary>
+        public Pixbuf GdkImage { get; private set; }
+        /// <summary> Image as <see cref="sysd.Image"/> </summary>
+        public sysd.Image SysImage { get; private set; }
 
         private static Rectangle GetRectangle(IScreenshotType screenshotType)
             => screenshotType switch {
@@ -55,8 +59,10 @@ namespace ScreenFIRE.Modules.Capture {
             Time = DateTime.Now;
         }
         private void CommonSetting_Post() {
-            Image = Vision.Screenshot(ImageRectangle);
+            GdkImage = Vision.Screenshot(ImageRectangle);
+            SysImage = Vision.PixbufToBitmap(GdkImage, Common.LocalSave_Settings.Format);
         }
+
 
         /// <summary> Auto (using <see cref="IScreenshotType"/>) </summary>
         /// <param name="imageRectangle"> Rectangle to be captured</param>
