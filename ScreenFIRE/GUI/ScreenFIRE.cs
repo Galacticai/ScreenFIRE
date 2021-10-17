@@ -88,9 +88,17 @@ namespace ScreenFIRE.GUI {
             gdk.Rectangle gdk_rect = Vision.Geometry.PointsToRectangle(startPoint, endPoint);
             sysd.Rectangle rect = new(gdk_rect.X, gdk_rect.Y, gdk_rect.Width, gdk_rect.Height);
 
+            float startEndDistance_2D = (float)Math.Sqrt(Math.Pow(endPoint.X - startPoint.X, 2) + Math.Pow(endPoint.Y - startPoint.Y, 2));
+
+            using var roundRect = Vision.Geometry.RoundedRect(rect, 10);
             using var brush = new sysd.SolidBrush(sysd.Color.DeepPink);
             using var pen = new sysd.Pen(brush, 2);
-            g.DrawRectangle(pen, rect);
+            g.DrawPath(pen, roundRect);
+
+            using var circle = Vision.Geometry.Circle(startPoint.X, startPoint.Y, startEndDistance_2D);
+            using var brushGreen = new sysd.SolidBrush(sysd.Color.Green);
+            using var penGreen = new sysd.Pen(brushGreen, 2);
+            g.DrawPath(penGreen, circle);
 
             SSOverlayImage.Pixbuf = new((byte[])new sysd.ImageConverter().ConvertTo(Overlay_Image, typeof(byte[])));
         }
