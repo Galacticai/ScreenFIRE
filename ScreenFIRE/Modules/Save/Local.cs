@@ -90,22 +90,20 @@ namespace ScreenFIRE.Modules.Save {
             try {//! Try to use provided path
 
                 //! Deal with file replacement
-                if (File.Exists(path) & !replaceExisting) {
+                if (File.Exists(path) & !replaceExisting)
                     path = Path.Combine(
                                 Path.GetDirectoryName(path),
                                 Path.GetFileNameWithoutExtension(path)
                                 + $"_{screenshot.Time:yyMMdd-HHmmff}"
                                 + $".{saveFormat}");
-                }
 
                 //! Make sure the extension is added
                 if (string.IsNullOrEmpty(Path.GetExtension(path)))
                     path += $".{saveFormat}";
 
                 //! Save
-                //screenshot.Image.Save(path, saveFormat.ToString());
-                //screenshot.Image.Savev(path, saveFormat.ToString(), null, null);
-                File.WriteAllBytes(path, screenshot.Image.PixelBytes.Data);
+                screenshot.SysImage.Save(path, saveFormat.ToSystemDrawing());
+                //screenshot.Pixbuf.Save(path, saveFormat.ToString());
                 return true;
 
             } catch {
