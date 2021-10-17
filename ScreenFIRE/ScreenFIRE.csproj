@@ -12,10 +12,10 @@
     <Description>Sophisticated screenshot utility for Linux and Windows!</Description>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/xeroling/ScreenFIRE</RepositoryUrl>
-    <PackageTags>windows, linux, widnows, linux-app, windows-app,  screenshot, gtk, winforms, xamarin, screenshot-utility, dotnet</PackageTags>
+    <PackageTags>linux, linux-app, windows, windows-10, windows-11, windows-app, screenshot, screenshot-utility, screenshot-uploader, gtk, gtksharp, dotnet, dotnet-core</PackageTags>
     <NeutralLanguage>en-US</NeutralLanguage>
-    <AssemblyVersion>1.0.0.0</AssemblyVersion>
-    <FileVersion>1.0.0.0</FileVersion>
+    <AssemblyVersion>0.1.0.1000</AssemblyVersion>
+    <FileVersion>0.1.0.1000</FileVersion>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <RepositoryType>git</RepositoryType>
