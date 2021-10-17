@@ -84,7 +84,7 @@ Lorem Ipsum is simply dummy text  Lorem Ipsum has been the industry's, when an u
 
 <p align="center">
     Screen 🅵🅸🆁🅴 <br/>
-    <code>Made with .NET & GTK# <br/>
-    ©️2021 xeroling </code>
+    <code>Made with .NET & GTK#</code> <br/>
+    <code>©️2021 xeroling</code>
     <!--<img height=120 src="ScreenFIRE/Assets/images/readme.md/footer.svg" />-->
 </p>
