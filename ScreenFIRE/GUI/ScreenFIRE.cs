@@ -28,9 +28,13 @@ namespace ScreenFIRE.GUI {
             Shown += OnShown;
             Close_Button.Clicked += Close_Button_Clicked;
 
-            //EventBox_SSOverlayImage.Drawn += Draw_DragBegin;
-            EventBox_SSOverlayImage.Drawn += Draw_DragMotion;
-            EventBox_SSOverlayImage.DragEnd += Draw_DragEnd;
+            EventBox_SSOverlayImage.AddEvents((int)
+                      (gdk.EventMask.ButtonPressMask
+                     | gdk.EventMask.ButtonReleaseMask
+                     | gdk.EventMask.PointerMotionMask));
+            EventBox_SSOverlayImage.ButtonPressEvent += Draw_ButtonPressEvent;
+            EventBox_SSOverlayImage.MotionNotifyEvent += Draw_MotionNotifyEvent;
+            EventBox_SSOverlayImage.ButtonReleaseEvent += Draw_ButtonReleaseEvent;
         }
 
         public ScreenFIRE() : this(new Builder("ScreenFIRE.glade")) { }
@@ -60,42 +64,41 @@ namespace ScreenFIRE.GUI {
             Hide();
         }
 
-
+        private bool DRAWING = false;
         private gdk.Point startPoint;
         private gdk.Point endPoint;
         private sysd.Graphics g;
         private sysd.Bitmap Overlay_Image;
         private readonly Random random = new();
 
-        private void Draw_DragBegin(object sender, EventArgs ev) {
+        private void Draw_ButtonPressEvent(object sender, EventArgs ev) {
             startPoint = Monitors.Pointer_Point();
-            g = sysd.Graphics.FromImage(Overlay_Image ??= new(Allocation.Width, Allocation.Height));
+            Overlay_Image = new(Allocation.Width, Allocation.Height);
+            g = sysd.Graphics.FromImage(Overlay_Image);
+
+            DRAWING = true;
         }
-        private void Draw_DragMotion(object sender, EventArgs args) {
-            startPoint = Monitors.Pointer_Point();
-            g = sysd.Graphics.FromImage(Overlay_Image ??= new(Allocation.Width, Allocation.Height));
-            ////! Clean up
-            //if (Overlay_Image == null) Overlay_Image = new(Allocation.Width, Allocation.Height);
+
+        private void Draw_MotionNotifyEvent(object sender, EventArgs args) {
+            if (!DRAWING) return;
+
+            //Overlay_Image = new(Allocation.Width, Allocation.Height);
 
             endPoint = Monitors.Pointer_Point();
             gdk.Rectangle gdk_rect = Vision.Geometry.PointsToRectangle(startPoint, endPoint);
-            //sysd.Rectangle rect = new(gdk_rect.X, gdk_rect.Y, gdk_rect.Width, gdk_rect.Height);
+            sysd.Rectangle rect = new(gdk_rect.X, gdk_rect.Y, gdk_rect.Width, gdk_rect.Height);
 
-            Gdk.Display.Default.GetPointer(out int x, out int y);
-            int w = random.Next(100, Allocation.Width),
-                h = random.Next(100, Allocation.Height);
-            //    x = random.Next(Allocation.Width - w),
-            //    y = random.Next(Allocation.Height - h);
-            g.DrawRectangle(new sysd.Pen(new sysd.SolidBrush(sysd.Color.DeepPink), 2), new(x, y, w, h));
-
+            using var brush = new sysd.SolidBrush(sysd.Color.DeepPink);
+            using var pen = new sysd.Pen(brush, 2);
+            g.DrawRectangle(pen, rect);
 
             SSOverlayImage.Pixbuf = new((byte[])new sysd.ImageConverter().ConvertTo(Overlay_Image, typeof(byte[])));
-            g.Dispose();
-            System.Threading.Thread.Sleep(100);
         }
 
-        private void Draw_DragEnd(object sender, EventArgs args) {
+        private void Draw_ButtonReleaseEvent(object sender, EventArgs args) {
+            DRAWING = false;
 
+            g.Dispose();
         }
     }
 }
