@@ -6,15 +6,15 @@
     <property name="app_paintable">True</property>
     <property name="can_focus">False</property>
     <property name="title">ScreenFIRE</property>
-    <property name="resizable">False</property>
-    <property name="modal">True</property>
-    <property name="window_position">center</property>
+    <property name="resizable">True</property>
+    <property name="modal">False</property>
+    <property name="window_position">none</property>
     <property name="icon_name">application-x-executable</property>
     <property name="skip_taskbar_hint">True</property>
     <property name="skip_pager_hint">True</property>
     <property name="urgency_hint">True</property>
-    <property name="decorated">False</property>
-    <property name="deletable">False</property>
+    <property name="decorated">True</property>
+    <property name="deletable">True</property>
     <child type="titlebar">
       <placeholder/>
     </child>
@@ -34,18 +34,13 @@
           </packing>
         </child>
         <child type="overlay">
-          <object class="GtkEventBox" id="EventBox_SSOverlayImage">
+          <object class="GtkDrawingArea" id="SSDrawingArea">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="above_child">True</property>
-            <child>
-              <object class="GtkImage" id="SSOverlayImage">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="stock">gtk-edit</property>
-              </object>
-            </child>
           </object>
+          <packing>
+            <property name="pass_through">True</property>
+          </packing>
         </child>
         <child type="overlay">
           <object class="GtkButton" id="Close_Button">
