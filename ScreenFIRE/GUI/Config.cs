@@ -1,4 +1,3 @@
-using Gtk;
 using ScreenFIRE.Assets;
 using ScreenFIRE.Assets.Embedded;
 using ScreenFIRE.Modules.Capture;
@@ -10,59 +9,60 @@ using System;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
+using gtk = Gtk;
 using io = System.IO;
 using UI = Gtk.Builder.ObjectAttribute;
 
 namespace ScreenFIRE.GUI {
 
-    class Config : ApplicationWindow {
-        [UI] private readonly Image LogoImage = null;
+    class Config : gtk.ApplicationWindow {
+        [UI] private readonly gtk.Image LogoImage = null;
 
-        [UI] private readonly Label Screenshot_TabButton = null;
-        [UI] private readonly Button ssPreview_Button_Screenshot_Box = null;
-        [UI] private readonly Image Image_ssPreview_Button_Screenshot_Box = null;
-        [UI] private readonly Label Label_ssPreview_Button_Screenshot_Box = null;
-        [UI] private readonly Label _label1 = null;
-        [UI] private readonly Button SS_Button_AllMonitors = null;
-        [UI] private readonly Button SS_Button_MonitorAtPointer = null;
-        [UI] private readonly Button SS_Button_WindowAtPointer = null;
-        [UI] private readonly Button SS_Button_ActiveWindow = null;
-        [UI] private readonly Button SS_Button_Custom = null;
+        [UI] private readonly gtk.Label Screenshot_TabButton = null;
+        [UI] private readonly gtk.Button ssPreview_Button_Screenshot_Box = null;
+        [UI] private readonly gtk.Image Image_ssPreview_Button_Screenshot_Box = null;
+        [UI] private readonly gtk.Label Label_ssPreview_Button_Screenshot_Box = null;
+        [UI] private readonly gtk.Label _label1 = null;
+        [UI] private readonly gtk.Button SS_Button_AllMonitors = null;
+        [UI] private readonly gtk.Button SS_Button_MonitorAtPointer = null;
+        [UI] private readonly gtk.Button SS_Button_WindowAtPointer = null;
+        [UI] private readonly gtk.Button SS_Button_ActiveWindow = null;
+        [UI] private readonly gtk.Button SS_Button_Custom = null;
 
-        [UI] private readonly Label SaveOptions_TabButton = null;
-        [UI] private readonly Label Label_Format_MenuButton_SaveOptions_Box = null;
-        [UI] private readonly FileChooserButton SaveLocation_FileChooserButton_SaveOptions_Box = null;
-        [UI] private readonly Popover SaveFormat_Popover = null;
-        [UI] private readonly ToggleButton bmp_Button_SaveFormat_Popover = null;
-        [UI] private readonly ToggleButton png_Button_SaveFormat_Popover = null;
-        [UI] private readonly ToggleButton jpg_Button_SaveFormat_Popover = null;
-        [UI] private readonly ToggleButton gif_Button_SaveFormat_Popover = null;
-        [UI] private readonly ToggleButton mp4_Button_SaveFormat_Popover = null;
-        [UI] private readonly Label Label_AutoSaveExisting_Box_SaveOptions_Box = null;
-        [UI] private readonly EventBox AutoDelete1MonthOldFiles_EventBox_SaveOptions_Box = null;
-        [UI] private readonly Gtk.Switch Switch_AutoDelete1MonthOldFiles_Box_SaveOptions_Box = null;
-        [UI] private readonly EventBox CopyToClipboard_EventBox_SaveOptions_Box = null;
-        [UI] private readonly Gtk.Switch Switch_CopyToClipboard_Box_SaveOptions_Box = null;
+        [UI] private readonly gtk.Label SaveOptions_TabButton = null;
+        [UI] private readonly gtk.Label Label_Format_MenuButton_SaveOptions_Box = null;
+        [UI] private readonly gtk.FileChooserButton SaveLocation_FileChooserButton_SaveOptions_Box = null;
+        [UI] private readonly gtk.Popover SaveFormat_Popover = null;
+        [UI] private readonly gtk.ToggleButton bmp_Button_SaveFormat_Popover = null;
+        [UI] private readonly gtk.ToggleButton png_Button_SaveFormat_Popover = null;
+        [UI] private readonly gtk.ToggleButton jpg_Button_SaveFormat_Popover = null;
+        [UI] private readonly gtk.ToggleButton gif_Button_SaveFormat_Popover = null;
+        [UI] private readonly gtk.ToggleButton mp4_Button_SaveFormat_Popover = null;
+        [UI] private readonly gtk.Label Label_AutoSaveExisting_Box_SaveOptions_Box = null;
+        [UI] private readonly gtk.EventBox AutoDelete1MonthOldFiles_EventBox_SaveOptions_Box = null;
+        [UI] private readonly gtk.Switch Switch_AutoDelete1MonthOldFiles_Box_SaveOptions_Box = null;
+        [UI] private readonly gtk.EventBox CopyToClipboard_EventBox_SaveOptions_Box = null;
+        [UI] private readonly gtk.Switch Switch_CopyToClipboard_Box_SaveOptions_Box = null;
 
-        [UI] private readonly Label About_TabButton = null;
-        [UI] private readonly Label ScreenFIRE_Label_About_Box = null;
-        [UI] private readonly Label VersionTitle_Label_About_Box = null;
-        [UI] private readonly Label Version_Label_About_Box = null;
-        [UI] private readonly EventBox VersionPhase_Box_About_Box = null;
-        [UI] private readonly Label PhaseTitle_Label_About_Box = null;
-        [UI] private readonly Label Phase_Label_About_Box = null;
-        [UI] private readonly Button SF_repo_Button_About_Box = null;
-        [UI] private readonly Image Image_SF_repo_Button_About_Box = null;
-        [UI] private readonly Label Label_SF_repo_Button_About_Box = null;
-        [UI] private readonly Button License_Button_About_Box = null;
-        [UI] private readonly Image Image_License_Button_About_Box = null;
-        [UI] private readonly Label Label_License_Button_About_Box = null;
-        [UI] private readonly Label madeWith_Label_About_Box = null;
+        [UI] private readonly gtk.Label About_TabButton = null;
+        [UI] private readonly gtk.Label ScreenFIRE_Label_About_Box = null;
+        [UI] private readonly gtk.Label VersionTitle_Label_About_Box = null;
+        [UI] private readonly gtk.Label Version_Label_About_Box = null;
+        [UI] private readonly gtk.EventBox VersionPhase_Box_About_Box = null;
+        [UI] private readonly gtk.Label PhaseTitle_Label_About_Box = null;
+        [UI] private readonly gtk.Label Phase_Label_About_Box = null;
+        [UI] private readonly gtk.Button SF_repo_Button_About_Box = null;
+        [UI] private readonly gtk.Image Image_SF_repo_Button_About_Box = null;
+        [UI] private readonly gtk.Label Label_SF_repo_Button_About_Box = null;
+        [UI] private readonly gtk.Button License_Button_About_Box = null;
+        [UI] private readonly gtk.Image Image_License_Button_About_Box = null;
+        [UI] private readonly gtk.Label Label_License_Button_About_Box = null;
+        [UI] private readonly gtk.Label madeWith_Label_About_Box = null;
 
         private void AssignEvents() {
             DeleteEvent += delegate {
                 Strings.SaveStorage(Common.Settings.LastLanguage);
-                Application.Quit();
+                gtk.Application.Quit();
             };
 
             ssPreview_Button_Screenshot_Box.Clicked += delegate {
@@ -108,7 +108,7 @@ namespace ScreenFIRE.GUI {
 
 
             VersionPhase_Box_About_Box.ButtonReleaseEvent += async delegate {
-                Clipboard.GetDefault(Gdk.Display.Default).Text
+                gtk.Clipboard.GetDefault(Gdk.Display.Default).Text
                         = $"{await Strings.Fetch(IStrings.ScreenFIRE)} {Common.VersionString()}";
             };
 
@@ -171,7 +171,7 @@ namespace ScreenFIRE.GUI {
             //! = Image_SF_repo_Button_About_Box =====
             Gdk.Pixbuf SF_repo_Button_Image_Pixbuf = new(icons.GitHub_svg);
             (double w, double h) SF_repo_Button_Image_Size
-                = mathMisc.Scale.Fit((SF_repo_Button_Image_Pixbuf.Width, SF_repo_Button_Image_Pixbuf.Height), (24, 24));
+                = Scale.Fit((SF_repo_Button_Image_Pixbuf.Width, SF_repo_Button_Image_Pixbuf.Height), (24, 24));
             Image_SF_repo_Button_About_Box.Pixbuf
                 = SF_repo_Button_Image_Pixbuf
                     .ScaleSimple((int)SF_repo_Button_Image_Size.w,
@@ -182,7 +182,7 @@ namespace ScreenFIRE.GUI {
             //! = Image_License_Button_About_Box =====
             Gdk.Pixbuf Image_License_Button_About_Box_Pixbuf = new(icons.Balance_png);
             (double w, double h) Image_License_Button_About_Box_Size
-                = mathMisc.Scale.Fit((Image_License_Button_About_Box_Pixbuf.Width, Image_License_Button_About_Box_Pixbuf.Height), (24, 24));
+                = Scale.Fit((Image_License_Button_About_Box_Pixbuf.Width, Image_License_Button_About_Box_Pixbuf.Height), (24, 24));
             Image_License_Button_About_Box.Pixbuf
                 = Image_License_Button_About_Box_Pixbuf
                     .ScaleSimple((int)Image_License_Button_About_Box_Size.w,
@@ -198,8 +198,8 @@ namespace ScreenFIRE.GUI {
             SaveFormatButtons_Init();
         }
 
-        public Config() : this(new Builder("Config.glade")) { }
-        private Config(Builder builder)
+        public Config() : this(new gtk.Builder("Config.glade")) { }
+        private Config(gtk.Builder builder)
                 : base(builder.GetRawOwnedObject("Config")) {
             builder.Autoconnect(this);
             AssignEvents();
@@ -226,17 +226,17 @@ namespace ScreenFIRE.GUI {
                     _label1.Text = await Strings.Fetch(IStrings.ChooseHowYouWouldLikeToFireYourScreenshot_);
                 }, null, 5000, Timeout.Infinite);
 
-                var (w, h) = mathMisc.Scale.Fit((ss.GdkImage.Width, ss.GdkImage.Height), (270, 256));
+                var (w, h) = Scale.Fit((ss.GdkImage.Width, ss.GdkImage.Height), (270, 256));
                 Label_ssPreview_Button_Screenshot_Box.Destroy();
                 Image_ssPreview_Button_Screenshot_Box.Visible = true;
                 Image_ssPreview_Button_Screenshot_Box.Pixbuf =
                      ss.GdkImage.ScaleSimple((int)w, (int)h, Gdk.InterpType.Bilinear);
 
             } else {
-                MessageDialog failDialog = new(this,
-                                               DialogFlags.Modal,
-                                               MessageType.Warning,
-                                               ButtonsType.Ok,
+                gtk.MessageDialog failDialog = new(this,
+                                               gtk.DialogFlags.Modal,
+                                               gtk.MessageType.Warning,
+                                               gtk.ButtonsType.Ok,
                                                await Strings.Fetch(IStrings.SomethingWentWrong___));
                 failDialog.Run();
                 failDialog.Destroy();
@@ -259,14 +259,14 @@ namespace ScreenFIRE.GUI {
 
 
         private void SaveFormatButtons_Init() {
-            ToggleButton selectedButton = Common.LocalSave_Settings.Format switch {
+            gtk.ToggleButton selectedButton = Common.LocalSave_Settings.Format switch {
                 ISaveFormat.png => png_Button_SaveFormat_Popover,
                 ISaveFormat.jpeg => jpg_Button_SaveFormat_Popover,
                 _ => bmp_Button_SaveFormat_Popover
             };
             selectedButton.Active = true;
         }
-        private void Button_SaveFormat_Popover_Toggled(ToggleButton selectedButton) {
+        private void Button_SaveFormat_Popover_Toggled(gtk.ToggleButton selectedButton) {
             //! Avoid stack overflow - toggle each others
             if (!selectedButton.Active) { return; }
             ISaveFormat saveFormat = ISaveFormat.bmp;

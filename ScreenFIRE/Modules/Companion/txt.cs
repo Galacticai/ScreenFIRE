@@ -56,9 +56,9 @@ namespace ScreenFIRE.Modules.Companion {
             // Do
             return input[(input.IndexOf(" ") + index)..];
         }
-        /// <returns>Random string from a preset String() (open to edit preset array)</returns>
-        public static string RandomWorkText
-            => mathMisc.Random.FromArray(new[] {
+        /// <returns> Random work/loading string </returns>
+        public static string RandomWorkText()
+            => new string[] {
             "Hold on... We're doing magic!",
             "Stuff... Please be patient...",
             "Wait a second... Magic ongoing...",
@@ -74,11 +74,11 @@ namespace ScreenFIRE.Modules.Companion {
             "Something is happening... Hold on...",
             "Progressing, we will finish soon",
             "Want a snack? Finishing soon..."
-            });
+            }.PickRandom();
 
-        /// <returns>Random string from a preset String() (open to edit preset array)</returns>
+        /// <returns> Random fact string </returns>
         public static string RandomFactText
-            => mathMisc.Random.FromArray(new[] {
+            => new string[] {
             "The first oranges weren’t orange.",
             "Samsung uses a butt-shaped robot to test phone durability.",
             "Peanuts aren’t technically nuts.",
@@ -87,7 +87,7 @@ namespace ScreenFIRE.Modules.Companion {
             "Blue whales consume half a million calories in one monch.",
             "Cows have no top front teeth.",
             "NASA can email tools to astronauts to 3D print."
-            });
+            }.PickRandom();
 
 
         ///// <returns>Gets current error code initials (XX)-xx without "-" (From S.ErrorCode)</returns>

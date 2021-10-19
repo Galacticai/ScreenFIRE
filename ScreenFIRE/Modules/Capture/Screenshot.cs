@@ -1,7 +1,7 @@
 ﻿using Gdk;
 using ScreenFIRE.Modules.Capture.Companion;
 using ScreenFIRE.Modules.Companion;
-using ScreenFIRE.Modules.Companion.math;
+using ScreenFIRE.Modules.Companion.math.Vision;
 using System;
 using sysd = System.Drawing;
 
@@ -59,8 +59,8 @@ namespace ScreenFIRE.Modules.Capture {
             Time = DateTime.Now;
         }
         private void CommonSetting_Post() {
-            GdkImage = Vision.Screenshot(ImageRectangle);
-            SysImage = Vision.PixbufToBitmap(GdkImage, Common.LocalSave_Settings.Format);
+            GdkImage = VisionCommon.Screenshot(ImageRectangle);
+            //SysImage = GdkImage.PixbufToBitmap(Common.LocalSave_Settings.Format);
         }
 
 
