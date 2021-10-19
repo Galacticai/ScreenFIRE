@@ -1,9 +1,8 @@
 ﻿using Gdk;
-using ScreenFIRE.Modules.Companion.math.Vision;
 using ScreenFIRE.Modules.Companion.OS;
 namespace ScreenFIRE.Modules.Companion {
 
-    public static class Monitors {
+    internal static class Monitors {
 
         /// <summary> Number of monitors </summary>
         public static int Count => Display.Default.NMonitors;

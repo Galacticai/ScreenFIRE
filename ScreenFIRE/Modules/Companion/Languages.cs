@@ -11,7 +11,7 @@ namespace ScreenFIRE.Modules.Companion {
     /// <item> Other • Any language not listed </item>
     /// </list>
     /// </summary>
-    public enum ILanguages {
+    internal enum ILanguages {
         System,
 
         Afrikaans, Albanian, Amharic, Arabic, Armenian, Azerbaijani,
@@ -68,7 +68,7 @@ namespace ScreenFIRE.Modules.Companion {
         Other, //! Will default to English
     }
 
-    public static class Languages {
+    internal static class Languages {
         public static ILanguages ToILanguages(this string language)
             => SystemLanguage(language);
         public static string ToGoogleLanguageID(this ILanguages language)

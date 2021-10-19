@@ -3,7 +3,7 @@ using System.IO;
 using System.Security.Cryptography;
 
 namespace ScreenFIRE.Modules.Companion {
-    class StringCipher {
+    public class StringCipher {
         public static byte[] EncryptStringToBytes_Aes(string plainText, byte[] Key, byte[] IV) {
             // Check arguments.
             if (plainText == null || plainText.Length <= 0)

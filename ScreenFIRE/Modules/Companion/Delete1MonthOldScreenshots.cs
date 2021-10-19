@@ -2,7 +2,7 @@
 using System.IO;
 
 namespace ScreenFIRE.Modules.Companion {
-    class Delete1MonthOldScreenshots {
+    internal static class Delete1MonthOldScreenshots {
         public static bool Run() {
             try {
                 DateTime oneMonthAgo = DateTime.Now.AddMonths(-1);

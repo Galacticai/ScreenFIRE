@@ -3,7 +3,7 @@
 namespace ScreenFIRE.Modules.Companion.math {
 
     /// <summary> Predefined functions </summary>
-    internal static class Functions {
+    static class Functions {
 
         // s    .-
         // |   /

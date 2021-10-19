@@ -4,8 +4,7 @@ using g = Gdk;
 
 namespace ScreenFIRE.Modules.Companion.math.Vision {
 
-    internal static class VisionCommon {
-
+    static class VisionCommon {
 
         /// <param name="byteArr">input to be converted</param>
         /// <returns><see cref="new gdk.Pixbuf(byteArr)"/></returns>

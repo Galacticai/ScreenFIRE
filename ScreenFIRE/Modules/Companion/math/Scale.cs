@@ -3,7 +3,7 @@
 namespace ScreenFIRE.Modules.Companion.math {
 
     /// <summary> Scale while respecting the proportions </summary>
-    internal static class Scale {
+    static class Scale {
         /// <summary> Scale <paramref name="input"/> to fit <paramref name="bound"/> while respecting the proportions </summary>
         /// <param name="input"> Target to be scaled </param>
         /// <param name="bound"> Destination boundary </param>

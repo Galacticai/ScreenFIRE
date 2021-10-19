@@ -1,7 +1,7 @@
 ﻿namespace ScreenFIRE.Modules.Companion.math {
 
     /// <summary> Random manipulation </summary>
-    internal static class Random {
+    static class Random {
 
         /// <summary> Pick a random object from input array </summary>
         /// <param name="arr">Input <typeparamref name="type"/>[] array</param>

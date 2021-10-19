@@ -4,14 +4,14 @@ using System.Text;
 
 namespace ScreenFIRE.Modules.Companion {
 
-    class txt {
+    public static class Txt {
 
         /// <summary>
         /// Remove everything except the first line of a string
         /// </summary>
         /// <param name="input">Input string</param>
         /// <returns>[[0-----------]]\n</returns>
-        public static string GetFirstLine(string input) {
+        public static string GetFirstLine(this string input) {
             // Foolproof
             if (string.IsNullOrEmpty(input)) return null;
             // Failsafe: return if only 1 line
@@ -25,7 +25,7 @@ namespace ScreenFIRE.Modules.Companion {
         /// </summary>
         /// <param name="input">Input</param>
         /// <returns>0---------\n[[---------- ...]]</returns>
-        public static string CutFirstLine(string input) {
+        public static string CutFirstLine(this string input) {
             // Foolproof
             if (string.IsNullOrEmpty(input)) return null;
             // Failsafe: return if only 1 line
@@ -41,7 +41,7 @@ namespace ScreenFIRE.Modules.Companion {
         /// </summary>
         /// <param name="input">Input</param>
         /// <returns>0---- [[--- ------ --- ...]]</returns>
-        public static string CutFirstWord(string input) {
+        public static string CutFirstWord(this string input) {
 
             // Foolproof
             if (string.IsNullOrEmpty(input)) return null;
@@ -98,7 +98,7 @@ namespace ScreenFIRE.Modules.Companion {
         /// <summary> Generate SHA512 <see cref="string"/> from <paramref name="input"/> </summary>
         /// <param name="input"> Target <see cref="string"/> to be processed</param>
         /// <returns> SHA512 <see cref="string"/> </returns>
-        public static string ToSHA512(string input) {
+        public static string ToSHA512(this string input) {
             using System.Security.Cryptography.SHA512 SHA512 = System.Security.Cryptography.SHA512.Create();
             byte[] inputBytes = Encoding.ASCII.GetBytes(input);
             byte[] hashBytes = SHA512.ComputeHash(inputBytes);

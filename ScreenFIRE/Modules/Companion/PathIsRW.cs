@@ -1,7 +1,7 @@
 ﻿using System.IO;
 
 namespace ScreenFIRE.Modules.Companion {
-    class PathIsRW {
+    internal static class PathIsRW {
         public static bool Run(string path) {
             try {
                 string lockfile = Path.Combine(path, "lock.file");

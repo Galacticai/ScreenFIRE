@@ -1,6 +1,6 @@
 ﻿namespace ScreenFIRE.Modules.Companion.math {
 
-    internal static class mathCommon {
+    static class mathCommon {
         /// <summary> Force input variable into the range of min and max </summary>
         /// <param name="target">Value to process</param>
         /// <param name="min">Minimum floor</param>

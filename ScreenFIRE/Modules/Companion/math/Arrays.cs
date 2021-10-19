@@ -2,7 +2,7 @@
 
 namespace ScreenFIRE.Modules.Companion.math {
 
-    internal static class Arrays {
+    static class Arrays {
 
         /// <summary> Add <paramref name="elements"/> array to the end of <paramref name="array"/></summary>
         /// <typeparam name="T">Type of the array to be used</typeparam>

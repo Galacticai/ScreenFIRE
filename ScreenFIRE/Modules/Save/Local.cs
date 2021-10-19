@@ -1,18 +1,17 @@
-﻿using Gtk;
-using ScreenFIRE.Assets;
+﻿using ScreenFIRE.Assets;
 using ScreenFIRE.Modules.Capture;
 using ScreenFIRE.Modules.Capture.Companion;
 using ScreenFIRE.Modules.Companion;
 using System.IO;
 using System.Threading.Tasks;
+using t = Gtk;
 
 namespace ScreenFIRE.Modules.Save {
 
-
-    partial class Save {
+    internal partial class Save {
 
         /// <summary> ••• GUI ••• Save a <see cref="Screenshot"/> locally </summary>
-        public static async Task<bool> Local(Screenshot screenshot, Window parentWindow) {
+        public static async Task<bool> Local(Screenshot screenshot, t.Window parentWindow) {
 
             //! Parameters to be passed
             //Screenshot screenshot;
@@ -22,35 +21,35 @@ namespace ScreenFIRE.Modules.Save {
             ///////////////////////////
 
             //! Let the user choose a path to the file
-            FileChooserNative choose
+            t.FileChooserNative choose
                         = new(await Strings.Fetch(IStrings.SaveAs___),
                               parentWindow,
-                              FileChooserAction.Save,
+                              t.FileChooserAction.Save,
                               await Strings.Fetch(IStrings.OK), await Strings.Fetch(IStrings.Cancel));
             choose.SelectMultiple = false;
             choose.SetCurrentFolder(MonthDir);
 
-            ResponseType chooseResponse = (ResponseType)choose.Run();
+            t.ResponseType chooseResponse = (t.ResponseType)choose.Run();
 
             //! User closed the dialog
-            if (chooseResponse == ResponseType.Accept) {
+            if (chooseResponse == t.ResponseType.Accept) {
 
                 path = choose.Filename;
 
                 //! User chose a file that already exists
                 if (choose.File.Exists) {
                     //! Warn about replacing the file
-                    MessageDialog fileExistsDialog
+                    t.MessageDialog fileExistsDialog
                             = new(parentWindow,
-                                  DialogFlags.DestroyWithParent,
-                                  MessageType.Question,
-                                  ButtonsType.YesNo,
+                                  t.DialogFlags.DestroyWithParent,
+                                  t.MessageType.Question,
+                                  t.ButtonsType.YesNo,
                                   await Strings.Fetch(IStrings.FileAlreadyExists_) + Common.nn
                                   + await Strings.Fetch(IStrings.WouldYouLikeToReplaceTheExistingFile_));
-                    fileExistsDialog.SetPosition(WindowPosition.CenterOnParent);
-                    ResponseType fileExistsResponse = (ResponseType)fileExistsDialog.Run();
+                    fileExistsDialog.SetPosition(t.WindowPosition.CenterOnParent);
+                    t.ResponseType fileExistsResponse = (t.ResponseType)fileExistsDialog.Run();
                     //! User chose to replace the file
-                    if (fileExistsResponse == ResponseType.Yes)
+                    if (fileExistsResponse == t.ResponseType.Yes)
                         replaceExisting = true;
 
                     fileExistsDialog.Destroy();

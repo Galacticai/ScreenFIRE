@@ -9,7 +9,7 @@ using System.Reflection;
 namespace ScreenFIRE.Modules.Companion {
 
     /// <summary> Common class for general ScreenFIRE stuff </summary>
-    static class Common {
+    internal static class Common {
 
         #region Abbreviations for ScreenFIRE
         /// <summary> (<see cref="Environment.SpecialFolder.UserProfile"/>) </summary>
