@@ -6,7 +6,7 @@ namespace ScreenFIRE.Modules.Companion {
 
     /// <summary> Prepare the environment for ScreenFIRE </summary>
     internal static class PrepareEnvironment {
-        public static bool Run() {
+        internal static bool Run() {
 
             //? User profile is missing
             if (!Directory.Exists(Common.UserProfile))

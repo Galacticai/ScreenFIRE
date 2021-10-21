@@ -1,6 +1,9 @@
-﻿using System;
+﻿using ScreenFIRE.Modules.Capture.Companion;
+using System;
+using System.ComponentModel;
 using c = Cairo;
 using g = Gdk;
+using sysd = System.Drawing;
 
 namespace ScreenFIRE.Modules.Companion.math.Vision {
 
@@ -47,6 +50,13 @@ namespace ScreenFIRE.Modules.Companion.math.Vision {
         public static g.Pixbuf Screenshot(g.Rectangle rectangle)
             => new(g.Global.DefaultRootWindow, rectangle.X, rectangle.Y, rectangle.Width, rectangle.Height);
 
+        /// <param name="pixbuf"> Target <see cref="g.Pixbuf"/> </param>
+        /// <param name="saveFormat"> Target format (<see cref="ISaveFormat"/>) </param>
+        /// <returns> <see cref="Bitmap"/> generated from <paramref name="pixbuf"/> bytes </returns>
+        public static sysd.Bitmap PixbufToBitmap(this g.Pixbuf pixbuf, ISaveFormat saveFormat) {
+            return (sysd.Bitmap)TypeDescriptor.GetConverter(typeof(sysd.Bitmap))
+                        .ConvertFrom(pixbuf.SaveToBuffer(saveFormat.ToString()));
+        }
 
         public static g.Pixbuf PixbufSetAlpha(this g.Pixbuf image, double opacity) {
             using c.ImageSurface surface = new(c.Format.Argb32, image.Width, image.Height);
@@ -75,13 +85,6 @@ namespace ScreenFIRE.Modules.Companion.math.Vision {
 //            result.Add(bmpMin.GetPixel(i, j).GetBrightness() < 0.5f); //reduce colors to true / false
 //
 //    return result;
-//}
-///// <param name="pixbuf"> Target <see cref="g.Pixbuf"/> </param>
-///// <param name="saveFormat"> Target format (<see cref="ISaveFormat"/>) </param>
-///// <returns> <see cref="Bitmap"/> generated from <paramref name="pixbuf"/> bytes </returns>
-//public static Bitmap PixbufToBitmap(this g.Pixbuf pixbuf, ISaveFormat saveFormat) {
-//    return (Bitmap)TypeDescriptor.GetConverter(typeof(Bitmap))
-//                .ConvertFrom(pixbuf.SaveToBuffer(saveFormat.ToString()));
 //}
 //[Obsolete]
 //public static Bitmap Gradient(Size size, Color color1, Color color2, Color color3) {

@@ -7,7 +7,7 @@ namespace ScreenFIRE.Modules.Save {
     internal partial class Save {
 
         /// <summary> ••• PLACEHOLDER ••• Upload a <see cref="Screenshot"/> to ?????????????????? </summary>
-        public static async Task<bool> Local(Screenshot screenshot, t.Window parentWindow) {
+        internal static async Task<bool> Upload(Screenshot screenshot, t.Window parentWindow, string destCloud) {
 
             //! PLACEHOLDER
             return await Task.Run(() => { return false; });

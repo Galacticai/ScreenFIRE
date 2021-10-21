@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace ScreenFIRE.Assets {
 
-    public enum IStrings {
+    internal enum IStrings {
         ScreenFIRE_Stylized,
         ScreenFIRE,
         ScreenFIREConfig,
@@ -52,19 +52,19 @@ namespace ScreenFIRE.Assets {
         ClicktoCopy___,
     }
 
-    public static partial class Strings {
+    internal static partial class Strings {
         public static IStrings ToIStrings(this string value)
             => (IStrings)Enum.Parse(typeof(IStrings), value, true);
 
 
-        public static async Task<string> FetchAndJoin(params IStrings[] Names) {
+        internal static async Task<string> FetchAndJoin(params IStrings[] Names) {
             return string.Join(" ", await Fetch(Names));
         }
 
         /// <summary> Fetch a set of strings </summary>
         /// <param name="Names"> String names provided by <see cref="IStrings"/> </param>
         /// <returns> Localized <see cref="string"/>[] array according to system language </returns>
-        public static async Task<string[]> Fetch(params IStrings[] Names) {
+        internal static async Task<string[]> Fetch(params IStrings[] Names) {
             List<string> result = new();
             foreach (var name in Names)
                 result.Add(await Fetch(name,
@@ -97,7 +97,7 @@ namespace ScreenFIRE.Assets {
         /// <summary> Fetch a specific string </summary>
         /// <param name="Name"> String name provided by <see cref="IStrings"/> </param>
         /// <returns> Localized <see cref="string"/> according to system language </returns>
-        public static async Task<string> Fetch(IStrings Name, bool translate = true, ILanguages language = ILanguages.System) {
+        internal static async Task<string> Fetch(IStrings Name, bool translate = true, ILanguages language = ILanguages.System) {
             //! Get exising string if already stored
             if (StringsStore.TryGetValue(Name, out string result))
                 return result;

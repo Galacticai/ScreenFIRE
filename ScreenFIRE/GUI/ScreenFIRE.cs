@@ -88,7 +88,7 @@ namespace ScreenFIRE.GUI {
 
             //! Update endPoint & Generate bounding rectangle
             endPoint = new(ev.Event.X, ev.Event.Y);
-            c.Rectangle rect = Geometry.PointsToRectangle.Accurate(startPoint, endPoint);
+            c.Rectangle rect = PointsToRectangle.Accurate(startPoint, endPoint);
 
             dContext.SetSourceRGB(0.1, 0.5, 0.6);
             dContext.LineWidth = 5;
