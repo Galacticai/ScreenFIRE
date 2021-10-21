@@ -13,14 +13,14 @@ namespace ScreenFIRE.Modules.Save {
         /// <summary> ••• GUI ••• Save a <see cref="Screenshot"/> locally </summary>
         internal static async Task<bool> Local(Screenshot screenshot, Window parentWindow) {
 
-            //! Parameters to be passed
+            //? Parameters to be passed
             //Screenshot screenshot;
             string path;
             bool replaceExisting = false;
             ISaveFormat saveFormat = ISaveFormat.png;
             ///////////////////////////
 
-            //! Let the user choose a path to the file
+            //? Let the user choose a path to the file
             FileChooserNative choose
                         = new(await Strings.Fetch(IStrings.SaveAs___),
                               parentWindow,
@@ -31,14 +31,14 @@ namespace ScreenFIRE.Modules.Save {
 
             ResponseType chooseResponse = (ResponseType)choose.Run();
 
-            //! User closed the dialog
+            //? User closed the dialog
             if (chooseResponse == ResponseType.Accept) {
 
                 path = choose.Filename;
 
-                //! User chose a file that already exists
+                //? User chose a file that already exists
                 if (choose.File.Exists) {
-                    //! Warn about replacing the file
+                    //? Warn about replacing the file
                     MessageDialog fileExistsDialog
                             = new(parentWindow,
                                   DialogFlags.DestroyWithParent,
@@ -48,27 +48,27 @@ namespace ScreenFIRE.Modules.Save {
                                   + await Strings.Fetch(IStrings.WouldYouLikeToReplaceTheExistingFile_));
                     fileExistsDialog.SetPosition(WindowPosition.CenterOnParent);
                     ResponseType fileExistsResponse = (ResponseType)fileExistsDialog.Run();
-                    //! User chose to replace the file
+                    //? User chose to replace the file
                     if (fileExistsResponse == ResponseType.Yes)
                         replaceExisting = true;
 
                     fileExistsDialog.Destroy();
                 }
 
-            } else { //! User cancelled the screenshot saving operation
+            } else { //? User cancelled the screenshot saving operation
                 choose.Destroy();
                 return false;
             }
             choose.Destroy();
 
-            //! Pass to ••• Specific ••• with the info provided by the user
+            //? Pass to ••• Specific ••• with the info provided by the user
             return Local(screenshot, path, replaceExisting, saveFormat);
         }
 
 
         /// <summary> ••• AUTO ••• Save a <see cref="Screenshot"/> locally </summary>
         internal static bool Local(Screenshot screenshot, ISaveFormat saveFormat = ISaveFormat.png) {
-            //! Pass to ••• Specific ••• but with auto generated info
+            //? Pass to ••• Specific ••• but with auto generated info
             return Local(screenshot,
                          path: Path.Combine(Common.SF, MonthDir,
                                             Strings.Fetch(IStrings.ScreenFIRE)
@@ -86,35 +86,38 @@ namespace ScreenFIRE.Modules.Save {
                                  bool replaceExisting = false,
                                  ISaveFormat saveFormat = ISaveFormat.png) {
 
-            try {//! Try to use provided info
+            try {//? Try to use provided info
 
-                //! Deal with file replacement
+                string originalPath = path;
+                string timeString = screenshot.Time.ToString("yyMMdd-HHmmff");
+
+                //? Deal with file replacement
                 if (File.Exists(path) & !replaceExisting)
-                    path = Path.Combine(
-                                Path.GetDirectoryName(path),
-                                Path.GetFileNameWithoutExtension(path)
-                                + $"_{screenshot.Time:yyMMdd-HHmmff}"
-                                + $".{saveFormat}");
+                    path = path.FileAddSuffix($"_{timeString}");
 
-                //! Make sure the extension is added
-                if (string.IsNullOrEmpty(Path.GetExtension(path)))
+                //? Make sure the extension is correct
+                if (Path.GetExtension(path) != saveFormat.ToString())
                     path += $".{saveFormat}";
 
-                //! Save
-                if (screenshot.SysdImage != null)
-                    //! Running Windows
-                    screenshot.SysdImage.Save(path, saveFormat.ToSystemDrawing());
-                else //! Running Linux
-                    screenshot.GdkImage.Save(path, saveFormat.ToString());
+                //!? Make sure file is 100% unique, but name might become long.
+                if (File.Exists(path) & !replaceExisting)
+                    path = path.FileMakeUnique(screenshot.GUID);
+
+                //? Save
+                if (screenshot.WindowsImage != null)
+                    //? Running Windows
+                    screenshot.WindowsImage.Save(path, saveFormat.ToSystemDrawing());
+                else //? Running Linux
+                    screenshot.Image.Save(path, saveFormat.ToString());
 
                 return true;
 
-            } catch { //? Provided info did not work
+            } catch { //! Provided info did not work
 
-                try { //! Try to use default path
-                    return Local(screenshot, saveFormat); //! (Auto)
+                try { //? Try to use default path
+                    return Local(screenshot, saveFormat); //? (Auto)
 
-                } catch { //? Something went wrong
+                } catch { //! Something went wrong
                     return false;
                 }
             }
