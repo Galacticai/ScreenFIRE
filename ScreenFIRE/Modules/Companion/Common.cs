@@ -54,7 +54,7 @@ namespace ScreenFIRE.Modules.Companion {
         /// <returns> Get current version field </summary>
         public static Version Version => Assembly.GetExecutingAssembly().GetName().Version;
         public static string VersionString(bool MajMin_only = false, bool includePhase = true) {
-            Version version = Version; //! Get once
+            Version version = Version; //? Get once
             string v = $"{(MajMin_only ? string.Empty : "v")}",
                    X_x = $"{version.Major}.{version.Minor}",
                    _Phase = (includePhase & !MajMin_only ? PhaseString(true) : string.Empty);

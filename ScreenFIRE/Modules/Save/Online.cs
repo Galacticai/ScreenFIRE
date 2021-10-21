@@ -9,7 +9,7 @@ namespace ScreenFIRE.Modules.Save {
         /// <summary> ••• PLACEHOLDER ••• Upload a <see cref="Screenshot"/> to ?????????????????? </summary>
         internal static async Task<bool> Upload(Screenshot screenshot, t.Window parentWindow, string destCloud) {
 
-            //! PLACEHOLDER
+            //? PLACEHOLDER
             return await Task.Run(() => { return false; });
         }
     }

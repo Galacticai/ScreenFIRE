@@ -21,17 +21,17 @@ namespace ScreenFIRE.Assets {
         /// <returns> Strings from cache (json) as Dictionary&lt;<see cref="IStrings"/>, <see cref="string"/>&gt; </returns>
         private static Dictionary<IStrings, string> StringsStore_FromCache(ILanguages language) {
             try {
-                //! Pull from cache
+                //? Pull from cache
                 string stringsFromCache = File.ReadAllText(JsonPath(language));
 
-                ////! Decrypt
+                ////? Decrypt
                 //string decryptedString
                 //    = StringCipher.DecryptStringFromBytes_Aes(stringsFromCache,
                 //                                              Common.Settings.LastAes.Key,
                 //                                              Common.Settings.LastAes.IV)
                 //        .ToString();
 
-                //! Read & Convert
+                //? Read & Convert
                 return JToken.ReadFrom(new JTokenReader(stringsFromCache))
                             .ToObject<Dictionary<IStrings, string>>();
 
@@ -42,7 +42,7 @@ namespace ScreenFIRE.Assets {
         /// <param name="language">Target <see cref="ILanguages"/> </param>
         /// <returns> The store that has more strings </returns>
         private static Dictionary<IStrings, string> PreferredStore(ILanguages language) {
-            //! Compare >> false if Storage contains more all+more strings that are in json
+            //? Compare >> false if Storage contains more all+more strings that are in json
             Dictionary<IStrings, string> stringsDictionaryFromCache = StringsStore_FromCache(language);
             if (stringsDictionaryFromCache == null) return StringsStore;
 
@@ -57,23 +57,23 @@ namespace ScreenFIRE.Assets {
         /// <param name="language"> Target language </param>
         /// <returns> true if succeeded </returns>
         internal static bool RebuildStorage(ILanguages language) {
-            //! No saved locales were found
+            //? No saved locales were found
             if (!Directory.Exists(LocalePath))
-                return false; //? Report failure
+                return false; //! Report failure
 
-            //! Check if the locale file exists
-            //!     >> Fallback to English
+            //? Check if the locale file exists
+            //?     >> Fallback to English
             if (!File.Exists(JsonPath(language)))
                 language = ILanguages.English;
 
-            //! Recheck & Cancel if no English
+            //? Recheck & Cancel if no English
             if (!File.Exists(JsonPath(language)))
-                return false; //? Report failure
+                return false; //! Report failure
 
-            //! Rebuild runtime dictionary
+            //? Rebuild runtime dictionary
             StringsStore = PreferredStore(language);
 
-            return true; //? Report success
+            return true; //! Report success
         }
 
         /// <summary> Store the strings in cache for performance <br/>
@@ -81,25 +81,25 @@ namespace ScreenFIRE.Assets {
         /// <param name="language"> Target language </param>
         /// <returns> true if succeeded </returns>
         internal static bool SaveStorage(ILanguages language = ILanguages.System) {
-            //! Make sure the Locale dir exists
+            //? Make sure the Locale dir exists
             if (!Directory.Exists(LocalePath))
                 Directory.CreateDirectory(LocalePath);
 
-            //! Get system language if generic (System)
+            //? Get system language if generic (System)
             if (language == ILanguages.System) language = Languages.SystemLanguage();
-            //! Save last used language
+            //? Save last used language
             Common.Settings.LastLanguage = language; Common.Settings.Save();
 
-            //! Cancel if the cache is better than the runtime strings
+            //? Cancel if the cache is better than the runtime strings
             if (StringsStore != PreferredStore(language))
                 return false;
 
-            //! Build json object
+            //? Build json object
             JObject stringsAsJson = new(from item in StringsStore
                                         orderby item.Key
                                         select new JProperty(item.Key.ToString(), item.Value));
 
-            ////! Encrypt
+            ////? Encrypt
             ////  >> Store this Aes for next startup
             //Common.Settings.LastAes = Aes.Create(); Common.Settings.Save();
             //string decryptedString
@@ -107,7 +107,7 @@ namespace ScreenFIRE.Assets {
             //                                               Common.Settings.LastAes.Key,
             //                                               Common.Settings.LastAes.IV);
 
-            //! Write json into locale file
+            //? Write json into locale file
             File.WriteAllText(JsonPath(language), stringsAsJson.ToString());
 
             return true;

@@ -12,7 +12,7 @@ namespace ScreenFIRE.Modules.Companion.math.Vision {
         /// <param name="byteArr">input to be converted</param>
         /// <returns><see cref="new gdk.Pixbuf(byteArr)"/></returns>
         [Obsolete("Just directly use `new gdk.Pixbuf(byteArr);`")]
-        public static g.Pixbuf ByteArrayToPixbuf(this byte[] byteArr)
+        public static g.Pixbuf ToPixbuf(this byte[] byteArr)
             => new(byteArr);
 
 
@@ -42,7 +42,7 @@ namespace ScreenFIRE.Modules.Companion.math.Vision {
 
         public static g.Pixbuf InvertColors(this g.Pixbuf input) {
             //var test = input.
-            return null; //! PLACEHOLDER
+            return null; //? PLACEHOLDER
         }
 
         /// <param name = "rectangle" > Rectangle to be captured</param>
@@ -53,12 +53,13 @@ namespace ScreenFIRE.Modules.Companion.math.Vision {
         /// <param name="pixbuf"> Target <see cref="g.Pixbuf"/> </param>
         /// <param name="saveFormat"> Target format (<see cref="ISaveFormat"/>) </param>
         /// <returns> <see cref="Bitmap"/> generated from <paramref name="pixbuf"/> bytes </returns>
-        public static sysd.Bitmap PixbufToBitmap(this g.Pixbuf pixbuf, ISaveFormat saveFormat) {
-            return (sysd.Bitmap)TypeDescriptor.GetConverter(typeof(sysd.Bitmap))
-                        .ConvertFrom(pixbuf.SaveToBuffer(saveFormat.ToString()));
+        public static sysd.Bitmap ToBitmap(this g.Pixbuf pixbuf, ISaveFormat saveFormat) {
+            return TypeDescriptor.GetConverter(typeof(sysd.Bitmap))
+                        .ConvertFrom(pixbuf.SaveToBuffer(saveFormat.ToString()))
+                    as sysd.Bitmap;
         }
 
-        public static g.Pixbuf PixbufSetAlpha(this g.Pixbuf image, double opacity) {
+        public static g.Pixbuf SetAlpha(this g.Pixbuf image, double opacity) {
             using c.ImageSurface surface = new(c.Format.Argb32, image.Width, image.Height);
             using (c.Context context = new(surface)) {
                 g.CairoHelper.SetSourcePixbuf(context, image, 0, 0);
@@ -93,7 +94,7 @@ namespace ScreenFIRE.Modules.Companion.math.Vision {
 //    TextureBrush topG = new(topHalf);
 //    TextureBrush bottomG = new(bottomHalf);
 //    //  https://stackoverflow.com/questions/465172/merging-two-images-in-c-net
-//    return null; //! PLACEHOLDER
+//    return null; //? PLACEHOLDER
 //
 //}
 //

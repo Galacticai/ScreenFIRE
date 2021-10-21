@@ -17,7 +17,7 @@ namespace ScreenFIRE.Modules.Capture.Companion {
         jpeg,
         bmp
 
-        //? Maybe later => gif, mp4, ... mp3 ??
+        //! Maybe later => gif, mp4, ... mp3 ??
     }
 
 

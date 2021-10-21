@@ -65,7 +65,7 @@ namespace ScreenFIRE.Modules.Companion {
 
         Zulu,
 
-        Other, //! Will default to English
+        Other, //? Will default to English
     }
 
     public static class Languages {
@@ -98,7 +98,7 @@ namespace ScreenFIRE.Modules.Companion {
         public static async Task<string> TranslateText(string input, ILanguages toLanguage = ILanguages.System) {
             if (toLanguage == ILanguages.System) toLanguage = SystemLanguage();
 
-            return string.Empty; //! PLACEHOLDER
+            return string.Empty; //? PLACEHOLDER
 
             string url = string.Format("https://translate.google.com/?text={0}&tl={1}",
                                         input, toLanguage.ToGoogleLanguageID());
@@ -115,9 +115,9 @@ namespace ScreenFIRE.Modules.Companion {
         /// <returns> ScreenFIRE <see cref="ILanguages"/> corresponding to the provided <paramref name="language"/></returns>
         public static ILanguages SystemLanguage(string language = null)
            => (language ?? TwoLetterISOLanguageName) switch {
-              //!
-              //! Commented = not supported by Google Translate API
-              //!
+              //?
+              //? Commented = not supported by Google Translate API
+              //?
               //// "iv" => ILanguages.InvariantLanguage_InvariantCountry,
               "af" => ILanguages.Afrikaans,
                "am" => ILanguages.Amharic,
@@ -353,7 +353,7 @@ namespace ScreenFIRE.Modules.Companion {
                   ILanguages.Yoruba => "yo",
                   ILanguages.Zulu => "zu",
 
-                  //! Other
+                  //? Other
                   _ => "en"
               };
 

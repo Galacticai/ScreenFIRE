@@ -154,21 +154,21 @@ namespace ScreenFIRE.GUI {
 
         }
         private void AssignImages() {
-            //! = LogoImage ==========================
+            //? = LogoImage ==========================
             LogoImage.Pixbuf
                 = new Gdk.Pixbuf(SF.Logo)
                             .ScaleSimple(128, 128, Gdk.InterpType.Bilinear);
-            //! ======================================
+            //? ======================================
 
-            ////! = About_svg_Image ====================
+            ////? = About_svg_Image ====================
             //Gdk.Pixbuf footerPixbuf = new(SF.footer_svg);
             //System.Drawing.Size footerSize
             //    = mathMisc.ScaleToHeight(new(footerPixbuf.Width, footerPixbuf.Height), 128);
             //About_svg_Image.Pixbuf
             //    = footerPixbuf.ScaleSimple(footerSize.Width, footerSize.Height, Gdk.InterpType.Bilinear);
-            ////! ======================================
+            ////? ======================================
 
-            //! = Image_SF_repo_Button_About_Box =====
+            //? = Image_SF_repo_Button_About_Box =====
             Gdk.Pixbuf SF_repo_Button_Image_Pixbuf = new(icons.GitHub_svg);
             (double w, double h) SF_repo_Button_Image_Size
                 = Scale.Fit((SF_repo_Button_Image_Pixbuf.Width, SF_repo_Button_Image_Pixbuf.Height), (24, 24));
@@ -177,9 +177,9 @@ namespace ScreenFIRE.GUI {
                     .ScaleSimple((int)SF_repo_Button_Image_Size.w,
                                  (int)SF_repo_Button_Image_Size.h,
                                  Gdk.InterpType.Bilinear);
-            //! ======================================
+            //? ======================================
 
-            //! = Image_License_Button_About_Box =====
+            //? = Image_License_Button_About_Box =====
             Gdk.Pixbuf Image_License_Button_About_Box_Pixbuf = new(icons.Balance_png);
             (double w, double h) Image_License_Button_About_Box_Size
                 = Scale.Fit((Image_License_Button_About_Box_Pixbuf.Width, Image_License_Button_About_Box_Pixbuf.Height), (24, 24));
@@ -188,7 +188,7 @@ namespace ScreenFIRE.GUI {
                     .ScaleSimple((int)Image_License_Button_About_Box_Size.w,
                                  (int)Image_License_Button_About_Box_Size.h,
                                  Gdk.InterpType.Bilinear);
-            //! ======================================
+            //? ======================================
 
         }
         private void AssignEtc() {
@@ -213,7 +213,7 @@ namespace ScreenFIRE.GUI {
             AcceptFocus = false;
 
             //_ = new Timer(async (object obj) => {
-            Thread.Sleep(1000); //! Temp (For Windows) make sure the window is fully hidden
+            Thread.Sleep(1000); //? Temp (For Windows) make sure the window is fully hidden
 
             using var ss = new Screenshot(screenshotType);
             if (await Save.Local(ss, this)) {
@@ -226,11 +226,11 @@ namespace ScreenFIRE.GUI {
                     _label1.Text = await Strings.Fetch(IStrings.ChooseHowYouWouldLikeToFireYourScreenshot_);
                 }, null, 5000, Timeout.Infinite);
 
-                var (w, h) = Scale.Fit((ss.GdkImage.Width, ss.GdkImage.Height), (270, 256));
+                var (w, h) = Scale.Fit((ss.Image.Width, ss.Image.Height), (270, 256));
                 Label_ssPreview_Button_Screenshot_Box.Destroy();
                 Image_ssPreview_Button_Screenshot_Box.Visible = true;
                 Image_ssPreview_Button_Screenshot_Box.Pixbuf =
-                     ss.GdkImage.ScaleSimple((int)w, (int)h, Gdk.InterpType.Bilinear);
+                     ss.Image.ScaleSimple((int)w, (int)h, Gdk.InterpType.Bilinear);
 
             } else {
                 gtk.MessageDialog failDialog = new(this,
@@ -267,7 +267,7 @@ namespace ScreenFIRE.GUI {
             selectedButton.Active = true;
         }
         private void Button_SaveFormat_Popover_Toggled(gtk.ToggleButton selectedButton) {
-            //! Avoid stack overflow - toggle each others
+            //? Avoid stack overflow - toggle each others
             if (!selectedButton.Active) { return; }
             ISaveFormat saveFormat = ISaveFormat.bmp;
             if (selectedButton == bmp_Button_SaveFormat_Popover) bmp_Button_SaveFormat_Popover.Active = true;

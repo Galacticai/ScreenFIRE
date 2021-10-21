@@ -68,29 +68,29 @@ namespace ScreenFIRE.Assets {
             List<string> result = new();
             foreach (var name in Names)
                 result.Add(await Fetch(name,
-                                       false)); //! skip translation when fetching multiple strings
+                                       false)); //? skip translation when fetching multiple strings
 
 
-            //! >> Translation is currently disabled || `Languages.TranslateText` is broken
+            //? >> Translation is currently disabled || `Languages.TranslateText` is broken
 
 
-            //? Remove this if enabling translation:
+            //! Remove this if enabling translation:
             return result.ToArray();
 
-            //? Do not remove the following:
+            //! Do not remove the following:
 
-            //!? string joint = "\u21da\u21db"; //! ⇚⇛ Where strings will be joined/split
-            //!?
-            //!? string joined = string.Join(joint, result);
-            //!?
-            //!? string joined_Translated
-            //!?     = await Languages.TranslateText(joined,
-            //!?                                     Languages.DotNetToILanguages(
-            //!?                                         Languages.TwoLetterISOLanguageName)); //! translate all at once
-            //!?
-            //!? string[] result_Translated = joined_Translated.Split(joint);
-            //!?
-            //!? return result_Translated;
+            //?? string joint = "\u21da\u21db"; //? ⇚⇛ Where strings will be joined/split
+            //??
+            //?? string joined = string.Join(joint, result);
+            //??
+            //?? string joined_Translated
+            //??     = await Languages.TranslateText(joined,
+            //??                                     Languages.DotNetToILanguages(
+            //??                                         Languages.TwoLetterISOLanguageName)); //? translate all at once
+            //??
+            //?? string[] result_Translated = joined_Translated.Split(joint);
+            //??
+            //?? return result_Translated;
         }
 
 #pragma warning disable CS1998 //>> "Async method lacks 'await' operators and will run synchronously"
@@ -98,11 +98,11 @@ namespace ScreenFIRE.Assets {
         /// <param name="Name"> String name provided by <see cref="IStrings"/> </param>
         /// <returns> Localized <see cref="string"/> according to system language </returns>
         internal static async Task<string> Fetch(IStrings Name, bool translate = true, ILanguages language = ILanguages.System) {
-            //! Get exising string if already stored
+            //? Get exising string if already stored
             if (StringsStore.TryGetValue(Name, out string result))
                 return result;
 
-            //! Fetch
+            //? Fetch
             result = ((language == ILanguages.System)
                       ? Languages.SystemLanguage() : language)
                       switch {
@@ -110,11 +110,11 @@ namespace ScreenFIRE.Assets {
                           ILanguages.Arabic => Ar(Name),
                           ILanguages.ChineseSimplified => Zh(Name),
 
-                          //! English / Other
+                          //? English / Other
                           _ => En(Name) //translate ? await Languages.TranslateText(En(Name), language) : En(Name),
                       };
 
-            //! Store it for later use
+            //? Store it for later use
             StringsStore.Add(Name, result);
 
             return result;
@@ -178,7 +178,7 @@ namespace ScreenFIRE.Assets {
 
               IStrings.ClicktoCopy___ => $"Click to copy{Common.Ellipses}",
 
-              //!? Last resort
+              //?? Last resort
               _ => $"⚠ STRING MISSING: \"{Name}\" ⚠"
           };
 
@@ -237,7 +237,7 @@ namespace ScreenFIRE.Assets {
               IStrings.ClicktoCopy___ => $"انقر للنسخ{Common.Ellipses}",
 
 
-              //? Fallback to English.
+              //! Fallback to English.
               _ => En(Name)
           };
 
@@ -296,7 +296,7 @@ namespace ScreenFIRE.Assets {
               IStrings.ClicktoCopy___ => $"点击复制{Common.Ellipses}",
 
 
-              //? Fallback to English.
+              //! Fallback to English.
               _ => En(Name)
           };
 

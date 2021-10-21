@@ -1,59 +1,101 @@
 ﻿using ScreenFIRE.Modules.Companion.math;
 using System;
+using System.IO;
 using System.Text;
 
 namespace ScreenFIRE.Modules.Companion {
 
     public static class Txt {
 
-        /// <summary>
-        /// Remove everything except the first line of a string
-        /// </summary>
-        /// <param name="input">Input string</param>
-        /// <returns>[[0-----------]]\n</returns>
-        public static string GetFirstLine(this string input) {
-            // Foolproof
-            if (string.IsNullOrEmpty(input)) return null;
-            // Failsafe: return if only 1 line
-            if (input.IndexOf(Environment.NewLine) < 1) return input;
-            // Do
-            return input[..input.IndexOf(Environment.NewLine)];
+        public static string GUID_NoDashes(Guid? GUID = null) {
+            if (GUID == null) GUID = Guid.NewGuid();
+            string[] guidSplit = GUID.ToString().Split('-');
+            string result = string.Empty;
+            foreach (string part in guidSplit)
+                result += part;
+            return result;
         }
 
-        /// <summary>
-        /// Remove the first line of a string
-        /// </summary>
-        /// <param name="input">Input</param>
-        /// <returns>0---------\n[[---------- ...]]</returns>
-        public static string CutFirstLine(this string input) {
-            // Foolproof
+        public static string FileMakeUnique(this string path, Guid? GUID = null) {
+            if (!File.Exists(path)) return path;
+            GUID ??= Guid.NewGuid();
+            string result = path;
+
+            string suffix = "_";
+            foreach (char ch in GUID_NoDashes(GUID)) {
+                suffix += ch;
+                result = path.FileAddSuffix(suffix);
+                if (!File.Exists(result))
+                    //? Stop once it becomes unique
+                    break;
+                //? Or keep going until full GUID is added
+            }
+            return result;
+        }
+        public static string[] DirectoryFileExt(this string path) {
+            string directory = Path.GetDirectoryName(path),
+                   name = Path.GetFileNameWithoutExtension(path),
+                   extension = Path.GetExtension(path);
+            return new[] { directory, name, extension };
+        }
+
+        public static string FileAddSuffix(this string path, string addition) {
+            string[] dirfileext = path.DirectoryFileExt();
+
+            //? No extension => Simple strings addition
+            if (string.IsNullOrEmpty(dirfileext[2]))
+                return path + addition;
+
+            return Path.Combine(dirfileext[0], dirfileext[1] + addition + dirfileext[2]);
+        }
+
+        /// <summary> Remove everything except the first line of a string </summary>
+        /// <param name="input"> Target </param>
+        /// <returns> [[0-----------]]\n </returns>
+        public static string GetFirstLine(this string input) {
+            //! Foolproof
             if (string.IsNullOrEmpty(input)) return null;
-            // Failsafe: return if only 1 line
+            //! Failsafe: return if only 1 line
+            if (!input.Contains('\n')) return input;
+            //? Do
+            string[] inputSplit = input.Split(Common.n);
+            for (int index = 0; index < inputSplit.Length; index++) {
+                if (string.IsNullOrEmpty(inputSplit[0])) continue;
+                return inputSplit[index];
+            }
+            return input;
+        }
+
+        /// <summary> Remove the first line of a string </summary>
+        /// <param name="input"> Target </param>
+        /// <returns> 0---------\n[[---------- ...]] </returns>
+        public static string CutFirstLine(this string input) {
+            //! Foolproof
+            if (string.IsNullOrEmpty(input)) return null;
+            //! Failsafe: return if only 1 line
             if (input.IndexOf(Environment.NewLine) < 1) return input;
 
-            // Do
-            // ' Text Example>>(\n)blabla bla<<
+            //? Do
+            // ---- ----[[\n---- ----]]
             return input[(input.IndexOf(Environment.NewLine) + 1)..];
         }
 
-        /// <summary>
-        /// Remove the first word of a string
-        /// </summary>
-        /// <param name="input">Input</param>
-        /// <returns>0---- [[--- ------ --- ...]]</returns>
+        /// <summary> Remove the first word of a string </summary>
+        /// <param name="input"> Target </param>
+        /// <returns> 0---- [[--- ------ --- ...]] </returns>
         public static string CutFirstWord(this string input) {
 
-            // Foolproof
+            //! Foolproof
             if (string.IsNullOrEmpty(input)) return null;
-            // Failsafe: return if only 1 line
+            //! Failsafe: return if only 1 line
             if (input.IndexOf(" ") < 1) return input;
 
-            // Remove double space if present
+            //? Remove double space if present
             int index = 1;
             if (input.ToCharArray()[input.IndexOf(" ")] == input.ToCharArray()[input.IndexOf(" ") + 1])
                 index += 1;
 
-            // Do
+            //? Do
             return input[(input.IndexOf(" ") + index)..];
         }
         /// <returns> Random work/loading string </returns>
@@ -90,19 +132,19 @@ namespace ScreenFIRE.Modules.Companion {
             }.PickRandom();
 
 
-        ///// <returns>Gets current error code initials (XX)-xx without "-" (From S.ErrorCode)</returns>
+        ///// <returns> Gets current error code initials (XX)-xx without "-" (From S.ErrorCode) </returns>
         //public static string GA_current_workCode
         //    => (string.IsNullOrEmpty(inf.detail.code) | (inf.detail.code.IndexOf("-") < 1))
         //       ? "??" : inf.detail.code[..inf.detail.code.IndexOf("-")];
 
         /// <summary> Generate SHA512 <see cref="string"/> from <paramref name="input"/> </summary>
-        /// <param name="input"> Target <see cref="string"/> to be processed</param>
+        /// <param name="input"> Target </param>
         /// <returns> SHA512 <see cref="string"/> </returns>
         public static string ToSHA512(this string input) {
             using System.Security.Cryptography.SHA512 SHA512 = System.Security.Cryptography.SHA512.Create();
             byte[] inputBytes = Encoding.ASCII.GetBytes(input);
             byte[] hashBytes = SHA512.ComputeHash(inputBytes);
-            //! Convert the byte array to hexadecimal string
+            //? Convert the byte array to hexadecimal string
             StringBuilder sb = new();
             for (int i = 0; i < hashBytes.Length; i++)
                 sb.Append(hashBytes[i].ToString("X2"));

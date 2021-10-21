@@ -11,7 +11,7 @@ namespace ScreenFIRE.Modules.Companion {
 
         /// <summary> <see cref="Rectangle"/> array of each screen </summary>
         public static Rectangle[] Rectangles() {
-            Rectangle[] rectangles = new Rectangle[Count]; //? Reset
+            Rectangle[] rectangles = new Rectangle[Count]; //! Reset
             for (int i = 0; i < Count; i++)
                 rectangles[i] = Display.Default.GetMonitor(i).Geometry;
             return rectangles;
@@ -55,7 +55,7 @@ namespace ScreenFIRE.Modules.Companion {
         /// <param name="rectangle"> Target <see cref="Rectangle"/> to be fixed </param>
         /// <returns> Window <see cref="Rectangle"/> without the extra empty space dedicated to the invisible window borders in Windows 10 </returns>
         private static Rectangle FrameExtents_Fixed(Rectangle rectangle) {
-            if (!Platform.RunningWindows10) return rectangle; //? failsafe
+            if (!Platform.RunningWindows10()) return rectangle; //! failsafe
             rectangle.X += 7;
             rectangle.Height -= 7;
             rectangle.Width -= 7 + 7; // right offset - additional X (left) offset
@@ -70,10 +70,10 @@ namespace ScreenFIRE.Modules.Companion {
         /// <param name="point"> Focus <see cref="Point"/> </param>
         /// <returns> Last active <see cref="Window"/> </returns>
         public static Window LastActiveWindow() {
-            //!? Unknown if can throw an exception
+            //?? Unknown if can throw an exception
             return Display.Default.DefaultSeat.Pointer.LastEventWindow
                 ?? Display.Default.DefaultSeat.Keyboard.LastEventWindow
-                ?? Global.DefaultRootWindow; //! Fallback
+                ?? Global.DefaultRootWindow; //? Fallback
         }
 
         /// <returns> Window <see cref="Rectangle"/> at the mouse pointer </returns>
@@ -85,7 +85,7 @@ namespace ScreenFIRE.Modules.Companion {
         public static Window WindowAtPoint(Point point) {
             Device pointer = Display.Default.DefaultSeat.Pointer;
 
-            //!? This returns null!
+            //?? This returns null!
             return pointer.GetWindowAtPosition(out point.X, out point.Y);
         }
         /// <returns> Monitor <see cref="Rectangle"/> at the mouse pointer </returns>

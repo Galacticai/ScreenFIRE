@@ -73,27 +73,27 @@ namespace ScreenFIRE.Modules.Companion.OS.Companion {
             public static Version KernelVersion => GetKernelVersion();
             private static Version GetKernelVersion() {
                 try {
-                    //! Trim leading/trailing space
+                    //? Trim leading/trailing space
                     //"  ~~>12.34.56.78.etc.etc<~~ Abcd Abcd   "
-                    string kernelString = KernelString.Trim()[..' ']; //! Get once
+                    string kernelString = KernelString.Trim()[..' ']; //? Get once
 
                     string versionString = string.Empty;
                     int dotCount = 0;
                     for (int i = 0; i < kernelString.Length; i++) {
 
-                        //! Skip double dots
+                        //? Skip double dots
                         // "12.34.56~~>..~~>.78.etc.etc"
                         if (i > 0 & kernelString[i] == '.')
-                            //!? INFO: Step into only if in range
+                            //?? INFO: Step into only if in range
                             if (kernelString[i - 1] == '.')
                                 continue;
 
-                        //! Accept dots
+                        //? Accept dots
                         // "12~~>.<~~34~~>.<~~56~~>.<~~78~~>.<~~etc~~>.<~~etc"
                         if (kernelString[i].Equals('.')) {
                             dotCount++;
 
-                            //! Reject >=5 numbers (4 dots only)
+                            //? Reject >=5 numbers (4 dots only)
                             //"12.34.56.78<~~.etc.etc"
                             if (dotCount >= 5)
                                 break;
@@ -101,23 +101,23 @@ namespace ScreenFIRE.Modules.Companion.OS.Companion {
                             versionString += kernelString[i];
                         }
 
-                        //! Accept digits
+                        //? Accept digits
                         // "~~>12<~~.~~>34<~~.~~>56<~~.~~>78<~~.etc.etc"
                         else if (char.IsDigit(kernelString[i]))
                             versionString += kernelString[i];
 
-                        //! Reject otherwise
+                        //? Reject otherwise
                         // "12.34.56.78~~> Abcd whatever"
                         else break;
 
                     }
 
-                    //! Done
+                    //? Done
                     //"12.34.56.78"
                     return new Version(versionString);
 
                 } catch {
-                    //? Something went wrong
+                    //! Something went wrong
                     return new Version(0, 0, 0, 0);
                 }
             }
@@ -175,16 +175,16 @@ namespace ScreenFIRE.Modules.Companion.OS.Companion {
 }
 
 
-//!? TESTS
-//! >> $ID is common (All)
-//! >> $VERSION_ID is common (Except Arch || CentOS 6~5)
+//?? TESTS
+//? >> $ID is common (All)
+//? >> $VERSION_ID is common (Except Arch || CentOS 6~5)
 
-//! >> Can be used
-//! $ . /etc/*-release && echo $name
-//? (output: value of name)
+//? >> Can be used
+//? $ . /etc/*-release && echo $name
+//! (output: value of name)
 
-//!? Debian 11 ======================================
-//! $ cat /etc/*-release
+//?? Debian 11 ======================================
+//? $ cat /etc/*-release
 //  PRETTY_NAME = "Debian GNU/Linux 11 (bullseye)"
 //  NAME = "Debian GNU/Linux"
 //  VERSION_ID = "11"
@@ -194,10 +194,10 @@ namespace ScreenFIRE.Modules.Companion.OS.Companion {
 //  HOME_URL = "https://www.debian.org/"
 //  SUPPORT_URL = "https://www.debian.org/support"
 //  BUG_REPORT_URL = "https://bugs.debian.org/"
-//!? ================================================
+//?? ================================================
 
-//!? Ubuntu 20.04 ===================================
-//! $ cat /etc/*-release
+//?? Ubuntu 20.04 ===================================
+//? $ cat /etc/*-release
 //  DISTRIB_ID=Ubuntu
 //  DISTRIB_RELEASE=20.04
 //  DISTRIB_CODENAME=focal
@@ -214,10 +214,10 @@ namespace ScreenFIRE.Modules.Companion.OS.Companion {
 //  PRIVACY_POLICY_URL="https://www.ubuntu.com/legal/terms-and-policies/privacy-policy"
 //  VERSION_CODENAME=focal
 //  UBUNTU_CODENAME = focal
-//!? ================================================
+//?? ================================================
 
-//!? KDE Neon v5.22 =================================
-//! $ cat /etc/*-release
+//?? KDE Neon v5.22 =================================
+//? $ cat /etc/*-release
 //  DISTRIB_ID=neon
 //  DISTRIB_RELEASE=20.04
 //  DISTRIB_CODENAME=focal
@@ -243,10 +243,10 @@ namespace ScreenFIRE.Modules.Companion.OS.Companion {
 //  DISTRIB_RELEASE=20.04
 //  DISTRIB_CODENAME=focal
 //  DISTRIB_DESCRIPTION="KDE neon User Edition 5.22"
-//!? ================================================
+//?? ================================================
 
-//!? Arch v?? =======================================
-//! $ cat /etc/os-release
+//?? Arch v?? =======================================
+//? $ cat /etc/os-release
 //  NAME="Arch Linux"
 //  ID=arch
 //  PRETTY_NAME="Arch Linux"
@@ -255,18 +255,18 @@ namespace ScreenFIRE.Modules.Companion.OS.Companion {
 //  SUPPORT_URL="https://bbs.archlinux.org/"
 //  BUG_REPORT_URL="https://bugs.archlinux.org/"
 //
-//? Not installed by default! `lsb-release`
-//! $ cat /etc/lsb-release
+//! Not installed by default! `lsb-release`
+//? $ cat /etc/lsb-release
 //  LSB_VERSION=1.4-14
 //  DISTRIB_ID=Arch
 //  DISTRIB_RELEASE = rolling
 //  DISTRIB_DESCRIPTION="Arch Linux"
 //
-//? Empty: `/etc/arch-version`
-//!? ================================================
+//! Empty: `/etc/arch-version`
+//?? ================================================
 
-//!? Amazon Linux 2016.09 ===========================
-//! $ cat /etc/os-release
+//?? Amazon Linux 2016.09 ===========================
+//? $ cat /etc/os-release
 //  NAME="Amazon Linux AMI"
 //  VERSION="2016.09"
 //  ID="amzn"
@@ -277,14 +277,14 @@ namespace ScreenFIRE.Modules.Companion.OS.Companion {
 //  CPE_NAME="cpe:/o:amazon:linux:2016.09:ga"
 //  HOME_URL="http://aws.amazon.com/amazon-linux-ami/"
 //
-//? Empty: cat /etc/lsb-release
+//! Empty: cat /etc/lsb-release
 //
-//! $ cat /etc/system-release
+//? $ cat /etc/system-release
 //  Amazon Linux AMI release 2016.09
-//!? ================================================
+//?? ================================================
 
-//!? CentOS 7 =======================================
-//! $ cat /etc/os-release
+//?? CentOS 7 =======================================
+//? $ cat /etc/os-release
 //  NAME="CentOS Linux"
 //  VERSION="7 (Core)"
 //  ID="centos"
@@ -301,21 +301,21 @@ namespace ScreenFIRE.Modules.Companion.OS.Companion {
 //  REDHAT_SUPPORT_PRODUCT="centos"
 //  REDHAT_SUPPORT_PRODUCT_VERSION="7"
 //
-//? Does not exist: /etc/lsb-release
-//!? ================================================
+//! Does not exist: /etc/lsb-release
+//?? ================================================
 
-//!? CentOS 6 and 5 =================================
-//? Does not exist: /etc/os-release
+//?? CentOS 6 and 5 =================================
+//! Does not exist: /etc/os-release
 //
-//! $ cat /etc/lsb-release
+//? $ cat /etc/lsb-release
 //  LSB_VERSION=base-4.0-amd64:base-4.0-noarch:core-4.0-amd64:core-4.0-noarch
 //
-//! $ cat /etc/centos-release
+//? $ cat /etc/centos-release
 //  CentOS release 6.7 (Final)
-//!? ================================================
+//?? ================================================
 
-//!? Fedora 22 ======================================
-//! $ cat  /etc/os-release
+//?? Fedora 22 ======================================
+//? $ cat  /etc/os-release
 //  NAME=Fedora
 //  VERSION="22 (Twenty Two)"
 //  ID=fedora
@@ -331,14 +331,14 @@ namespace ScreenFIRE.Modules.Companion.OS.Companion {
 //  REDHAT_SUPPORT_PRODUCT_VERSION=22
 //  PRIVACY_POLICY_URL=https://fedoraproject.org/wiki/Legal:PrivacyPolicy
 //
-//? Does not exist: /etc/lsb-release
+//! Does not exist: /etc/lsb-release
 //
-//! $ cat /etc/fedora-release
+//? $ cat /etc/fedora-release
 //  Fedora release 22 (Twenty Two)
-//!? ================================================
+//?? ================================================
 
-//!? openSUSE Tumbleweed ============================
-//! $ cat  /etc/os-release
+//?? openSUSE Tumbleweed ============================
+//? $ cat  /etc/os-release
 //  NAME=openSUSE
 //  VERSION="20150725 (Tumbleweed)"
 //  VERSION_ID="20150725"
@@ -350,11 +350,11 @@ namespace ScreenFIRE.Modules.Companion.OS.Companion {
 //  HOME_URL="https://opensuse.org/"
 //  ID_LIKE="suse"
 //
-//? Does not exist: /etc/lsb-release
+//! Does not exist: /etc/lsb-release
 //
-//! $ cat /etc/SuSE-release
+//? $ cat /etc/SuSE-release
 //  openSUSE 20150725 (x86_64)
 //  VERSION = 20150725
 //  CODENAME = Tumbleweed
 //  # /etc/SuSE-release is deprecated and will be removed in the future, use /etc/os-release instead
-//!? ================================================
+//?? ================================================

@@ -16,7 +16,7 @@
                 => arr[new System.Random().Next(0, arr.Length - 1)]; // -1 because it starts from 0
 
 
-        //? Bad
+        //! Bad
         ///// <summary> Generate a random integer between <c>min</c> and <c>max</c> paremeters </summary>
         ///// <param name="min">Minimum range for output</param>
         ///// <param name="max">Maximum range for output</param>

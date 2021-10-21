@@ -46,7 +46,7 @@ namespace ScreenFIRE.GUI {
             //Thread.Sleep(1000);
 
             Screenshot = new Screenshot(IScreenshotType.AllMonitors);
-            ScreenshotImage.Pixbuf = Screenshot.GdkImage;
+            ScreenshotImage.Pixbuf = Screenshot.Image;
             Move(0, 0);
 
             SSDrawingArea.SetAllocation(Screenshot.ImageRectangle);
@@ -66,9 +66,9 @@ namespace ScreenFIRE.GUI {
         private c.Context dContext;
 
         private void Draw_ButtonPressEvent(object sender, ButtonPressEventArgs ev) {
-            //! ### Prepare
+            //? ### Prepare
 
-            //! Only accept Button 1 (Left click)
+            //? Only accept Button 1 (Left click)
             if (ev.Event.Button != 1) return;
 
             dSurface = new c.ImageSurface(c.Format.Argb32, SSDrawingArea.Allocation.Width, SSDrawingArea.Allocation.Height);
@@ -76,17 +76,17 @@ namespace ScreenFIRE.GUI {
 
             startPoint = new(ev.Event.X, ev.Event.Y);
 
-            //! ### Then allow drawing
+            //? ### Then allow drawing
             DRAWING = true;
         }
 
         private void Draw_MotionNotifyEvent(object sender, MotionNotifyEventArgs ev) {
-            //! Ignore if not drawing
+            //? Ignore if not drawing
             if (!DRAWING) return;
-            //? Failesafe
+            //! Failesafe
             if (dSurface == null | dContext == null) return;
 
-            //! Update endPoint & Generate bounding rectangle
+            //? Update endPoint & Generate bounding rectangle
             endPoint = new(ev.Event.X, ev.Event.Y);
             c.Rectangle rect = PointsToRectangle.Accurate(startPoint, endPoint);
 
@@ -102,12 +102,12 @@ namespace ScreenFIRE.GUI {
         }
 
         private void Draw_ButtonReleaseEvent(object sender, ButtonReleaseEventArgs ev) {
-            //! Only accept Button 1 (Left click)
+            //? Only accept Button 1 (Left click)
             if (ev.Event.Button != 1) return;
 
-            //! ### Block drawing
+            //? ### Block drawing
             DRAWING = false;
-            //! ### Then finish up
+            //? ### Then finish up
             dContext.GetTarget().Dispose();
             dContext.Dispose();
         }
