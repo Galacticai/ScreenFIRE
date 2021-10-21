@@ -1,21 +1,22 @@
-﻿using Gdk;
-using ScreenFIRE.Modules.Capture.Companion;
+﻿using ScreenFIRE.Modules.Capture.Companion;
 using ScreenFIRE.Modules.Companion;
 using ScreenFIRE.Modules.Companion.math.Vision;
 using ScreenFIRE.Modules.Companion.OS;
 using System;
+using g = Gdk;
 using sysd = System.Drawing;
 
 namespace ScreenFIRE.Modules.Capture {
-
-    class Screenshot : IDisposable {
+    internal class Screenshot : IDisposable {
         #region IDisposable
         bool disposed;
         protected virtual void Dispose(bool disposing) {
             if (!disposed) {
                 if (disposing) {
+                    ShortGUID = null;
                     ScreenshotType = null;
-                    GdkImage.Dispose();
+                    Image.Dispose();
+                    WindowsImage.Dispose();
                 }
             }
             disposed = true;
@@ -28,60 +29,57 @@ namespace ScreenFIRE.Modules.Capture {
 
         //public string UIDAndTime_SHA512 { get; }
 
-        /// <summary>
-        /// Unique ID specific for this screenshot <br/><br/>
-        /// >> Example: 0f8fad5b-d9cb-469f-a165-70867728950e
-        /// </summary>
-        public Guid UID { get; private set; }
+        /// <summary> Unique ID specific for this <see cref="Screenshot"/> <br/><br/>
+        /// >> Example: 0f8fad5b-d9cb-469f-a165-70867728950e </summary>
+        internal Guid GUID { get; private set; }
+
+        /// <summary> Shorter form of <see cref="GUID"/> <br/><br/>
+        /// >> Example: 0f8fad5b </summary>
+        internal string ShortGUID { get; private set; }
 
         /// <summary> Date and time of screen firing </summary>
-        public DateTime Time { get; private set; }
+        internal DateTime Time { get; private set; }
 
-        public IScreenshotType? ScreenshotType { get; private set; }
+        /// <summary> Type of this <see cref="Screenshot"/> (<see cref="null"/> = Custom rectangle) </summary>
+        internal IScreenshotType? ScreenshotType { get; private set; }
 
-        public Rectangle ImageRectangle { get; private set; }
-        /// <summary> Image as <see cref="Pixbuf"/> </summary>
-        public Pixbuf GdkImage { get; private set; }
-        /// <summary> Image as <see cref="sysd.Image"/> </summary>
-        public sysd.Image SysdImage { get; private set; }
 
-        private static Rectangle GetRectangle(IScreenshotType screenshotType)
-            => screenshotType switch {
-                IScreenshotType.MonitorAtPointer => Monitors.MonitorAtPointer_Rectangle(),
-                IScreenshotType.WindowAtPointer => Monitors.WindowAtPointer_Rectangle(),
-                IScreenshotType.ActiveWindow => Monitors.ActiveWindow_Rectangle(),
+        /// <summary> Target <see cref="g.Rectangle"/> </summary>
+        internal g.Rectangle ImageRectangle { get; private set; }
 
-                //! IScreenshotType.All
-                _ => Monitors.BoundingRectangle()
-            };
+        /// <summary> Image as <see cref="g.Pixbuf"/> (Cross-Platform) <br/><br/>
+        /// Compatibility: <br/>
+        /// ✔️ Linux: Recommended <br/>
+        /// ✔️ Windows 10: Works <br/>
+        /// ⚠️ Windows 11: Can throw <seealso cref="NullReferenceException"/> </summary>
+        internal g.Pixbuf Image { get; private set; }
 
-        private void CommonSetting_Pre() {
-            UID = Guid.NewGuid();
+        /// <summary> Image as <see cref="sysd.Image"/> <br/><br/>
+        /// Compatibility: <br/>
+        /// ✔️ Windows (All): Recommended <br/>
+        /// ⚠️ Linux: Various exceptions </summary>
+        internal sysd.Image WindowsImage { get; private set; }
+
+        private void Init(g.Rectangle rectangle, IScreenshotType? screenshotType = null) {
+            GUID = Guid.NewGuid(); //? 0f8fad5b-d9cb-469f-a165-70867728950e
+            ShortGUID = GUID.ToString()[..'-']; //? 0f8fad5b
             Time = DateTime.Now;
-        }
-        private void CommonSetting_Post() {
-            GdkImage = VisionCommon.Screenshot(ImageRectangle);
+            ScreenshotType = screenshotType; //? null = Custom rectangle
+            ImageRectangle = rectangle;
+            Image = VisionCommon.Screenshot(ImageRectangle);
             if (Platform.RunningWindows)
-                SysdImage = GdkImage.PixbufToBitmap(Common.LocalSave_Settings.Format);
+                WindowsImage = Image.ToBitmap(Common.LocalSave_Settings.Format);
         }
 
-
-        /// <summary> Auto (using <see cref="IScreenshotType"/>) </summary>
+        /// <summary> ••• Auto ••• Take a screenshot using <see cref="IScreenshotType"/> </summary>
         /// <param name="imageRectangle"> Rectangle to be captured</param>
-        public Screenshot(IScreenshotType screenshotType) {
-            CommonSetting_Pre();
-            ScreenshotType = screenshotType;
-            ImageRectangle = GetRectangle(screenshotType);
-            CommonSetting_Post();
-        }
+        internal Screenshot(IScreenshotType screenshotType = IScreenshotType.AllMonitors)
+            => Init(screenshotType.GetRectangle(), screenshotType);
 
-        /// <summary> Custom </summary>
-        /// <param name="imageRectangle"> Rectangle to be captured</param>
-        public Screenshot(Rectangle imageRectangle) {
-            CommonSetting_Pre();
-            ScreenshotType = null;
-            ImageRectangle = imageRectangle;
-            CommonSetting_Post();
-        }
+        /// <summary> ••• Specific ••• Take a screenshot of <paramref name="rectangle"/> </summary>
+        /// <param name="rectangle"> <see cref="g.Rectangle"/> to be captured </param>
+        internal Screenshot(g.Rectangle rectangle)
+            => Init(rectangle);
+
     }
 }
