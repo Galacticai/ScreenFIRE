@@ -2,6 +2,7 @@
 using ScreenFIRE.Modules.Capture.Companion;
 using ScreenFIRE.Modules.Companion;
 using ScreenFIRE.Modules.Companion.math.Vision;
+using ScreenFIRE.Modules.Companion.OS;
 using System;
 using sysd = System.Drawing;
 
@@ -42,7 +43,7 @@ namespace ScreenFIRE.Modules.Capture {
         /// <summary> Image as <see cref="Pixbuf"/> </summary>
         public Pixbuf GdkImage { get; private set; }
         /// <summary> Image as <see cref="sysd.Image"/> </summary>
-        public sysd.Image SysImage { get; private set; }
+        public sysd.Image SysdImage { get; private set; }
 
         private static Rectangle GetRectangle(IScreenshotType screenshotType)
             => screenshotType switch {
@@ -60,7 +61,8 @@ namespace ScreenFIRE.Modules.Capture {
         }
         private void CommonSetting_Post() {
             GdkImage = VisionCommon.Screenshot(ImageRectangle);
-            //SysImage = GdkImage.PixbufToBitmap(Common.LocalSave_Settings.Format);
+            if (Platform.RunningWindows)
+                SysdImage = GdkImage.PixbufToBitmap(Common.LocalSave_Settings.Format);
         }
 
 
