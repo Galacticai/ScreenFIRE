@@ -7,26 +7,29 @@ namespace ScreenFIRE.Modules.Companion.OS {
     /// <summary> Common class for general ScreenFIRE stuff </summary>
     public static class Platform {
 
-
-
-        /// <summary> Indicate if the current platform is Unix based </summary>
-        public static bool RunningLinux
-                => RuntimeInformation.IsOSPlatform(OSPlatform.Linux);
-
-
-
-        /// <summary> Indicate if the current platform is Win32NT based (Windows NT and above) </summary>
-        public static bool RunningWindows
-                => RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
-        /// <summary> Indicates if Windows 10 (10.0...) is the current OS</summary>
-        public static bool RunningWindows10
-            => RunningWindows
-                && //! Step into only if running Windows
-                    (Environment.OSVersion.Version.ToString(2)
-                        == IWindowsVersion.Windows10.ToString(2));
-
-
         /// <summary> Indicates whether the current platform is supported by ScreenFIRE (Linux or Windows) </summary>
-        public static bool IsSupported => (RunningLinux | RunningWindows);
+        internal static bool IsSupported => (RunningLinux | RunningWindows);
+
+        /// <summary> Indicate if the current platform is Linux based </summary>
+        public static bool RunningLinux
+            => RuntimeInformation.IsOSPlatform(OSPlatform.Linux);
+
+
+        /// <summary> <see cref="true"/> if running Win32NT base (Windows NT and above) </summary>
+        public static bool RunningWindows
+            => RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
+
+        /// <returns> <see cref="true"/> if running Windows 10 (22000 > Build >= 10240) </returns>
+        public static bool RunningWindows10() {
+            if (!RunningWindows) return false;
+            return (Environment.OSVersion.Version.Build >= IWindowsVersion.Windows10.Build)
+                 & (Environment.OSVersion.Version.Build < IWindowsVersion.Windows11.Build);
+        }
+        /// <returns> <see cref="true"/> if running Windows 11 (Build >= 22000) </returns>
+        public static bool RunningWindows11_orAbove() {
+            if (!RunningWindows) return false;
+            return Environment.OSVersion.Version.Build >= IWindowsVersion.Windows11.Build;
+        }
+
     }
 }
