@@ -1,5 +1,4 @@
 ﻿using ScreenFIRE.Modules.Capture.Companion;
-using System;
 using System.ComponentModel;
 using c = Cairo;
 using g = Gdk;
@@ -9,11 +8,19 @@ namespace ScreenFIRE.Modules.Companion.math.Vision {
 
     static class VisionCommon {
 
-        /// <param name="byteArr">input to be converted</param>
-        /// <returns><see cref="new gdk.Pixbuf(byteArr)"/></returns>
-        [Obsolete("Just directly use `new gdk.Pixbuf(byteArr);`")]
-        public static g.Pixbuf ToPixbuf(this byte[] byteArr)
-            => new(byteArr);
+        /// <param name="byteArr"> Target <see cref="byte"/>[] </param>
+        /// <returns> <see cref="new"/> <see cref="g.Pixbuf(byte[])"/> </returns>
+        public static g.Pixbuf ToPixbuf(this byte[] byteArr) => new(byteArr);
+
+        /// <summary> Convert SVG path string (value of d) to <see cref="g.Pixbuf"/> </summary>
+        /// <param name="PathSVG"> SVG path (Value of d) </param>
+        /// <param name="Size"> Size of the output <see cref="g.Pixbuf"/> </param>
+        /// <param name="fillColor"> Fill color (solid) </param>
+        /// <returns> <see cref="new"/> <see cref="g.Pixbuf(byte[])"/> </returns>
+        public static g.Pixbuf ToPixbuf(this string PathSVG, (int Width, int Height) Size, sysd.Color fillColor = default) {
+            if (fillColor == default) fillColor = sysd.Color.Black;
+            return new g.Pixbuf(PathSVG.ParseSVGBytes(Size, fillColor));
+        }
 
 
         /// <summary>  Blends the specified <see cref="g.RGBA"/> colors together. </summary>
@@ -27,7 +34,7 @@ namespace ScreenFIRE.Modules.Companion.math.Vision {
         /// </param>
         /// <returns>The blended color.</returns>
         public static g.RGBA BlendColors(g.RGBA foreColor, g.RGBA backColor, double amountFactor = -1) {
-            //if amount not set, Use  foreColor.A  [ 0 >=> 1 ]
+            //? if amount not set, Use  foreColor.A  [ 0 >=> 1 ]
             if (amountFactor == -1)
                 amountFactor = foreColor.Alpha / 255; // convert alpha 0<=<255 to 0<=<1
                                                       //mathMisc.ForcedInRange(out amountIn255, 0, 255); //failsafe
