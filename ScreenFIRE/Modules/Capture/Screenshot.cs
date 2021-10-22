@@ -13,10 +13,12 @@ namespace ScreenFIRE.Modules.Capture {
         protected virtual void Dispose(bool disposing) {
             if (!disposed) {
                 if (disposing) {
+                    GUID_NoDashes = null;
                     GUID_Short = null;
                     ScreenshotType = null;
                     Image.Dispose();
-                    WindowsImage.Dispose();
+                    if (Image_SystemDrawing != null)
+                        Image_SystemDrawing.Dispose();
                 }
             }
             disposed = true;
@@ -53,38 +55,48 @@ namespace ScreenFIRE.Modules.Capture {
 
         /// <summary> Image as <see cref="g.Pixbuf"/> (Cross-Platform) <br/><br/>
         /// Compatibility: <br/>
-        /// ✔️ Linux: Recommended <br/>
-        /// ✔️ Windows 10: Works <br/>
-        /// ⚠️ Windows 11: Can throw <seealso cref="NullReferenceException"/> </summary>
+        /// ✔️ Linux >> Recommended <br/>
+        /// ✔️ Windows 10 >> Works <br/>
+        /// ⚠️ Windows 11 >> <seealso cref="NullReferenceException"/> (at <see cref="g.Pixbuf.Save(string, string)"/>) </summary>
         internal g.Pixbuf Image { get; private set; }
 
         /// <summary> Image as <see cref="sysd.Image"/> <br/><br/>
         /// Compatibility: <br/>
-        /// ✔️ Windows (All): Recommended <br/>
-        /// ⚠️ Linux: Various exceptions </summary>
-        internal sysd.Image WindowsImage { get; private set; }
+        /// ✔️ Windows (All) >> Recommended <br/>
+        /// ✔️ Linux - ZorinOS 16 >> Works <br/>
+        /// ⚠️ Other Linux >> <see cref="TypeInitializationException"/> &amp; <see cref="DllNotFoundException"/> <br/>
+        /// (Unable to load shared library 'libgdiplus' or one of its dependencies) </summary>
+        internal sysd.Image Image_SystemDrawing { get; private set; }
 
         private void Init(g.Rectangle rectangle, IScreenshotType? screenshotType = null) {
-            //? 0f8fad5b-d9cb-469f-a165-70867728950e
-            GUID = Guid.NewGuid();
-            //? 0f8fad5bd9cb469fa16570867728950e
-            GUID_NoDashes = Txt.GUID_NoDashes(GUID);
-            //? 0f8fad5b
-            GUID_Short = GUID.ToString()[..8];
-
-            Time = DateTime.Now;
-
             ScreenshotType = screenshotType; //? null = Custom rectangle
 
             ImageRectangle = rectangle;
 
+            DateTime TimeBeforeSS = DateTime.Now;
+            //!? ^^DEBUG^^ Execution time (ms): 12:00:00:001
+
             Image = VisionCommon.Screenshot(ImageRectangle);
+            //!? ^^DEBUG^^ Execution time (ms): 12:00:00:057 ~ 100
+
+            TimeSpan averageSSTime = new((DateTime.Now - TimeBeforeSS).Ticks / 2);
+            //!? ^^DEBUG^^ Execution time (ms): 12:00:00:059 ~ 102
+            Time = TimeBeforeSS + averageSSTime;
+            //!? ^^DEBUG^^ (i7-3770 Windows 11) averageSSTime = 30 ~ 51 ms
+
             if (Platform.RunningWindows)
-                WindowsImage = Image.ToBitmap(Common.LocalSave_Settings.Format);
+                Image_SystemDrawing = Image.ToBitmap(Common.LocalSave_Settings.Format);
+
+            //? 0f8fad5b-d9cb-469f-a165-70867728950e
+            GUID = Guid.NewGuid();
+            //? 0f8fad5bd9cb469fa16570867728950e
+            GUID_NoDashes = GUID.ToString().NoDashes();
+            //? 0f8fad5b
+            GUID_Short = GUID_NoDashes[..8];
         }
 
         /// <summary> ••• Auto ••• Take a screenshot using <see cref="IScreenshotType"/> </summary>
-        /// <param name="imageRectangle"> Rectangle to be captured</param>
+        /// <param name="screenshotType"> Type of the <see cref="Screenshot"/> which determines the rectangle automatically </param>
         internal Screenshot(IScreenshotType screenshotType = IScreenshotType.AllMonitors)
             => Init(screenshotType.GetRectangle(), screenshotType);
 
