@@ -104,9 +104,9 @@ namespace ScreenFIRE.Modules.Save {
                     path = path.FileMakeUnique(screenshot.GUID);
 
                 //? Save
-                if (screenshot.WindowsImage != null)
+                if (screenshot.Image_SystemDrawing != null)
                     //? Running Windows
-                    screenshot.WindowsImage.Save(path, saveFormat.ToSystemDrawing());
+                    screenshot.Image_SystemDrawing.Save(path, saveFormat.ToSystemDrawing());
                 else //? Running Linux
                     screenshot.Image.Save(path, saveFormat.ToString());
 
