@@ -13,11 +13,11 @@ namespace ScreenFIRE.Modules.Companion {
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.0.3.0")]
-    internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
+    internal sealed partial class Cache : global::System.Configuration.ApplicationSettingsBase {
         
-        private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
+        private static Cache defaultInstance = ((Cache)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Cache())));
         
-        public static Settings Default {
+        public static Cache Default {
             get {
                 return defaultInstance;
             }
@@ -25,13 +25,23 @@ namespace ScreenFIRE.Modules.Companion {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("System")]
-        public global::ScreenFIRE.Modules.Companion.ILanguages Language {
+        public global::System.Collections.Generic.Dictionary<Material.Icons.MaterialIconKind, string> MaterialIcons {
             get {
-                return ((global::ScreenFIRE.Modules.Companion.ILanguages)(this["Language"]));
+                return ((global::System.Collections.Generic.Dictionary<Material.Icons.MaterialIconKind, string>)(this["MaterialIcons"]));
             }
             set {
-                this["Language"] = value;
+                this["MaterialIcons"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.Security.Cryptography.Aes LastAes {
+            get {
+                return ((global::System.Security.Cryptography.Aes)(this["LastAes"]));
+            }
+            set {
+                this["LastAes"] = value;
             }
         }
     }

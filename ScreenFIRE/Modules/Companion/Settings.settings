@@ -1,15 +1,9 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings"
-			  CurrentProfile="(Default)"
-			  GeneratedClassNamespace="ScreenFIRE.Assets.Embedded"
-	          GeneratedClassName="Settings">
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="ScreenFIRE.Modules.Companion" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="LastLanguage" Type="ScreenFIRE.Modules.Companion.ILanguages" Scope="User">
-		<Value Profile="(Default)">System</Value>
-    </Setting>
-    <Setting Name="LastAes" Type="System.Security.Cryptography.Aes" Scope="User">
-      <Value Profile="(Default)"/>
+    <Setting Name="Language" Type="ScreenFIRE.Modules.Companion.ILanguages" Scope="User">
+      <Value Profile="(Default)">System</Value>
     </Setting>
   </Settings>
 </SettingsFile>
