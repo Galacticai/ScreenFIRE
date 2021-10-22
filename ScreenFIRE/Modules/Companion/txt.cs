@@ -7,12 +7,13 @@ namespace ScreenFIRE.Modules.Companion {
 
     public static class Txt {
 
-        public static string GUID_NoDashes(Guid? GUID = null) {
-            if (GUID == null) GUID = Guid.NewGuid();
-            string[] guidSplit = GUID.ToString().Split('-');
+        public static string NoDashes(this string input) {
+            string[] guidSplit = input.ToString().Split('-');
             string result = string.Empty;
             foreach (string part in guidSplit)
                 result += part;
+            if (result == string.Empty)
+                return input;
             return result;
         }
 
@@ -22,7 +23,7 @@ namespace ScreenFIRE.Modules.Companion {
             string result = path;
 
             string suffix = "_";
-            foreach (char ch in GUID_NoDashes(GUID)) {
+            foreach (char ch in GUID.ToString().NoDashes()) {
                 suffix += ch;
                 result = path.FileAddSuffix(suffix);
                 if (!File.Exists(result))
