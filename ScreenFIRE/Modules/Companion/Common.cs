@@ -42,7 +42,7 @@ namespace ScreenFIRE.Modules.Companion {
 
 
         #region Config
-
+        public static Cache Cache => Cache.Default;
         public static Settings Settings => Settings.Default;
         public static LocalSave_Settings LocalSave_Settings => LocalSave_Settings.Default;
 
