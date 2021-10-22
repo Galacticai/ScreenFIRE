@@ -1,11 +1,14 @@
+using Material.Icons;
 using ScreenFIRE.Assets;
 using ScreenFIRE.Assets.Embedded;
 using ScreenFIRE.Modules.Capture;
 using ScreenFIRE.Modules.Capture.Companion;
 using ScreenFIRE.Modules.Companion;
 using ScreenFIRE.Modules.Companion.math;
+using ScreenFIRE.Modules.Companion.math.Vision;
 using ScreenFIRE.Modules.Save;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
@@ -61,7 +64,7 @@ namespace ScreenFIRE.GUI {
 
         private void AssignEvents() {
             DeleteEvent += delegate {
-                Strings.SaveStorage(Common.Settings.LastLanguage);
+                Strings.SaveStorage(Common.Settings.Language);
                 gtk.Application.Quit();
             };
 
@@ -156,38 +159,20 @@ namespace ScreenFIRE.GUI {
         private void AssignImages() {
             //? = LogoImage ==========================
             LogoImage.Pixbuf
-                = new Gdk.Pixbuf(SF.Logo)
-                            .ScaleSimple(128, 128, Gdk.InterpType.Bilinear);
+                = new Gdk.Pixbuf(SF.Logo).ScaleSimple(128, 128, Gdk.InterpType.Bilinear);
             //? ======================================
 
-            ////? = About_svg_Image ====================
-            //Gdk.Pixbuf footerPixbuf = new(SF.footer_svg);
-            //System.Drawing.Size footerSize
-            //    = mathMisc.ScaleToHeight(new(footerPixbuf.Width, footerPixbuf.Height), 128);
-            //About_svg_Image.Pixbuf
-            //    = footerPixbuf.ScaleSimple(footerSize.Width, footerSize.Height, Gdk.InterpType.Bilinear);
-            ////? ======================================
+            if (Common.Cache.MaterialIcons == null)
+                Common.Cache.MaterialIcons = (Dictionary<MaterialIconKind, string>)MaterialIconDataFactory.DataSetCreate();
 
             //? = Image_SF_repo_Button_About_Box =====
-            Gdk.Pixbuf SF_repo_Button_Image_Pixbuf = new(icons.GitHub_svg);
-            (double w, double h) SF_repo_Button_Image_Size
-                = Scale.Fit((SF_repo_Button_Image_Pixbuf.Width, SF_repo_Button_Image_Pixbuf.Height), (24, 24));
-            Image_SF_repo_Button_About_Box.Pixbuf
-                = SF_repo_Button_Image_Pixbuf
-                    .ScaleSimple((int)SF_repo_Button_Image_Size.w,
-                                 (int)SF_repo_Button_Image_Size.h,
-                                 Gdk.InterpType.Bilinear);
+            Common.Cache.MaterialIcons.TryGetValue(MaterialIconKind.Github, out string github);
+            Image_SF_repo_Button_About_Box.Pixbuf = github.ToPixbuf((24, 24));
             //? ======================================
 
             //? = Image_License_Button_About_Box =====
-            Gdk.Pixbuf Image_License_Button_About_Box_Pixbuf = new(icons.Balance_png);
-            (double w, double h) Image_License_Button_About_Box_Size
-                = Scale.Fit((Image_License_Button_About_Box_Pixbuf.Width, Image_License_Button_About_Box_Pixbuf.Height), (24, 24));
-            Image_License_Button_About_Box.Pixbuf
-                = Image_License_Button_About_Box_Pixbuf
-                    .ScaleSimple((int)Image_License_Button_About_Box_Size.w,
-                                 (int)Image_License_Button_About_Box_Size.h,
-                                 Gdk.InterpType.Bilinear);
+            Common.Cache.MaterialIcons.TryGetValue(MaterialIconKind.ScaleBalance, out string scaleBalance);
+            Image_License_Button_About_Box.Pixbuf = scaleBalance.ToPixbuf((24, 24));
             //? ======================================
 
         }
@@ -216,8 +201,8 @@ namespace ScreenFIRE.GUI {
             Thread.Sleep(1000); //? Temp (For Windows) make sure the window is fully hidden
 
             using var ss = new Screenshot(screenshotType);
-            if (await Save.Local(ss, this)) {
-
+            bool saved = await Save.Local(ss, this);
+            if (saved) {
                 if (Common.LocalSave_Settings.CopyToClipboard)
                     Save.Clipboard(ss);
 
