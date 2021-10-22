@@ -1,5 +1,6 @@
 ﻿using ScreenFIRE.Modules.Companion.math;
 using System;
+using System.Drawing;
 using System.IO;
 using System.Text;
 
@@ -7,6 +8,20 @@ namespace ScreenFIRE.Modules.Companion {
 
     public static class Txt {
 
+        public static byte[] ParseSVGBytes(this string pathSVG,
+                                           (int Width, int Height) Size,
+                                           Color fillColor = default) {
+            return Encoding.UTF8.GetBytes(pathSVG.ParseSVG(Size, fillColor));
+        }
+        public static string ParseSVG(this string pathSVG,
+                                      (int Width, int Height) Size,
+                                      Color fillColor = default) {
+            if (fillColor == default) fillColor = Color.Gray;
+            string fillColorHex = fillColor.A.ToString("X2") + fillColor.R.ToString("X2") + fillColor.G.ToString("X2") + fillColor.B.ToString("X2");
+            return $"<svg width=\"{Size.Width}\" height=\"{Size.Height}\" viewBox=\"0 0 {Size.Width} {Size.Height}\" fill=\"solid\" xmlns=\"http://www.w3.org/2000/svg\">" + Common.n
+                     + $"<path d=\"{pathSVG}\" fill=\"{fillColorHex}\"/>" + Common.n
+                  + "</svg>";
+        }
         public static string NoDashes(this string input) {
             string[] guidSplit = input.ToString().Split('-');
             string result = string.Empty;
