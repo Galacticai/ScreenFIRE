@@ -84,7 +84,7 @@ namespace ScreenFIRE.Modules.Companion.OS.Companion {
                         //? Skip double dots
                         // "12.34.56~~>..~~>.78.etc.etc"
                         if (i > 0 & kernelString[i] == '.')
-                            //?? INFO: Step into only if in range
+                            //!? INFO: Step into only if in range
                             if (kernelString[i - 1] == '.')
                                 continue;
 
@@ -175,7 +175,7 @@ namespace ScreenFIRE.Modules.Companion.OS.Companion {
 }
 
 
-//?? TESTS
+//!? TESTS
 //? >> $ID is common (All)
 //? >> $VERSION_ID is common (Except Arch || CentOS 6~5)
 
@@ -183,7 +183,7 @@ namespace ScreenFIRE.Modules.Companion.OS.Companion {
 //? $ . /etc/*-release && echo $name
 //! (output: value of name)
 
-//?? Debian 11 ======================================
+//!? Debian 11 ======================================
 //? $ cat /etc/*-release
 //  PRETTY_NAME = "Debian GNU/Linux 11 (bullseye)"
 //  NAME = "Debian GNU/Linux"
@@ -194,9 +194,9 @@ namespace ScreenFIRE.Modules.Companion.OS.Companion {
 //  HOME_URL = "https://www.debian.org/"
 //  SUPPORT_URL = "https://www.debian.org/support"
 //  BUG_REPORT_URL = "https://bugs.debian.org/"
-//?? ================================================
+//!? ================================================
 
-//?? Ubuntu 20.04 ===================================
+//!? Ubuntu 20.04 ===================================
 //? $ cat /etc/*-release
 //  DISTRIB_ID=Ubuntu
 //  DISTRIB_RELEASE=20.04
@@ -214,9 +214,9 @@ namespace ScreenFIRE.Modules.Companion.OS.Companion {
 //  PRIVACY_POLICY_URL="https://www.ubuntu.com/legal/terms-and-policies/privacy-policy"
 //  VERSION_CODENAME=focal
 //  UBUNTU_CODENAME = focal
-//?? ================================================
+//!? ================================================
 
-//?? KDE Neon v5.22 =================================
+//!? KDE Neon v5.22 =================================
 //? $ cat /etc/*-release
 //  DISTRIB_ID=neon
 //  DISTRIB_RELEASE=20.04
@@ -243,9 +243,9 @@ namespace ScreenFIRE.Modules.Companion.OS.Companion {
 //  DISTRIB_RELEASE=20.04
 //  DISTRIB_CODENAME=focal
 //  DISTRIB_DESCRIPTION="KDE neon User Edition 5.22"
-//?? ================================================
+//!? ================================================
 
-//?? Arch v?? =======================================
+//!? Arch v?? =======================================
 //? $ cat /etc/os-release
 //  NAME="Arch Linux"
 //  ID=arch
@@ -263,9 +263,9 @@ namespace ScreenFIRE.Modules.Companion.OS.Companion {
 //  DISTRIB_DESCRIPTION="Arch Linux"
 //
 //! Empty: `/etc/arch-version`
-//?? ================================================
+//!? ================================================
 
-//?? Amazon Linux 2016.09 ===========================
+//!? Amazon Linux 2016.09 ===========================
 //? $ cat /etc/os-release
 //  NAME="Amazon Linux AMI"
 //  VERSION="2016.09"
@@ -281,9 +281,9 @@ namespace ScreenFIRE.Modules.Companion.OS.Companion {
 //
 //? $ cat /etc/system-release
 //  Amazon Linux AMI release 2016.09
-//?? ================================================
+//!? ================================================
 
-//?? CentOS 7 =======================================
+//!? CentOS 7 =======================================
 //? $ cat /etc/os-release
 //  NAME="CentOS Linux"
 //  VERSION="7 (Core)"
@@ -302,9 +302,9 @@ namespace ScreenFIRE.Modules.Companion.OS.Companion {
 //  REDHAT_SUPPORT_PRODUCT_VERSION="7"
 //
 //! Does not exist: /etc/lsb-release
-//?? ================================================
+//!? ================================================
 
-//?? CentOS 6 and 5 =================================
+//!? CentOS 6 and 5 =================================
 //! Does not exist: /etc/os-release
 //
 //? $ cat /etc/lsb-release
@@ -312,9 +312,9 @@ namespace ScreenFIRE.Modules.Companion.OS.Companion {
 //
 //? $ cat /etc/centos-release
 //  CentOS release 6.7 (Final)
-//?? ================================================
+//!? ================================================
 
-//?? Fedora 22 ======================================
+//!? Fedora 22 ======================================
 //? $ cat  /etc/os-release
 //  NAME=Fedora
 //  VERSION="22 (Twenty Two)"
@@ -335,9 +335,9 @@ namespace ScreenFIRE.Modules.Companion.OS.Companion {
 //
 //? $ cat /etc/fedora-release
 //  Fedora release 22 (Twenty Two)
-//?? ================================================
+//!? ================================================
 
-//?? openSUSE Tumbleweed ============================
+//!? openSUSE Tumbleweed ============================
 //? $ cat  /etc/os-release
 //  NAME=openSUSE
 //  VERSION="20150725 (Tumbleweed)"
@@ -357,4 +357,4 @@ namespace ScreenFIRE.Modules.Companion.OS.Companion {
 //  VERSION = 20150725
 //  CODENAME = Tumbleweed
 //  # /etc/SuSE-release is deprecated and will be removed in the future, use /etc/os-release instead
-//?? ================================================
+//!? ================================================

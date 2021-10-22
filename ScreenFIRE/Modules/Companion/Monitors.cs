@@ -70,7 +70,7 @@ namespace ScreenFIRE.Modules.Companion {
         /// <param name="point"> Focus <see cref="Point"/> </param>
         /// <returns> Last active <see cref="Window"/> </returns>
         public static Window LastActiveWindow() {
-            //?? Unknown if can throw an exception
+            //!? Unknown if can throw an exception
             return Display.Default.DefaultSeat.Pointer.LastEventWindow
                 ?? Display.Default.DefaultSeat.Keyboard.LastEventWindow
                 ?? Global.DefaultRootWindow; //? Fallback
@@ -85,7 +85,7 @@ namespace ScreenFIRE.Modules.Companion {
         public static Window WindowAtPoint(Point point) {
             Device pointer = Display.Default.DefaultSeat.Pointer;
 
-            //?? This returns null!
+            //!? This returns null!
             return pointer.GetWindowAtPosition(out point.X, out point.Y);
         }
         /// <returns> Monitor <see cref="Rectangle"/> at the mouse pointer </returns>
