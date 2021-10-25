@@ -699,7 +699,7 @@
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <property name="tooltip_markup" translatable="yes">https://www.gnu.org/licenses/gpl-3.0.html</property>
+                <property name="tooltip_markup">https://www.gnu.org/licenses/gpl-3.0.html</property>
                 <property name="relief">none</property>
                 <property name="always_show_image">True</property>
                 <child>
@@ -750,7 +750,7 @@
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <property name="tooltip_markup" translatable="yes">__**http://github.com/xeroling/ScreenFIRE**__</property>
+                <property name="tooltip_markup">http://github.com/xeroling/ScreenFIRE</property>
                 <property name="relief">none</property>
                 <property name="always_show_image">True</property>
                 <child>

@@ -8,10 +8,10 @@ using ScreenFIRE.Modules.Companion.math;
 using ScreenFIRE.Modules.Companion.math.Vision;
 using ScreenFIRE.Modules.Save;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
+using g = Gdk;
 using gtk = Gtk;
 using io = System.IO;
 using UI = Gtk.Builder.ObjectAttribute;
@@ -64,7 +64,7 @@ namespace ScreenFIRE.GUI {
 
         private void AssignEvents() {
             DeleteEvent += delegate {
-                Strings.SaveStorage(Common.Settings.Language);
+                //Strings.SaveStorage(Common.Settings.Language);
                 gtk.Application.Quit();
             };
 
@@ -159,20 +159,19 @@ namespace ScreenFIRE.GUI {
         private void AssignImages() {
             //? = LogoImage ==========================
             LogoImage.Pixbuf
-                = new Gdk.Pixbuf(SF.Logo).ScaleSimple(128, 128, Gdk.InterpType.Bilinear);
+                = new g.Pixbuf(SF.Logo).ScaleSimple(128, 128, g.InterpType.Bilinear);
             //? ======================================
 
-            if (Common.Cache.MaterialIcons == null)
-                Common.Cache.MaterialIcons = (Dictionary<MaterialIconKind, string>)MaterialIconDataFactory.DataSetCreate();
-
+            g.RGBA iconsColor = new() { Alpha = 1, Red = .05, Green = .06, Blue = .065 };
+            int iconSize = 24;
             //? = Image_SF_repo_Button_About_Box =====
             Common.Cache.MaterialIcons.TryGetValue(MaterialIconKind.Github, out string github);
-            Image_SF_repo_Button_About_Box.Pixbuf = github.ToPixbuf((24, 24));
+            Image_SF_repo_Button_About_Box.Pixbuf = github.ToPixbuf((iconSize, iconSize), iconsColor);
             //? ======================================
 
             //? = Image_License_Button_About_Box =====
             Common.Cache.MaterialIcons.TryGetValue(MaterialIconKind.ScaleBalance, out string scaleBalance);
-            Image_License_Button_About_Box.Pixbuf = scaleBalance.ToPixbuf((24, 24));
+            Image_License_Button_About_Box.Pixbuf = scaleBalance.ToPixbuf((iconSize, iconSize), iconsColor);
             //? ======================================
 
         }
