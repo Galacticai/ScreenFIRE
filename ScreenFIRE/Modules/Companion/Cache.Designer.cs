@@ -7,38 +7,53 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-
+using System.Collections.Generic;
+using ScreenFIRE.Assets;
+using Material.Icons;
+using System.Security.Cryptography;
+using System.Configuration;
 namespace ScreenFIRE.Modules.Companion {
-    
-    
+
+
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.0.3.0")]
-    internal sealed partial class Cache : global::System.Configuration.ApplicationSettingsBase {
-        
-        private static Cache defaultInstance = ((Cache)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Cache())));
-        
+    internal sealed partial class Cache : ApplicationSettingsBase {
+
+        private static Cache defaultInstance = ((Cache)(ApplicationSettingsBase.Synchronized(new Cache())));
+
         public static Cache Default {
             get {
                 return defaultInstance;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::System.Collections.Generic.Dictionary<Material.Icons.MaterialIconKind, string> MaterialIcons {
+        public Dictionary<MaterialIconKind, string> MaterialIcons {
             get {
-                return ((global::System.Collections.Generic.Dictionary<Material.Icons.MaterialIconKind, string>)(this["MaterialIcons"]));
+                return ((Dictionary<MaterialIconKind, string>)(this["MaterialIcons"]));
             }
             set {
                 this["MaterialIcons"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::System.Security.Cryptography.Aes LastAes {
+        public Dictionary<ILanguages, Dictionary<Assets.IStrings, string>> StringsStore {
             get {
-                return ((global::System.Security.Cryptography.Aes)(this["LastAes"]));
+                return ((Dictionary<ILanguages, Dictionary<IStrings, string>>)(this["StringsStore"]));
+            }
+            set {
+                this["StringsStore"] = value;
+            }
+        }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public Aes LastAes {
+            get {
+                return ((Aes)(this["LastAes"]));
             }
             set {
                 this["LastAes"] = value;

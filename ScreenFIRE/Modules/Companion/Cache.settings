@@ -8,6 +8,9 @@
     <Setting Name="MaterialIcons" Type="System.Collections.Generic.Dictionary" Scope="User">
 		<Value Profile="(Default)" />
     </Setting>
+    <Setting Name="MaterialIcons" Type="System.Collections.Generic.Dictionary" Scope="User">
+		<Value Profile="(Default)" />
+    </Setting>
     <Setting Name="LastAes" Type="System.Security.Cryptography.Aes" Scope="User">
       <Value Profile="(Default)"/>
     </Setting>
