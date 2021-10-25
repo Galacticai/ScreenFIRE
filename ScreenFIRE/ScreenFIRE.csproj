@@ -61,6 +61,8 @@
 
     <PackageReference Include="Shell.NET" Version="0.2.2" />
 
+    <PackageReference Include="Aspose.SVG" Version="21.10.0" />
+
   </ItemGroup>
 
   <ItemGroup>
@@ -72,6 +74,11 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>icons.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Modules\Companion\Cache.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Cache.settings</DependentUpon>
     </Compile>
     <Compile Update="Modules\Save\LocalSave_Settings.Designer.cs">
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
@@ -109,6 +116,10 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Themes.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Update="Modules\Companion\Cache.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Cache.Designer.cs</LastGenOutput>
+    </None>
     <None Update="Modules\Save\LocalSave_Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>LocalSave_Settings.Designer.cs</LastGenOutput>
