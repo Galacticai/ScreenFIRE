@@ -1,4 +1,5 @@
-﻿using ScreenFIRE.Assets;
+﻿using Material.Icons;
+using System.Collections.Generic;
 using System.IO;
 using env = System.Environment;
 
@@ -31,8 +32,14 @@ namespace ScreenFIRE.Modules.Companion {
             if (string.IsNullOrEmpty(Common.LocalSave_Settings.Location))
                 Common.LocalSave_Settings.Location = Common.SF;
 
-            //? Rebuild previously fetched strings according to current language
-            Strings.RebuildStorage(Languages.SystemLanguage());
+            ////? Rebuild previously fetched strings according to current language
+            //Strings.RebuildStorage(Languages.SystemLanguage());
+
+            //? Build Material Icons cache
+            if (Common.Cache.MaterialIcons == null) {
+                Common.Cache.MaterialIcons = (Dictionary<MaterialIconKind, string>)MaterialIconDataFactory.DataSetCreate();
+                Common.Cache.Save();
+            }
 
             //? Delete 1mo old screenshots
             Delete1MonthOldScreenshots.Run();
