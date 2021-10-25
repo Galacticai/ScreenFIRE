@@ -1,5 +1,6 @@
 ﻿using ScreenFIRE.Modules.Capture.Companion;
 using System.ComponentModel;
+using System.Text;
 using c = Cairo;
 using g = Gdk;
 using sysd = System.Drawing;
@@ -17,11 +18,15 @@ namespace ScreenFIRE.Modules.Companion.math.Vision {
         /// <param name="Size"> Size of the output <see cref="g.Pixbuf"/> </param>
         /// <param name="fillColor"> Fill color (solid) </param>
         /// <returns> <see cref="new"/> <see cref="g.Pixbuf(byte[])"/> </returns>
-        public static g.Pixbuf ToPixbuf(this string PathSVG, (int Width, int Height) Size, sysd.Color fillColor = default) {
-            if (fillColor == default) fillColor = sysd.Color.Black;
-            return new g.Pixbuf(PathSVG.ParseSVGBytes(Size, fillColor));
+        public static g.Pixbuf ToPixbuf(this string PathSVG, (int Width, int Height) Size, g.RGBA fillColor) {
+            return new g.Pixbuf(ParseSVGBytes(PathSVG, Size, fillColor));
         }
-
+        public static byte[] ParseSVGBytes(this string SVGpath, (int Width, int Height) Size,
+                                           g.RGBA fillColor) {
+            string svg = Txt.ParseSVG(SVGpath, Size, fillColor);
+            byte[] svgBytes = Encoding.UTF8.GetBytes(svg);
+            return svgBytes;
+        }
 
         /// <summary>  Blends the specified <see cref="g.RGBA"/> colors together. </summary>
         /// <param name="foreColor">Color to blend onto the background color.</param>
