@@ -2,7 +2,7 @@
 using c = Cairo;
 using g = Gdk;
 
-namespace ScreenFIRE.Modules.Companion.math.Vision {
+namespace ScreenFIRE.Modules.Companion.math.Vision.Geometry {
     /// <summary> Shapes and stuff math </summary>
     static class PointsToRectangle {
         /// <summary> ••• <see cref="int"/> ••• Convert 2 points to a rectangle </summary>
