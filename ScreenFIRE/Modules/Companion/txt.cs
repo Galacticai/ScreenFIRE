@@ -1,5 +1,6 @@
 ﻿using ScreenFIRE.Modules.Companion.math;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using g = Gdk;
@@ -7,6 +8,15 @@ using g = Gdk;
 namespace ScreenFIRE.Modules.Companion {
 
     public static class Txt {
+        public static IEnumerable<int> IndexesOf(this string haystack, string needle) {
+            int lastIndex = 0;
+            while (true) {
+                int index = haystack.IndexOf(needle, lastIndex);
+                if (index == -1) yield break;
+                yield return index;
+                lastIndex = index + needle.Length;
+            }
+        }
 
         public static bool IsLetter(this char ch) {
             return char.IsLower(ch) | char.IsUpper(ch);
