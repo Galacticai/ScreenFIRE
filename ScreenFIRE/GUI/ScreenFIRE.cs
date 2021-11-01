@@ -1,7 +1,7 @@
 using Gtk;
 using ScreenFIRE.Modules.Capture;
 using ScreenFIRE.Modules.Capture.Companion;
-using ScreenFIRE.Modules.Companion.math.Vision;
+using ScreenFIRE.Modules.Companion.math.Vision.Geometry;
 using System;
 using c = Cairo;
 using g = Gdk;
