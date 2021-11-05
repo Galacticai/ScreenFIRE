@@ -1,8 +1,6 @@
-﻿using ScreenFIRE.Modules.Companion.math.Vision.SVG_Tools.Companion;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-namespace ScreenFIRE.Modules.Companion.math.Vision.SVG_Tools {
+namespace ScreenFIRE.Modules.Companion.math.Vision.SVG.Companion {
     //! Move to (0,0)
     //? |> (x|y) - Min(All(x|y))
     //  M   =>   x    y
@@ -13,37 +11,128 @@ namespace ScreenFIRE.Modules.Companion.math.Vision.SVG_Tools {
     //  S   =>   x2   y2   x   y
     //  Q   =>   x1   y1   x   y
     //  T   =>   x    y
-    //  A   =>   rx   ry   a   large-arc  sweep  x  y
+    //  A   =>   rx   ry   rotation   largeArc?  sweepArc?  x  y
 
     /// <summary> SVG <c>&lt;path d="..."&gt;</c> property manipulation </summary>
     public partial class PathdElement {
+        private PathdElement() { } //!? Prevent constructing superclass
 
-        /// <summary> SVG point as <see cref="string"/> <br/>
+        /// <summary> Determines whether this element is relative or not <br/><br/>
+        /// Lowercase type >> Relative = true </summary>
+        public bool Relative => char.IsLower(Data_Raw[IPathdElement_Data.Type][0]);
+
+        internal SortedDictionary<IPathdElement_Data, dynamic> Data_Raw { get; set; }
+
+        /// <summary> SVG Pathd Element as <see cref="string"/> <br/><br/>
         /// Example: <br/>
         /// • <c>&lt;path d="<see cref="Data"/> <see cref="Data"/>...etc" /&gt;</c>) </summary>
-        public string Data { get; private set; }
-        /// <summary> Location of the start and finish (List of <see cref="Range"/>s) of each variable in <see cref="Data"/> </summary>
-        public List<Range> DataValueRanges { get; private set; }
-        /// <summary> Amount of variables this element sports <br/><br/>
-        /// Example: <br/>
-        /// C x1 y1 x2 y2 x y <br/>
-        /// >> ValueCount = 6
-        /// </summary>
-        public int ValueCount { get; private set; }
+        public string Data {
+            get {
+                string data = $"{Data_Raw[IPathdElement_Data.Type]} ";
+                foreach (IPathdElement_Data key in Data_Raw.Keys)
+                    data += $"{Data_Raw[key]} ";
+                return data[..^1]; //? Skip last space
+            }
+        }
 
         #region Pathd Element variables
-        public bool Relative { get; set; }
-        public double X { get; set; }
-        public double X1 { get; set; }
-        public double X2 { get; set; }
-        public double Y { get; set; }
-        public double Y1 { get; set; }
-        public double Y2 { get; set; }
-        public double RX { get; set; }
-        public double RY { get; set; }
-        public double Rotation { get; set; }
-        public bool LargeArc { get; set; }
-        public bool SweepArc { get; set; }
+        internal enum IPathdElement_Data {
+            //? Type is the first character of Data string (type of element)
+            Type,                   //!? char
+            X, X1, X2,              //!? float
+            Y, Y1, Y2,              //!? float
+            RX, RY,                 //!? float
+            Rotation,               //!? float
+            LargeArc_, SweepArc_,   //!? bool
+        }
+        private float _X = -1;
+        public float X {
+            get => _X;
+            set {
+                _X = value;
+                Data_Raw[IPathdElement_Data.X] = value;
+            }
+        }
+        private float _X1 = -1;
+        public float X1 {
+            get => _X1;
+            set {
+                _X1 = value;
+                Data_Raw[IPathdElement_Data.X1] = value;
+            }
+        }
+        private float _X2 = -1;
+        public float X2 {
+            get => _X2;
+            set {
+                _X2 = value;
+                Data_Raw[IPathdElement_Data.X2] = value;
+            }
+        }
+        private float _Y = -1;
+        public float Y {
+            get => _Y;
+            set {
+                _Y = value;
+                Data_Raw[IPathdElement_Data.Y] = value;
+            }
+        }
+        private float _Y1 = -1;
+        public float Y1 {
+            get => _Y1;
+            set {
+                _Y1 = value;
+                Data_Raw[IPathdElement_Data.Y1] = value;
+            }
+        }
+        private float _Y2 = -1;
+        public float Y2 {
+            get => _Y2;
+            set {
+                _Y2 = value;
+                Data_Raw[IPathdElement_Data.Y2] = value;
+            }
+        }
+        private float _RX = -1;
+        public float RX {
+            get => _RX;
+            set {
+                _RX = value;
+                Data_Raw[IPathdElement_Data.RX] = value;
+            }
+        }
+        private float _RY = -1;
+        public float RY {
+            get => _RY;
+            set {
+                _RY = value;
+                Data_Raw[IPathdElement_Data.RY] = value;
+            }
+        }
+        private float _Rotation = -1;
+        public float Rotation {
+            get => _Rotation;
+            set {
+                _Rotation = value;
+                Data_Raw[IPathdElement_Data.Rotation] = value;
+            }
+        }
+        private bool _LargeArc = false;
+        public bool LargeArc {
+            get => _LargeArc;
+            set {
+                _LargeArc = value;
+                Data_Raw[IPathdElement_Data.LargeArc_] = value;
+            }
+        }
+        private bool _SweepArc = false;
+        public bool SweepArc {
+            get => _SweepArc;
+            set {
+                _SweepArc = value;
+                Data_Raw[IPathdElement_Data.SweepArc_] = value;
+            }
+        }
         #endregion
 
         #region Pathd Element Types
@@ -54,16 +143,13 @@ namespace ScreenFIRE.Modules.Companion.math.Vision.SVG_Tools {
             /// <item> <c> M <paramref name="x"/> <paramref name="y"/> </c> ••• Absolute </item>
             /// <item> <c> m <paramref name="x"/> <paramref name="y"/> </c> ••• relative </item>
             /// </list> </summary>
-            public M(double x, double y, bool relative) {
-                ValueCount = 2;
-
-                Relative = relative;
-
+            public M(float x, float y, bool relative) {
                 X = x; Y = y;
-
-                Data = $"{(relative ? "m" : "M")} {X} {Y}";
-
-                DataValueRanges = SVGHelper.GenerateValueRanges(this);
+                Data_Raw = new();
+                Data_Raw.Add(IPathdElement_Data.Type,
+                             relative ? 'm' : 'M');
+                Data_Raw.Add(IPathdElement_Data.X, x);
+                Data_Raw.Add(IPathdElement_Data.Y, y);
             }
         }
         public class L : PathdElement {
@@ -75,16 +161,13 @@ namespace ScreenFIRE.Modules.Companion.math.Vision.SVG_Tools {
             /// <item> <c> L <paramref name="x"/> <paramref name="y"/> </c> ••• Absolute </item>
             /// <item> <c> l <paramref name="x"/> <paramref name="y"/> </c> ••• relative </item>
             /// </list> </summary>
-            public L(double x, double y, bool relative) {
-                ValueCount = 2;
-
-                Relative = relative;
-
+            public L(float x, float y, bool relative) {
                 X = x; Y = y;
-
-                Data = $"{(relative ? "l" : "L")} {X} {Y}";
-
-                DataValueRanges = SVGHelper.GenerateValueRanges(this);
+                Data_Raw = new();
+                Data_Raw.Add(IPathdElement_Data.Type,
+                             relative ? 'l' : 'L');
+                Data_Raw.Add(IPathdElement_Data.X, x);
+                Data_Raw.Add(IPathdElement_Data.Y, y);
             }
         }
         public class V : PathdElement {
@@ -95,16 +178,12 @@ namespace ScreenFIRE.Modules.Companion.math.Vision.SVG_Tools {
             /// <item> <c> V <paramref name="y"/> </c> ••• Absolute </item>
             /// <item> <c> v <paramref name="y"/> </c> ••• relative </item>
             /// </list> </summary>
-            public V(double y, bool relative) {
-                ValueCount = 1;
-
-                Relative = relative;
-
+            public V(float y, bool relative) {
                 Y = y;
-
-                Data = $"{(relative ? "v" : "V")} {Y}";
-
-                DataValueRanges = SVGHelper.GenerateValueRanges(this);
+                Data_Raw = new();
+                Data_Raw.Add(IPathdElement_Data.Type,
+                             relative ? 'v' : 'V');
+                Data_Raw.Add(IPathdElement_Data.Y, y);
             }
         }
         public class H : PathdElement {
@@ -115,16 +194,12 @@ namespace ScreenFIRE.Modules.Companion.math.Vision.SVG_Tools {
             /// <item> <c> H <paramref name="x"/> </c> ••• Absolute </item>
             /// <item> <c> h <paramref name="x"/> </c> ••• relative </item>
             /// </list> </summary>
-            public H(double x, bool relative) {
-                ValueCount = 1;
-
-                Relative = relative;
-
+            public H(float x, bool relative) {
                 X = x;
-
-                Data = $"{(relative ? "h" : "H")} {X}";
-
-                DataValueRanges = SVGHelper.GenerateValueRanges(this);
+                Data_Raw = new();
+                Data_Raw.Add(IPathdElement_Data.Type,
+                             relative ? 'h' : 'H');
+                Data_Raw.Add(IPathdElement_Data.X, x);
             }
         }
         public class C : PathdElement {
@@ -137,16 +212,17 @@ namespace ScreenFIRE.Modules.Companion.math.Vision.SVG_Tools {
             /// <item> <c> C <paramref name="x1"/> <paramref name="y1"/> <paramref name="x2"/> <paramref name="y2"/> <paramref name="x"/> <paramref name="y"/> </c> ••• Absolute </item>
             /// <item> <c> c <paramref name="x1"/> <paramref name="y1"/> <paramref name="x2"/> <paramref name="y2"/> <paramref name="x"/> <paramref name="y"/> </c> ••• relative </item>
             /// </list> </summary>
-            public C(double x1, double y1, double x2, double y2, double x, double y, bool relative) {
-                ValueCount = 6;
-
-                Relative = relative;
-
+            public C(float x1, float y1, float x2, float y2, float x, float y, bool relative) {
                 X1 = x1; Y1 = y1; X2 = x2; Y2 = y2; X = x; Y = y;
-
-                Data = $"{(relative ? "c" : "C")} {X1} {Y1} {X2} {Y2} {X} {Y}";
-
-                DataValueRanges = SVGHelper.GenerateValueRanges(this);
+                Data_Raw = new();
+                Data_Raw.Add(IPathdElement_Data.Type,
+                             relative ? 'c' : 'C');
+                Data_Raw.Add(IPathdElement_Data.X1, x1);
+                Data_Raw.Add(IPathdElement_Data.Y1, y1);
+                Data_Raw.Add(IPathdElement_Data.X2, x2);
+                Data_Raw.Add(IPathdElement_Data.Y2, y2);
+                Data_Raw.Add(IPathdElement_Data.X, x);
+                Data_Raw.Add(IPathdElement_Data.Y, y);
             }
         }
         public class S : PathdElement {
@@ -162,16 +238,15 @@ namespace ScreenFIRE.Modules.Companion.math.Vision.SVG_Tools {
             /// <item> <c> S <paramref name="x2"/> <paramref name="y2"/> <paramref name="x"/> <paramref name="y"/> </c> ••• Absolute </item>
             /// <item> <c> s <paramref name="x2"/> <paramref name="y2"/> <paramref name="x"/> <paramref name="y"/> </c> ••• relative </item>
             /// </list> </summary>
-            public S(double x2, double y2, double x, double y, bool relative) {
-                ValueCount = 4;
-
-                Relative = relative;
-
+            public S(float x2, float y2, float x, float y, bool relative) {
                 X2 = x2; Y2 = y2; X = x; Y = y;
-
-                Data = $"{(relative ? "s" : "S")} {X2} {Y2} {X} {Y}";
-
-                DataValueRanges = SVGHelper.GenerateValueRanges(this);
+                Data_Raw = new();
+                Data_Raw.Add(IPathdElement_Data.Type,
+                             relative ? 's' : 'S');
+                Data_Raw.Add(IPathdElement_Data.X2, x2);
+                Data_Raw.Add(IPathdElement_Data.Y2, y2);
+                Data_Raw.Add(IPathdElement_Data.X, x);
+                Data_Raw.Add(IPathdElement_Data.Y, y);
             }
         }
         public class Q : PathdElement {
@@ -184,15 +259,15 @@ namespace ScreenFIRE.Modules.Companion.math.Vision.SVG_Tools {
             /// <item> <c> Q <paramref name="x1"/> <paramref name="y1"/> <paramref name="x"/> <paramref name="y"/> </c> ••• Absolute </item>
             /// <item> <c> q <paramref name="x1"/> <paramref name="y1"/> <paramref name="x"/> <paramref name="y"/> </c> ••• relative </item>
             /// </list> </summary>
-            public Q(double x1, double y1, double x, double y, bool relative) {
-                ValueCount = 4;
-                Relative = relative;
-
+            public Q(float x1, float y1, float x, float y, bool relative) {
                 X1 = x1; Y1 = y1; X = x; Y = y;
-
-                Data = $"{(relative ? "q" : "Q")} {X1} {Y1} {X} {Y}";
-
-                DataValueRanges = SVGHelper.GenerateValueRanges(this);
+                Data_Raw = new();
+                Data_Raw.Add(IPathdElement_Data.Type,
+                             relative ? 'q' : 'Q');
+                Data_Raw.Add(IPathdElement_Data.X1, x1);
+                Data_Raw.Add(IPathdElement_Data.Y1, y1);
+                Data_Raw.Add(IPathdElement_Data.X, x);
+                Data_Raw.Add(IPathdElement_Data.Y, y);
             }
         }
         public class T : PathdElement {
@@ -209,16 +284,13 @@ namespace ScreenFIRE.Modules.Companion.math.Vision.SVG_Tools {
             /// <item> <c> T <paramref name="x"/> <paramref name="y"/> </c> ••• Absolute </item>
             /// <item> <c> t <paramref name="x"/> <paramref name="y"/> </c> ••• relative </item>
             /// </list> </summary>
-            public T(double x, double y, bool relative) {
-                ValueCount = 2;
-
-                Relative = relative;
-
+            public T(float x, float y, bool relative) {
                 X = x; Y = y;
-
-                Data = $"{(relative ? "t" : "T")} {X} {Y}";
-
-                DataValueRanges = SVGHelper.GenerateValueRanges(this);
+                Data_Raw = new();
+                Data_Raw.Add(IPathdElement_Data.Type,
+                             relative ? 't' : 'T');
+                Data_Raw.Add(IPathdElement_Data.X, x);
+                Data_Raw.Add(IPathdElement_Data.Y, y);
             }
         }
         public class A : PathdElement {
@@ -232,18 +304,20 @@ namespace ScreenFIRE.Modules.Companion.math.Vision.SVG_Tools {
             /// <item> <c> A <paramref name="rx"/> <paramref name="ry"/> <paramref name="rotation"/> <paramref name="largeArc"/>? <paramref name="sweepArc"/>? <paramref name="x"/> <paramref name="y"/> </c> ••• Absolute </item>
             /// <item> <c> a <paramref name="rx"/> <paramref name="ry"/> <paramref name="rotation"/> <paramref name="largeArc"/>? <paramref name="sweepArc"/>? <paramref name="x"/> <paramref name="y"/> </c> ••• relative </item>
             /// </list> </summary>
-            public A(double rx, double ry, double rotation, bool largeArc, bool sweepArc, double x, double y, bool relative) {
-                ValueCount = 7;
-
-                Relative = relative;
-
+            public A(float rx, float ry, float rotation, bool largeArc, bool sweepArc, float x, float y, bool relative) {
                 RX = rx; RY = ry; Rotation = rotation;
                 LargeArc = largeArc; SweepArc = sweepArc;
                 X = x; Y = y;
-
-                Data = $"{(relative ? "a" : "A")} {RX} {RY} {Rotation} {Convert.ToInt16(LargeArc)} {Convert.ToInt16(SweepArc)} {X} {Y}";
-
-                DataValueRanges = SVGHelper.GenerateValueRanges(this);
+                Data_Raw = new();
+                Data_Raw.Add(IPathdElement_Data.Type,
+                             relative ? 'a' : 'A');
+                Data_Raw.Add(IPathdElement_Data.RX, rx);
+                Data_Raw.Add(IPathdElement_Data.RY, ry);
+                Data_Raw.Add(IPathdElement_Data.Rotation, rotation);
+                Data_Raw.Add(IPathdElement_Data.LargeArc_, largeArc);
+                Data_Raw.Add(IPathdElement_Data.SweepArc_, sweepArc);
+                Data_Raw.Add(IPathdElement_Data.X, x);
+                Data_Raw.Add(IPathdElement_Data.Y, y);
             }
         }
 
@@ -257,9 +331,9 @@ namespace ScreenFIRE.Modules.Companion.math.Vision.SVG_Tools {
             /// <item> <c> Z </c> </item>
             /// </list> </summary>
             public Z() {
-                ValueCount = 0;
-                Relative = true; //? Z is always relative
-                Data = "Z";
+                Data_Raw = new();
+                Data_Raw.Add(IPathdElement_Data.Type,
+                             'z'); //? Z is always relative
             }
         }
         #endregion
@@ -280,7 +354,7 @@ namespace ScreenFIRE.Modules.Companion.math.Vision.SVG_Tools {
         /// <item> <c> M <paramref name="x"/> <paramref name="y"/> </c> ••• Absolute </item>
         /// <item> <c> m <paramref name="x"/> <paramref name="y"/> </c> ••• relative </item>
         /// </list> </summary>
-        public static M MoveTo(double x, double y, bool relative)
+        public static M MoveTo(float x, float y, bool relative)
             => new(x, y, relative);
         /// <summary> <c> { L || H || V } { X Y || X || Y } </c> </summary>
         public class LineTo {
@@ -292,7 +366,7 @@ namespace ScreenFIRE.Modules.Companion.math.Vision.SVG_Tools {
             /// <item> <c> L <paramref name="x"/> <paramref name="y"/> </c> ••• Absolute </item>
             /// <item> <c> l <paramref name="x"/> <paramref name="y"/> </c> ••• relative </item>
             /// </list> </summary>
-            public static L Free(double x, double y, bool relative)
+            public static L Free(float x, float y, bool relative)
                 => new(x, y, relative);
             /// <summary>
             /// Draws a vertical line from the current point (cpx, cpy) to (cpx, y).   <br/><br/>
@@ -301,7 +375,7 @@ namespace ScreenFIRE.Modules.Companion.math.Vision.SVG_Tools {
             /// <item> <c> V <paramref name="y"/> </c> ••• Absolute </item>
             /// <item> <c> v <paramref name="y"/> </c> ••• relative </item>
             /// </list> </summary>
-            public static V Vertical(double y, bool relative)
+            public static V Vertical(float y, bool relative)
                     => new(y, relative);
             /// <summary>
             /// Draws a horizontal line from the current point (cpx, cpy) to (x, cpy). <br/><br/>
@@ -310,7 +384,7 @@ namespace ScreenFIRE.Modules.Companion.math.Vision.SVG_Tools {
             /// <item> <c> H <paramref name="x"/> </c> ••• Absolute </item>
             /// <item> <c> h <paramref name="x"/> </c> ••• relative </item>
             /// </list> </summary>
-            public static H Horizontal(double x, bool relative)
+            public static H Horizontal(float x, bool relative)
                 => new(x, relative);
         }
         /// <summary>
@@ -328,7 +402,7 @@ namespace ScreenFIRE.Modules.Companion.math.Vision.SVG_Tools {
             /// <item> <c> C <paramref name="x1"/> <paramref name="y1"/> <paramref name="x2"/> <paramref name="y2"/> <paramref name="x"/> <paramref name="y"/> </c> ••• Absolute </item>
             /// <item> <c> c <paramref name="x1"/> <paramref name="y1"/> <paramref name="x2"/> <paramref name="y2"/> <paramref name="x"/> <paramref name="y"/> </c> ••• relative </item>
             /// </list> </summary>
-            public static C Regular(double x1, double y1, double x2, double y2, double x, double y, bool relative)
+            public static C Regular(float x1, float y1, float x2, float y2, float x, float y, bool relative)
             => new(x1, y1, x2, y2, x, y, relative);
             /// <summary>
             /// Draws a cubic bezier curve from the current point to (x,y). The first    <br/>
@@ -342,7 +416,7 @@ namespace ScreenFIRE.Modules.Companion.math.Vision.SVG_Tools {
             /// <item> <c> S <paramref name="x2"/> <paramref name="y2"/> <paramref name="x"/> <paramref name="y"/> </c> ••• Absolute </item>
             /// <item> <c> s <paramref name="x2"/> <paramref name="y2"/> <paramref name="x"/> <paramref name="y"/> </c> ••• relative </item>
             /// </list> </summary>
-            public static S Smooth(double x2, double y2, double x, double y, bool relative)
+            public static S Smooth(float x2, float y2, float x, float y, bool relative)
                 => new(x2, y2, x, y, relative);
 
             /// <summary>
@@ -354,7 +428,7 @@ namespace ScreenFIRE.Modules.Companion.math.Vision.SVG_Tools {
             /// <item> <c> Q <paramref name="x1"/> <paramref name="y1"/> <paramref name="x"/> <paramref name="y"/> </c> ••• Absolute </item>
             /// <item> <c> q <paramref name="x1"/> <paramref name="y1"/> <paramref name="x"/> <paramref name="y"/> </c> ••• relative </item>
             /// </list> </summary>
-            public static Q QuadraticBezier(double x1, double y1, double x, double y, bool relative)
+            public static Q QuadraticBezier(float x1, float y1, float x, float y, bool relative)
                 => new(x1, y1, x, y, relative);
 
             /// <summary>
@@ -370,7 +444,7 @@ namespace ScreenFIRE.Modules.Companion.math.Vision.SVG_Tools {
             /// <item> <c> T <paramref name="x"/> <paramref name="y"/> </c> ••• Absolute </item>
             /// <item> <c> t <paramref name="x"/> <paramref name="y"/> </c> ••• relative </item>
             /// </list> </summary>
-            public static T ShorthandQuadraticBezier(double x, double y, bool relative)
+            public static T ShorthandQuadraticBezier(float x, float y, bool relative)
                 => new(x, y, relative);
         }
         /// <summary>
@@ -383,7 +457,7 @@ namespace ScreenFIRE.Modules.Companion.math.Vision.SVG_Tools {
         /// <item> <c> A <paramref name="rx"/> <paramref name="ry"/> <paramref name="rotation"/> <paramref name="largeArc"/>? <paramref name="sweepArc"/>? <paramref name="x"/> <paramref name="y"/> </c> ••• Absolute </item>
         /// <item> <c> a <paramref name="rx"/> <paramref name="ry"/> <paramref name="rotation"/> <paramref name="largeArc"/>? <paramref name="sweepArc"/>? <paramref name="x"/> <paramref name="y"/> </c> ••• relative </item>
         /// </list> </summary>
-        public static A EllipticalArc(double rx, double ry, double rotation, bool largeArc, bool sweepArc, double x, double y, bool relative)
+        public static A EllipticalArc(float rx, float ry, float rotation, bool largeArc, bool sweepArc, float x, float y, bool relative)
             => new(rx, ry, rotation, largeArc, sweepArc, x, y, relative);
         /// <summary>
         /// Close the current subpath by drawing a straight line from the current <br/>
