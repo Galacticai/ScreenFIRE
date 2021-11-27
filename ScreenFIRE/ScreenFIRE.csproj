@@ -41,23 +41,26 @@
     </EmbeddedResource>
   </ItemGroup>
 
-  <ItemGroup>
+  <ItemGroup> 
 
-    <PackageReference Include="System.Resources.Extensions" Version="5.0.0" />
-    <PackageReference Include="System.Drawing.Common" Version="5.0.2" />
+    <PackageReference Include="System.Collections" Version="4.3.0" /> 
+    <PackageReference Include="System.Resources.Extensions" Version="6.0.0" />
+    <PackageReference Include="System.Drawing.Common" Version="6.0.0" />
     <PackageReference Include="System.Drawing.Primitives" Version="4.3.0" />
-	<PackageReference Include="System.Runtime" Version="4.3.1" />
+	  <PackageReference Include="System.Runtime" Version="4.3.1" />
     <PackageReference Include="System.Runtime.Extensions" Version="4.3.1" />
     <PackageReference Include="System.Security.Cryptography.Algorithms" Version="4.3.1" />
-    <PackageReference Include="System.Configuration.ConfigurationManager" Version="5.0.0" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="6.0.0" />
 
     <PackageReference Include="GtkSharp" Version="3.24.24.34" />
 
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
 
-	<PackageReference Include="Material.Icons" Version="1.0.56" />
+	  <PackageReference Include="Material.Icons" Version="1.0.64" />
 
     <PackageReference Include="Shell.NET" Version="0.2.2" />
+    
+    <PackageReference Include="Aspose.SVG" Version="21.11.0" />
 
   </ItemGroup>
 
