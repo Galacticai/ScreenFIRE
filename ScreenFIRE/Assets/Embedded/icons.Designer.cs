@@ -61,11 +61,11 @@ namespace ScreenFIRE.Assets.Embedded {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static byte[] Balance_png {
+        internal static byte[] github_svg {
             get {
-                object obj = ResourceManager.GetObject("Balance_png", resourceCulture);
+                object obj = ResourceManager.GetObject("github_svg", resourceCulture);
                 return ((byte[])(obj));
             }
         }
@@ -73,19 +73,9 @@ namespace ScreenFIRE.Assets.Embedded {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static byte[] GitHub_svg {
+        internal static byte[] scaleBalance_svg {
             get {
-                object obj = ResourceManager.GetObject("GitHub_svg", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] LicenseBalance_svg {
-            get {
-                object obj = ResourceManager.GetObject("LicenseBalance_svg", resourceCulture);
+                object obj = ResourceManager.GetObject("scaleBalance_svg", resourceCulture);
                 return ((byte[])(obj));
             }
         }

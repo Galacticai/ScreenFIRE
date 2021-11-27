@@ -118,13 +118,10 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="Balance_png" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\images\icons\Balance.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="github_svg" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\images\icons\github.svg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="GitHub_svg" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\images\icons\GitHub.svg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="LicenseBalance_svg" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\images\icons\LicenseBalance.svg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="scaleBalance_svg" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\images\icons\scale-balance.svg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
 </root>
