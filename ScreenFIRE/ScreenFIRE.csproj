@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-	  <TargetFramework>net5.0</TargetFramework>
-	  <LangVersion>10.0</LangVersion>
+	<TargetFramework>net6.0</TargetFramework>
+	<LangVersion>latest</LangVersion>
     <Platforms>AnyCPU;x64</Platforms>
     <PackageIcon>ScreenFIRE-x128.png</PackageIcon>
     <ApplicationIcon>Assets\images\Logo\ScreenFIRE.ico</ApplicationIcon>
@@ -41,9 +41,9 @@
     </EmbeddedResource>
   </ItemGroup>
 
-  <ItemGroup> 
+  <ItemGroup>
 
-    <PackageReference Include="System.Collections" Version="4.3.0" /> 
+    <PackageReference Include="System.Collections" Version="4.3.0" />
     <PackageReference Include="System.Resources.Extensions" Version="6.0.0" />
     <PackageReference Include="System.Drawing.Common" Version="6.0.0" />
     <PackageReference Include="System.Drawing.Primitives" Version="4.3.0" />
@@ -59,7 +59,7 @@
 	  <PackageReference Include="Material.Icons" Version="1.0.64" />
 
     <PackageReference Include="Shell.NET" Version="0.2.2" />
-    
+
     <PackageReference Include="Aspose.SVG" Version="21.11.0" />
 
   </ItemGroup>
@@ -101,7 +101,7 @@
       <DependentUpon>Themes.resx</DependentUpon>
     </Compile>
     <Compile Update="Modules\Companion\Link.cs">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator></Generator>
     </Compile>
     <EmbeddedResource Update="Assets\Embedded\icons.resx">
       <Generator>ResXFileCodeGenerator</Generator>
