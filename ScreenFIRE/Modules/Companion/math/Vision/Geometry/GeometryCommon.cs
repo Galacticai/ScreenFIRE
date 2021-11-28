@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using c = Cairo;
 using g = Gdk;
 
@@ -25,6 +26,13 @@ namespace ScreenFIRE.Modules.Companion.math.Vision.Geometry {
                    xMax = rectangles.Max(rect => rect.X + rect.Width),
                    yMax = rectangles.Max(rect => rect.Y + rect.Height);
             return new c.Rectangle(xMin, yMin, xMax - xMin, yMax - yMin);
+        }
+
+        /// <summary> Calculates the distance between 2 points </summary>
+        /// <returns> Distance = √[ (x₂ - x₁)² + (y₂ - y₁)² ] </returns>
+        public static double Distance(c.PointD point1, c.PointD point2) {
+            return Math.Sqrt(Math.Pow((point2.X - point1.X), 2)
+                           + Math.Pow((point2.Y - point1.Y), 2));
         }
     }
 }
