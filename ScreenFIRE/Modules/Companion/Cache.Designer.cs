@@ -7,40 +7,40 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-using System.Collections.Generic;
+
 using ScreenFIRE.Assets;
-using Material.Icons;
-using System.Security.Cryptography;
-using System.Configuration;
+using ScreenFIRE.Modules.Companion.Status;
+using System.Collections.Generic;
+
 namespace ScreenFIRE.Modules.Companion {
-
-
+    
+    
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.0.3.0")]
-    internal sealed partial class Cache : ApplicationSettingsBase {
-
-        private static Cache defaultInstance = ((Cache)(ApplicationSettingsBase.Synchronized(new Cache())));
-
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.1.0.0")]
+    internal sealed partial class Cache : global::System.Configuration.ApplicationSettingsBase {
+        
+        private static Cache defaultInstance = ((Cache)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Cache())));
+        
         public static Cache Default {
             get {
                 return defaultInstance;
             }
         }
-
+        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public Dictionary<MaterialIconKind, string> MaterialIcons {
+        public global::System.Collections.Generic.Dictionary<Material.Icons.MaterialIconKind,string> MaterialIcons {
             get {
-                return ((Dictionary<MaterialIconKind, string>)(this["MaterialIcons"]));
+                return ((global::System.Collections.Generic.Dictionary<Material.Icons.MaterialIconKind, string>)(this["MaterialIcons"]));
             }
             set {
                 this["MaterialIcons"] = value;
             }
         }
-
+        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public Dictionary<ILanguages, Dictionary<Assets.IStrings, string>> StringsStore {
+        public Dictionary<ILanguages, Dictionary<IStrings, string>> StringsStore {
             get {
                 return ((Dictionary<ILanguages, Dictionary<IStrings, string>>)(this["StringsStore"]));
             }
@@ -48,15 +48,25 @@ namespace ScreenFIRE.Modules.Companion {
                 this["StringsStore"] = value;
             }
         }
-
+        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public Aes LastAes {
+        public global::System.Security.Cryptography.Aes LastAes {
             get {
-                return ((Aes)(this["LastAes"]));
+                return ((global::System.Security.Cryptography.Aes)(this["LastAes"]));
             }
             set {
                 this["LastAes"] = value;
+            }
+        }
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public List<Objective> ObjectiveHistory {
+            get {
+                return ((List<Objective>)(this["ObjectiveHistory"]));
+            }
+            set {
+                this["ObjectiveHistory"] = value;
             }
         }
     }
