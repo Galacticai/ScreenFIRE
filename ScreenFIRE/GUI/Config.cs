@@ -1,11 +1,9 @@
-using Material.Icons;
 using ScreenFIRE.Assets;
 using ScreenFIRE.Assets.Embedded;
 using ScreenFIRE.Modules.Capture;
 using ScreenFIRE.Modules.Capture.Companion;
 using ScreenFIRE.Modules.Companion;
 using ScreenFIRE.Modules.Companion.math;
-using ScreenFIRE.Modules.Companion.math.Vision;
 using ScreenFIRE.Modules.Save;
 using System;
 using System.Diagnostics;
@@ -19,6 +17,7 @@ using UI = Gtk.Builder.ObjectAttribute;
 namespace ScreenFIRE.GUI {
 
     class Config : gtk.ApplicationWindow {
+        #region UI
         [UI] private readonly gtk.Image LogoImage = null;
 
         [UI] private readonly gtk.Label Screenshot_TabButton = null;
@@ -61,6 +60,7 @@ namespace ScreenFIRE.GUI {
         [UI] private readonly gtk.Image Image_License_Button_About_Box = null;
         [UI] private readonly gtk.Label Label_License_Button_About_Box = null;
         [UI] private readonly gtk.Label madeWith_Label_About_Box = null;
+        #endregion
 
         private void AssignEvents() {
             DeleteEvent += delegate {
@@ -111,7 +111,7 @@ namespace ScreenFIRE.GUI {
 
 
             VersionPhase_Box_About_Box.ButtonReleaseEvent += async delegate {
-                gtk.Clipboard.GetDefault(Gdk.Display.Default).Text
+                gtk.Clipboard.GetDefault(g.Display.Default).Text
                         = $"{await Strings.Fetch(IStrings.ScreenFIRE)} {Common.VersionString()}";
             };
 
@@ -157,22 +157,10 @@ namespace ScreenFIRE.GUI {
 
         }
         private void AssignImages() {
-            //? = LogoImage ==========================
-            LogoImage.Pixbuf
-                = new g.Pixbuf(SF.Logo).ScaleSimple(128, 128, g.InterpType.Bilinear);
-            //? ======================================
-
-            g.RGBA iconsColor = new() { Alpha = 1, Red = .05, Green = .06, Blue = .065 };
-            int iconSize = 24;
-            //? = Image_SF_repo_Button_About_Box =====
-            Common.Cache.MaterialIcons.TryGetValue(MaterialIconKind.Github, out string github);
-            Image_SF_repo_Button_About_Box.Pixbuf = github.ToPixbuf((iconSize, iconSize), iconsColor);
-            //? ======================================
-
-            //? = Image_License_Button_About_Box =====
-            Common.Cache.MaterialIcons.TryGetValue(MaterialIconKind.ScaleBalance, out string scaleBalance);
-            Image_License_Button_About_Box.Pixbuf = scaleBalance.ToPixbuf((iconSize, iconSize), iconsColor);
-            //? ======================================
+            LogoImage.Pixbuf = new g.Pixbuf(SF.Logo)
+                .ScaleSimple(128, 128, g.InterpType.Bilinear);
+            Image_SF_repo_Button_About_Box.Pixbuf = new g.Pixbuf(icons.github_svg);
+            Image_License_Button_About_Box.Pixbuf = new g.Pixbuf(icons.scaleBalance_svg);
 
         }
         private void AssignEtc() {
@@ -210,18 +198,18 @@ namespace ScreenFIRE.GUI {
                     _label1.Text = await Strings.Fetch(IStrings.ChooseHowYouWouldLikeToFireYourScreenshot_);
                 }, null, 5000, Timeout.Infinite);
 
-                var (w, h) = Scale.Fit((ss.Image.Width, ss.Image.Height), (270, 256));
                 Label_ssPreview_Button_Screenshot_Box.Destroy();
                 Image_ssPreview_Button_Screenshot_Box.Visible = true;
+                var (w, h) = Scale.Fit((ss.Image.Width, ss.Image.Height), (270, 256));
                 Image_ssPreview_Button_Screenshot_Box.Pixbuf =
-                     ss.Image.ScaleSimple((int)w, (int)h, Gdk.InterpType.Bilinear);
+                     ss.Image.ScaleSimple((int)w, (int)h, g.InterpType.Bilinear);
 
             } else {
-                gtk.MessageDialog failDialog = new(this,
-                                               gtk.DialogFlags.Modal,
-                                               gtk.MessageType.Warning,
-                                               gtk.ButtonsType.Ok,
-                                               await Strings.Fetch(IStrings.SomethingWentWrong___));
+                gtk.MessageDialog failDialog
+                    = new(this, gtk.DialogFlags.Modal,
+                                gtk.MessageType.Warning,
+                                gtk.ButtonsType.Ok,
+                                await Strings.Fetch(IStrings.SomethingWentWrong___));
                 failDialog.Run();
                 failDialog.Destroy();
             }
