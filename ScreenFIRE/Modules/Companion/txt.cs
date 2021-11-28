@@ -26,17 +26,17 @@ namespace ScreenFIRE.Modules.Companion {
             return char.IsDigit(ch);
         }
 
-        public static string ParseSVG(string SVGpath,
-                                      (int Width, int Height) Size,
-                                      g.RGBA fillColor) {
-            string fillColorHex = ((int)(fillColor.Alpha * 255)).ToString("X2")
-                                + ((int)(fillColor.Red * 255)).ToString("X2")
-                                + ((int)(fillColor.Green * 255)).ToString("X2")
-                                + ((int)(fillColor.Blue * 255)).ToString("X2");
-            return $"<svg width=\"{Size.Width}\" height=\"{Size.Height}\" viewBox=\"0 0 {Size.Width} {Size.Height}\" xmlns=\"http://www.w3.org/2000/svg\">"
-                      + $"<path d=\"{SVGpath}\" fill=\"%23{fillColorHex}\" />"
-                  + "</svg>";
+        /// <summary> Convert <see cref="g.RGBA"/> to hexadecimal string format </summary>
+        /// <param name="RGBA"> Target <see cref="g.RGBA"/> </param>
+        /// <param name="WithAlpha"> Include Alpha part in the final string </param>
+        /// <returns> Color as a hexadecimal <see cref="string"/> like "AARRGGBB" </returns>
+        public static string ToHexString(this g.RGBA RGBA, bool WithAlpha = true) {
+            return WithAlpha ? ((int)(RGBA.Alpha * 255)).ToString("X2") : string.Empty
+                 + ((int)(RGBA.Red * 255)).ToString("X2")
+                 + ((int)(RGBA.Green * 255)).ToString("X2")
+                 + ((int)(RGBA.Blue * 255)).ToString("X2");
         }
+
         /// <summary> Remove dashes ( <c>-</c> ) from <paramref name="input"/> <see cref="string"/> </summary>
         /// <param name="input"> Target <see cref="string"/> </param>
         /// <returns> <paramref name="input"/> <see cref="string"/> without dashes ( <c>-</c> ) </returns>
