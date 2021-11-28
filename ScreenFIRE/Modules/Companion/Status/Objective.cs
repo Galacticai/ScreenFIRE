@@ -28,39 +28,32 @@
         /// <item> <see cref="ObjectiveLevel.Fatal"/> = 100 </item>
         /// </list></summary>
         internal ObjectiveLevel Level {
-            get { return _Level; }
-            set {
-                _Level = value;
-                LastObjective = this;
-            }
+            get => _Level;
+            set { _Level = value; UpdateLastObjective(); }
         }
         private string _Code;
         /// <summary> Specific code represending the current <see cref="Objective"/> </summary>
         internal string Code {
-            get { return _Code; }
-            set {
-                _Code = value;
-                LastObjective = this;
-            }
+            get => _Code;
+            set { _Code = value; UpdateLastObjective(); }
         }
         private string _Description;
         /// <summary> <see cref="Objective"/> Description </summary>
         internal string Description {
-            get { return _Description; }
-            set {
-                _Description = value;
-                LastObjective = this;
-            }
+            get => _Description;
+            set { _Description = value; UpdateLastObjective(); }
         }
 
         private bool _Silent;
         /// <summary> Notification status: Determines whether the <see cref="Objective"/> will avoid using GUI </summary>
         internal bool Silent {
-            get { return _Silent; }
-            set {
-                _Silent = value;
-                LastObjective = this;
-            }
+            get => _Silent;
+            set { _Silent = value; UpdateLastObjective(); }
+        }
+
+        private void UpdateLastObjective() {
+            Common.Cache.ObjectiveHistory.Remove(LastObjective);
+            LastObjective = this;
         }
 
         private void Init(ObjectiveLevel level, string code, string description, bool silent = false) {
