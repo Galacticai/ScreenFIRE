@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace ScreenFIRE.Modules.Companion.math.Vision.SVG.Companion {
+namespace ScreenFIRE.Modules.Companion.math.Vision.SVG_Tools.Companion {
     //! Move to (0,0)
     //? |> (x|y) - Min(All(x|y))
     //  M   =>   x    y
@@ -31,7 +31,7 @@ namespace ScreenFIRE.Modules.Companion.math.Vision.SVG.Companion {
                 string data = $"{Data_Raw[IPathdElement_Data.Type]} ";
                 foreach (IPathdElement_Data key in Data_Raw.Keys)
                     data += $"{Data_Raw[key]} ";
-                return data[..^1]; //? Skip last space
+                return data.Trim();
             }
         }
 
@@ -45,88 +45,77 @@ namespace ScreenFIRE.Modules.Companion.math.Vision.SVG.Companion {
             Rotation,               //!? float
             LargeArc_, SweepArc_,   //!? bool
         }
-        private float _X = -1;
-        public float X {
+        private float _X; public float X {
             get => _X;
             set {
                 _X = value;
                 Data_Raw[IPathdElement_Data.X] = value;
             }
         }
-        private float _X1 = -1;
-        public float X1 {
+        private float _X1; public float X1 {
             get => _X1;
             set {
                 _X1 = value;
                 Data_Raw[IPathdElement_Data.X1] = value;
             }
         }
-        private float _X2 = -1;
-        public float X2 {
+        private float _X2; public float X2 {
             get => _X2;
             set {
                 _X2 = value;
                 Data_Raw[IPathdElement_Data.X2] = value;
             }
         }
-        private float _Y = -1;
-        public float Y {
+        private float _Y; public float Y {
             get => _Y;
             set {
                 _Y = value;
                 Data_Raw[IPathdElement_Data.Y] = value;
             }
         }
-        private float _Y1 = -1;
-        public float Y1 {
+        private float _Y1; public float Y1 {
             get => _Y1;
             set {
                 _Y1 = value;
                 Data_Raw[IPathdElement_Data.Y1] = value;
             }
         }
-        private float _Y2 = -1;
-        public float Y2 {
+        private float _Y2; public float Y2 {
             get => _Y2;
             set {
                 _Y2 = value;
                 Data_Raw[IPathdElement_Data.Y2] = value;
             }
         }
-        private float _RX = -1;
-        public float RX {
+        private float _RX; public float RX {
             get => _RX;
             set {
                 _RX = value;
                 Data_Raw[IPathdElement_Data.RX] = value;
             }
         }
-        private float _RY = -1;
-        public float RY {
+        private float _RY; public float RY {
             get => _RY;
             set {
                 _RY = value;
                 Data_Raw[IPathdElement_Data.RY] = value;
             }
         }
-        private float _Rotation = -1;
-        public float Rotation {
+        private float _Rotation; public float Rotation {
             get => _Rotation;
             set {
                 _Rotation = value;
                 Data_Raw[IPathdElement_Data.Rotation] = value;
             }
         }
-        private bool _LargeArc = false;
-        public bool LargeArc {
+        private bool _LargeArc = false; public bool LargeArc {
             get => _LargeArc;
             set {
                 _LargeArc = value;
                 Data_Raw[IPathdElement_Data.LargeArc_] = value;
             }
         }
-        private bool _SweepArc = false;
-        public bool SweepArc {
+        private bool _SweepArc = false; public bool SweepArc {
             get => _SweepArc;
             set {
                 _SweepArc = value;
