@@ -1,18 +1,16 @@
 ﻿namespace ScreenFIRE.Modules.Companion.math {
 
     static class mathCommon {
-        /// <summary> Force input variable into the range of min and max </summary>
-        /// <param name="target">Value to process</param>
-        /// <param name="min">Minimum floor</param>
-        /// <param name="max">Maximum ceiling</param>
-        /// <returns><list type="bullet">
-        /// <item>Returns <paramref name="max"/> — if <paramref name="target"/> &gt; <paramref name="max"/></item>
-        /// <item>Returns <paramref name="min"/> — if <paramref name="target"/> &lt; <paramref name="min"/></item>
-        /// <item>Returns <paramref name="target"/> — if already in range</item>
-        /// </list></returns>
-        public static double ForcedInRange(this double target, double min, double max) {
-            if (target > max) return max;
-            if (target < min) return min;
+        /// <summary> Force &amp; set <paramref name="target"/> to be between <paramref name="min"/> and <paramref name="max"/> </summary>
+        public static int ForceInRange(ref int target, int min, int max) {
+            if (target > max) return target = max;
+            if (target < min) return target = min;
+            return target;
+        }
+        /// <summary> Force &amp; set <paramref name="target"/> to be between <paramref name="min"/> and <paramref name="max"/> </summary>
+        public static double ForceInRange(ref double target, double min, double max) {
+            if (target > max) return target = max;
+            if (target < min) return target = min;
             return target;
         }
 

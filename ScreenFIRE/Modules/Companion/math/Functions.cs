@@ -25,8 +25,8 @@ namespace ScreenFIRE.Modules.Companion.math {
         /// <param name="scale">Size of the wave (Half wave)</param>
         /// <returns> <c>f(<paramref name="x"/>)</c> </returns>
         public static double SmoothStartEnd_Increasing(this double x, double scale) {
-            var X = x.ForcedInRange(0, scale); // force x between 0一一一s
-            return scale * (-Math.Cos(X * Math.PI) / (2 * scale) + 1 / 2);
+            mathCommon.ForceInRange(ref x, 0, scale); // force x between 0一一一s
+            return scale * (-Math.Cos(x * Math.PI) / (2 * scale) + 1 / 2);
         }
 
 
@@ -50,8 +50,8 @@ namespace ScreenFIRE.Modules.Companion.math {
         /// <param name="scale">Size of the wave (Half wave)</param>
         /// <returns> <c>f(<paramref name="x"/>)</c> </returns>
         public static double SmoothStartEnd_Decreasing(double x, double scale) {
-            var X = x.ForcedInRange(0, scale); // force x between 0一一一s
-            return scale * (Math.Sin(X * Math.PI + Math.PI / 2) / 2 + 1 / 2);
+            mathCommon.ForceInRange(ref x, 0, scale); // force x between 0一一一s
+            return scale * (Math.Sin(x * Math.PI + Math.PI / 2) / 2 + 1 / 2);
         }
 
 
@@ -75,8 +75,8 @@ namespace ScreenFIRE.Modules.Companion.math {
         /// <param name="scale">Size of the wave (Half wave)</param>
         /// <returns> <c>f(<paramref name="x"/>)</c> </returns>
         public static double SmoothEnd_Decreasing(double x, double scale) {
-            var X = x.ForcedInRange(0, scale); // force x between 0一一一s
-            return scale * (-Math.Sin(X * (Math.PI / 2) / scale) + 1);
+            mathCommon.ForceInRange(ref x, 0, scale); // force x between 0一一一s
+            return scale * (-Math.Sin(x * (Math.PI / 2) / scale) + 1);
         }
 
 
@@ -100,8 +100,8 @@ namespace ScreenFIRE.Modules.Companion.math {
         /// <param name="scale">Size of the wave (Half wave)</param>
         /// <returns> <c>f(<paramref name="x"/>)</c> </returns>
         public static double SmoothStart_Decreasing(double x, double scale) {
-            var X = x.ForcedInRange(0, scale); // force x between 0一一一s
-            return scale * Math.Sin(X * (Math.PI / (2 * scale)) + Math.PI / 2);
+            mathCommon.ForceInRange(ref x, 0, scale); // force x between 0一一一s
+            return scale * Math.Sin(x * (Math.PI / (2 * scale)) + Math.PI / 2);
         }
     }
 }
