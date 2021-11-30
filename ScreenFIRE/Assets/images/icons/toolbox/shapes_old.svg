@@ -1,0 +1,7 @@
+<svg width="24" height="24" xmlns="http://www.w3.org/2000/svg">
+ <g transform="scale(.5)">
+  <rect rx="20" stroke-width="5" id="roundedRectangle" height="100" width="100" y="0" x="0" stroke="#ffffff" fill="#000000"/>
+  <ellipse ry="50" rx="50" id="circle" cy="75" cx="75" stroke-width="5" stroke="#ffffff" fill="#000000"/>
+  <path stroke="#000000" id="star" d="m38.63158,63.49144l27.7832,0l8.58522,-26.39392l8.58523,26.39392l27.78319,0l-22.47704,16.31215l8.58567,26.39392l-22.47705,-16.3126l-22.47704,16.3126l8.58567,-26.39392l-22.47705,-16.31215z" stroke-width="5" fill="#ffffff"/>
+ </g>
+</svg>

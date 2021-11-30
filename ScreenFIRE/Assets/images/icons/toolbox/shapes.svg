@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="64" height="64" viewBox="0 0 64 64">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #374052;
+        fill-rule: evenodd;
+      }
+
+      .cls-1, .cls-2 {
+        stroke: #fff;
+        stroke-width: 2px;
+      }
+
+      .cls-2 {
+        fill: #6d7fa3;
+      }
+
+      .cls-3 {
+        font-size: 25px;
+        fill: #fff;
+        text-anchor: middle;
+        font-family: "Segoe UI Emoji";
+      }
+    </style>
+  </defs>
+  <path class="cls-1" d="M14,4H36A10,10,0,0,1,46,14V36A10,10,0,0,1,36,46H14A10,10,0,0,1,4,36V14A10,10,0,0,1,14,4Z"/>
+  <circle class="cls-2" cx="39" cy="39" r="21"/>
+  <image x="26" y="26" width="26" height="25" xlink:href="data:img/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAZCAYAAAAv3j5gAAACmklEQVRIiZWWTYiOURTHf8/7Ja/RbHzFxDTyHUrMjJQxkeSjZFiarKYR2bGxsGCpLNjYWtlYKSWLSQgLChmSbCiN7xTDjHkfnen/1J177/PMO/966nnPe+/5n/M/5577JGma4qO7ty+wOZgFzAZ+Ao1HQzeCBTFUIrYiGME+YC9wERguCsoNIiAq2gh0AOeBlcroDDAWrIqgFJoK0Sky29cDLCla7GImRHVgF1AFJoClwKpgVQ5mQrRcWSR6WoFNMfljqExTkwzmuAtYqN8WYKqmuAZ8CHZ4KDmOrG1bJI2POcBuoOzZ1wJrgtURVLR5I3AYmA98Aj6rDuN2VoDFwE4F5MLkOykJy6qjBVwDRrp7+/4Bt4GXFclhLbtHjlI9GVLZ/WyyWh0A9js2HD+Gg8ARI/oLfIssTDzCPMTWpY4vU+aP1egHcBkYMoO3KXGeIoxKYpfIEngInLZESmJ8ChwDjgNvnGhSz0Ee6p60I8BZyfbY/JTb2iebpqGR8gJ4ACwD2rU5jTSBD/f/V8Ap4Lp8TiIjclP+CNzRDFun1m4GtveuuvCeOpY8ogy/bPiqIzubyMgwDPQDzyPNUTiC7CzM03ujoFYNOW4pyr6IyK6CbXI0Lkn9zhpzbIuA9YGXaYisCbZoM5JuQSQTdCRGNbq252WVR9SqSV1T5FVnSr8GbomgrKeqYHp0XwXII1oNbHWySyTfTeCoim7n5J18ZAe7DdgQeMshMttmTzY7D5fUuk+Ar8BVYBC471wbNQ3fesypj7mSIJPK7poTwAW9Z61r0tm5MbIrGjkWlNXJbt8piN2OJlVWaDtL9gFiM8tGlQ+zvQXOAV+AAeAZ8NtfmHTtOBTLcoUksLvE6tDMFLdPMavtd+D9lMCA//MEkPeK9RWEAAAAAElFTkSuQmCC"/>
+  <text id="_" data-name="⭐" class="cls-3" x="39" y="46.594"><tspan x="39">⭐</tspan></text>
+</svg>
