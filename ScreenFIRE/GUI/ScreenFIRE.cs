@@ -29,6 +29,7 @@ namespace ScreenFIRE.GUI {
             ButtonPressEvent += Draw_ButtonPressEvent;
             MotionNotifyEvent += Draw_MotionNotifyEvent;
             ButtonReleaseEvent += Draw_ButtonReleaseEvent;
+            SSDrawingArea.Drawn += new DrawnHandler(SSDrawingArea_Drawn);
         }
 
         public ScreenFIRE() : this(new Builder("ScreenFIRE.glade")) { }
@@ -48,7 +49,6 @@ namespace ScreenFIRE.GUI {
             Screenshot = new Screenshot(IScreenshotType.AllMonitors);
             ScreenshotImage.Pixbuf = Screenshot.Image;
             Move(0, 0);
-
             SSDrawingArea.SetAllocation(Screenshot.ImageRectangle);
             SSDrawingArea.SetSizeRequest(Screenshot.ImageRectangle.Width,
                                          Screenshot.ImageRectangle.Height);
@@ -62,54 +62,69 @@ namespace ScreenFIRE.GUI {
         private bool DRAWING = false;
         private c.PointD startPoint = new(0, 0);
         private c.PointD endPoint;
-        private c.ImageSurface dSurface;
-        private c.Context dContext;
+        private c.Rectangle Boundary;
+        private g.Pixbuf lastFrame;
+        private void SSDrawingArea_Drawn(object sender, DrawnArgs ev) {
+            using c.Context context = ev.Cr;
+            context.Antialias = c.Antialias.Subpixel;
 
+            context.LineCap = c.LineCap.Round;
+            context.LineWidth = 5;
+
+            //context.MoveTo(startPoint);
+            //context.LineTo(endPoint);
+            //context.Stroke();
+            //
+            //context.SetSourceRGB(.6, .3, .4);
+            //context.RoundedRectangle(Boundary, Boundary.Width / 2);
+            //context.Stroke();
+            //context.SetSourceRGBA(.6, .3, .5, .1);
+            //context.Rectangle(Boundary);
+            //context.Fill();
+            //
+            //context.LineWidth = 1;
+            //context.SetSourceRGB(.3, 1, .6);
+            //context.Circle(startPoint, endPoint);
+            //context.Stroke();
+            //
+            //context.SetSourceRGB(.2, .6, .8);
+            //context.Circle(Boundary);
+            //
+            //context.Stroke();
+            //
+            //context.SetSourceRGB(.2, .8, .3);
+            //context.Text(endPoint, "Super duper text", 30);
+            //context.Stroke();
+
+            SSDrawingArea.QueueDraw();
+
+            //dc.GetTarget().Dispose();
+        }
         private void Draw_ButtonPressEvent(object sender, ButtonPressEventArgs ev) {
-            //? ### Prepare
-
             //? Only accept Button 1 (Left click)
             if (ev.Event.Button != 1) return;
 
-            dSurface = new c.ImageSurface(c.Format.Argb32, SSDrawingArea.Allocation.Width, SSDrawingArea.Allocation.Height);
-            dContext = new c.Context(dSurface);
-
             startPoint = new(ev.Event.X, ev.Event.Y);
 
-            //? ### Then allow drawing
             DRAWING = true;
         }
 
         private void Draw_MotionNotifyEvent(object sender, MotionNotifyEventArgs ev) {
             //? Ignore if not drawing
             if (!DRAWING) return;
-            //! Failesafe
-            if (dSurface == null | dContext == null) return;
 
             //? Update endPoint & Generate bounding rectangle
             endPoint = new(ev.Event.X, ev.Event.Y);
-            c.Rectangle rect = PointsToRectangle.Accurate(startPoint, endPoint);
-
-            dContext.SetSourceRGB(0.1, 0.5, 0.6);
-            dContext.LineWidth = 5;
-
-            dContext.Rectangle(rect);
-
-            dContext.Paint();
-
-
-            //SSOverlayImage.Pixbuf = new((byte[])new sysd.ImageConverter().ConvertTo(Overlay_Image, typeof(byte[])));
+            Boundary = PointsToRectangle.Accurate(startPoint, endPoint);
         }
 
         private void Draw_ButtonReleaseEvent(object sender, ButtonReleaseEventArgs ev) {
             //? Only accept Button 1 (Left click)
             if (ev.Event.Button != 1) return;
 
-            //? ### Block drawing
+            //endPoint = new(ev.Event.X, ev.Event.Y);
+
             DRAWING = false;
-            //? ### Then finish up
-            dContext.GetTarget().Dispose();
-            dContext.Dispose();
         }
     }
 }
