@@ -14,6 +14,7 @@ namespace ScreenFIRE {
 
         public static Config Config = new();
         public static GUI.ScreenFIRE ScreenFIRE = new();
+        public static GUI.SS_Toolbox SS_Toolbox = new();
 
 
         [STAThread]
@@ -32,12 +33,16 @@ namespace ScreenFIRE {
 
             app.AddWindow(Config);
             app.AddWindow(ScreenFIRE);
+            app.AddWindow(SS_Toolbox);
 
             foreach (string arg in args)
                 if (arg.ToLower() == "screenshot")
                     ScreenFIRE.Show();
 
-            Config.Show();
+            //!? TEMPORARY
+            //Config.Show();
+            //ScreenFIRE.Show();
+            SS_Toolbox.Show();
 
             Application.Run();
         }
