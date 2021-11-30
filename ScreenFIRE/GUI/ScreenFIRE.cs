@@ -1,8 +1,10 @@
 using Gtk;
 using ScreenFIRE.Modules.Capture;
 using ScreenFIRE.Modules.Capture.Companion;
+using ScreenFIRE.Modules.Companion;
 using ScreenFIRE.Modules.Companion.math.Vision.Geometry;
 using System;
+using System.Threading;
 using c = Cairo;
 using g = Gdk;
 using UI = Gtk.Builder.ObjectAttribute;
@@ -21,7 +23,6 @@ namespace ScreenFIRE.GUI {
             DeleteEvent += delegate { Application.Quit(); };
             Hidden += OnHidden;
             Shown += OnShown;
-            Close_Button.Clicked += Close_Button_Clicked;
 
             AddEvents((int)(g.EventMask.ButtonPressMask
                           | g.EventMask.PointerMotionMask
@@ -40,23 +41,25 @@ namespace ScreenFIRE.GUI {
         }
 
         private void OnHidden(object sender, EventArgs ev) {
+            Screenshot.Dispose();
             Program.Config.ShowAll();
         }
         private void OnShown(object sender, EventArgs ev) {
+            var displaySize = Monitors.BoundingRectangle();
+            Move(displaySize.Width, displaySize.Height);
+
             Program.Config.Hide();
-            //Thread.Sleep(1000);
+
+            Thread.Sleep(300); //!? TEMP
 
             Screenshot = new Screenshot(IScreenshotType.AllMonitors);
             ScreenshotImage.Pixbuf = Screenshot.Image;
+
             Move(0, 0);
+
             SSDrawingArea.SetAllocation(Screenshot.ImageRectangle);
             SSDrawingArea.SetSizeRequest(Screenshot.ImageRectangle.Width,
                                          Screenshot.ImageRectangle.Height);
-        }
-
-        private void Close_Button_Clicked(object sender, EventArgs ev) {
-            Screenshot.Dispose();
-            Hide();
         }
 
         private bool DRAWING = false;
@@ -71,34 +74,39 @@ namespace ScreenFIRE.GUI {
             context.LineCap = c.LineCap.Round;
             context.LineWidth = 5;
 
-            //context.MoveTo(startPoint);
-            //context.LineTo(endPoint);
-            //context.Stroke();
-            //
-            //context.SetSourceRGB(.6, .3, .4);
-            //context.RoundedRectangle(Boundary, Boundary.Width / 2);
-            //context.Stroke();
-            //context.SetSourceRGBA(.6, .3, .5, .1);
-            //context.Rectangle(Boundary);
-            //context.Fill();
-            //
-            //context.LineWidth = 1;
-            //context.SetSourceRGB(.3, 1, .6);
-            //context.Circle(startPoint, endPoint);
-            //context.Stroke();
-            //
-            //context.SetSourceRGB(.2, .6, .8);
-            //context.Circle(Boundary);
-            //
-            //context.Stroke();
-            //
-            //context.SetSourceRGB(.2, .8, .3);
-            //context.Text(endPoint, "Super duper text", 30);
-            //context.Stroke();
+            context.X_Sign(Boundary);
+            context.Stroke();
+
+            context.SetSourceRGB(.6, .3, .4);
+            context.RoundedRectangle(Boundary);
+            context.Stroke();
+            context.SetSourceRGBA(.6, .3, .5, .5);
+            context.Rectangle(Boundary);
+            context.Fill();
+            context.SetSourceRGBA(.1, .5, .2, .5);
+            context.Ellipse(Boundary);
+            context.Fill();
+
+            context.LineWidth = 1;
+            context.SetSourceRGB(.3, 1, .6);
+            context.Circle(startPoint, endPoint);
+            context.Stroke();
+
+            context.SetSourceRGB(.2, .6, .8);
+            context.Circle(Boundary);
+
+            context.Stroke();
+
+            context.SetSourceRGB(.2, .8, .3);
+            context.Text(endPoint, "Super duper text", 30);
+            context.Stroke();
+
+            context.Arrow(startPoint, endPoint);
+            context.Stroke();
 
             SSDrawingArea.QueueDraw();
 
-            //dc.GetTarget().Dispose();
+            context.GetTarget().Dispose();
         }
         private void Draw_ButtonPressEvent(object sender, ButtonPressEventArgs ev) {
             //? Only accept Button 1 (Left click)

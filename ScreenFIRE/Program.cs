@@ -41,8 +41,8 @@ namespace ScreenFIRE {
 
             //!? TEMPORARY
             //Config.Show();
-            //ScreenFIRE.Show();
-            SS_Toolbox.Show();
+            ScreenFIRE.Show();
+            //SS_Toolbox.Show();
 
             Application.Run();
         }
