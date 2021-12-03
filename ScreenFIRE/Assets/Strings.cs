@@ -50,6 +50,9 @@ namespace ScreenFIRE.Assets {
         Video,
 
         ClicktoCopy___,
+
+        FillColor,
+        BorderColor,
     }
 
     internal static partial class Strings {
@@ -186,6 +189,9 @@ namespace ScreenFIRE.Assets {
 
                 IStrings.ClicktoCopy___ => $"Click to copy{Common.Ellipses}",
 
+                IStrings.FillColor => "Fill Color",
+                IStrings.BorderColor => "Border Color",
+
                 //!? Last resort
                 _ => $"⚠ STRING MISSING: \"{Name}\" ⚠"
             };
@@ -243,6 +249,9 @@ namespace ScreenFIRE.Assets {
                 IStrings.Video => "فيديو",
 
                 IStrings.ClicktoCopy___ => $"انقر للنسخ{Common.Ellipses}",
+
+                IStrings.FillColor => "لون التعبئة",
+                IStrings.BorderColor => "لون الحدود",
 
 
                 //! Fallback to English.
@@ -302,6 +311,9 @@ namespace ScreenFIRE.Assets {
                 IStrings.Video => "视频",
 
                 IStrings.ClicktoCopy___ => $"点击复制{Common.Ellipses}",
+
+                IStrings.FillColor => "填色",
+                IStrings.BorderColor => "边框颜色",
 
 
                 //! Fallback to English.
