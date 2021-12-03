@@ -11,7 +11,10 @@ namespace ScreenFIRE.Modules.Companion.math.Vision {
         /// <param name="byteArr"> Target <see cref="byte"/>[] </param>
         /// <returns> <see cref="new"/> <see cref="g.Pixbuf(byte[])"/> </returns>
         public static g.Pixbuf ToPixbuf(this byte[] byteArr) => new(byteArr);
-
+        public static c.Rectangle ToCairoRectangle(this g.Rectangle GdkRectangle)
+            => new(GdkRectangle.X, GdkRectangle.Y, GdkRectangle.Width, GdkRectangle.Height);
+        public static g.Rectangle ToGdkRectangle(this c.Rectangle CairoRectangle)
+            => new((int)CairoRectangle.X, (int)CairoRectangle.Y, (int)CairoRectangle.Width, (int)CairoRectangle.Height);
         //public static byte[] ParseSVGBytes(byte[] svgFile) {
         //    string svgElement = Encoding.UTF8.GetString(svgFile);
         //    using var SVGdoc = new SVGDocument(svgElement);
