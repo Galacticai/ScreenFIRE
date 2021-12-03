@@ -46,6 +46,7 @@ namespace ScreenFIRE.Modules.Save {
                                   ButtonsType.YesNo,
                                   await Strings.Fetch(IStrings.FileAlreadyExists_) + Common.nn
                                   + await Strings.Fetch(IStrings.WouldYouLikeToReplaceTheExistingFile_));
+                    fileExistsDialog.KeepAbove = true;
                     fileExistsDialog.SetPosition(WindowPosition.CenterOnParent);
                     ResponseType fileExistsResponse = (ResponseType)fileExistsDialog.Run();
                     //? User chose to replace the file
