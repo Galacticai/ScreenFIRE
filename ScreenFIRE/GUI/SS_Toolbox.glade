@@ -17,7 +17,7 @@
         <property name="halign">center</property>
         <property name="valign">center</property>
         <child>
-          <object class="GtkBox">
+          <object class="GtkBox" id="Toolbox_All_Buttons_Box">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="halign">center</property>
@@ -28,7 +28,7 @@
             <property name="margin_bottom">24</property>
             <property name="orientation">vertical</property>
             <child>
-              <object class="GtkBox">
+              <object class="GtkBox" id="Toolbox_Top_Buttons_Box">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="spacing">8</property>
@@ -177,7 +177,7 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkButton" id="Color_ToggleButton">
+                      <object class="GtkButton" id="Color_Button">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
@@ -529,7 +529,7 @@
             </child>
           </object>
           <packing>
-            <property name="index">-1</property>
+            <property name="index">1</property>
           </packing>
         </child>
         <child type="overlay">
@@ -537,9 +537,6 @@
             <property name="visible">True</property>
             <property name="can_focus">False</property>
           </object>
-          <packing>
-            <property name="index">-1</property>
-          </packing>
         </child>
       </object>
     </child>
