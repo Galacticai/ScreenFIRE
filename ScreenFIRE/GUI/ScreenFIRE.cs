@@ -79,11 +79,12 @@ namespace ScreenFIRE.GUI {
         private double dimAlpha = 0;
         private double dashesOffset = 5;
         private void SSDrawingArea_Drawn(object sender, DrawnArgs ev) {
-
             using c.Context context = ev.Cr;
+
             context.Antialias = c.Antialias.Subpixel;
 
             c.Rectangle ssRect = Screenshot.ImageRectangle.ToCairoRectangle();
+
             if (dimAlpha < .5) dimAlpha += .05;
             context.SetSourceRGBA(.11, .12, .13, dimAlpha);
             context.Save();
@@ -99,9 +100,9 @@ namespace ScreenFIRE.GUI {
                 else if (BoundaryAlpha < .3) BoundaryAlphaIncreasing = true;
             }
             mathCommon.ForceInRange(ref BoundaryAlpha, (.3, 1));
-            dashesOffset += .5;
-            if (dashesOffset >= 20) dashesOffset = 0;
-            context.SetDash(new double[] { 2, 6, 2 }, dashesOffset);
+            dashesOffset += 1;
+            if (dashesOffset >= 24) dashesOffset = 0;
+            context.SetDash(new double[] { 1.5, .5, 8, .5, 1.5 }, dashesOffset);
 
             context.LineWidth = 3;
             c.Rectangle guideRect = new(Boundary.X - context.LineWidth, Boundary.Y - context.LineWidth, Boundary.Width + context.LineWidth * 2, Boundary.Height + context.LineWidth * 2);

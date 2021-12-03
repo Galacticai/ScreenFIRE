@@ -2,11 +2,14 @@
 <!-- Generated with glade 3.22.2 -->
 <interface>
   <requires lib="gtk+" version="3.20"/>
-  <object class="GtkWindow" id="SS_Toolbox">
+  <object class="GtkWindow" id="ssToolbox">
     <property name="can_focus">False</property>
     <property name="halign">center</property>
     <property name="valign">center</property>
+    <property name="resizable">False</property>
+    <property name="destroy_with_parent">True</property>
     <property name="decorated">False</property>
+    <property name="deletable">False</property>
     <child type="titlebar">
       <placeholder/>
     </child>
@@ -14,21 +17,37 @@
       <object class="GtkOverlay" id="Toolbox_Overlay">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="halign">center</property>
-        <property name="valign">center</property>
         <child>
-          <object class="GtkBox" id="Toolbox_All_Buttons_Box">
+          <object class="GtkFixed" id="BG_Fixed">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
+            <child>
+              <object class="GtkDrawingArea" id="BG_DrawingArea">
+                <property name="width_request">320</property>
+                <property name="height_request">80</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="index">-1</property>
+          </packing>
+        </child>
+        <child type="overlay">
+          <object class="GtkBox" id="All_Buttons_Box">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="opacity">0.90196078431372551</property>
             <property name="halign">center</property>
             <property name="valign">center</property>
             <property name="margin_left">24</property>
             <property name="margin_right">24</property>
-            <property name="margin_top">24</property>
-            <property name="margin_bottom">24</property>
+            <property name="margin_top">12</property>
+            <property name="margin_bottom">12</property>
             <property name="orientation">vertical</property>
             <child>
-              <object class="GtkBox" id="Toolbox_Top_Buttons_Box">
+              <object class="GtkBox" id="Top_Buttons_Box">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="spacing">8</property>
@@ -110,7 +129,7 @@
                     <property name="baseline_position">top</property>
                     <property name="layout_style">expand</property>
                     <child>
-                      <object class="GtkToggleButton" id="SelectArea_ToggleButton">
+                      <object class="GtkToggleButton" id="Select_ToggleButton">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
@@ -212,7 +231,7 @@
               </packing>
             </child>
             <child>
-              <object class="GtkButtonBox" id="SelectArea_ButtonBox">
+              <object class="GtkButtonBox" id="Select_ButtonBox">
                 <property name="can_focus">False</property>
                 <property name="opacity">0.90196078431372551</property>
                 <property name="halign">center</property>
@@ -527,15 +546,6 @@
                 <property name="position">3</property>
               </packing>
             </child>
-          </object>
-          <packing>
-            <property name="index">1</property>
-          </packing>
-        </child>
-        <child type="overlay">
-          <object class="GtkDrawingArea" id="SS_Toolbox_BG_DrawingArea">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
           </object>
         </child>
       </object>
