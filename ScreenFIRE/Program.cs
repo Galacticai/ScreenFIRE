@@ -1,5 +1,4 @@
 using Gtk;
-using ScreenFIRE.GUI;
 using ScreenFIRE.Modules.Companion;
 using ScreenFIRE.Modules.Companion.OS;
 using System;
@@ -12,9 +11,9 @@ namespace ScreenFIRE {
 
         public static Application app = new(PackageName, GLib.ApplicationFlags.None);
 
-        public static Config Config = new();
+        public static GUI.Config Config = new();
         public static GUI.ScreenFIRE ScreenFIRE = new();
-        public static GUI.SS_Toolbox SS_Toolbox = new();
+        public static GUI.ssToolbox ssToolbox = new();
 
 
         [STAThread]
@@ -33,7 +32,7 @@ namespace ScreenFIRE {
 
             app.AddWindow(Config);
             app.AddWindow(ScreenFIRE);
-            app.AddWindow(SS_Toolbox);
+            app.AddWindow(ssToolbox);
 
             foreach (string arg in args)
                 if (arg.ToLower() == "screenshot")
