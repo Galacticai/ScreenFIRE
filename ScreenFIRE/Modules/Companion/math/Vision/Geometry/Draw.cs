@@ -16,29 +16,39 @@ namespace ScreenFIRE.Modules.Companion.math.Vision.Geometry {
                 context.Rectangle(boundary);
                 return;
             }
-            if (cornerRadius == -1) cornerRadius = Math.Min(boundary.Width, boundary.Height) / 2;
-            mathCommon.ForceInRange(ref cornerRadius, 0, boundary.Height / 2);
-            mathCommon.ForceInRange(ref cornerRadius, 0, boundary.Width / 2);
-
+            if (cornerRadius == -1)
+                cornerRadius = Math.Min(boundary.Width, boundary.Height) / 2;
+            else {
+                mathCommon.ForceInRange(ref cornerRadius, (0, boundary.Height / 2));
+                mathCommon.ForceInRange(ref cornerRadius, (0, boundary.Width / 2));
+            }
             context.NewSubPath();
-            context.Arc(boundary.X + boundary.Width - cornerRadius, boundary.Y + cornerRadius, cornerRadius, -Pi / 2, 0);
-            context.Arc(boundary.X + boundary.Width - cornerRadius, boundary.Y + boundary.Height - cornerRadius, cornerRadius, 0, Pi / 2);
-            context.Arc(boundary.X + cornerRadius, boundary.Y + boundary.Height - cornerRadius, cornerRadius, Pi / 2, Pi);
-            context.Arc(boundary.X + cornerRadius, boundary.Y + cornerRadius, cornerRadius, Pi, Pi * 3 / 2);
+            context.Arc(boundary.X + boundary.Width - cornerRadius,
+                        boundary.Y + cornerRadius,
+                        cornerRadius, -Pi / 2, 0);
+            context.Arc(boundary.X + boundary.Width - cornerRadius,
+                        boundary.Y + boundary.Height - cornerRadius,
+                        cornerRadius, 0, Pi / 2);
+            context.Arc(boundary.X + cornerRadius,
+                        boundary.Y + boundary.Height - cornerRadius,
+                        cornerRadius, Pi / 2, Pi);
+            context.Arc(boundary.X + cornerRadius,
+                        boundary.Y + cornerRadius,
+                        cornerRadius, Pi, Pi * 3 / 2);
             context.ClosePath();
         }
 
-        /// <summary> ••• Cicle ••• Radius mode <br/>
-        /// Create a circle in <paramref name="context"/> which is defined by the <paramref name="center"/> and <paramref name="point"/> which belongs to its parameter </summary>
-        /// <param name="context"> Target <see cref="c.Context"/> </param>
-        /// <param name="center"> Center <see cref="c.PointD"/> of the output circle </param>
-        /// <param name="point"> A <see cref="c.PointD"/> that belongs to the parameter of the circle </param>
-        public static void Circle(this c.Context context, c.PointD center, c.PointD point) {
-            double radius = GeometryCommon.Distance(center, point);
-            context.NewSubPath();
-            context.Arc(center.X, center.Y, radius, 0, 2 * Pi);
-            context.ClosePath();
-        }
+        // /// <summary> ••• Cicle ••• Radius mode <br/>
+        // /// Create a circle in <paramref name="context"/> which is defined by the <paramref name="center"/> and <paramref name="point"/> which belongs to its parameter </summary>
+        // /// <param name="context"> Target <see cref="c.Context"/> </param>
+        // /// <param name="center"> Center <see cref="c.PointD"/> of the output circle </param>
+        // /// <param name="point"> A <see cref="c.PointD"/> that belongs to the parameter of the circle </param>
+        // public static void Circle(this c.Context context, c.PointD center, c.PointD point) {
+        //     double radius = GeometryCommon.Distance(center, point);
+        //     context.NewSubPath();
+        //     context.Arc(center.X, center.Y, radius, 0, 2 * Pi);
+        //     context.ClosePath();
+        // }
         /// <summary> ••• Cicle ••• Boundary mode <br/>
         /// Create a circle in <paramref name="context"/> which is bounded inside of <paramref name="boundary"/> (as <see cref="c.Rectangle"/>) </summary>
         /// <param name="context"> Target <see cref="c.Context"/> </param>
