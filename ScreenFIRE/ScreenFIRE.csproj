@@ -67,9 +67,6 @@
   <ItemGroup>
     <None Remove="GUI\*.glade~" />
     <Content Include="Assets\images\Logo\ScreenFIRE.ico" />
-    <EmbeddedResource Include="GUI\ssToolbox.ui">
-      <LogicalName>%(Filename)%(Extension)</LogicalName>
-    </EmbeddedResource>
     <None Include="Assets\Strings.cs" />
     <Compile Update="Assets\Embedded\icons.Designer.cs">
       <DesignTime>True</DesignTime>
