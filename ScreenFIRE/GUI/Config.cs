@@ -73,13 +73,13 @@ namespace ScreenFIRE.GUI {
             };
 
             SS_Button_AllMonitors.Clicked
-                += async delegate { await Capture(IScreenshotType.AllMonitors); };
+                += async delegate { await Capture(this, IScreenshotType.AllMonitors); };
             SS_Button_MonitorAtPointer.Clicked
-                += async delegate { await Capture(IScreenshotType.MonitorAtPointer); };
+                += async delegate { await Capture(this, IScreenshotType.MonitorAtPointer); };
             SS_Button_WindowAtPointer.Clicked
-                += async delegate { await Capture(IScreenshotType.WindowAtPointer); };
+                += async delegate { await Capture(this, IScreenshotType.WindowAtPointer); };
             SS_Button_ActiveWindow.Clicked
-                += async delegate { await Capture(IScreenshotType.ActiveWindow); };
+                += async delegate { await Capture(this, IScreenshotType.ActiveWindow); };
             SS_Button_Custom.Clicked += delegate { Program.ScreenFIRE.ShowAll(); };
 
             SF_repo_Button_About_Box.Clicked += delegate { Link.Open(Common.SF_GitRepo); };
@@ -180,7 +180,39 @@ namespace ScreenFIRE.GUI {
             AssignEtc();
         }
 
-        private async Task Capture(IScreenshotType screenshotType) {
+        internal async Task Capture(gtk.Window parentWindow, g.Rectangle boundary) {
+            using var ss = new Screenshot(boundary);
+            bool saved = await Save.Local(ss, parentWindow);
+            if (saved) {
+                if (Common.LocalSave_Settings.CopyToClipboard)
+                    Save.Clipboard(ss);
+
+                _label1.Text = await Strings.Fetch(IStrings.FiredAScreenshot_);
+                _ = new Timer(async (object obj) => {
+                    _label1.Text = await Strings.Fetch(IStrings.ChooseHowYouWouldLikeToFireYourScreenshot_);
+                }, null, 5000, Timeout.Infinite);
+
+                Label_ssPreview_Button_Screenshot_Box.Destroy();
+                Image_ssPreview_Button_Screenshot_Box.Visible = true;
+                var (w, h) = Scale.Fit((ss.Image.Width, ss.Image.Height), (270, 256));
+                Image_ssPreview_Button_Screenshot_Box.Pixbuf =
+                     ss.Image.ScaleSimple((int)w, (int)h, g.InterpType.Bilinear);
+
+            } else {
+                gtk.MessageDialog failDialog
+                    = new(this, gtk.DialogFlags.Modal,
+                                gtk.MessageType.Warning,
+                                gtk.ButtonsType.Ok,
+                                await Strings.Fetch(IStrings.SomethingWentWrong___));
+                failDialog.KeepAbove = true;
+                failDialog.Run();
+                failDialog.Destroy();
+            }
+
+            AcceptFocus = true;
+            Visible = true;
+        }
+        internal async Task Capture(gtk.Window parentWindow, IScreenshotType screenshotType) {
             Visible = false;
             AcceptFocus = false;
 
@@ -188,7 +220,7 @@ namespace ScreenFIRE.GUI {
             Thread.Sleep(1000); //? Temp (For Windows) make sure the window is fully hidden
 
             using var ss = new Screenshot(screenshotType);
-            bool saved = await Save.Local(ss, this);
+            bool saved = await Save.Local(ss, parentWindow);
             if (saved) {
                 if (Common.LocalSave_Settings.CopyToClipboard)
                     Save.Clipboard(ss);
