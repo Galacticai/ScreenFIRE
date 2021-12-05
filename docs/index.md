@@ -1,8 +1,10 @@
-<img src="../ScreenFIRE/Assets/images/Logo/ScreenFIRE.png" alt="ScreenFIRE" height="200" />
+<img src="https://i.imgur.com/P5GFZ1R.png" alt="ScreenFIRE" height="200" />
 
 # ScreenFIRE
 Sophisticated screenshot utility for Linux and Windows!
 <br/><br/><br/>
+
+## 👁️ Note: Repository is currently private.
 
 ## Status:
  - ScreenFIRE is currently in the development phase.
