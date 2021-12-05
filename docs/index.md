@@ -1,5 +1,5 @@
 <p align="center">
-    <img width=550 src="/ScreenFIRE/ScreenFIRE/Assets/images/Logo/ScreenFIRE-Splash.png" />
+    <img width=550 src="../ScreenFIRE/Assets/images/Logo/ScreenFIRE-Splash.png" />
 </p>
 
 ### <p style="text-align:center;"><b>Sophisticated screenshot utility for Linux and Windows!</b></p>
