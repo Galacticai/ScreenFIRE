@@ -22,7 +22,7 @@ Sophisticated screenshot utility for Linux and Windows!
 
 ### ⏳ Pending:
  - Add shapes to the screenshot
- - - Add base for more shapes (Like triangle, star, speach bubble...)
+ - - Add base for more shapes (Like triangle, star, speech bubble...)
  - Add text to the screenshot
  - Add custom shaped screenshots (With transparency)
  - Upload the screenshot to various websites (Like imgur...)
