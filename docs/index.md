@@ -1,14 +1,12 @@
 <img src="https://i.imgur.com/P5GFZ1R.png" alt="ScreenFIRE" height="200" />
 
 # ScreenFIRE
-Sophisticated screenshot utility for Linux and Windows!
-<br/><br/><br/>
-
-## 👁️ Note: Repository is currently private.
+#### Sophisticated screenshot utility for Linux and Windows! <br/><br/>
 
 ## Status:
  - ScreenFIRE is currently in the development phase.
  - It is not far from the first alpha release!
+ - #### 👁️ Note: Repository is currently private. <br/><br/>
 
 ### ✔️ Done:
  - Support for both Windows and Linux
@@ -29,10 +27,12 @@ Sophisticated screenshot utility for Linux and Windows!
  - Record gif and videos
  - Global shortcuts support (Custom shortcuts for custom actions)
  - Homemade icons (Nice & clean icons instead of the default gtk icons)
+ - Refactor GUI code into `Companion` namespace(s)
  - (And a lot more stuff)
 
 ### 🪲 Known bugs:
  - (Sometimes) Double extensions while saving screenshot locally
- - (Fixed) ~~Toolbox background might get squashed down from its normal size sometimes~~
- - (Fixed)(User misbehavior) ~~Capturing at a wrong position when ScreenFIRE is forcefully moved out of its programmed position (0,0)~~
  - (Rare) Corrupt memory / Reading-Writing to illegal memory space which causes ScreenFIRE to crash completely
+ - [FIXED] ~~Toolbox might be sent to behind the main window (which makes ScreenFIRE unusable)~~
+ - [FIXED] ~~Toolbox background might get squashed down from its normal size sometimes~~
+ - [FIXED] ~~(User misbehavior) Capturing wrong area when the user forcefully moves ScreenFIRE window~~
