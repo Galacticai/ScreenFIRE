@@ -33,5 +33,6 @@ Sophisticated screenshot utility for Linux and Windows!
 
 ### 🪲 Known bugs:
  - (Sometimes) Double extensions while saving screenshot locally
- - (Fixed I think) Toolbox background might get squashed down from its normal size sometimes
+ - (Fixed) ~~Toolbox background might get squashed down from its normal size sometimes~~
+ - (Fixed)(User misbehavior) ~~Capturing at a wrong position when ScreenFIRE is forcefully moved out of its programmed position (0,0)~~
  - (Rare) Corrupt memory / Reading-Writing to illegal memory space which causes ScreenFIRE to crash completely
