@@ -27,7 +27,7 @@
  - Add shapes to the screenshot
  - - Add base for more shapes (Like triangle, star, speech bubble...)
  - Add text to the screenshot
- - Add custom shaped screenshots (With transparency)
+ - Custom shaped screenshot (Circular screenshot...)
  - Upload the screenshot to various websites (Like imgur...)
  - Record gif and videos
  - Global shortcuts support (Custom shortcuts for custom actions)
