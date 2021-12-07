@@ -34,6 +34,7 @@
  - Homemade icons (Nice & clean icons instead of the default gtk icons)
  - Add filters for sreenshot (tinting, white balance. Etc.)
  - Add blur/pixelate effect for screenshot (ex: blur sensitive area of screenshot)
+ - Cool UI animations where fitting and possible
  - Refactor GUI code into `Companion` namespace(s)
  - (And a lot more stuff)
 
