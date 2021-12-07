@@ -10,8 +10,13 @@
 
 ### ✔️ Done:
  - Support for both Windows and Linux
+ - Language detection & Support for English, Arabic, and Chinese (Simplified)
+ - Caching translations and other frequently used stuff to improve performance 
+ - A big library ported from my old project (Contains various text, math, geometry... and other general functions etc)
+ - Monitors detection including various functions
+ - Screenshot base
  - Screenshot interface
- - Screenshot toolbox GUI (Floating buttons and options)
+ - Screenshot toolbox (Floating buttons and options)
  - Base of adding shapes and text to the screenshot (Rectangle, Rounded rectangle, Circle, Ellipse)
  - Moderate configuration window (Currently contains default actions options .etc..)
  - Save the screenshot (and avoid file collisions)
