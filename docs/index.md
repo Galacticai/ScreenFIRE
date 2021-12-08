@@ -52,3 +52,10 @@
  - [FIXED] ~~Toolbox might be sent to behind the main window (which makes ScreenFIRE unusable)~~
  - [FIXED] ~~Toolbox background might get squashed down from its normal size sometimes~~
  - [FIXED] ~~(User misbehavior) Capturing wrong area when the user forcefully moves ScreenFIRE window~~
+
+
+----
+
+Screen 🅵🅸🆁🅴 <br/>
+`Made with .NET & GTK#` <br/>
+`©️2021 XEROling`
