@@ -24,7 +24,7 @@
  - (And a lot of stuff)
 
 ### ⏳ Pending:
- - (Shapes section) shapes to the screenshot
+ - (Shapes section) Add shapes to the screenshot
  - - Add base for more shapes (Like triangle, star, speech bubble...)
  - (Text section) Add text to the screenshot
  - (Select section) Custom shaped screenshot (Circular screenshot...)
