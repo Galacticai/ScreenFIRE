@@ -24,18 +24,26 @@
  - (And a lot of stuff)
 
 ### ⏳ Pending:
- - Add shapes to the screenshot
+ - (Shapes section) shapes to the screenshot
  - - Add base for more shapes (Like triangle, star, speech bubble...)
- - Add text to the screenshot
- - Custom shaped screenshot (Circular screenshot...)
+ - (Text section) Add text to the screenshot
+ - (Select section) Custom shaped screenshot (Circular screenshot...)
  - Upload the screenshot to various websites (Like imgur...)
  - Record gif and videos
  - Global shortcuts support (Custom shortcuts for custom actions)
  - Homemade icons (Nice & clean icons instead of the default gtk icons)
- - Add filters for sreenshot (tinting, white balance. Etc.)
- - Add blur/pixelate effect for screenshot (ex: blur sensitive area of screenshot)
+ - (Effects section) filters for sreenshot (tinting, white balance. Etc.)
+ - (Effects section) blur/pixelate effect for screenshot (ex: blur sensitive area of screenshot)
  - Cool UI animations where fitting and possible
  - Refactor GUI code into `Companion` namespace(s)
+ - (Draw section) Add base for tools (Pen, highlighter ..etc..)
+ - (AI Section) Add base for object recognition
+ - - Auto categorize screenshots in folders (Each object in its folder)
+ - (AI section) Add base for text detection (OCR)
+ - _(Future maybe)_ (Video) Add base for auto memories video (slideshow of last month/year screenshots)
+ - (Shape section) Add base for stickers
+ - - Design premade stickers/ load from images
+ - (Text section) Add meme fonts
  - (And a lot more stuff)
 
 ### 🪲 Known bugs:
