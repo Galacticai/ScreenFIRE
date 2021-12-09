@@ -9,7 +9,7 @@
 
 <br/>
 
-### 🎯 Done:
+#### 🎯 Done:
  - Support for both Windows and Linux
  - Support X Window System
  - Language detection & Support for English, Arabic, and Chinese (Simplified)
@@ -28,7 +28,7 @@
 
 <br/>
 
-### 🪄 Pending:
+#### 🪄 Pending:
  - Support Wayland display protocol
  - (Shapes section) Add shapes to the screenshot
  - - Add base for more shapes (Like triangle, star, speech bubble...)
@@ -54,7 +54,7 @@
 
 <br/>
 
-### 🐞 Known bugs:
+#### 🐞 Known bugs:
  - Double extensions while saving screenshot locally
  - (Rare) Corrupt memory / Reading-Writing to illegal memory space which causes ScreenFIRE to crash completely
  - (Wayland) Screenshot produces black images
