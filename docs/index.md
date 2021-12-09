@@ -9,7 +9,8 @@
 
 <br/>
 
-#### 🎯 Done:
+<h3 align=left> 🎯 Done: </h3>
+
  - Support for both Windows and Linux
  - Support X Window System
  - Language detection & Support for English, Arabic, and Chinese (Simplified)
@@ -28,7 +29,8 @@
 
 <br/>
 
-#### 🪄 Pending:
+<h3 align=left> 🪄 Pending: </h3>
+
  - Support Wayland display protocol
  - (Shapes section) Add shapes to the screenshot
  - - Add base for more shapes (Like triangle, star, speech bubble...)
@@ -54,7 +56,8 @@
 
 <br/>
 
-#### 🐞 Known bugs:
+<h3 align=left> 🐞 Known bugs: </h3>
+
  - Double extensions while saving screenshot locally
  - (Rare) Corrupt memory / Reading-Writing to illegal memory space which causes ScreenFIRE to crash completely
  - (Wayland) Screenshot produces black images
