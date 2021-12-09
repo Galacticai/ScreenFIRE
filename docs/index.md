@@ -1,13 +1,13 @@
-<p align=center>
+<h3 align=center>
 <img src="https://i.imgur.com/P5GFZ1R.png" alt="ScreenFIRE" height="200" />
 <br/>
-</p>
+</h3>
 
  - Phase: Development
  - Version: (Near the first release!)
  - #### 👁 Note: Repository is currently private. <br/><br/>
 
-<br/>
+<hr/><br/>
 
 #### 🎯 Done:
  - Support for both Windows and Linux
