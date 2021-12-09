@@ -3,16 +3,13 @@
 <br/>
 </p>
 
-<h3 align=center> Summary </h3>
-
  - Phase: Development
- - Version: Near the first release!
+ - Version: (Near the first release!)
  - #### 👁 Note: Repository is currently private. <br/><br/>
 
 <br/>
 
-<h4 align=start> ✅ Done: </h4>
-
+#### 🎯 Done:
  - Support for both Windows and Linux
  - Support X Window System
  - Language detection & Support for English, Arabic, and Chinese (Simplified)
@@ -31,8 +28,7 @@
 
 <br/>
 
-<h4 align=start> ⏳ Pending: </h4>
-
+#### 🪄 Pending:
  - Support Wayland display protocol
  - (Shapes section) Add shapes to the screenshot
  - - Add base for more shapes (Like triangle, star, speech bubble...)
@@ -58,9 +54,8 @@
 
 <br/>
 
-<h4 align=start> 🪲 Known bugs: </h4>
-
- - (Sometimes) Double extensions while saving screenshot locally
+#### 🐞 Known bugs:
+ - Double extensions while saving screenshot locally
  - (Rare) Corrupt memory / Reading-Writing to illegal memory space which causes ScreenFIRE to crash completely
  - (Wayland) Screenshot produces black images
  - (Wayland) `Window`s have black backgrounds instead of transparency
