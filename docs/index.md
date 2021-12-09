@@ -1,19 +1,19 @@
 <p align=center>
 <img src="https://i.imgur.com/P5GFZ1R.png" alt="ScreenFIRE" height="200" />
 <br/>
-<h1 align=center>ScreenFIRE</h1>
-<h4 align=center> Sophisticated screenshot utility for Linux and Windows!</h4> <br/><br/>
 </p>
 
-## Status:
+<h3 align=center> Summary: </h3>
+
  - ScreenFIRE is currently in the development phase.
- - It is not far from the first alpha release!
- - #### 👁️ Note: Repository is currently private. <br/><br/>
+ - ScreenFIRE is not far from the first release!
+ - #### 👁 Note: Repository is currently private. <br/><br/>
 
 ### ✔️ Done:
  - Support for both Windows and Linux
  - Support X Window System
  - Language detection & Support for English, Arabic, and Chinese (Simplified)
+ - - Base for translation (Any language depending on system language)
  - Caching translations and other frequently used stuff to improve performance 
  - A big library ported from my old project (Contains various text, math, geometry... and other general functions etc)
  - Monitors detection including various functions
