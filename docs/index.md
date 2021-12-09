@@ -49,6 +49,9 @@
 ### 🪲 Known bugs:
  - (Sometimes) Double extensions while saving screenshot locally
  - (Rare) Corrupt memory / Reading-Writing to illegal memory space which causes ScreenFIRE to crash completely
+ - (Wayland) Screenshot produces black images
+ - (Wayland) `Window`s have black backgrounds instead of transparency
+ - (Wayland) Toolbox ignores `Move` commands sent from other `Window`s
  - [FIXED] ~~Toolbox might be sent to behind the main window (which makes ScreenFIRE unusable)~~
  - [FIXED] ~~Toolbox background might get squashed down from its normal size sometimes~~
  - [FIXED] ~~(User misbehavior) Capturing wrong area when the user forcefully moves ScreenFIRE window~~
