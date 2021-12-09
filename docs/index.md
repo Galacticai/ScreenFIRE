@@ -3,7 +3,7 @@
 <br/>
 </p>
 
-<p align=center><h3> Summary: </h3></p>
+<h3 align=center> Summary </h3>
 
  - ScreenFIRE is currently in the development phase.
  - ScreenFIRE is not far from the first release!
@@ -11,7 +11,8 @@
 
 <br/>
 
-### ✔️ Done:
+<h4 align=start> ✅ Done: </h4>
+
  - Support for both Windows and Linux
  - Support X Window System
  - Language detection & Support for English, Arabic, and Chinese (Simplified)
@@ -30,7 +31,8 @@
 
 <br/>
 
-### ⏳ Pending:
+<h4 align=start> ⏳ Pending: </h4>
+
  - Support Wayland display protocol
  - (Shapes section) Add shapes to the screenshot
  - - Add base for more shapes (Like triangle, star, speech bubble...)
@@ -56,7 +58,8 @@
 
 <br/>
 
-### 🪲 Known bugs:
+<h4 align=start> 🪲 Known bugs: </h4>
+
  - (Sometimes) Double extensions while saving screenshot locally
  - (Rare) Corrupt memory / Reading-Writing to illegal memory space which causes ScreenFIRE to crash completely
  - (Wayland) Screenshot produces black images
@@ -66,6 +69,7 @@
  - [FIXED] ~~Toolbox background might get squashed down from its normal size sometimes~~
  - [FIXED] ~~(User misbehavior) Capturing wrong area when the user forcefully moves ScreenFIRE window~~
 
+<br/>
 
 ----
 <p align=center>
