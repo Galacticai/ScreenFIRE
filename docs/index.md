@@ -5,8 +5,8 @@
 
 <h3 align=center> Summary </h3>
 
- - ScreenFIRE is currently in the development phase.
- - ScreenFIRE is not far from the first release!
+ - Phase: Development
+ - Version: Near the first release!
  - #### 👁 Note: Repository is currently private. <br/><br/>
 
 <br/>
