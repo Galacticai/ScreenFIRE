@@ -10,6 +10,7 @@
 
 ### ✔️ Done:
  - Support for both Windows and Linux
+ - Support X Window System
  - Language detection & Support for English, Arabic, and Chinese (Simplified)
  - Caching translations and other frequently used stuff to improve performance 
  - A big library ported from my old project (Contains various text, math, geometry... and other general functions etc)
@@ -24,6 +25,7 @@
  - (And a lot of stuff)
 
 ### ⏳ Pending:
+ - Support Wayland display protocol
  - (Shapes section) Add shapes to the screenshot
  - - Add base for more shapes (Like triangle, star, speech bubble...)
  - (Text section) Add text to the screenshot
