@@ -1,8 +1,8 @@
 <p align=center>
 <img src="https://i.imgur.com/P5GFZ1R.png" alt="ScreenFIRE" height="200" />
-
-# ScreenFIRE
-#### Sophisticated screenshot utility for Linux and Windows! <br/><br/>
+<br/>
+<h1 align=center>ScreenFIRE</h1>
+<h4 align=center> Sophisticated screenshot utility for Linux and Windows!</h4> <br/><br/>
 </p>
 
 ## Status:
