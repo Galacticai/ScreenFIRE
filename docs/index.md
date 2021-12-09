@@ -10,6 +10,7 @@
  - #### 👁 Note: Repository is currently private. <br/><br/>
 
 <br/>
+
 ### ✔️ Done:
  - Support for both Windows and Linux
  - Support X Window System
@@ -28,6 +29,7 @@
  - (And a lot of stuff)
 
 <br/>
+
 ### ⏳ Pending:
  - Support Wayland display protocol
  - (Shapes section) Add shapes to the screenshot
@@ -53,6 +55,7 @@
  - (And a lot more stuff)
 
 <br/>
+
 ### 🪲 Known bugs:
  - (Sometimes) Double extensions while saving screenshot locally
  - (Rare) Corrupt memory / Reading-Writing to illegal memory space which causes ScreenFIRE to crash completely
