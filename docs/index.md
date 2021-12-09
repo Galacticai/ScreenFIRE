@@ -1,7 +1,9 @@
+<p align=center>
 <img src="https://i.imgur.com/P5GFZ1R.png" alt="ScreenFIRE" height="200" />
 
 # ScreenFIRE
 #### Sophisticated screenshot utility for Linux and Windows! <br/><br/>
+</p>
 
 ## Status:
  - ScreenFIRE is currently in the development phase.
@@ -60,7 +62,8 @@
 
 
 ----
-
+<p align=center>
 Screen 🅵🅸🆁🅴 <br/>
-`Made with .NET & GTK#` <br/>
-`©️2021 XEROling`
+<code> Made with .NET & GTK# </code> <br/>
+<code> ©️2021 XEROling </code>
+</p>
