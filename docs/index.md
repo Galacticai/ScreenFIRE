@@ -29,6 +29,7 @@
 <br/>
 
 #### 🪄 Pending:
+ - Command-Line Interface
  - Support Wayland display protocol
  - (Shapes section) Add shapes to the screenshot
  - - Add base for more shapes (Like triangle, star, speech bubble...)
@@ -55,11 +56,11 @@
 <br/>
 
 #### 🐞 Known bugs:
- - Double extensions while saving screenshot locally
- - (Rare) Corrupt memory / Reading-Writing to illegal memory space which causes ScreenFIRE to crash completely
+ - Double extensions when saving and replacing file locally
+ - (Rare) Corrupt memory / Reading-Writing to illegal memory space
  - (Wayland) Screenshot produces black images
- - (Wayland) `Window`s have black backgrounds instead of transparency
- - (Wayland) Toolbox ignores `Move` commands sent from other `Window`s
+ - (Linux) `Window`s have black backgrounds instead of transparency
+ - (Linux) Toolbox ignores `Move` commands sent from other `Window`s
  - [FIXED] ~~Toolbox might be sent to behind the main window (which makes ScreenFIRE unusable)~~
  - [FIXED] ~~Toolbox background might get squashed down from its normal size sometimes~~
  - [FIXED] ~~(User misbehavior) Capturing wrong area when the user forcefully moves ScreenFIRE window~~
